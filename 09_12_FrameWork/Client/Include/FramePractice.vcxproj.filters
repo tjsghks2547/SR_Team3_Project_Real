@@ -19,20 +19,11 @@
     <Filter Include="01. Scene">
       <UniqueIdentifier>{b17f4d85-1fc4-4433-8109-fcc948c5ead4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Scene\00.Logo">
-      <UniqueIdentifier>{1070fa21-47b0-4e76-92f9-39fc2dc3b77d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject">
       <UniqueIdentifier>{06938e77-ec7c-4ec1-9118-ebca66273251}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. GameObject\00. Background">
       <UniqueIdentifier>{2536c3b3-b821-4b39-ad9d-87f879386e4b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\01. Player">
-      <UniqueIdentifier>{e7c67f0f-b08d-4866-96cd-f555e9c4669e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\02. Monster">
-      <UniqueIdentifier>{8f3de65c-940a-4e62-b605-50fd22db5d3b}</UniqueIdentifier>
     </Filter>
     <Filter Include="01. Scene\01. Stage">
       <UniqueIdentifier>{d96fb8ef-6488-4af4-ae72-7c9077e0160c}</UniqueIdentifier>
@@ -150,16 +141,10 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Logo.h">
-      <Filter>01. Scene\00.Logo</Filter>
+      <Filter>01. Scene\00. Logo</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\BackGround.h">
       <Filter>02. GameObject\00. Background</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Player.h">
-      <Filter>02. GameObject\01. Player</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Monster.h">
-      <Filter>02. GameObject\02. Monster</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Loading.h">
       <Filter>01. Scene\02. Loading</Filter>
@@ -215,9 +200,6 @@
     <ClInclude Include="..\Header\Map.h">
       <Filter>02. GameObject\07.Map</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\Object.h">
-      <Filter>02. GameObject\01. Entity\00. EntityManager</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\TestMap.h">
       <Filter>02. GameObject\07.Map\01.TestMap</Filter>
     </ClInclude>
@@ -226,6 +208,24 @@
     </ClInclude>
     <ClInclude Include="..\Header\UI.h">
       <Filter>02. GameObject\08. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Object.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\StateManager.h">
+      <Filter>02. GameObject\01. Entity\01. Player\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PlayerIdle.h">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PlayerWalk.h">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player.h">
+      <Filter>02. GameObject\01. Entity\01. Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Monster.h">
+      <Filter>02. GameObject\01. Entity\02. Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -239,16 +239,10 @@
       <Filter>00.MainApp</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Logo.cpp">
-      <Filter>01. Scene\00.Logo</Filter>
+      <Filter>01. Scene\00. Logo</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\BackGround.cpp">
       <Filter>02. GameObject\00. Background</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\Player.cpp">
-      <Filter>02. GameObject\01. Player</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\Monster.cpp">
-      <Filter>02. GameObject\02. Monster</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Stage.cpp">
       <Filter>01. Scene\01. Stage</Filter>
@@ -327,6 +321,18 @@
     </ClCompile>
     <ClCompile Include="..\Code\UI.cpp">
       <Filter>02. GameObject\08. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player.cpp">
+      <Filter>02. GameObject\01. Entity\01. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Monster.cpp">
+      <Filter>02. GameObject\01. Entity\02. Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PlayerIdle.cpp">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PlayerWalk.cpp">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
