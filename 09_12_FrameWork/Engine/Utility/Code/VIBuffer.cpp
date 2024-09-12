@@ -37,6 +37,7 @@ CVIBuffer::CVIBuffer(const CVIBuffer& rhs)
 	, m_IdxFmt(rhs.m_IdxFmt)
 {
 	m_pVB->AddRef();
+	m_pIB->AddRef();
 }
 
 CVIBuffer::~CVIBuffer()

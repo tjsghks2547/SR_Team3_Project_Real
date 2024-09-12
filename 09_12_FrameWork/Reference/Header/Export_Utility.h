@@ -21,6 +21,9 @@
 #include "CStartMap.h"
 #include "MapTex.h"
 
+#include "State.h"
+#include "StateController.h"
+
 
 
 BEGIN(Engine)
