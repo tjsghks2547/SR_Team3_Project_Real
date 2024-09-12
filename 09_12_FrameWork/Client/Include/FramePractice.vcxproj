@@ -150,6 +150,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\BackGround.h" />
+    <ClInclude Include="..\Header\BoardCursor.h" />
     <ClInclude Include="..\Header\Define.h" />
     <ClInclude Include="..\Header\DynamicCamera.h" />
     <ClInclude Include="..\Header\ImGuiManger.h" />
@@ -160,6 +161,8 @@
     <ClInclude Include="..\Header\Map.h" />
     <ClInclude Include="..\Header\Monster.h" />
     <ClInclude Include="..\Header\Object.h" />
+    <ClInclude Include="..\Header\Pipe.h" />
+    <ClInclude Include="..\Header\PipeBoard.h" />
     <ClInclude Include="..\Header\Player.h" />
     <ClInclude Include="..\Header\PlayerIdle.h" />
     <ClInclude Include="..\Header\PlayerWalk.h" />
@@ -188,6 +191,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\BackGround.cpp" />
+    <ClCompile Include="..\Code\BoardCursor.cpp" />
     <ClCompile Include="..\Code\DynamicCamera.cpp" />
     <ClCompile Include="..\Code\ImGuiManger.cpp" />
     <ClCompile Include="..\Code\Imgui_Terrain.cpp" />
@@ -197,6 +201,8 @@
     <ClCompile Include="..\Code\Map.cpp" />
     <ClCompile Include="..\Code\Monster.cpp" />
     <ClCompile Include="..\Code\Object.cpp" />
+    <ClCompile Include="..\Code\Pipe.cpp" />
+    <ClCompile Include="..\Code\PipeBoard.cpp" />
     <ClCompile Include="..\Code\Player.cpp" />
     <ClCompile Include="..\Code\PlayerIdle.cpp" />
     <ClCompile Include="..\Code\PlayerWalk.cpp" />

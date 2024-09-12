@@ -20,6 +20,10 @@ inline CGameObject* Get_GameObject(const _tchar* pLayeTag, const _tchar* pObjTag
 	return CManagement::GetInstance()->Get_GameObject(pLayeTag, pObjTag);
 }
 
+inline CScene* Get_CurScenePtr()
+{
+	return CManagement::GetInstance()->GetCurScenePtr();
+}
 
 inline HRESULT Set_Scene(CScene* pScene)
 {
