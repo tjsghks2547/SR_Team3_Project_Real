@@ -14,6 +14,9 @@
 #include "TerrainTex.h"
 #include "Camera.h"
 
+#include "State.h"
+#include "StateController.h"
+
 #include "CubeTex.h"
 #include "Calculator.h"
 
@@ -38,6 +41,7 @@ inline	void				Render_Scene(LPDIRECT3DDEVICE9 pGraphicDev);
 
 //9월 5일 이후 추가한 코드 
 inline CGameObject*         Get_GameObject(const _tchar* pLayeTag, const _tchar* pObjTag);
+inline CScene* Get_CurScenePtr();
 
 // ComponentMgr
 

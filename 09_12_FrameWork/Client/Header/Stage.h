@@ -6,6 +6,9 @@
 #include "Player.h"
 #include "Monster.h"
 #include "UI.h"
+#include "Pipe.h"
+#include "PipeBoard.h"
+#include "BoardCursor.h"
 
 #include "Terrain.h"
 #include "DynamicCamera.h"
