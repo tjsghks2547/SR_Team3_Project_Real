@@ -57,12 +57,6 @@
     <Filter Include="02. GameObject\06. Ray">
       <UniqueIdentifier>{3fa5fa01-43f3-4944-924a-7214a0df954d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\07.Map">
-      <UniqueIdentifier>{38de72a3-ea90-41cf-b939-8156f356435c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\07.Map\01.TestMap">
-      <UniqueIdentifier>{1389b57a-7830-4264-a6e3-d435eb6616a4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03.IMGUI">
       <UniqueIdentifier>{7eee7adc-4b1e-4cde-9fe4-091a7b9c989e}</UniqueIdentifier>
     </Filter>
@@ -110,6 +104,27 @@
     </Filter>
     <Filter Include="01. Scene\00. Logo">
       <UniqueIdentifier>{1070fa21-47b0-4e76-92f9-39fc2dc3b77d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle">
+      <UniqueIdentifier>{9c144de7-c0cf-44f3-aaf9-a2f3d86bb587}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\07. Map">
+      <UniqueIdentifier>{38de72a3-ea90-41cf-b939-8156f356435c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\07. Map\01.TestMap">
+      <UniqueIdentifier>{1389b57a-7830-4264-a6e3-d435eb6616a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\PipeGame">
+      <UniqueIdentifier>{8f1e8d58-7e2a-4e4b-bb80-81dcff3d6f67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\PipeGame\Pipe">
+      <UniqueIdentifier>{b26459e0-9d32-4f0d-807d-469c7009aef7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\PipeGame\Board">
+      <UniqueIdentifier>{fa135665-057b-47c6-8ecc-eda20c868a15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\PipeGame\Cursor">
+      <UniqueIdentifier>{8c40aa40-a48f-4401-9d56-1b697fcbfd69}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -195,13 +210,13 @@
       <Filter>03.IMGUI\Imgui_Terrain_Buffer</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Map.h">
-      <Filter>02. GameObject\07.Map</Filter>
+      <Filter>02. GameObject\07. Map</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Map.h">
       <Filter>02. GameObject\07.Map</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\TestMap.h">
-      <Filter>02. GameObject\07.Map\01.TestMap</Filter>
+      <Filter>02. GameObject\07. Map\01.TestMap</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Object.h">
       <Filter>02. GameObject\08. Object</Filter>
@@ -226,6 +241,15 @@
     </ClInclude>
     <ClInclude Include="..\Header\Monster.h">
       <Filter>02. GameObject\01. Entity\02. Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PipeBoard.h">
+      <Filter>02. GameObject\09. Puzzle\PipeGame\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Pipe.h">
+      <Filter>02. GameObject\09. Puzzle\PipeGame\Pipe</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\BoardCursor.h">
+      <Filter>02. GameObject\09. Puzzle\PipeGame\Cursor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -308,7 +332,7 @@
       <Filter>03.IMGUI\Imgui_Terrain_Buffer</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Map.cpp">
-      <Filter>02. GameObject\07.Map</Filter>
+      <Filter>02. GameObject\07. Map</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Object.cpp">
       <Filter>02. GameObject\08. Object</Filter>
@@ -317,7 +341,7 @@
       <Filter>02. GameObject\07.Map</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\TestMap.cpp">
-      <Filter>02. GameObject\07.Map\01.TestMap</Filter>
+      <Filter>02. GameObject\07. Map\01.TestMap</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\UI.cpp">
       <Filter>02. GameObject\08. UI</Filter>
@@ -333,6 +357,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\PlayerWalk.cpp">
       <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PipeBoard.cpp">
+      <Filter>02. GameObject\09. Puzzle\PipeGame\Board</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Pipe.cpp">
+      <Filter>02. GameObject\09. Puzzle\PipeGame\Pipe</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\BoardCursor.cpp">
+      <Filter>02. GameObject\09. Puzzle\PipeGame\Cursor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
