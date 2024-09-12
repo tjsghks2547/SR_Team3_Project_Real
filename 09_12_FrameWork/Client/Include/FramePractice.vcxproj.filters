@@ -1,0 +1,345 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="00.MainApp">
+      <UniqueIdentifier>{c769b4a9-cdab-4345-a12c-fe79e209fc7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene">
+      <UniqueIdentifier>{b17f4d85-1fc4-4433-8109-fcc948c5ead4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\00.Logo">
+      <UniqueIdentifier>{1070fa21-47b0-4e76-92f9-39fc2dc3b77d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject">
+      <UniqueIdentifier>{06938e77-ec7c-4ec1-9118-ebca66273251}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Background">
+      <UniqueIdentifier>{2536c3b3-b821-4b39-ad9d-87f879386e4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Player">
+      <UniqueIdentifier>{e7c67f0f-b08d-4866-96cd-f555e9c4669e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\02. Monster">
+      <UniqueIdentifier>{8f3de65c-940a-4e62-b605-50fd22db5d3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\01. Stage">
+      <UniqueIdentifier>{d96fb8ef-6488-4af4-ae72-7c9077e0160c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\02. Loading">
+      <UniqueIdentifier>{a36b92b3-d78b-4d8b-99f1-b1cf42b82728}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\03. Terrain">
+    </Filter>
+    <Filter Include="03.IMGUI">
+      <UniqueIdentifier>{7eee7adc-4b1e-4cde-9fe4-091a7b9c989e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.IMGUI\Imgui_Header">
+      <UniqueIdentifier>{90c3bec0-f60a-44a2-a48a-35b08cce47c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.IMGUI\Imgui_Code">
+      <UniqueIdentifier>{36bf5a98-a288-4768-8e9b-9dfbe63dccff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.IMGUI\Imgui_Terrain_Buffer">
+      <UniqueIdentifier>{aa7e1d4e-34d3-4c61-a9a4-525207431115}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Entity">
+      <UniqueIdentifier>{a4015a37-929e-4212-83a7-2aee8b6b44d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. DynamicCamera">
+      <UniqueIdentifier>{a8d78f72-dda9-40ad-82df-1fcf68dd8f47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\05. SkyBox">
+      <UniqueIdentifier>{1c9df8e7-ae08-4d95-8ff0-8c13edb4a8c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\06. Ray">
+      <UniqueIdentifier>{3fa5fa01-43f3-4944-924a-7214a0df954d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\07.Map">
+      <UniqueIdentifier>{38de72a3-ea90-41cf-b939-8156f356435c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\07.Map\01.TestMap">
+      <UniqueIdentifier>{1389b57a-7830-4264-a6e3-d435eb6616a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.IMGUI">
+      <UniqueIdentifier>{7eee7adc-4b1e-4cde-9fe4-091a7b9c989e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.IMGUI\Imgui_Header">
+      <UniqueIdentifier>{90c3bec0-f60a-44a2-a48a-35b08cce47c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.IMGUI\Imgui_Code">
+      <UniqueIdentifier>{36bf5a98-a288-4768-8e9b-9dfbe63dccff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.IMGUI\Imgui_Terrain_Buffer">
+      <UniqueIdentifier>{aa7e1d4e-34d3-4c61-a9a4-525207431115}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\08. Object">
+      <UniqueIdentifier>{01573650-7f96-4cdf-9e4e-163cf7d12b27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Entity\01. Player">
+      <UniqueIdentifier>{e7c67f0f-b08d-4866-96cd-f555e9c4669e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Entity\01. Player\FSM">
+      <UniqueIdentifier>{80e410db-4bf1-41c9-85e7-d584a35e9b15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Entity\02. Monster">
+      <UniqueIdentifier>{8f3de65c-940a-4e62-b605-50fd22db5d3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Entity\01. Player\State">
+      <UniqueIdentifier>{a42c768b-ce43-4301-9e73-eb6ba9227dbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\03. Terrain">
+      <UniqueIdentifier>{04e535d0-ebd6-4f3f-b0c5-71e12c38c66f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. DynamicCamera">
+      <UniqueIdentifier>{a8d78f72-dda9-40ad-82df-1fcf68dd8f47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\05. SkyBox">
+      <UniqueIdentifier>{1c9df8e7-ae08-4d95-8ff0-8c13edb4a8c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\06. Ray">
+      <UniqueIdentifier>{3fa5fa01-43f3-4944-924a-7214a0df954d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.IMGUI">
+      <UniqueIdentifier>{7eee7adc-4b1e-4cde-9fe4-091a7b9c989e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\08. UI">
+      <UniqueIdentifier>{69be4faf-5faa-47b8-a0bc-150bcdea31aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\00. Logo">
+      <UniqueIdentifier>{1070fa21-47b0-4e76-92f9-39fc2dc3b77d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="FramePractice.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Define.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\MainApp.h">
+      <Filter>00.MainApp</Filter>
+    </ClInclude>
+    <ClInclude Include="Struct.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Logo.h">
+      <Filter>01. Scene\00.Logo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\BackGround.h">
+      <Filter>02. GameObject\00. Background</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player.h">
+      <Filter>02. GameObject\01. Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Monster.h">
+      <Filter>02. GameObject\02. Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Loading.h">
+      <Filter>01. Scene\02. Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Terrain.h">
+      <Filter>02. GameObject\03. Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\DynamicCamera.h">
+      <Filter>02. GameObject\04. DynamicCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\SkyBox.h">
+      <Filter>02. GameObject\05. SkyBox</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Ray.h">
+      <Filter>02. GameObject\06. Ray</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Stage.h">
+      <Filter>01. Scene\01. Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="imconfig.h">
+      <Filter>03.IMGUI\Imgui_Header</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui.h">
+      <Filter>03.IMGUI\Imgui_Header</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_dx9.h">
+      <Filter>03.IMGUI\Imgui_Header</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_rectpack.h">
+      <Filter>03.IMGUI\Imgui_Header</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_textedit.h">
+      <Filter>03.IMGUI\Imgui_Header</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_truetype.h">
+      <Filter>03.IMGUI\Imgui_Header</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_win32.h">
+      <Filter>03.IMGUI\Imgui_Header</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_internal.h">
+      <Filter>03.IMGUI\Imgui_Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ImGuiManger.h">
+      <Filter>03.IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Imgui_Terrain.h">
+      <Filter>03.IMGUI\Imgui_Terrain_Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Map.h">
+      <Filter>02. GameObject\07.Map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Map.h">
+      <Filter>02. GameObject\07.Map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Object.h">
+      <Filter>02. GameObject\01. Entity\00. EntityManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\TestMap.h">
+      <Filter>02. GameObject\07.Map\01.TestMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Object.h">
+      <Filter>02. GameObject\08. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI.h">
+      <Filter>02. GameObject\08. UI</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="FramePractice.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MainApp.cpp">
+      <Filter>00.MainApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Logo.cpp">
+      <Filter>01. Scene\00.Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\BackGround.cpp">
+      <Filter>02. GameObject\00. Background</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player.cpp">
+      <Filter>02. GameObject\01. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Monster.cpp">
+      <Filter>02. GameObject\02. Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Stage.cpp">
+      <Filter>01. Scene\01. Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Loading.cpp">
+      <Filter>01. Scene\02. Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Terrain.cpp">
+      <Filter>02. GameObject\03. Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\DynamicCamera.cpp">
+      <Filter>02. GameObject\04. DynamicCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SkyBox.cpp">
+      <Filter>02. GameObject\05. SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Ray.cpp">
+      <Filter>02. GameObject\06. Ray</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui.cpp">
+      <Filter>03.IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_demo.cpp">
+      <Filter>03.IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_draw.cpp">
+      <Filter>03.IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_dx9.cpp">
+      <Filter>03.IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_win32.cpp">
+      <Filter>03.IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_tables.cpp">
+      <Filter>03.IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_widgets.cpp">
+      <Filter>03.IMGUI\Imgui_Code</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_tables.cpp">
+      <Filter>03.IMGUI\Imgui_Code</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui.cpp">
+      <Filter>03.IMGUI\Imgui_Code</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_demo.cpp">
+      <Filter>03.IMGUI\Imgui_Code</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_draw.cpp">
+      <Filter>03.IMGUI\Imgui_Code</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_dx9.cpp">
+      <Filter>03.IMGUI\Imgui_Code</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_win32.cpp">
+      <Filter>03.IMGUI\Imgui_Code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ImGuiManger.cpp">
+      <Filter>03.IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Imgui_Terrain.cpp">
+      <Filter>03.IMGUI\Imgui_Terrain_Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Map.cpp">
+      <Filter>02. GameObject\07.Map</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Object.cpp">
+      <Filter>02. GameObject\08. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Map.cpp">
+      <Filter>02. GameObject\07.Map</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\TestMap.cpp">
+      <Filter>02. GameObject\07.Map\01.TestMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI.cpp">
+      <Filter>02. GameObject\08. UI</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="FramePractice.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="FramePractice.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
