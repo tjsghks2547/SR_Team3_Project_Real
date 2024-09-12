@@ -15,6 +15,7 @@ CAnimationTex::CAnimationTex(const CAnimationTex& rhs)
     :CVIBuffer(rhs)
 	, m_fAccTime(0.f)
 {
+	
 }
 
 CAnimationTex::~CAnimationTex()

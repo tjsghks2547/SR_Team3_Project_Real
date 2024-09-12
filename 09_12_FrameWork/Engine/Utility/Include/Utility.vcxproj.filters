@@ -82,6 +82,9 @@
     <Filter Include="04. Component\00.VIBuffer\07.MapTex\01.StartMap">
       <UniqueIdentifier>{f9adec19-72c6-4cec-8148-72c00ade1581}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Component\05. State">
+      <UniqueIdentifier>{33037cd2-6c05-4e52-842f-2eeb7e1ff94a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Header\Management.h">
@@ -162,6 +165,12 @@
     <ClInclude Include="..\..\Header\MapTex.h">
       <Filter>04. Component\00.VIBuffer\07.MapTex</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Header\State.h">
+      <Filter>04. Component\05. State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Header\StateController.h">
+      <Filter>04. Component\05. State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\Management.cpp">
@@ -238,6 +247,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\MapTex.cpp">
       <Filter>04. Component\00.VIBuffer\07.MapTex</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\StateController.cpp">
+      <Filter>04. Component\05. State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
