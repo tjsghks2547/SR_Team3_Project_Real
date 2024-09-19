@@ -7,8 +7,11 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
     :Engine::CGameObject(pGraphicDev)
     , m_fMoveSpeed(0.f)
     , m_ePlayerState(PLAYERSTATE::PLY_END)
+    //0913 임시 졸라 많이 한줄한줄 잘썻죠?ㅋ_ㅋ
+    , m_iPlayerCoin(10), m_bInven(false)
 {
-
+    //0913 얘까지^^ 멋지게 초기화~!!!
+    ZeroMemory(&m_tPlayerHP, sizeof(PLAYERHP));
 }
 
 CPlayer::~CPlayer()
@@ -20,6 +23,10 @@ HRESULT CPlayer::Ready_GameObject()
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
     m_fMoveSpeed = 50.f;
+
+    //0913 임시 코드
+    m_tPlayerHP.iCurHP = 5;
+    m_tPlayerHP.iMaxHP = 6;
 
     // m_pTransformCom->m_vScale = { 10.f,10.f,10.f };
     // m_pTransformCom->Rotation(ROT_X, 90.f * 3.141592f / 180.f);
@@ -35,7 +42,7 @@ void CPlayer::Start_GameObject()
 
 _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 {
-    //Key_Input(fTimeDelta);
+    Key_Input(fTimeDelta);
 
     //카메라 부분넣기
 
@@ -142,6 +149,11 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
         m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vRight, &vRight), fTimeDelta, m_fMoveSpeed);
     }
 
+    if (GetAsyncKeyState('I'))
+    {
+        m_bInven = true;
+        // 인벤 켰을때 플레이어 키인풋 안받게 해야댐@#! 나중에 하기 ㅋ-ㅋ
+    }
 
     //if (Engine::Get_DIMouseState(DIM_LB) & 0x80)
     //{

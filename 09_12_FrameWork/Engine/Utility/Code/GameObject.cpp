@@ -47,6 +47,20 @@ void CGameObject::LateUpdate_GameObject(const _float& fTimeDelta)
 	
 }
 
+void CGameObject::Compute_ViewZ(const _vec3* pPos)
+{
+	_matrix	matCamWorld;
+
+	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matCamWorld);
+	D3DXMatrixInverse(&matCamWorld, NULL, &matCamWorld);
+
+	_vec3		vCamPos;
+	memcpy(&vCamPos, &matCamWorld.m[3][0], sizeof(_vec3));
+
+	_vec3		vSub = vCamPos - *pPos;
+	m_fViewZ = D3DXVec3Length(&vSub);
+}
+
 
 
 CComponent* CGameObject::Find_Component(COMPONENTID eID, const _tchar* pComponentTag)

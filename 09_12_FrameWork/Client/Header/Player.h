@@ -21,6 +21,13 @@ private:
 	virtual ~CPlayer();
 
 public:
+	//0913 진짜진짜 임시
+	struct PLAYERHP
+	{
+		_int	iCurHP;
+		_int	iMaxHP;
+	};
+
 	virtual			HRESULT			Ready_GameObject();
 	virtual			void			Start_GameObject();
 	virtual			_int			Update_GameObject(const _float& fTimeDelta);
@@ -32,6 +39,13 @@ public:
 	{
 		m_ePlayerState = _ePlayerState;
 	}
+
+	//0913 임시 코드
+	_int			GetPlayerCoin() { return m_iPlayerCoin; }
+	PLAYERHP		GetPlayerHP() { return m_tPlayerHP; }
+	_bool			GetPlayerInven() { return m_bInven; }
+	void			SetPlayerInvenVisible(_bool bInven) { m_bInven = bInven; }
+
 
 private:
 	HRESULT			Add_Component();
@@ -49,6 +63,12 @@ private:
 
 	float m_fMoveSpeed;
 	PLAYERSTATE m_ePlayerState;
+
+
+	//0913 임시 코드
+	_int		m_iPlayerCoin;
+	PLAYERHP	m_tPlayerHP;
+	_bool		m_bInven;
 
 public:
 	static CPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);

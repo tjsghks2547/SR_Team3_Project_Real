@@ -75,6 +75,7 @@ void CRenderer::Render_Alpha(LPDIRECT3DDEVICE9& pGraphicDev)
 
 void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)
 {
+	//0913
 	D3DVIEWPORT9 viewport;
 	pGraphicDev->GetViewport(&viewport); // 뷰포트 가져옴
 
@@ -84,7 +85,7 @@ void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)
 
 
 	D3DXMATRIX matOrthoProj;
-	D3DXMatrixOrthoLH(&matOrthoProj, WINCX, WINCY, 0.f, 1.f);
+	D3DXMatrixOrthoLH(&matOrthoProj, WINCX, WINCY, 0.1f, 100.f);
 
 	// 직교 투영 행렬 설정
 	pGraphicDev->SetTransform(D3DTS_PROJECTION, &matOrthoProj);
@@ -95,14 +96,23 @@ void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)
 	pGraphicDev->SetTransform(D3DTS_VIEW, &matView);
 	// 카메라가 평행하게 화면을 바라보도록
 
-	pGraphicDev->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
-	pGraphicDev->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
-	pGraphicDev->SetRenderState(D3DRS_ALPHAREF, 0xc0);
+	pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	pGraphicDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	pGraphicDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+
+	//pGraphicDev->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+	//pGraphicDev->SetRenderState(D3DRS_ALPHAREF, 0xc0);
+
+	m_RenderGroup[RENDER_UI].sort([](CGameObject* pDst, CGameObject* pSrc)->bool
+		{
+			return pDst->Get_ViewZ() > pSrc->Get_ViewZ();
+		});
+
 
 	for (auto& pGameObject : m_RenderGroup[RENDER_UI])
 		pGameObject->Render_GameObject();
 
-	pGraphicDev->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+	pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
 
 	pGraphicDev->SetTransform(D3DTS_PROJECTION, &matOldProj);
 
