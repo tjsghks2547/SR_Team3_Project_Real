@@ -148,15 +148,21 @@ HRESULT CStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 
 HRESULT CStage::Ready_Layer_UI(const _tchar* pLayerTag)
 {
+	//0913
 	Engine::CLayer* pLayer = CLayer::Create();
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
 
-	Engine::CGameObject* pGameObject = nullptr;
 
-	pGameObject = CUI::Create(m_pGraphicDev);
+	Engine::CGameObject* pGameObject = nullptr;
+	pGameObject = CDefaultUI::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"HPBar", pGameObject), E_FAIL);
-	m_mapLayer.insert({ pLayerTag,pLayer });
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Default_UI", pGameObject), E_FAIL);
+	m_mapLayer.insert({ pLayerTag, pLayer });
+
+	pGameObject = CInvenUI::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Inven_UI", pGameObject), E_FAIL);
+	m_mapLayer.insert({ pLayerTag, pLayer });
 
 	return S_OK;
 }

@@ -5,7 +5,8 @@
 
 #include "Player.h"
 #include "Monster.h"
-#include "UI.h"
+#include "DefaultUI.h"
+#include "InvenUI.h"
 #include "Pipe.h"
 #include "PipeBoard.h"
 #include "BoardCursor.h"

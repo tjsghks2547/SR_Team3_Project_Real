@@ -155,6 +155,7 @@
     <ClInclude Include="..\Header\DynamicCamera.h" />
     <ClInclude Include="..\Header\ImGuiManger.h" />
     <ClInclude Include="..\Header\Imgui_Terrain.h" />
+    <ClInclude Include="..\Header\InvenUI.h" />
     <ClInclude Include="..\Header\Loading.h" />
     <ClInclude Include="..\Header\Logo.h" />
     <ClInclude Include="..\Header\MainApp.h" />
@@ -176,7 +177,7 @@
     <ClInclude Include="..\Header\StateManager.h" />
     <ClInclude Include="..\Header\Terrain.h" />
     <ClInclude Include="..\Header\TestMap.h" />
-    <ClInclude Include="..\Header\UI.h" />
+    <ClInclude Include="..\Header\DefaultUI.h" />
     <ClInclude Include="FramePractice.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="imconfig.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="..\Code\DynamicCamera.cpp" />
     <ClCompile Include="..\Code\ImGuiManger.cpp" />
     <ClCompile Include="..\Code\Imgui_Terrain.cpp" />
+    <ClCompile Include="..\Code\InvenUI.cpp" />
     <ClCompile Include="..\Code\Loading.cpp" />
     <ClCompile Include="..\Code\Logo.cpp" />
     <ClCompile Include="..\Code\MainApp.cpp" />
@@ -219,7 +221,7 @@
     <ClCompile Include="..\Code\StartScene.cpp" />
     <ClCompile Include="..\Code\Terrain.cpp" />
     <ClCompile Include="..\Code\TestMap.cpp" />
-    <ClCompile Include="..\Code\UI.cpp" />
+    <ClCompile Include="..\Code\DefaultUI.cpp" />
     <ClCompile Include="FramePractice.cpp" />
     <ClCompile Include="imgui.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>

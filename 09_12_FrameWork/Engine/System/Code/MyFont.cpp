@@ -25,6 +25,10 @@ HRESULT CMyFont::Ready_Font(const _tchar* pFontType,
     tFont_Desc.Height = iHeight;
     tFont_Desc.Weight = iWeight;
     
+    //0913 폰트 효과 추가(안티 앨리어싱) 
+    //tFont_Desc.Quality = ANTIALIASED_QUALITY;
+    tFont_Desc.Quality = PROOF_QUALITY;
+    
     lstrcpy(tFont_Desc.FaceName, pFontType);
 
     if(FAILED(D3DXCreateFontIndirect(m_pGraphicDev,&tFont_Desc,&m_pFont)))
