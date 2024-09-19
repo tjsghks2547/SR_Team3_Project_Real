@@ -2,12 +2,14 @@
 
 CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDevice)
 	:m_pGraphicDev(pGraphicDevice)
+	,m_strKey("")
 {
 	m_pGraphicDev->AddRef();
 }
 
 CGameObject::CGameObject(const CGameObject& rhs)
 	:m_pGraphicDev(rhs.m_pGraphicDev)
+	, m_strKey("")
 {
 	m_pGraphicDev->AddRef();
 }

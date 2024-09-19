@@ -22,6 +22,7 @@ CImGuiManger::CImGuiManger()
 	,m_bImageButtonClick(false)
 	,m_pCurTerrainTexture(nullptr)
 	,m_bshowObjectTextrueWindow(false)
+	,m_bshowInstalledObjectList(false)
 {
 
 }
@@ -200,6 +201,11 @@ void CImGuiManger::update()
 					m_bshowObjectTextrueWindow = true;
 				}
 
+				if (ImGui::MenuItem("Installed Objects List"))
+				{
+					m_bshowInstalledObjectList = true; 
+				}
+
 				ImGui::EndMenu();
 			}
 			// 
@@ -233,6 +239,10 @@ void CImGuiManger::update()
 	}ImGui::End();
 
 
+	// 추가된 오브젝트 리스트들 가져오기
+
+	
+
 
 
 	if (m_bshowTileTextureWindow)	
@@ -246,14 +256,28 @@ void CImGuiManger::update()
 	}
 
 
+	if(m_bshowInstalledObjectList)
+	{
+		ShowInstalledObjectWindow();
+	}
+
+
+
+
 	ImGuiIO& io = ImGui::GetIO();
 	if (!io.WantCaptureMouse)
 	{
 		// ImGui 창 밖에서의 마우스 입력 처리
 		if (Engine::Get_DIMouseState(DIM_LB) & 0x80)
 		{
+
+			// 여기다가 조건식으로 오브젝트 창이 열렸을때만 반응하도록 하면 되겠다.
 			// 레이까지 적용완료
-			m_vecPickPos = PickingOnTerrain();
+			// 마우스 레이 코드 
+			//m_vecPickPos = PickingOnTerrain();
+
+
+			
 		}
 	}
 	else
@@ -304,7 +328,7 @@ void CImGuiManger::ShowTileMenuWindow()
 			if (ImGui::ImageButton(label, (void*)m_vecTerrainTexture[i - 1], imageSize)) 
 			{
 				// ImageButton이 클릭된 경우 호출할 함수
-				OnImageButtonClick(i);  // 예시: 클릭된 타일의 인덱스를 함수로 전달
+				OnTileImageButtonClick(i);  // 예시: 클릭된 타일의 인덱스를 함수로 전달
 			};
 
 			// 현재 창에서 남은 가로 공간 확인
@@ -367,54 +391,76 @@ void CImGuiManger::ShowTileMenuWindow()
 void CImGuiManger::ShowObjectMenuWindow()
 {
 
-
-	ImGui::Begin("Object Texture List", &m_bshowTileTextureWindow);
-
-	ImVec2 imageSize(100, 100);  // 출력할 이미지 크기
-
-	if(ImGui::ImageButton("Wall", m_vecObjectTexture[0], imageSize))
+	if (m_bshowObjectTextrueWindow)
 	{
+		ImGui::Begin("Object Texture List", &m_bshowObjectTextrueWindow);
 
-		Engine::CLayer* pLayer = CLayer::Create();
-		if (pLayer == nullptr)
+		ImVec2 imageSize(100, 100);  // 출력할 이미지 크기
+
+		if (ImGui::ImageButton("Wall", m_vecObjectTexture[0], imageSize))
 		{
-			MSG_BOX("pLayer nullptr Error");
+
+			Engine::CLayer* pLayer = CLayer::Create();
+			if (pLayer == nullptr)
+			{
+				MSG_BOX("pLayer nullptr Error");
+			}
+
+
+			Engine::CGameObject* pGameObject = nullptr;
+
+			pGameObject = CObject::Create(m_pGraphicDev);
+			if (pGameObject == nullptr)
+			{
+				MSG_BOX("CObject nullptr Error");
+			}
+
+			pLayer->Add_GameObject(L"Wall", pGameObject);
+
+			pGameObject->SetObjectKey("Wall"); // 오브젝트 이름 추가한거
+
+			CManagement::GetInstance()->GetCurScenePtr()->GetLayerMapPtr().insert({ L"Wall" , pLayer });
+
 		}
-		
-		
-		Engine::CGameObject* pGameObject = nullptr;
-		
-		pGameObject = CObject::Create(m_pGraphicDev);
-		if(pGameObject == nullptr)
-		{
-			MSG_BOX("CObject nullptr Error");
-		}
-		
-		pLayer->Add_GameObject(L"Wall", pGameObject);
 
-		//레이어 가져와서 레이어에 넣어줘야하는데 Get Layer 만들어야할듯
-		// ㄴㄴ 아니다 Scene만 가져오고 Layer는 내가 이름 아니깐 괜찮음
-		// Scene과 레이어가 연결되는게 m_mapLayer이니깐 이걸 가져오면 될듯 해당 Scene클래스에서
-		// 여기서 MapLayer 를 
-		
-		
-
-		//이게 해당 Scene포인터가져오고 scene에서의 map 맴버변수가져와서 거기다가 layor 하나 더추가한거 
-		//그냥 Ready_invironment 같은거 하나 더 만들었다고 생각하면 편함
-		//CManagement::GetInstance()->GetCurScenePtr()->GetLayerMapPtr().insert({ L"imgui_object" , pLayer });
-
-		//이제 업데이트 때마다 계속 랜더링에 추가해줘야함 저기 object 업데이트에서 
+		//일단 오브젝트 생성해보기 
+		ImGui::End();
 
 	}
-
-	//일단 오브젝트 생성해보기 
-
-
-
-	ImGui::End();
 }
 
-void CImGuiManger::OnImageButtonClick(int tileIndex)
+void CImGuiManger::ShowInstalledObjectWindow()
+{
+
+	if(m_bshowInstalledObjectList)
+	{
+		ImGui::Begin("Installed Obejct List", &m_bshowInstalledObjectList);
+
+		//여기서 지금 오브젝트거 다 가져오기
+		map<const _tchar*, CLayer*>& mapLayer = CManagement::GetInstance()->GetCurScenePtr()->GetLayerMapPtr();
+		//CManagement::GetInstance()->GetCurScenePtr()->GetLayerMapPtr()
+		
+		auto iter = mapLayer.begin();
+
+		for(auto iter2 = iter->second->GetLayerGameObjectPtr().begin(); iter2 != iter->second->GetLayerGameObjectPtr().end(); iter2++)
+		{
+			ImGui::BulletText("%s",iter2->second->GetObjectKey());
+		}
+
+		//for (auto iter = mapLayer.begin(); iter != mapLayer.end(); iter++)
+		//{
+		//	
+		//}
+
+
+		ImGui::End();
+	}
+
+
+
+}
+
+void CImGuiManger::OnTileImageButtonClick(int tileIndex)
 {
 	// 여기서 타일 이미지값 가져옴 
 	// 여기서 버퍼 가지고 와서 해당 마우스좌표에 랜더링되게 해야함. 
@@ -456,7 +502,7 @@ _vec3 CImGuiManger::PickingOnTerrain()
 
 	// 뷰스페이스 -> 월드 
 	_matrix matView;
-	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matView);
+	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matView); // 여기서 현재 뷰가 업데이트가안됨
 	D3DXMatrixInverse(&matView, NULL, &matView);
 	D3DXVec3TransformCoord(&vRayPos, &vRayPos, &matView); // 위치 관련 이동
 	D3DXVec3TransformNormal(&vRayDir, &vRayDir, &matView);
@@ -475,7 +521,7 @@ _vec3 CImGuiManger::PickingOnTerrain()
 	}
 
 
-	const _vec3* pTerrainTexPos = pTerrainBufferCom->Get_VtxPos();
+	const _vec3* pTerrainTexPos = pTerrainBufferCom->Get_VtxPos(); // 여기도 문제가 생김( 다 0,0,0)을 가져오네
 	_vec3* pWorldTerrainTexPos = new _vec3[VTXCNTX2 * VTXCNTZ2];
 
 	// 터레인의 월드 매트릭스를 가져와야하는데
@@ -519,6 +565,15 @@ _vec3 CImGuiManger::PickingOnTerrain()
 				&vRayPos, &vRayDir, &fU, &fV, &fDist))
 			{
 
+				return _vec3(
+					pWorldTerrainTexPos[dwVtxId[0]].x + fU * (pWorldTerrainTexPos[dwVtxId[1]].x - pWorldTerrainTexPos[dwVtxId[0]].x) +
+					fV * (pWorldTerrainTexPos[dwVtxId[2]].x - pWorldTerrainTexPos[dwVtxId[0]].x),
+					0.f, // Z 좌표는 필요에 따라 계산
+					pWorldTerrainTexPos[dwVtxId[0]].z + fU * (pWorldTerrainTexPos[dwVtxId[1]].z - pWorldTerrainTexPos[dwVtxId[0]].z) +
+					fV * (pWorldTerrainTexPos[dwVtxId[2]].z - pWorldTerrainTexPos[dwVtxId[0]].z)
+				);
+
+
 				// 해당 사각형의 중점 이니깐 삼각형 2개모여서 만든 사각형의 중점을 리턴하면될듯
 
 				//return _vec3(pWorldTerrainTexPos[dwVtxId[1]].x + fU * (pWorldTerrainTexPos[dwVtxId[2]].x - pWorldTerrainTexPos[dwVtxId[1]].x),
@@ -527,13 +582,13 @@ _vec3 CImGuiManger::PickingOnTerrain()
 
 
 				//Test (사각형의 중점 좌표 리턴) 
-				return _vec3(pWorldTerrainTexPos[dwVtxId[0]].x+0.5f, 0.f, pWorldTerrainTexPos[dwVtxId[0]].z-0.5f);
+				//return _vec3(pWorldTerrainTexPos[dwVtxId[0]].x+0.5f, 0.f, pWorldTerrainTexPos[dwVtxId[0]].z-0.5f);
 			}
 
 			// 왼쪽 아래
-			//dwVtxId[0] = dwIndex + VTXCNTX2;
-			//dwVtxId[1] = dwIndex + 1;
-			//dwVtxId[2] = dwIndex;
+			dwVtxId[0] = dwIndex + VTXCNTX2;
+			dwVtxId[1] = dwIndex + 1;
+			dwVtxId[2] = dwIndex;
 
 			
 
@@ -544,6 +599,15 @@ _vec3 CImGuiManger::PickingOnTerrain()
 				&vRayPos, &vRayDir, &fU, &fV, &fDist))
 			{
 				// V1 + U(V2 - V1) + V(V3 - V1)
+				return _vec3(
+					pWorldTerrainTexPos[dwVtxId[0]].x + fU * (pWorldTerrainTexPos[dwVtxId[1]].x - pWorldTerrainTexPos[dwVtxId[0]].x) +
+					fV * (pWorldTerrainTexPos[dwVtxId[2]].x - pWorldTerrainTexPos[dwVtxId[0]].x),
+					0.f, // Z 좌표는 필요에 따라 계산
+					pWorldTerrainTexPos[dwVtxId[0]].z + fU * (pWorldTerrainTexPos[dwVtxId[1]].z - pWorldTerrainTexPos[dwVtxId[0]].z) +
+					fV * (pWorldTerrainTexPos[dwVtxId[2]].z - pWorldTerrainTexPos[dwVtxId[0]].z)
+				);
+	
+
 
 				//return _vec3(pWorldTerrainTexPos[dwVtxId[2]].x + fU * (pWorldTerrainTexPos[dwVtxId[0]].x - pWorldTerrainTexPos[dwVtxId[2]].x),
 				//	0.f,

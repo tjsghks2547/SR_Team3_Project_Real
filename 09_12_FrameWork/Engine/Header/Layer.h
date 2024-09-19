@@ -35,6 +35,8 @@ public:
 private:
 	virtual void   Free();
 
+public:
+	map<const _tchar*, CGameObject*>& GetLayerGameObjectPtr() { return m_mapObejct; }
 
 
 };

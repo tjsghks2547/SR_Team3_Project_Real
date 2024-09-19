@@ -44,6 +44,19 @@ void CMap::Render_GameObject()
 	m_pTextureCom->Set_Texture(0);
 	//FAILED_CHECK_RETURN(SetUp_Material(), );
 
+
+	if (CImGuiManger::GetInstance()->GetWireFrameOnOFF())
+	{
+		m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+	}
+
+	if (!CImGuiManger::GetInstance()->GetWireFrameOnOFF())
+	{
+		m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+	}
+
+
+
 	if(CImGuiManger::GetInstance()->GetImageButtonClick())
 	{
 		m_pGraphicDev->SetTexture(0, CImGuiManger::GetInstance()->GetCurrentTerrainTexture());

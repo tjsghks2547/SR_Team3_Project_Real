@@ -48,7 +48,7 @@ _int CDynamicCamera::Update_GameObject(const _float& fTimeDelta)
     Key_Input(fTimeDelta);
 
    //여기서 부터 다시하기 ( 9월 5일 ) 
-    CPlayer* pPlayer = dynamic_cast<CPlayer*>(Engine::Get_GameObject(L"Layer_GameLogic", L"Player"));
+    //CPlayer* pPlayer = dynamic_cast<CPlayer*>(Engine::Get_GameObject(L"Layer_GameLogic", L"Player"));
   
 
 

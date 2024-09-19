@@ -64,7 +64,7 @@ HRESULT CUI::Add_Component()
 	pComponent = m_pTransformCom[HPFRAME] = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformFrame", pComponent });
-	m_pTransformCom[HPFRAME]->m_vInfo[INFO_POS] = { -450.f, 310.f, 0.1f }; // UI 위치긴한디 상수로 넣어도 됨?ㅇㅅㅇ
+	m_pTransformCom[HPFRAME]->m_vInfo[INFO_POS] = { -320.f, 310.f, 0.1f }; // UI 위치긴한디 상수로 넣어도 됨?ㅇㅅㅇ
 	m_pTransformCom[HPFRAME]->m_vScale = { 174.f, 30.f, 0.f }; // 해당 UI의 스케일
 
 	//HPBAR

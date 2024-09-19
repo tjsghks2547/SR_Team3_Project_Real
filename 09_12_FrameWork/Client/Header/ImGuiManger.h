@@ -27,6 +27,7 @@ public:
 public:
 	void ShowTileMenuWindow();
 	void ShowObjectMenuWindow();
+	void ShowInstalledObjectWindow();
 	void CreateTerrain(const _ulong& dwCntX,
 					   const _ulong& dwCntZ,
 					   const _ulong& dwVtxItv) {};
@@ -38,6 +39,9 @@ public:
 	
 	bool				GetImageButtonClick() { return m_bImageButtonClick; }
 	IDirect3DTexture9*  GetCurrentTerrainTexture() { return m_pCurTerrainTexture;}
+	IDirect3DTexture9*  GetCurrentObjectTexture() { return m_pCurTerrainTexture; }
+
+
 
 	//신가져오고 레이어는 안가져와도됨 
 	
@@ -45,7 +49,7 @@ public:
 private:
 	
 	_vec3				PickingOnTerrain();
-	void				OnImageButtonClick(int tileIndex);
+	void				OnTileImageButtonClick(int tileIndex);
 
 private:
 	// Our state
@@ -84,6 +88,7 @@ private:
 
 	bool m_bshowTileTextureWindow;
 	bool m_bshowObjectTextrueWindow;
+	bool m_bshowInstalledObjectList;
 
 	bool m_bTerrainOnOff; 
 

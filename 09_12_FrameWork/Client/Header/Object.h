@@ -40,6 +40,10 @@ public:
 private:
 	virtual void Free();
 
+private:
+	vector<IDirect3DTexture9*> m_vecTexture;
+	map<string, IDirect3DTexture9*> m_mapTexture;
+
 
 };
 

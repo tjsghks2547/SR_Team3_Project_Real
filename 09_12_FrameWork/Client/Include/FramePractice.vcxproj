@@ -159,6 +159,8 @@
     <ClInclude Include="..\Header\Logo.h" />
     <ClInclude Include="..\Header\MainApp.h" />
     <ClInclude Include="..\Header\Map.h" />
+    <ClInclude Include="..\Header\MapCamera.h" />
+    <ClInclude Include="..\Header\MapEditor.h" />
     <ClInclude Include="..\Header\Monster.h" />
     <ClInclude Include="..\Header\Object.h" />
     <ClInclude Include="..\Header\Pipe.h" />
@@ -169,6 +171,8 @@
     <ClInclude Include="..\Header\Ray.h" />
     <ClInclude Include="..\Header\SkyBox.h" />
     <ClInclude Include="..\Header\Stage.h" />
+    <ClInclude Include="..\Header\StartBackGround.h" />
+    <ClInclude Include="..\Header\StartScene.h" />
     <ClInclude Include="..\Header\StateManager.h" />
     <ClInclude Include="..\Header\Terrain.h" />
     <ClInclude Include="..\Header\TestMap.h" />
@@ -199,6 +203,8 @@
     <ClCompile Include="..\Code\Logo.cpp" />
     <ClCompile Include="..\Code\MainApp.cpp" />
     <ClCompile Include="..\Code\Map.cpp" />
+    <ClCompile Include="..\Code\MapCamera.cpp" />
+    <ClCompile Include="..\Code\MapEditor.cpp" />
     <ClCompile Include="..\Code\Monster.cpp" />
     <ClCompile Include="..\Code\Object.cpp" />
     <ClCompile Include="..\Code\Pipe.cpp" />
@@ -209,6 +215,8 @@
     <ClCompile Include="..\Code\Ray.cpp" />
     <ClCompile Include="..\Code\SkyBox.cpp" />
     <ClCompile Include="..\Code\Stage.cpp" />
+    <ClCompile Include="..\Code\StartBackGround.cpp" />
+    <ClCompile Include="..\Code\StartScene.cpp" />
     <ClCompile Include="..\Code\Terrain.cpp" />
     <ClCompile Include="..\Code\TestMap.cpp" />
     <ClCompile Include="..\Code\UI.cpp" />

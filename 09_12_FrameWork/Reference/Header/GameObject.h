@@ -33,6 +33,15 @@ private:
 protected:
 	virtual void  Free();
 
+
+//0915 Seonhwan
+protected:
+	string m_strKey; // 게임오브젝트가 자신이 어떤 명칭으로 저장되있는지 알기 위해서
+
+//0915 Seonhwan
+public:
+	void SetObjectKey(string _strKey) { m_strKey = _strKey; }
+	string GetObjectKey() { return m_strKey; }
 };
 
 END

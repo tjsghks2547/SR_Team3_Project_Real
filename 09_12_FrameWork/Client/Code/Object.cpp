@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Object.h"
 #include "Export_Utility.h"
+#include "ImGuiManger.h"
 
 CObject::CObject(LPDIRECT3DDEVICE9 pGraphicDev)
 	:Engine::CGameObject(pGraphicDev)
@@ -14,6 +15,15 @@ CObject::~CObject()
 HRESULT CObject::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
+
+	//여기서 텍스처 다 넣자 
+	
+	m_vecTexture.resize(100);
+	//Wall 넣은곳
+	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/wall.png", &m_vecTexture[0]);
+
+	//m_mapTexture.insert({ "Wall", m_pTexture });
+
 
 	return S_OK;
 }
@@ -35,8 +45,23 @@ void CObject::Render_GameObject()
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	
 
-	m_pTextureCom->Set_Texture();
+	//넣어진 오브젝트의 이름대로 텍스처 설정해야하는데 흠..
+	//m_pTextureCom->Set_Texture();
+	// imgui에서 텍스처값 얻어오기 
+	//switch(CImGuiManger::GetInstance()->)
+
+
+
+	if (m_strKey == "Wall") 
+	{
+		//auto iter = find_if(m_mapTexture.begin(), m_mapTexture.end(),);
+		m_pGraphicDev->SetTexture(0, m_vecTexture[0]);
+
+	}
+
+
 
 	m_pBufferCom->Render_Buffer();
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);

@@ -16,8 +16,8 @@ private:
 public:
 	HRESULT Ready_Buffer(const _ulong& dwCntX, const _ulong& dwCntZ, const _ulong& dwVtxItv);
 	virtual void Render_Buffer();
-	const _vec3* Get_VtxPos() const { return m_pPos; }
-	_vec3 Get_TestVtxPos() { return m_Vec3; }
+	const _vec3* Get_VtxPos() const { return m_pPos; }	
+	_vec3 Get_TestVtxPos() { return m_Vec3; }	
 
 	//여기서 pVertex 가져오게 설정할려면 맴버변수 해서 설정해주기.
 

@@ -32,8 +32,6 @@ int CMainApp::Update_MainApp(const float& fTimeDelta)
 {
 
 	Engine::Update_InputDev();
-
-	CImGuiManger::GetInstance()->update();
 	
 	m_pManagementClass->Update_Scene(fTimeDelta);
 
@@ -58,24 +56,24 @@ void CMainApp::Render_MainApp()
 
 
 	// imgui ui 옵션값에 따른 연동
-	if(CImGuiManger::GetInstance()->GetTerrainOnOFF())
-	{
+	//if(CImGuiManger::GetInstance()->GetTerrainOnOFF())
+	//{
 		m_pManagementClass->Render_Scene(m_pGraphicDev);
-	}
+	//}
 	
-	if(CImGuiManger::GetInstance()->GetWireFrameOnOFF())
-	{
-		m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-	}
+	//if(CImGuiManger::GetInstance()->GetWireFrameOnOFF())
+	//{
+		//m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+	//}
 
-	if(!CImGuiManger::GetInstance()->GetWireFrameOnOFF())
-	{
-		m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-	}
+	//if(!CImGuiManger::GetInstance()->GetWireFrameOnOFF())
+	//{
+		//m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+	//}
 
 
 	// ImGui 렌더링
-	CImGuiManger::GetInstance()->Render();
+	//CImGuiManger::GetInstance()->Render();
 	
 	
 
@@ -86,15 +84,30 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev, Engine::CManagement
 {
 	Engine::CScene* pScene = nullptr; 
 	//각 종 신들 저장 하는 init 부분 
-	pScene = CLogo::Create(pGraphicDev);
-	NULL_CHECK_RETURN(pScene, E_FAIL);
+	pScene = CStartScene::Create(pGraphicDev);	
+	NULL_CHECK_RETURN(pScene, E_FAIL);	
 
 	// 신 매니저 느낌인듯 
-	FAILED_CHECK_RETURN(Engine::Create_Management(pGraphicDev, ppManagement), E_FAIL);
-	(*ppManagement)->AddRef(); //매니저 싱글톤 주소 참조했으니 스택증가.
+	FAILED_CHECK_RETURN(Engine::Create_Management(pGraphicDev, ppManagement), E_FAIL);	
+	(*ppManagement)->AddRef(); //매니저 싱글톤 주소 참조했으니 스택증가.	
 
 	//Engine::Set_Scene(pScene) // 이렇게 해도됨 위에 2줄 빼고 
-	FAILED_CHECK_RETURN((*ppManagement)->Set_Scene(pScene), E_FAIL); // 이게 현재 신 정해주는거 전 씬은 없애주고
+	FAILED_CHECK_RETURN((*ppManagement)->Set_Scene(pScene), E_FAIL); // 이게 현재 신 정해주는거 전 씬은 없애주고	
+
+	
+	
+	
+	
+	// ================================================================================
+	//pScene = CLogo::Create(pGraphicDev);
+	//NULL_CHECK_RETURN(pScene, E_FAIL);
+
+	//// 신 매니저 느낌인듯 
+	//FAILED_CHECK_RETURN(Engine::Create_Management(pGraphicDev, ppManagement), E_FAIL);
+	//(*ppManagement)->AddRef(); //매니저 싱글톤 주소 참조했으니 스택증가.
+
+	////Engine::Set_Scene(pScene) // 이렇게 해도됨 위에 2줄 빼고 
+	//FAILED_CHECK_RETURN((*ppManagement)->Set_Scene(pScene), E_FAIL); // 이게 현재 신 정해주는거 전 씬은 없애주고
 
 	return S_OK;
 }
