@@ -41,6 +41,7 @@ inline void				Render_Font(const _tchar* pFontTag
 inline _byte	Get_DIKeyState(_ubyte byKeyID);
 inline _bool    GetKeyDown(_ubyte byKeyID);
 inline _bool	GetKeyUp(_ubyte byKeyID);
+inline _bool	GetKeyPress(_ubyte byKeyID);
 
 inline _byte	Get_DIMouseState(MOUSEKEYSTATE eMouse);
 inline _long	Get_DIMouseMove(MOUSEMOVESTATE eMouseState);
