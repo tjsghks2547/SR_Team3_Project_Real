@@ -34,21 +34,31 @@ protected:
 	//0913
 	_float									m_fViewZ;
 
-private:
+public:
 	CComponent* Find_Component(COMPONENTID eID, const _tchar* pComponentTag);
 
-protected:
+public:
 	virtual void  Free();
 
 
+//==============================================================================
 //0915 Seonhwan
 protected:
-	string m_strKey; // 게임오브젝트가 자신이 어떤 명칭으로 저장되있는지 알기 위해서
+	wstring m_strKey; // 게임오브젝트가 자신이 어떤 명칭으로 저장되있는지 알기 위해서
+
+	//0920 Seonhwan
+	wstring m_strTextureKey; // 게임오브젝트의 텍스처 키 
 
 //0915 Seonhwan
 public:
-	void SetObjectKey(string _strKey) { m_strKey = _strKey; }
-	string GetObjectKey() { return m_strKey; }
+	void SetObjectKey(wstring _strKey) { m_strKey = _strKey; }
+	wstring GetObjectKey() { return m_strKey; }
+
+	//0920 Seonhwan
+	
+	void SetTextureKey(wstring _strKey) { m_strTextureKey = _strKey; }
+	wstring GetTextureKey() { return m_strTextureKey; }
+
 };
 
 END

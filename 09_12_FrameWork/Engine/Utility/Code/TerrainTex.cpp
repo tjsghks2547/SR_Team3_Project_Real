@@ -82,8 +82,10 @@ HRESULT CTerrainTex::Ready_Buffer(const _ulong& dwCntX, const _ulong& dwCntZ, co
             pVertex[dwIndex].vPosition =
                 _vec3(_float(j) * dwVtxItv , _float(pPixel[dwIndex] & 0x000000ff) / 20.f , _float(i) * dwVtxItv);
 
-            pVertex[dwIndex].vTexUV = _vec2((_float(j) / (dwCntX - 1)) * 20.f,  
-                (_float(i) / (dwCntZ - 1)) * 20.f); 
+            //pVertex[dwIndex].vTexUV = _vec2((_float(j) / (dwCntX - 1)),  
+            //    (_float(i) / (dwCntZ - 1))); 
+
+            pVertex[dwIndex].vTexUV = _vec2((_float(j) / _float(dwCntX - 1)), (_float(i) / _float(dwCntZ - 1)));    
 
             m_pPos[dwIndex] = pVertex[dwIndex].vPosition;   
         }

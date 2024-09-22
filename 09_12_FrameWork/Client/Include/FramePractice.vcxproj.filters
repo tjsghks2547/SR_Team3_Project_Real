@@ -144,6 +144,9 @@
     <Filter Include="02. GameObject\08. UI\01. InvenUI">
       <UniqueIdentifier>{346f8069-d9f4-488f-9088-15ac45f039e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03.IMGUI\Imgui_Object">
+      <UniqueIdentifier>{45521da8-91c7-4972-82e3-ca46872d78a3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -284,6 +287,9 @@
     <ClInclude Include="..\Header\InvenUI.h">
       <Filter>02. GameObject\08. UI\01. InvenUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Imgui_ObjectTool.h">
+      <Filter>03.IMGUI\Imgui_Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FramePractice.cpp">
@@ -414,6 +420,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\InvenUI.cpp">
       <Filter>02. GameObject\08. UI\01. InvenUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Imgui_ObjectTool.cpp">
+      <Filter>03.IMGUI\Imgui_Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

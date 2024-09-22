@@ -3,6 +3,9 @@
 CTransform::CTransform()
     :m_vScale(1.f,1.f,1.f)
     ,m_vAngle(0.f,0.f,0.f)
+    ,Rotation_x(0.f)
+    ,Rotation_y(0.f)
+    ,Rotation_z(0.f)
 {
     ZeroMemory(m_vInfo, sizeof(m_vInfo));
     D3DXMatrixIdentity(&m_matWorld);
@@ -12,6 +15,9 @@ CTransform::CTransform(LPDIRECT3DDEVICE9 pGraphicDev)
     :CComponent(pGraphicDev)
     ,m_vScale(1.f,1.f,1.f)
     ,m_vAngle(0.f,0.f,0.f)
+    , Rotation_x(0.f)
+    , Rotation_y(0.f)
+    , Rotation_z(0.f)
 {
     ZeroMemory(m_vInfo, sizeof(m_vInfo));
     D3DXMatrixIdentity(&m_matWorld);
@@ -21,6 +27,9 @@ CTransform::CTransform(const CTransform& rhs)
     :CComponent(rhs)
     ,m_vScale(rhs.m_vScale)
     ,m_vAngle(rhs.m_vAngle)
+    , Rotation_x(rhs.Rotation_x)
+    , Rotation_y(rhs.Rotation_y)
+    , Rotation_z(rhs.Rotation_z)
 {
     for (size_t i = 0; i < INFO_END; ++i)
         m_vInfo[i] = rhs.m_vInfo[i];
@@ -34,6 +43,7 @@ CTransform::~CTransform()
 
 HRESULT CTransform::Ready_Transform()
 {
+    
     D3DXMatrixIdentity(&m_matWorld);
 
     for(_int i=0; i<INFO_END; ++i)
@@ -46,6 +56,9 @@ HRESULT CTransform::Ready_Transform()
 
 _int CTransform::Update_Component(const _float& fTimeDelta)
 {
+   
+    // 아 m_vScale에 크기정보를 그리고 m_vAngle에 회전정보를 저장하고 
+    // 그럼 m_vPos도 내가 설정해주자. 
     D3DXMatrixIdentity(&m_matWorld);
 
     for(_int i =0; i<INFO_POS; ++i)

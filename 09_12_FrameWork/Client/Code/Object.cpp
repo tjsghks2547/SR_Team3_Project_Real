@@ -22,11 +22,10 @@ HRESULT CObject::Ready_GameObject()
 	//Wall 넣은곳
 	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/wall.png", &m_vecTexture[0]);
 
-	//m_mapTexture.insert({ "Wall", m_pTexture });
-
-
 	return S_OK;
 }
+
+
 
 _int CObject::Update_GameObject(const _float& fTimeDelta)
 {
@@ -47,14 +46,8 @@ void CObject::Render_GameObject()
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	
 
-	//넣어진 오브젝트의 이름대로 텍스처 설정해야하는데 흠..
-	//m_pTextureCom->Set_Texture();
-	// imgui에서 텍스처값 얻어오기 
-	//switch(CImGuiManger::GetInstance()->)
 
-
-
-	if (m_strKey == "Wall") 
+	if (m_strTextureKey == L"Wall") 
 	{
 		//auto iter = find_if(m_mapTexture.begin(), m_mapTexture.end(),);
 		m_pGraphicDev->SetTexture(0, m_vecTexture[0]);

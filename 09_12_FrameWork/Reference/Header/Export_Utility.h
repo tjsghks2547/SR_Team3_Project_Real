@@ -65,7 +65,7 @@ inline  HRESULT  Ready_Light(LPDIRECT3DDEVICE9 pGraphicDev,
 inline void		Release_Utility();
 
 
-
+//
 #include "Export_Utility.inl"
 
 END

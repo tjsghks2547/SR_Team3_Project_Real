@@ -29,10 +29,11 @@ HRESULT CMapEditor::Ready_Scene()
 _int CMapEditor::Update_Scene(const _float& fTimeDelta)
 {
 
-	CImGuiManger::GetInstance()->update(); // 아 imgui가 view행렬을 항등행렬로 초기화해서 반드시 update_scene보다 앞에서 해야함
+	// 아 imgui가 view행렬을 항등행렬로 초기화해서 반드시 update_scene보다 앞에서 해야함
 
 	_int  iExit = Engine::CScene::Update_Scene(fTimeDelta);
 
+	CImGuiManger::GetInstance()->update();
 	
 
 	
@@ -75,7 +76,7 @@ HRESULT CMapEditor::Ready_Prototype()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_PlayerTex2", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Player0.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_TerrainTexture", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Terrain/Terrain0.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_SkyBox", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/SkyBox/burger%d.dds", TEX_CUBE, 4)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_StartMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map_22_1208x1032 #3240.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_StartMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Tutorial_Map.png", TEX_NORMAL)), E_FAIL);
 
 	return S_OK;
 }
@@ -97,6 +98,14 @@ HRESULT CMapEditor::Ready_Layer_Environment(const _tchar* pLayerTag)
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MapCamera", pGameObject), E_FAIL);
 
+
+	pGameObject = CMap::Create(m_pGraphicDev);	
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);	
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Map", pGameObject), E_FAIL);	
+	pGameObject->SetObjectKey(L"Map");	
+	pGameObject->SetTextureKey(L"Map");
+
+
 	m_mapLayer.insert({ pLayerTag, pLayer });	
 		
 	return S_OK;
@@ -107,12 +116,13 @@ HRESULT CMapEditor::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 	Engine::CLayer* pLayer = CLayer::Create();	
 	NULL_CHECK_RETURN(pLayer, E_FAIL);	
 
-	Engine::CGameObject* pGameObject = nullptr;
+	//Engine::CGameObject* pGameObject = nullptr;
 
-	pGameObject = CMap::Create(m_pGraphicDev);	
+	/*pGameObject = CMap::Create(m_pGraphicDev);	
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);	
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Map", pGameObject), E_FAIL);
-	//아 여기서 게임오브젝트 cstr 을추가하면될거같네 
+	pGameObject->SetObjectKey(L"Map");
+	pGameObject->SetTextureKey(L"Map");*/
 	
 
 

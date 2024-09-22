@@ -56,8 +56,8 @@ HRESULT CMapTex::Ready_Buffer(const _ulong& dwCntX, const _ulong& dwCntZ, const 
             dwIndex = i * dwCntX + j;
 
             m_pVertex[dwIndex].vPosition = _vec3(_float(j) * dwVtxItv, 0, _float(i) * dwVtxItv);
-            m_pVertex[dwIndex].vTexUV = _vec2((_float(j) / (dwCntX - 1))*10,
-                (_float(i) / (dwCntZ - 1))*10 );
+            m_pVertex[dwIndex].vTexUV = _vec2((_float(j) / (dwCntX - 1)),
+                (_float(i) / (dwCntZ - 1)));
 
             m_pPos[dwIndex] = m_pVertex[dwIndex].vPosition;
         }

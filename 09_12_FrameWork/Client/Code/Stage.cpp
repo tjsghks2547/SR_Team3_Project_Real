@@ -41,8 +41,9 @@ void CStage::LateUpdate_Scene(const _float& fTimeDelta)
 
 void CStage::Render_Scene()
 {
-}
 
+
+}
 
 
 HRESULT CStage::Ready_LightInfo()
@@ -88,17 +89,20 @@ HRESULT CStage::Ready_Layer_Environmnet(const _tchar* pLayerTag)
 	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StartMap", pGameObject), E_FAIL);
 
-	pGameObject = CPipeBoard::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PipeBoard", pGameObject), E_FAIL);
+	//pGameObject = CPipeBoard::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PipeBoard", pGameObject), E_FAIL);
 
 	//pGameObject = CPipe::Create(m_pGraphicDev);
 	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Pipe", pGameObject), E_FAIL);
 
-	pGameObject = CBoardCursor::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PipeCursor", pGameObject), E_FAIL);
+	//pGameObject = CBoardCursor::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PipeCursor", pGameObject), E_FAIL);
+
+	//여기다가 맵 오브젝트들 넣기 파일 읽어오는기능 
+
 
 	m_mapLayer.insert({ pLayerTag, pLayer });
 
@@ -112,6 +116,8 @@ HRESULT CStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 
 	Engine::CGameObject* pGameObject = nullptr;
 
+
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Map", pGameObject), E_FAIL);
 
 	pGameObject = CMap::Create(m_pGraphicDev);	
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);		
@@ -184,4 +190,71 @@ CStage* CStage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 void CStage::Free()
 {
 	Engine::CScene::Free();
+}
+
+
+void CStage::init()
+{
+	Engine::CLayer* pLayer = CLayer::Create();	
+	
+
+	HANDLE hFile = CreateFile(L"../Map/hi4.txt", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	if (hFile != INVALID_HANDLE_VALUE)
+	{
+		wstring	teststring = L"";
+		WCHAR buffer[256] = {0};		
+		DWORD bytesRead = 100;
+		
+		
+		if (!ReadFile(hFile, buffer, 100, &bytesRead, NULL))	
+		{
+			MSG_BOX("FAILED TO READ TextrueKey");
+			CloseHandle(hFile);
+		}
+
+
+		teststring = buffer; 
+
+		
+		int a = 4; 
+
+		
+		D3DXMATRIX worldmatrix;	
+		bytesRead = 0;	
+		
+		if (!ReadFile(hFile, worldmatrix, sizeof(D3DXMATRIX), &bytesRead, NULL))	
+		{
+			MSG_BOX("FAILED TO READ WORLDMAXTIRX");	
+			CloseHandle(hFile);	
+		}
+		
+		
+		Engine::CGameObject* pGameObject = nullptr;	
+		
+		pGameObject = CObject::Create(CGraphicDev::GetInstance()->Get_GraphicDev());	
+		if (pGameObject == nullptr)
+		{
+			MSG_BOX("CObject nullptr Error");
+		}
+	
+		pGameObject->SetTextureKey(teststring.c_str());
+	
+		//  지금 신이 변경이 안돼서 startScene을 가져와서 문제 발생 
+	
+	
+	
+		map<const _tchar*, CLayer*>& pMapLayer = Engine::Get_CurScenePtr()->GetLayerMapPtr();	
+		pMapLayer[L"Layer_GameLogic"]->Add_GameObject(teststring.c_str(), pGameObject);
+		
+		
+		// 왜 못찾는거지?;;; 아 시발 아직도 신이 안바뀐거였음  이거 찾는 기준이 현재신기준이였음.
+		CTransform* pTransform = dynamic_cast<CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_GameLogic", teststring.c_str(), L"Com_Transform"));
+		pTransform->ForGetWorldMaxtrix() = worldmatrix;
+		
+		pTransform->m_vInfo[INFO_POS] = { worldmatrix._41,worldmatrix._42,worldmatrix._43 };
+		
+
+
+		CloseHandle(hFile);
+	}
 }

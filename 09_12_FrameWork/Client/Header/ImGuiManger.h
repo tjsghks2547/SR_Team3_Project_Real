@@ -9,6 +9,8 @@
 #include  "Object.h"
 #include  "Layer.h"
 
+#include "Imgui_ObjectTool.h"
+
 class CImGuiManger
 {
 	DECLARE_SINGLETON(CImGuiManger)
@@ -26,8 +28,6 @@ public:
 
 public:
 	void ShowTileMenuWindow();
-	void ShowObjectMenuWindow();
-	void ShowInstalledObjectWindow();
 	void CreateTerrain(const _ulong& dwCntX,
 					   const _ulong& dwCntZ,
 					   const _ulong& dwVtxItv) {};
@@ -71,33 +71,29 @@ private:
 	}
 
 
-	//IDirect3DTexture9* FindTexture(wstring _wstr, map<wstring, IDirect3DTexture9*> _map);
-
 
 
 
 	LPDIRECT3DDEVICE9 m_pGraphicDev;	
+
 	IDirect3DTexture9* m_pTerrainTexture;
 	IDirect3DTexture9* m_pCurTerrainTexture;
-
-	IDirect3DTexture9* m_pObjectTexture;
 	IDirect3DTexture9* m_pCurObjectTexture;
 
 	vector<IDirect3DTexture9*> m_vecTerrainTexture;
-	vector<IDirect3DTexture9*> m_vecObjectTexture;
+	
 
 	bool m_bshowTileTextureWindow;
 	bool m_bshowObjectTextrueWindow;
 	bool m_bshowInstalledObjectList;
-
 	bool m_bTerrainOnOff; 
-
 	bool m_bWireFrameModeOnOff;
-
 	bool m_bImageButtonClick;
 	
 
 	_vec3       m_vecPickPos;
+
+
 
 
 	

@@ -20,6 +20,7 @@ public:
 
 
 public:
+	_matrix&	   ForGetWorldMaxtrix() { return m_matWorld; }
 	const _matrix* Get_WorldMatrix() { return &m_matWorld; }
 	void           Get_WorldMatrix(_matrix* pWorld) { *pWorld = m_matWorld; }
 	void		   Move_Pos(const _vec3* pDir, const _float& fTimeDelta, const _float& fSpeed)
@@ -52,6 +53,9 @@ public:
 	_vec3 m_vAngle;
 	_matrix m_matWorld;
 
+	float Rotation_x;
+	float Rotation_y;
+	float Rotation_z;
 
 public:
 	static CTransform* Create(LPDIRECT3DDEVICE9 pGraphicDev);

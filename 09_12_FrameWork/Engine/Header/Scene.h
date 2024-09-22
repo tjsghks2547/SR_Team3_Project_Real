@@ -21,13 +21,16 @@ public:
 	virtual  void    LateUpdate_Scene(const _float& fTimeDelta);
 	virtual  void    Render_Scene()PURE;
 
+	//0922 Seonhwan
+	virtual  void    init() { ; }
+
 
 protected:
 	map<const _tchar*, CLayer*>  m_mapLayer;
 	LPDIRECT3DDEVICE9			 m_pGraphicDev; 
 
 
-protected:
+public:
 	virtual  void  Free();
 
 
