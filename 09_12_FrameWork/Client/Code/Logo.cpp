@@ -30,25 +30,38 @@ _int CLogo::Update_Scene(const _float& fTimeDelta)
 {
 	_int  iExit = Engine::CScene::Update_Scene(fTimeDelta);
 
-	if(true == m_pLoading->Get_Finish())
-	{
-		if(GetAsyncKeyState(VK_RETURN) & 0x8000)
-		{
-			Engine::CScene* pStage = CStage::Create(m_pGraphicDev);
-			NULL_CHECK_RETURN(pStage, -1);
+	//if(true == m_pLoading->Get_Finish())
+	//{
+	//	if(GetAsyncKeyState(VK_RETURN) & 0x8000)
+	//	{
+	//		Engine::CScene* pStage = CStage::Create(m_pGraphicDev);
+	//		NULL_CHECK_RETURN(pStage, -1);
 
-			FAILED_CHECK_RETURN(Engine::Set_Scene(pStage), E_FAIL);
-			pStage->init(); // 맵툴에서 가져온 오브젝트들을 위해 사용 
+	//		FAILED_CHECK_RETURN(Engine::Set_Scene(pStage), E_FAIL);
+	//		pStage->init(); // 맵툴에서 가져온 오브젝트들을 위해 사용 
 
-			return 0;
-		}
-	}
+	//		return 0;
+	//	}
+	//}
 
 	return iExit;
 }
 
 void CLogo::LateUpdate_Scene(const _float& fTimeDelta)
 {
+	if (true == m_pLoading->Get_Finish())
+	{
+		if (GetAsyncKeyState(VK_RETURN) & 0x8000)
+		{
+			Engine::CScene* pStage = CStage::Create(m_pGraphicDev);
+			NULL_CHECK_RETURN(pStage, );
+
+			FAILED_CHECK_RETURN(Engine::Set_Scene(pStage), );
+			pStage->init();
+			return;
+		}
+	}
+
 	Engine::CScene::LateUpdate_Scene(fTimeDelta);
 }
 
