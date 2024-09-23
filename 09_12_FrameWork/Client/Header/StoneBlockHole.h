@@ -6,15 +6,14 @@ BEGIN(Engine)
 class CTexture;
 class CRcTex;
 class CTransform;
-class CPipeCom;
 
 END
 
-class CPipe :public Engine::CGameObject
+class CStoneBlockHole :public Engine::CGameObject
 {
 private:
-	explicit CPipe(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual ~CPipe();
+	explicit CStoneBlockHole(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual ~CStoneBlockHole();
 
 public:
 	virtual   HRESULT   Ready_GameObject();
@@ -22,21 +21,18 @@ public:
 	virtual   void	    LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual   void      Render_GameObject();
 
-public:
-	void Initialize_Pipe_Option(PIPEFLOW _eUp, PIPEFLOW _eDown, PIPEFLOW _eLeft, PIPEFLOW _eRight, _bool _bIsFixed, _int _iImageID, _vec3 _vPos, _vec3 _fAngle);
-
-private:
-	HRESULT    Add_Component();	
-
 private:
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTexture* m_pTextureCom;
 	Engine::CTransform* m_pTransformCom;
-	Engine::CPipeCom* m_pPipeCom;
+
+private:
+	HRESULT    Add_Component();
 
 public:
-	static CPipe* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CStoneBlockHole* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	vector<IDirect3DTexture9*> m_vecTexture;
+	CTransform* m_pStoneBlock;
 	_int m_iImageID;
 
 private:

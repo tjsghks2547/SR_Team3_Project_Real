@@ -10,6 +10,8 @@
 #include "RcCol.h"
 #include "Transform.h"
 #include "Texture.h"
+#include "PipeBoardCom.h"
+#include "PipeCom.h"
 #include "RcTex.h"
 #include "TerrainTex.h"
 #include "Camera.h"

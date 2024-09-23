@@ -9,7 +9,18 @@
 #include "InvenUI.h"
 #include "Pipe.h"
 #include "PipeBoard.h"
+#include "Crystal.h"
+#include "PressBlock.h"
+#include "CrystalPuzzle.h"
 #include "BoardCursor.h"
+#include "MonkeyStatue.h"
+#include "StoneBlock.h"
+#include "StoneBlockHole.h"
+#include "BugStatue.h"
+#include "BugStatuePuzzle.h"
+#include "CombinationPuzzle.h"
+#include "CombinationStatue.h"
+
 
 #include "Terrain.h"
 #include "DynamicCamera.h"

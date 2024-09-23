@@ -147,6 +147,36 @@
     <Filter Include="03.IMGUI\Imgui_Object">
       <UniqueIdentifier>{45521da8-91c7-4972-82e3-ca46872d78a3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\Bug Statue Puzzle">
+      <UniqueIdentifier>{5a293146-5338-48c8-9e04-d44f826becd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\Combination Puzzle">
+      <UniqueIdentifier>{918b6804-f5e6-4c81-8fb3-f052b149bc90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\Crystal Puzzle">
+      <UniqueIdentifier>{6699e475-73bf-4c80-a587-d4ceeedc353e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\Monkey Statue">
+      <UniqueIdentifier>{6cf74702-a3a4-48a7-a763-4b1e84d757e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\Bug Statue Puzzle\Bus Statue">
+      <UniqueIdentifier>{a11bad58-a523-45b6-aedf-8de2fd1200fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\Combination Puzzle\Combination Statue">
+      <UniqueIdentifier>{bb67851c-8f65-45e2-bc03-3298ea2f02ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\Crystal Puzzle\Crystal">
+      <UniqueIdentifier>{47d024f0-cea9-4af3-b715-b220350c1b31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\Crystal Puzzle\Press Block">
+      <UniqueIdentifier>{a780f2be-e503-4bcd-8b33-3fe75487a8f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\Monkey Statue\Stone Block">
+      <UniqueIdentifier>{4372aa6e-191c-4155-87a5-d9de5785bd44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\Monkey Statue\Stone Block Hole">
+      <UniqueIdentifier>{663197a3-1e03-44e7-9742-eae790fadecd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -251,15 +281,6 @@
     <ClInclude Include="..\Header\Monster.h">
       <Filter>02. GameObject\01. Entity\02. Monster</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\PipeBoard.h">
-      <Filter>02. GameObject\09. Puzzle\PipeGame\Board</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Pipe.h">
-      <Filter>02. GameObject\09. Puzzle\PipeGame\Pipe</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\BoardCursor.h">
-      <Filter>02. GameObject\09. Puzzle\PipeGame\Cursor</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\Object.h">
       <Filter>02. GameObject\08. Object</Filter>
     </ClInclude>
@@ -289,6 +310,45 @@
     </ClInclude>
     <ClInclude Include="..\Header\Imgui_ObjectTool.h">
       <Filter>03.IMGUI\Imgui_Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\BugStatue.h">
+      <Filter>02. GameObject\09. Puzzle\Bug Statue Puzzle\Bus Statue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\BugStatuePuzzle.h">
+      <Filter>02. GameObject\09. Puzzle\Bug Statue Puzzle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CombinationPuzzle.h">
+      <Filter>02. GameObject\09. Puzzle\Combination Puzzle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CombinationStatue.h">
+      <Filter>02. GameObject\09. Puzzle\Combination Puzzle\Combination Statue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Crystal.h">
+      <Filter>02. GameObject\09. Puzzle\Crystal Puzzle\Crystal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CrystalPuzzle.h">
+      <Filter>02. GameObject\09. Puzzle\Crystal Puzzle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\MonkeyStatue.h">
+      <Filter>02. GameObject\09. Puzzle\Monkey Statue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PressBlock.h">
+      <Filter>02. GameObject\09. Puzzle\Crystal Puzzle\Press Block</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\StoneBlock.h">
+      <Filter>02. GameObject\09. Puzzle\Monkey Statue\Stone Block</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\StoneBlockHole.h">
+      <Filter>02. GameObject\09. Puzzle\Monkey Statue\Stone Block Hole</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PipeBoard.h">
+      <Filter>02. GameObject\09. Puzzle\PipeGame\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Pipe.h">
+      <Filter>02. GameObject\09. Puzzle\PipeGame\Pipe</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\BoardCursor.h">
+      <Filter>02. GameObject\09. Puzzle\PipeGame\Cursor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -388,15 +448,6 @@
     <ClCompile Include="..\Code\PlayerWalk.cpp">
       <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\PipeBoard.cpp">
-      <Filter>02. GameObject\09. Puzzle\PipeGame\Board</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\Pipe.cpp">
-      <Filter>02. GameObject\09. Puzzle\PipeGame\Pipe</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\BoardCursor.cpp">
-      <Filter>02. GameObject\09. Puzzle\PipeGame\Cursor</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\Map.cpp">
       <Filter>02. GameObject\07. Map</Filter>
     </ClCompile>
@@ -423,6 +474,45 @@
     </ClCompile>
     <ClCompile Include="..\Code\Imgui_ObjectTool.cpp">
       <Filter>03.IMGUI\Imgui_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\BugStatue.cpp">
+      <Filter>02. GameObject\09. Puzzle\Bug Statue Puzzle\Bus Statue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\BugStatuePuzzle.cpp">
+      <Filter>02. GameObject\09. Puzzle\Bug Statue Puzzle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CombinationPuzzle.cpp">
+      <Filter>02. GameObject\09. Puzzle\Combination Puzzle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CombinationStatue.cpp">
+      <Filter>02. GameObject\09. Puzzle\Combination Puzzle\Combination Statue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Crystal.cpp">
+      <Filter>02. GameObject\09. Puzzle\Crystal Puzzle\Crystal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CrystalPuzzle.cpp">
+      <Filter>02. GameObject\09. Puzzle\Crystal Puzzle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MonkeyStatue.cpp">
+      <Filter>02. GameObject\09. Puzzle\Monkey Statue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PressBlock.cpp">
+      <Filter>02. GameObject\09. Puzzle\Crystal Puzzle\Press Block</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\StoneBlock.cpp">
+      <Filter>02. GameObject\09. Puzzle\Monkey Statue\Stone Block</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\StoneBlockHole.cpp">
+      <Filter>02. GameObject\09. Puzzle\Monkey Statue\Stone Block Hole</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PipeBoard.cpp">
+      <Filter>02. GameObject\09. Puzzle\PipeGame\Board</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Pipe.cpp">
+      <Filter>02. GameObject\09. Puzzle\PipeGame\Pipe</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\BoardCursor.cpp">
+      <Filter>02. GameObject\09. Puzzle\PipeGame\Cursor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
