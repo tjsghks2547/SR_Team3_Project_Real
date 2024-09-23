@@ -40,7 +40,7 @@ void CTerrain::Render_GameObject()
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	// 와이어프레임 모드 활성화
 	//m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-
+	//m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 
 
 	FAILED_CHECK_RETURN(SetUp_Material(), );

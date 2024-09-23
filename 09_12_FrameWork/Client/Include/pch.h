@@ -30,10 +30,10 @@
 #include <functional>
 #include <process.h> // 스레드를 위해 필요한 헤더 
 #include <Struct.h>
-
-
 #include <fstream>
 
+#include <d3dx9math.h>	
+#include <D3dx9shape.h>	
 
 #ifdef _DEBUG
 

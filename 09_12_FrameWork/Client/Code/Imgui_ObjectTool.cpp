@@ -82,29 +82,9 @@ const wchar_t* findInVector(const std::vector<const wchar_t*>& vec, const wchar_
 
 void CImgui_ObjectTool::init()
 {
-	m_vecObjectTexture.resize(7);
-	//m_vecObjectList.resize(100);
+	m_vecObjectTexture.resize(100);
 	
-	// 이거 하나로 묶어버리기 .
-	//char filePath[256];
-	//sprintf_s(filePath, "../Bin/Resource/Texture/wall.png");
-	//
-	//char filePath1[256];
-	//sprintf_s(filePath1, "../Bin/Resource/Texture/Tutorial_Super.png");
-	//
-	//
-	//HRESULT hr = LoadTextureFromFile(CGraphicDev::GetInstance()->Get_GraphicDev(), filePath, &m_vecObjectTexture[0]);
-	//if (FAILED(hr))
-	//{
-	//	MSG_BOX("Object Texutr load Failed");
-	//}	
-	//
-	//hr = LoadTextureFromFile(CGraphicDev::GetInstance()->Get_GraphicDev(), filePath1, &m_vecObjectTexture[1]);
-	//if (FAILED(hr))
-	//{
-	//	MSG_BOX("Object Texutr load Failed");	
-	//}
-
+	
 
 	for (int i = 0; i< m_vecObjectTexture.size(); i++)
 	{
@@ -117,22 +97,6 @@ void CImgui_ObjectTool::init()
 			MSG_BOX("Object Texture load failed");
 		}
 	}
-
-	//
-	//for (int i = 1; i < m_vecTerrainTexture.size() + 1; i++)
-	//{
-	//
-	//	char filePath[256];
-	//	sprintf_s(filePath, "../Bin/Resource/Texture/Map/Tile%d.png", i - 1);
-	//
-	//	HRESULT hr = LoadTextureFromFile(CGraphicDev::GetInstance()->Get_GraphicDev(), filePath, &m_vecTerrainTexture[i - 1]);
-	//	if (FAILED(hr))
-	//	{
-	//		MSG_BOX("Terrain Texture load failed");
-	//	}
-	//}
-
-
 }
 
 void CImgui_ObjectTool::update()
@@ -266,6 +230,77 @@ void CImgui_ObjectTool::ShowObjectWindow()
 			m_sCurTextureKey = L"Super";
 			m_strCurObjectName = L"Super";
 
+		}
+
+		if (ImGui::ImageButton("TelephonePole", m_vecObjectTexture[2], imageSize))
+		{
+
+			m_sCurTextureData = L"TelephonePole";
+			m_sCurTextureKey = L"TelephonePole";
+			m_strCurObjectName = L"TelephonePole";
+
+		}
+
+		if (ImGui::ImageButton("BusStation", m_vecObjectTexture[3], imageSize))
+		{
+
+			
+			m_sCurTextureData = L"BusStation";
+			m_sCurTextureKey = L"BusStation";
+			m_strCurObjectName = L"BusStation";
+
+		}
+
+		if (ImGui::ImageButton("BreadStore", m_vecObjectTexture[4], imageSize))
+		{
+
+			m_sCurTextureData =  L"BreadStore";
+			m_sCurTextureKey =   L"BreadStore";
+			m_strCurObjectName = L"BreadStore";
+
+		}
+
+		if (ImGui::ImageButton("Telephone2Pole", m_vecObjectTexture[5], imageSize))
+		{
+			m_sCurTextureData =  L"Telephone2Pole";
+			m_sCurTextureKey =   L"Telephone2Pole";
+			m_strCurObjectName = L"Telephone2Pole";
+		}
+
+		if (ImGui::ImageButton("Bench", m_vecObjectTexture[6], imageSize))
+		{
+			m_sCurTextureData =  L"Bench";
+			m_sCurTextureKey =   L"Bench";
+			m_strCurObjectName = L"Bench";
+		}
+
+
+		if (ImGui::ImageButton("Carpet", m_vecObjectTexture[7], imageSize))
+		{
+			m_sCurTextureData =  L"Carpet";
+			m_sCurTextureKey =   L"Carpet";
+			m_strCurObjectName = L"Carpet";
+		}
+
+		if (ImGui::ImageButton("Ogu_House_Floor", m_vecObjectTexture[8], imageSize))
+		{
+			m_sCurTextureData =  L"Ogu_House_Floor";
+			m_sCurTextureKey =   L"Ogu_House_Floor";
+			m_strCurObjectName = L"Ogu_House_Floor";
+		}
+
+		if (ImGui::ImageButton("Ogu_House_Table", m_vecObjectTexture[9], imageSize))
+		{
+			m_sCurTextureData =  L"Ogu_House_Table";
+			m_sCurTextureKey  =  L"Ogu_House_Table";
+			m_strCurObjectName = L"Ogu_House_Table";
+		}
+
+		if (ImGui::ImageButton("Ogu_House", m_vecObjectTexture[10], imageSize))
+		{
+			m_sCurTextureData = L"Ogu_House";
+			m_sCurTextureKey = L"Ogu_House";
+			m_strCurObjectName = L"Ogu_House";
 		}
 
 
@@ -569,7 +604,7 @@ void CImgui_ObjectTool::Save()
 	ofn.nFilterIndex = 1;   // 기본 선택 파일 형식 (1 = Text Files)
 	ofn.lpstrFileTitle = NULL;
 	ofn.nMaxFileTitle = 0;
-	ofn.lpstrInitialDir = L"C:\\Users\\tjsgh\\Desktop\\9월 19일 프레임워크 작업\\Client\\Map";  // 초기 디렉토리 (NULL이면 기본 디렉토리 사용)
+	ofn.lpstrInitialDir = L"C:\\Users\\tjsgh\\Desktop\\9월24일최종본\\Client\\Map\\";  // 초기 디렉토리 (NULL이면 기본 디렉토리 사용)
 	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_OVERWRITEPROMPT;
 
 	// 파일 저장 대화 상자 표시
@@ -708,7 +743,7 @@ void CImgui_ObjectTool::Read()
 	ofn.nFilterIndex = 1;      // 기본 선택 파일 형식
 	ofn.lpstrFileTitle = NULL;
 	ofn.nMaxFileTitle = 0;
-	ofn.lpstrInitialDir = L"C:\\Users\\tjsgh\\Desktop\\9월 19일 프레임워크 작업\\Client\\Map";  // 초기 디렉토리
+	ofn.lpstrInitialDir = L"C:\\Users\\tjsgh\\Desktop\\9월24일최종본\\Client\\Map\\";  // 초기 디렉토리
 	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_OVERWRITEPROMPT;
 
 	// 파일 열기 대화상자 표시
@@ -716,35 +751,125 @@ void CImgui_ObjectTool::Read()
 		// 파일 열기
 		HANDLE hFile = CreateFile(ofn.lpstrFile, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);	
 		if (hFile != INVALID_HANDLE_VALUE) {
-			
-			
+	
+			Engine::CLayer* pLayer = CLayer::Create();
 
-			// 순서 문자열의 읽기 -> 해당 월드매트릭스값 가져오기 
-			//wstring	teststring = L"";
+			DWORD bytesRead = 1;
 
-			DWORD bytesRead = 0;
-
-
-			if(!ReadFile(hFile,	&m_wCurReadTextureKey,sizeof(wstring),&bytesRead,NULL))
+			while (bytesRead > 0)
 			{
-				MSG_BOX("FAILED TO READ TextrueKey");
-				CloseHandle(hFile);
+				//wstring ObjectName = L"";
+				//WCHAR* buffer = new WCHAR[256];
+				WCHAR buffer[256] = { 0 };
+				bytesRead = 0;
+
+				//오브젝트키 (오브젝트 이름)
+				if (!ReadFile(hFile, buffer, 100, &bytesRead, NULL))
+				{
+					MSG_BOX("FAILED TO READ TextrueKey");
+					CloseHandle(hFile);
+				}
+
+				wstring* pObjectName = new wstring;
+				*pObjectName = buffer;
+
+
+
+
+
+				//wstring TextureName = L"";
+				//WCHAR* buffer2 = new WCHAR[256];
+				WCHAR buffer2[256] = { 0 };
+				bytesRead = 0;
+
+				//텍스처키 (텍스처 이름)
+				if (!ReadFile(hFile, buffer2, 100, &bytesRead, NULL))
+				{
+					MSG_BOX("FAILED TO READ TextrueKey");
+					CloseHandle(hFile);
+				}
+
+				wstring* pTextureWstring = new wstring;
+				*pTextureWstring = buffer2;
+
+
+
+
+				int a = 4;
+
+
+				D3DXMATRIX worldmatrix;
+				bytesRead = 0;
+
+				if (!ReadFile(hFile, worldmatrix, sizeof(D3DXMATRIX), &bytesRead, NULL))
+				{
+					MSG_BOX("FAILED TO READ WORLDMAXTIRX");
+					CloseHandle(hFile);
+				}
+
+				D3DXVECTOR3 Rotation_vec3;
+				bytesRead = 0;
+
+				if (!ReadFile(hFile, Rotation_vec3, sizeof(D3DXVECTOR3), &bytesRead, NULL))
+				{
+					MSG_BOX("FAILED TO READ D3DXVECTOR3 INFO");
+					CloseHandle(hFile);
+				}
+
+				D3DXVECTOR3 Sclae_vec3;
+				bytesRead = 0;
+
+				if (!ReadFile(hFile, Sclae_vec3, sizeof(D3DXVECTOR3), &bytesRead, NULL))
+				{
+					MSG_BOX("FAILED TO READ D3DXVECTOR3 INFO");
+					CloseHandle(hFile);
+				}
+
+
+
+				if (bytesRead > 0)
+				{
+					Engine::CGameObject* pGameObject = nullptr;
+
+					pGameObject = CObject::Create(CGraphicDev::GetInstance()->Get_GraphicDev());
+					if (pGameObject == nullptr)
+					{
+						MSG_BOX("CObject nullptr Error");
+					}
+
+
+					pGameObject->SetObjectKey((*pObjectName).c_str());
+					pGameObject->SetTextureKey((*pTextureWstring).c_str());
+
+					//  지금 신이 변경이 안돼서 startScene을 가져와서 문제 발생 
+
+
+
+					map<const _tchar*, CLayer*>& pMapLayer = Engine::Get_CurScenePtr()->GetLayerMapPtr();
+					pMapLayer[L"Layer_GameLogic"]->Add_GameObject((*pObjectName).c_str(), pGameObject);
+
+					m_vecObjectList.push_back((*pObjectName).c_str());
+
+					// 왜 못찾는거지?;;; 아 시발 아직도 신이 안바뀐거였음  이거 찾는 기준이 현재신기준이였음.
+					CTransform* pTransform = dynamic_cast<CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_GameLogic", (*pObjectName).c_str(), L"Com_Transform"));
+					//pTransform->ForGetWorldMaxtrix() = worldmatrix;
+
+
+
+					////회전값만 이제 넣어주면 됨 ( 크기 -> 자전 -> 이동 ) 순서로  아 시발 병신같이 월드매트릭스를 넣어줫네;;
+					// 월드매트릭스에 넣기 전의 크기값을 넣어줘야하네 
+					pTransform->m_vScale = { Sclae_vec3.x,Sclae_vec3.y,Sclae_vec3.z };
+					pTransform->Rotation(ROT_X, Rotation_vec3.x * 3.14f / 180.f);
+					pTransform->Rotation(ROT_Y, Rotation_vec3.y * 3.14f / 180.f);
+					pTransform->Rotation(ROT_Z, Rotation_vec3.z * 3.14f / 180.f);
+					pTransform->Set_Pos(worldmatrix._41, worldmatrix._42, worldmatrix._43);
+
+					//pTransform->m_vAngle = vec3;
+					//D3DXMatrixRotationX(&matRot[ROT_X], m_vAngle.x);
+				}
 			}
+			CloseHandle(hFile);
 
-		
-
-			
-			D3DXMATRIX worldmatrix;
-			bytesRead = 0; 
-			
-			if(!ReadFile(hFile, worldmatrix, sizeof(D3DXMATRIX),&bytesRead,NULL))	
-			{
-				MSG_BOX("FAILED TO READ WORLDMAXTIRX");
-				CloseHandle(hFile);
-			}
-
-
-			CloseHandle(hFile);  // 파일 핸들 닫기	
 		}
 		else {
 			MSG_BOX("파일을 열 수 없습니다.");

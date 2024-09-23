@@ -26,6 +26,7 @@
 #include "AnimationTex.h"
 #include "CStartMap.h"
 #include "MapTex.h"
+#include "BoundBox.h"	
 
 
 

@@ -2,6 +2,8 @@
 #include "../Header/MainApp.h"
 #include "ImGuiManger.h"
 
+
+
 CMainApp::CMainApp()
 {
 
@@ -35,6 +37,8 @@ int CMainApp::Update_MainApp(const float& fTimeDelta)
 	
 	m_pManagementClass->Update_Scene(fTimeDelta);
 
+
+
 	return 0;
 }
 
@@ -46,6 +50,8 @@ void CMainApp::LateUpdate_MainApp(const float& fTimeDelta)
 	//{
 	//	int	a = 0;
 	//}
+
+	
 
 	m_pManagementClass->LateUpdate_Scene(fTimeDelta);
 }

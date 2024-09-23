@@ -32,8 +32,8 @@ HRESULT CPlayer::Ready_GameObject()
     m_tPlayerHP.iCurHP = 5;
     m_tPlayerHP.iMaxHP = 6;
 
-    m_pTransformCom->m_vScale = { 2.f,2.f,2.f };
-    m_pTransformCom->Set_Pos(0, 2.f, 0);
+    m_pTransformCom->m_vScale = { 20.f,20.f,20.f };
+    m_pTransformCom->Set_Pos(200.f, 10.f, 700.f);
 
     m_pStateControlCom->ChangeState(PlayerIdle::GetInstance(), this);
     return S_OK;
@@ -80,12 +80,13 @@ void CPlayer::Render_GameObject()
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
+
     if (m_bIsDiagonal)
         m_pTextureCom->Set_Texture(m_ePlayerState + 1);
     else
         m_pTextureCom->Set_Texture(m_ePlayerState);
     Print_PlayerState();
-
+  
     m_pAnimationCom->Render_Buffer();
 
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);  // 이거 설정안해주면 안됨 전역적으로 장치세팅이 저장되기 때문에
@@ -162,6 +163,7 @@ HRESULT CPlayer::Add_Component()
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_State", pComponent });
 
+    
 
 }
 

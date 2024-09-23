@@ -11,7 +11,7 @@ void PlayerMove::Enter()
     if (!m_pStateController)
         SetComponent();
 
-    m_fMoveSpeed = 5.f;
+    m_fMoveSpeed = 50.f;
 
 }
 

@@ -454,9 +454,6 @@
     <ClCompile Include="..\Code\TestMap.cpp">
       <Filter>02. GameObject\07. Map\01.TestMap</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Player.cpp">
-      <Filter>02. GameObject\01. Entity\01. Player</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\Monster.cpp">
       <Filter>02. GameObject\01. Entity\02. Monster</Filter>
     </ClCompile>
@@ -540,6 +537,9 @@
     </ClCompile>
     <ClCompile Include="..\Header\ItemSelector.cpp">
       <Filter>02. GameObject\10. Item\99. ItemSelector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player.cpp">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

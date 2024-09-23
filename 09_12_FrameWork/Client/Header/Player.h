@@ -17,6 +17,9 @@ class CCamera;
 class CCalculator;
 class CStateController;
 
+//0923 선환 충돌 테스트
+class CBoundBox;
+
 END
 
 class CPlayer : public Engine::CGameObject
@@ -72,6 +75,9 @@ private:
 	Engine::CCalculator* m_pCCalculatorCom;
 	Engine::CStateController* m_pStateControlCom;
 
+	//바운드 박스 테스트 
+	Engine::CBoundBox* m_pBoundBox;
+
 	float m_fMoveSpeed;
 	PLAYERSTATE m_ePlayerState;
 	OBJ_DIRECTION m_ePlayerDir;
@@ -87,6 +93,9 @@ private:
 	PLAYERHP	m_tPlayerHP;
 	_bool		m_bInven;
 	CInvenUI*	m_pInven;
+
+
+	
 
 public:
 	static CPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);
