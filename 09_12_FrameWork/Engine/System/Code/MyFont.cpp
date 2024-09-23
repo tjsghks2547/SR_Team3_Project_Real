@@ -46,13 +46,15 @@ HRESULT CMyFont::Ready_Font(const _tchar* pFontType,
     return S_OK;
 }
 
-void CMyFont::Render_Font(const _tchar* pString, const _vec2* pPos, D3DXCOLOR Color)
-{
-    RECT rc{ (_long)pPos->x, (_long)pPos->y };
+void CMyFont::Render_Font(const _tchar* pString, const _vec2* pLTPos, D3DXCOLOR Color, _vec2 vXYSize)
+{   //0922
+    //RECT rc{ (_long)pPos->x, (_long)pPos->y };
+    RECT rc{ (_long)pLTPos->x, (_long)pLTPos->y, (_long)pLTPos->x + vXYSize.x, (_long)pLTPos->y + vXYSize.y }; // 렉트 RB 설정
 
     m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 
-    m_pFont->DrawTextW(m_pSprite, pString, lstrlen(pString), &rc, DT_NOCLIP, Color);
+    //m_pFont->DrawTextW(m_pSprite, pString, lstrlen(pString), &rc, DT_NOCLIP, Color);
+    m_pFont->DrawTextW(m_pSprite, pString, lstrlen(pString), &rc, DT_WORDBREAK, Color); // 렉트 사이즈에 따라 자동줄 바꿈.
 
     m_pSprite->End();
 }

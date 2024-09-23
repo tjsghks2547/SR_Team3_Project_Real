@@ -47,9 +47,10 @@ inline HRESULT Ready_Font(LPDIRECT3DDEVICE9 pGraphicDev,
 inline void Render_Font(const _tchar* pFontTag,
 	const _tchar* pString,
 	const _vec2* pPos,
-	D3DXCOLOR Color)
+	D3DXCOLOR Color,
+	_vec2 vXYSize) //0922
 {
-	CFontMgr::GetInstance()->Render_Font(pFontTag, pString, pPos, Color);
+	CFontMgr::GetInstance()->Render_Font(pFontTag, pString, pPos, Color, vXYSize);
 }
 
 inline _byte Get_DIKeyState(_ubyte byKeyID)

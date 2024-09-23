@@ -26,7 +26,9 @@ public:
 	void       Render_Font(const _tchar* pFontTag
 							, const _tchar* pString
 							, const _vec2* pPos
-							, D3DXCOLOR Color);
+							, D3DXCOLOR Color
+							, _vec2 vXYPos); //0922
+
 
 
 private:
