@@ -67,6 +67,10 @@ inline _bool GetKeyUp(_ubyte byKeyID)
 	return CInputDev::GetInstance()->GetKeyUp(byKeyID);
 }
 
+inline _bool GetKeyPress(_ubyte byKeyID)
+{
+	return CInputDev::GetInstance()->GetKeyPress(byKeyID);
+}
 
 inline _byte Get_DIMouseState(MOUSEKEYSTATE eMouse)
 {

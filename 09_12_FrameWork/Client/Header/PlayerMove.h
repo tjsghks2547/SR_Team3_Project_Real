@@ -3,13 +3,13 @@
 #include "Player.h"
 #include "Export_Utility.h"
 
-class PlayerWalk : public CState
+class PlayerMove : public CState
 {
 public:
-    static PlayerWalk* GetInstance()
+    static PlayerMove* GetInstance()
     {
         if (!m_instance)
-            m_instance = new PlayerWalk;
+            m_instance = new PlayerMove;
 
         return m_instance;
     }
@@ -28,7 +28,7 @@ public:
     virtual void Free() {}
 
 private:
-    static PlayerWalk* m_instance;
+    static PlayerMove* m_instance;
     float m_fMoveSpeed;
 
 private:

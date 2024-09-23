@@ -272,7 +272,7 @@
     <ClInclude Include="..\Header\PlayerIdle.h">
       <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\PlayerWalk.h">
+    <ClInclude Include="..\Header\PlayerMove.h">
       <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Player.h">
@@ -445,7 +445,7 @@
     <ClCompile Include="..\Code\PlayerIdle.cpp">
       <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\PlayerWalk.cpp">
+    <ClCompile Include="..\Code\PlayerMove.cpp">
       <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Map.cpp">
