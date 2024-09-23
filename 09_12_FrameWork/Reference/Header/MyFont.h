@@ -18,8 +18,9 @@ public:
 							const _uint& iWeight);
 
 	void		Render_Font(const _tchar* pString,
-							const _vec2* pPos,
-							D3DXCOLOR Color);
+							const _vec2* pLTPos,
+							D3DXCOLOR Color,
+							_vec2 pXYPos); //0922
 
 private:
 	LPDIRECT3DDEVICE9  m_pGraphicDev;

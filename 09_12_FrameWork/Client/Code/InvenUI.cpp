@@ -1,8 +1,12 @@
 #include "pch.h"
 #include "../Header/InvenUI.h"
 
+#include "Player.h"
+#include "ItemSelector.h"
+
 CInvenUI::CInvenUI(LPDIRECT3DDEVICE9 pGraphicDev)
     :Engine::CGameObject(pGraphicDev)
+    , m_bCursorCreate(false), m_pItemSelector(nullptr)
 {
 }
 
@@ -14,6 +18,13 @@ HRESULT CInvenUI::Ready_GameObject()
 {
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
+    // 인벤토리 간격
+    m_InvenInterval = { 145.7f, 137.f };
+    // 인벤토리 첫번째 칸 위치
+    m_vInvenPos = { -459.5f, 39.5f, 0.1f };
+    // 인벤토리 초기 선택 필터
+    m_tItemFilter = CItem::EQUIP;
+
     //0913 레이트 레디로 보내야 함 일단 업데이트로 보내놨다
     //m_pPlayer = dynamic_cast<CPlayer*>(Engine::Get_GameObject(L"Layer_GameLogic", L"Player"));
     //NULL_CHECK_RETURN(m_pPlayer, E_FAIL);
@@ -24,15 +35,34 @@ HRESULT CInvenUI::Ready_GameObject()
 
 _int CInvenUI::Update_GameObject(const _float& fTimeDelta)
 {
+
     m_pPlayer = dynamic_cast<CPlayer*>(Engine::Get_GameObject(L"Layer_GameLogic", L"Player"));
     NULL_CHECK_RETURN(m_pPlayer, 0);
 
     _int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
-    Key_Input(fTimeDelta);
+    if (m_pPlayer->GetPlayerInven())
+    {
 
-    Engine::Add_RenderGroup(RENDER_UI, this);
+        Engine::Add_RenderGroup(RENDER_UI, this);
+        Key_Input(fTimeDelta);
 
+        for (auto& pItem : m_ItemList[m_tItemFilter])
+        {
+            if (pItem == nullptr)
+                continue;
+
+            pItem->Update_GameObject(fTimeDelta);
+            pItem->LateUpdate_GameObject(fTimeDelta);
+
+        }
+
+        if (m_pItemSelector)
+        {
+            m_pItemSelector->Update_GameObject(fTimeDelta);
+            m_pItemSelector->LateUpdate_GameObject(fTimeDelta);
+        }
+    }
 
     return iExit;
 }
@@ -51,7 +81,6 @@ void CInvenUI::Render_GameObject()
     {
         _vec2 HpPosition(556.f, 15.f);
 
-        //Engine::Render_Font(L"Font_Ogu", CoinStr, &position, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
         Engine::Render_Font(L"Font_Ogu48", L"인벤토리", &HpPosition, D3DXCOLOR(0.999f, 0.98f, 0.9f, 1.f));
 
         m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom[BACKGROUND]->Get_WorldMatrix());
@@ -67,7 +96,6 @@ void CInvenUI::Render_GameObject()
         m_pBufferCom->Render_Buffer();
 
         // 아이콘에 알파값이 들어가야 함 -> 나중에 해야지 ㅋㅋ
-
         m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom[EQUIP]->Get_WorldMatrix());
         m_pTextureCom[EQUIP]->Set_Texture();
         m_pBufferCom->Render_Buffer();
@@ -87,13 +115,26 @@ void CInvenUI::Render_GameObject()
         m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom[ICONBUTTON]->Get_WorldMatrix());
         m_pTextureCom[ICONBUTTON]->Set_Texture();
         m_pBufferCom->Render_Buffer();
-    }
 
+        // 인벤토리 아이템 출력
+
+        for (auto& pItem : m_ItemList[m_tItemFilter])
+        {
+            if (pItem == nullptr)
+                continue;
+
+            pItem->Render_GameObject();
+        }
+        if (m_pItemSelector)
+        {
+            m_pItemSelector->Render_GameObject();
+        }
+
+    }
 }
 
 HRESULT CInvenUI::Add_Component()
 {
-
     CComponent* pComponent = NULL;
 
     // 렉트텍스쳐
@@ -120,7 +161,7 @@ HRESULT CInvenUI::Add_Component()
     pComponent = m_pTransformCom[DEFAULT] = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformInvenDefault", pComponent });
-    m_pTransformCom[DEFAULT]->m_vInfo[INFO_POS] = { 0.f, 0.f, 0.1f };
+    m_pTransformCom[DEFAULT]->m_vInfo[INFO_POS] = { 0.f, 0.f, 0.2f };
     m_pTransformCom[DEFAULT]->m_vScale = { 640.f, 360.f, 1.f };
 
     //InvenFrame
@@ -131,7 +172,7 @@ HRESULT CInvenUI::Add_Component()
     pComponent = m_pTransformCom[FRAME] = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformInvenFrame", pComponent });
-    m_pTransformCom[FRAME]->m_vInfo[INFO_POS] = { -165.f, -100.f, 0.1f };
+    m_pTransformCom[FRAME]->m_vInfo[INFO_POS] = { -165.f, -100.f, 0.2f };
     m_pTransformCom[FRAME]->m_vScale = { 382.f, 222.f, 1.f };
 
     //InvenIcon-Equip
@@ -142,7 +183,7 @@ HRESULT CInvenUI::Add_Component()
     pComponent = m_pTransformCom[EQUIP] = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformEquipIcon", pComponent });
-    m_pTransformCom[EQUIP]->m_vInfo[INFO_POS] = { -470.f, 157.f, 0.1f };
+    m_pTransformCom[EQUIP]->m_vInfo[INFO_POS] = { -470.f, 157.f, 0.2f };
     m_pTransformCom[EQUIP]->m_vScale = { 38.f, 38.f, 1.f };
 
     //InvenIcon-Consum
@@ -153,7 +194,7 @@ HRESULT CInvenUI::Add_Component()
     pComponent = m_pTransformCom[CONSUM] = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformConsumIcon", pComponent });
-    m_pTransformCom[CONSUM]->m_vInfo[INFO_POS] = { -390.f, 160.f, 0.1f };
+    m_pTransformCom[CONSUM]->m_vInfo[INFO_POS] = { -390.f, 160.f, 0.2f };
     m_pTransformCom[CONSUM]->m_vScale = { 40.f, 40.f, 1.f };
 
     //InvenIcon-Other
@@ -164,7 +205,7 @@ HRESULT CInvenUI::Add_Component()
     pComponent = m_pTransformCom[OTHER] = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformOtherIcon", pComponent });
-    m_pTransformCom[OTHER]->m_vInfo[INFO_POS] = { -310.f, 161.f, 0.1f };
+    m_pTransformCom[OTHER]->m_vInfo[INFO_POS] = { -310.f, 161.f, 0.2f };
     m_pTransformCom[OTHER]->m_vScale = { 40.f, 40.f, 1.f };
 
     //InvenIcon-Other
@@ -175,7 +216,7 @@ HRESULT CInvenUI::Add_Component()
     pComponent = m_pTransformCom[QUEST] = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformQuestIcon", pComponent });
-    m_pTransformCom[QUEST]->m_vInfo[INFO_POS] = { -230.f, 162.f, 0.1f };
+    m_pTransformCom[QUEST]->m_vInfo[INFO_POS] = { -230.f, 162.f, 0.2f };
     m_pTransformCom[QUEST]->m_vScale = { 40.f, 40.f, 1.f };
 
     //ICONBUTTON
@@ -186,7 +227,7 @@ HRESULT CInvenUI::Add_Component()
     pComponent = m_pTransformCom[ICONBUTTON] = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformIconButton", pComponent });
-    m_pTransformCom[ICONBUTTON]->m_vInfo[INFO_POS] = { -351.f, 162.f, 0.1f };
+    m_pTransformCom[ICONBUTTON]->m_vInfo[INFO_POS] = { -351.f, 162.f, 0.2f };
     m_pTransformCom[ICONBUTTON]->m_vScale = { 190.f, 16.f, 1.f };
 
     return S_OK;
@@ -194,21 +235,26 @@ HRESULT CInvenUI::Add_Component()
 
 void CInvenUI::Key_Input(const _float& fTimeDelta)
 {
-    if (GetAsyncKeyState(VK_UP))
+    if (Engine::GetKeyDown(DIK_UP))
     {
     }
-    if (GetAsyncKeyState(VK_DOWN))
+    if (Engine::GetKeyDown(DIK_DOWN))
+    {
+        if (m_bCursorCreate == false)
+        {
+            m_bCursorCreate = true;
+            m_pItemSelector = dynamic_cast<CItemSelector*>(CItemSelector::Create(m_pGraphicDev));
+        }
+    }
+    if (Engine::GetKeyDown(DIK_LEFT))
     {
     }
-    if (GetAsyncKeyState(VK_LEFT))
+    if (Engine::GetKeyDown(DIK_RIGHT))
     {
     }
-    if (GetAsyncKeyState(VK_RIGHT))
+    if (Engine::GetKeyDown(DIK_F))
     {
-    }
-    if (GetAsyncKeyState('D'))
-    {
-      //  m_pPlayer->SetPlayerInvenVisible(false);
+        m_tItemFilter = CItem::CONSUM;
     }
 
 }

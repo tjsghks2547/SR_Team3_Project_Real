@@ -159,10 +159,13 @@
     <ClInclude Include="..\Header\CrystalPuzzle.h" />
     <ClInclude Include="..\Header\Define.h" />
     <ClInclude Include="..\Header\DynamicCamera.h" />
+    <ClInclude Include="..\Header\ExploreHat.h" />
     <ClInclude Include="..\Header\ImGuiManger.h" />
     <ClInclude Include="..\Header\Imgui_ObjectTool.h" />
     <ClInclude Include="..\Header\Imgui_Terrain.h" />
     <ClInclude Include="..\Header\InvenUI.h" />
+    <ClInclude Include="..\Header\Item.h" />
+    <ClInclude Include="..\Header\ItemSelector.h" />
     <ClInclude Include="..\Header\Loading.h" />
     <ClInclude Include="..\Header\Logo.h" />
     <ClInclude Include="..\Header\MainApp.h" />
@@ -215,10 +218,12 @@
     <ClCompile Include="..\Code\Crystal.cpp" />
     <ClCompile Include="..\Code\CrystalPuzzle.cpp" />
     <ClCompile Include="..\Code\DynamicCamera.cpp" />
+    <ClCompile Include="..\Code\ExploreHat.cpp" />
     <ClCompile Include="..\Code\ImGuiManger.cpp" />
     <ClCompile Include="..\Code\Imgui_ObjectTool.cpp" />
     <ClCompile Include="..\Code\Imgui_Terrain.cpp" />
     <ClCompile Include="..\Code\InvenUI.cpp" />
+    <ClCompile Include="..\Code\Item.cpp" />
     <ClCompile Include="..\Code\Loading.cpp" />
     <ClCompile Include="..\Code\Logo.cpp" />
     <ClCompile Include="..\Code\MainApp.cpp" />
@@ -244,6 +249,7 @@
     <ClCompile Include="..\Code\Terrain.cpp" />
     <ClCompile Include="..\Code\TestMap.cpp" />
     <ClCompile Include="..\Code\DefaultUI.cpp" />
+    <ClCompile Include="..\Header\ItemSelector.cpp" />
     <ClCompile Include="FramePractice.cpp" />
     <ClCompile Include="imgui.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>

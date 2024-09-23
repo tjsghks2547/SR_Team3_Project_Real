@@ -177,6 +177,15 @@
     <Filter Include="02. GameObject\09. Puzzle\Monkey Statue\Stone Block Hole">
       <UniqueIdentifier>{663197a3-1e03-44e7-9742-eae790fadecd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\10. Item">
+      <UniqueIdentifier>{d0229c07-c918-42ec-ad5f-6e2bed385f19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\10. Item\00. Hat">
+      <UniqueIdentifier>{c9998b2f-a203-421a-9732-dcd959fafd07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\10. Item\99. ItemSelector">
+      <UniqueIdentifier>{d0cc4468-d2a0-4047-922b-cc565ef445b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -350,6 +359,15 @@
     <ClInclude Include="..\Header\BoardCursor.h">
       <Filter>02. GameObject\09. Puzzle\PipeGame\Cursor</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Item.h">
+      <Filter>02. GameObject\10. Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ExploreHat.h">
+      <Filter>02. GameObject\10. Item\00. Hat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ItemSelector.h">
+      <Filter>02. GameObject\10. Item\99. ItemSelector</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FramePractice.cpp">
@@ -513,6 +531,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\BoardCursor.cpp">
       <Filter>02. GameObject\09. Puzzle\PipeGame\Cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Item.cpp">
+      <Filter>02. GameObject\10. Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ExploreHat.cpp">
+      <Filter>02. GameObject\10. Item\00. Hat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Header\ItemSelector.cpp">
+      <Filter>02. GameObject\10. Item\99. ItemSelector</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
