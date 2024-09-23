@@ -57,6 +57,10 @@ public:
 	float Rotation_y;
 	float Rotation_z;
 
+	float Scale_x;
+	float Scale_y;
+	float Scale_z;
+
 public:
 	static CTransform* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	virtual CComponent* Clone();

@@ -44,12 +44,6 @@ public:
 		return (m_byPrevKeyState[byKeyID] & 0x80) != 0 &&
 			(m_byCurrKeyState[byKeyID] & 0x80) == 0;
 	}
-
-	_bool GetKeyPress(_ubyte byKeyID)
-	{
-		return (m_byPrevKeyState[byKeyID] & 0x80) != 0 &&
-			(m_byCurrKeyState[byKeyID] & 0x80) != 0;
-	}
 public:
 	HRESULT Ready_InputDev(HINSTANCE hInst, HWND hWnd);
 	void    Update_InputDev(void);

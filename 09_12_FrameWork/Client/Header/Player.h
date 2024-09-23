@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "PlayerIdle.h"
-#include "PlayerMove.h"
+#include "PlayerWalk.h"
 #include "Export_Utility.h"
 BEGIN(Engine)
 
@@ -38,18 +38,13 @@ public:
 	void			SetPlayerState(PLAYERSTATE _ePlayerState)
 	{
 		m_ePlayerState = _ePlayerState;
-		/*if (m_bIsDiagonal)
-			m_ePlayerState = static_cast<PLAYERSTATE>(m_ePlayerState + 1);*/
-		m_pAnimationCom->SetAnimFrame(m_ePlayerState);
 	}
 
-	OBJ_DIRECTION	GetPlayerDirection() { return m_ePlayerDir; }
-	void			SetPlayerDirection();
-	bool			GetPlayerDiagonal() { return m_bIsDiagonal; }
 	//0913 임시 코드
 	_int			GetPlayerCoin() { return m_iPlayerCoin; }
 	PLAYERHP		GetPlayerHP() { return m_tPlayerHP; }
 	_bool			GetPlayerInven() { return m_bInven; }
+	void			SetPlayerInvenVisible(_bool bInven) { m_bInven = bInven; }
 
 
 private:
@@ -62,20 +57,13 @@ private:
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTransform* m_pTransformCom;
 	Engine::CTexture* m_pTextureCom;
-	Engine::CAnimation* m_pAnimationCom;
 	Engine::CCamera* m_pCamera;
 	Engine::CCalculator* m_pCCalculatorCom;
 	Engine::CStateController* m_pStateControlCom;
 
 	float m_fMoveSpeed;
 	PLAYERSTATE m_ePlayerState;
-	OBJ_DIRECTION m_ePlayerDir;
-	bool m_bIsDiagonal;
 
-	_vec3 m_vPlayerCurrPos;
-	_vec3 m_vPlayerPrevPos;
-	_vec3 m_vPlayerDir;
-	int	  m_iPlayerDir;
 
 	//0913 임시 코드
 	_int		m_iPlayerCoin;

@@ -1,39 +1,30 @@
 #include "pch.h"
-#include "PlayerMove.h"
+#include "PlayerWalk.h"
 #include "Player.h"
 
-PlayerMove* PlayerMove::m_instance = nullptr;
+PlayerWalk* PlayerWalk::m_instance = nullptr;
 
-void PlayerMove::Enter()
+void PlayerWalk::Enter()
 {
-    (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(PLAYERSTATE::PLY_MOVE);
+	(dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(PLAYERSTATE::PLY_WALK);
+	if (!m_pStateController)
+		SetComponent();
 
-    if (!m_pStateController)
-        SetComponent();
-
-    m_fMoveSpeed = 5.f;
-
+    m_fMoveSpeed = 51.f;
 }
 
-void PlayerMove::Update(const _float& fTimeDelta)
+void PlayerWalk::Update(const _float& fTimeDelta)
 {
-    if (!Engine::GetKeyPress(DIK_UP) &&
-        !Engine::GetKeyPress(DIK_DOWN) &&
-        !Engine::GetKeyPress(DIK_LEFT) &&
-        !Engine::GetKeyPress(DIK_RIGHT))
-    {
+    if (GetAsyncKeyState(VK_UP))
         m_pStateController->ChangeState(PlayerIdle::GetInstance(), m_CGameObject);
-    }
-
-    Key_Input(fTimeDelta);
 }
 
-void PlayerMove::Exit()
+void PlayerWalk::Exit()
 {
-
+	
 }
 
-void PlayerMove::Key_Input(const _float& fTimeDelta)
+void PlayerWalk::Key_Input(const _float& fTimeDelta)
 {
 
     _vec3  vLook;
@@ -42,30 +33,28 @@ void PlayerMove::Key_Input(const _float& fTimeDelta)
     m_pTransformCom->Get_Info(INFO_LOOK, &vLook);
     m_pTransformCom->Get_Info(INFO_RIGHT, &vRight);
 
-
-    if (Engine::GetKeyPress(DIK_UP))
+    if (GetAsyncKeyState(VK_UP))
     {
         m_pTransformCom->Move_Pos(
             D3DXVec3Normalize(&vLook, &vLook), fTimeDelta, m_fMoveSpeed);
     }
 
-
-    if (Engine::GetKeyPress(DIK_DOWN))
+    if (GetAsyncKeyState(VK_DOWN))
     {
         m_pTransformCom->Move_Pos(D3DXVec3Normalize(
             &vLook, &vLook), fTimeDelta, -m_fMoveSpeed);
     }
 
-
-    if (Engine::GetKeyPress(DIK_LEFT))
+    if (GetAsyncKeyState(VK_LEFT))
     {
+        // m_pTransformCom->Rotation(ROT_Y, D3DXToRadian(-180.f * fTimeDelta));
         m_pTransformCom->Move_Pos(D3DXVec3Normalize(
             &vRight, &vRight), fTimeDelta, -m_fMoveSpeed);
     }
 
-
-    if (Engine::GetKeyPress(DIK_RIGHT))
+    if (GetAsyncKeyState(VK_RIGHT))
     {
+        //  m_pTransformCom->Rotation(ROT_Y, D3DXToRadian(180.f * fTimeDelta));
         m_pTransformCom->Move_Pos(D3DXVec3Normalize(
             &vRight, &vRight), fTimeDelta, m_fMoveSpeed);
     }

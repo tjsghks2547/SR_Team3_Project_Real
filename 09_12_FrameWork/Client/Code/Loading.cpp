@@ -79,7 +79,7 @@ _uint CLoading::Loading_Stage()
 	//TEST 높이 맵 
 	//FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_TerrainHeightTexture", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Terrain/Height2.bmp", TEX_NORMAL)), E_FAIL);
 
-	Loading_AnimData();
+
 
 
 	lstrcpy(m_szLoading, L"Loading Complete!!");
@@ -87,112 +87,6 @@ _uint CLoading::Loading_Stage()
 	m_bFinish = true; 
 
 	return 0; 
-}
-
-_uint CLoading::Loading_AnimData()
-{
-	const TCHAR* pGetPath = L"../Bin/Resource/Texture/Ogu_Move_Motion/Animation.dat";
-	HANDLE hFile = CreateFile(pGetPath, GENERIC_READ, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
-
-	DWORD	dwByte(0);
-	DWORD	dwStrByte(0);
-
-	TCHAR* pObjectName;
-	TCHAR* pImgFilePath;
-	TCHAR* pImgFileName;
-
-	TCHAR* pAnimationName;
-
-	int imageSizeX, imageSizeY;
-
-	list<TCHAR*> imgPathList;
-	vector<_vec2> animFrameCount;
-	vector<vector<int>*> animFramePlayList;
-
-	while (true)
-	{
-		// Player
-		ReadFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);
-		pObjectName = new TCHAR[dwStrByte / 2];
-		ReadFile(hFile, pObjectName, dwStrByte, &dwByte, nullptr);
-
-		int animCount = 0;
-		ReadFile(hFile, &animCount, sizeof(int), &dwByte, nullptr);
-
-		for (int i = 0; i < animCount; i++)
-		{
-			// png 주소
-			ReadFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);
-			pImgFileName = new TCHAR[dwStrByte / 2];
-			ReadFile(hFile, pImgFileName, dwStrByte, &dwByte, nullptr);
-
-			ReadFile(hFile, &imageSizeX, sizeof(int), &dwByte, nullptr);
-			ReadFile(hFile, &imageSizeY, sizeof(int), &dwByte, nullptr);
-
-			// Idle
-			ReadFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);
-			pAnimationName = new TCHAR[dwStrByte / 2];
-			ReadFile(hFile, pAnimationName, dwStrByte, &dwByte, nullptr);
-
-			// 가로세로 이미지 개수
-			int frameCountX, frameCountY;
-			ReadFile(hFile, &frameCountX, sizeof(int), &dwByte, nullptr);
-			ReadFile(hFile, &frameCountY, sizeof(int), &dwByte, nullptr);
-
-			// 5방향
-			vector<int>* framePlayList = new vector<int>[5];
-			for (int j = 0; j < 5; j++)
-			{
-				int frameCount = 0;
-				ReadFile(hFile, &frameCount, sizeof(int), &dwByte, nullptr);
-
-				int readFrame = 0;
-				for (int k = 0; k < frameCount; k++)
-				{
-					ReadFile(hFile, &readFrame, sizeof(int), &dwByte, nullptr);
-					framePlayList[j].push_back(readFrame);
-				}
-			}
-
-			pImgFilePath = new TCHAR[256];
-			lstrcpy(pImgFilePath, L"../Bin/Resource/Texture/Ogu_Move_Motion/");
-			lstrcat(pImgFilePath, pImgFileName);
-			imgPathList.push_back(pImgFilePath);
-			animFrameCount.push_back(_vec2(frameCountX, frameCountY));
-			animFramePlayList.push_back(framePlayList);
-		}
-
-		TCHAR* pProtoName = new TCHAR[128];
-		lstrcpy(pProtoName, L"Proto_");
-		lstrcat(pProtoName, pObjectName); // Proto_Player
-
-		///////////////////////////////////////////////////////////////////////
-
-		TCHAR* pProtoTextureName = new TCHAR[128];
-		lstrcpy(pProtoTextureName, pProtoName);
-		lstrcat(pProtoTextureName, L"Texture"); // Proto_PlayerTexture
-
-		FAILED_CHECK_RETURN(Engine::Ready_Proto(pProtoTextureName,
-			Engine::CTexture::Create(m_pGraphicDev, imgPathList)), E_FAIL);
-
-		////////////////////////////////////////////////////////////////////////
-
-		TCHAR* pProtoAnimName = new TCHAR[128];
-		lstrcpy(pProtoAnimName, pProtoName);
-		lstrcat(pProtoAnimName, L"Anim");      // Proto_PlayerAnim
-
-		FAILED_CHECK_RETURN(Engine::Ready_Proto(pProtoAnimName,
-			Engine::CAnimation::Create(m_pGraphicDev, animFrameCount, animFramePlayList)), E_FAIL);
-		/*if (0 == dwByte)
-		{
-			delete[]pName;
-			break;
-		}*/
-		break;
-	}
-
-	CloseHandle(hFile);
-	return 0;
 }
 
 unsigned int __stdcall CLoading::Thread_Main(void* pArg)

@@ -89,12 +89,23 @@ void CImgui_ObjectTool::init()
 	char filePath[256];
 	sprintf_s(filePath, "../Bin/Resource/Texture/wall.png");
 
+	char filePath1[256];
+	sprintf_s(filePath1, "../Bin/Resource/Texture/Tutorial_Super.png");
+
 	// 여기서 오류남 
 	HRESULT hr = LoadTextureFromFile(CGraphicDev::GetInstance()->Get_GraphicDev(), filePath, &m_vecObjectTexture[0]);
 	if (FAILED(hr))
 	{
 		MSG_BOX("Object Texutr load Failed");
+	}	
+
+	hr = LoadTextureFromFile(CGraphicDev::GetInstance()->Get_GraphicDev(), filePath1, &m_vecObjectTexture[1]);
+	if (FAILED(hr))
+	{
+		MSG_BOX("Object Texutr load Failed");	
 	}
+
+
 
 }
 
@@ -221,6 +232,18 @@ void CImgui_ObjectTool::ShowObjectWindow()
 
 		}
 
+		if (ImGui::ImageButton("Super", m_vecObjectTexture[1], imageSize))	
+		{
+
+			//여기가 문제내 
+			m_sCurTextureData = L"Super";
+			m_sCurTextureKey = L"Super";
+			m_strCurObjectName = L"Super";
+
+		}
+
+
+
 		//일단 오브젝트 생성해보기 
 		ImGui::End();
 
@@ -311,7 +334,7 @@ void CImgui_ObjectTool::ShowInstalledObjectWindow()
 						//{
 						//	
 						//}m_pPreObjectTransform != m_pCurObjectTransform
-						if (m_pPreObjectTransform != m_pCurObjectTransform)
+						if (m_pPreObjectTransform != m_pCurObjectTransform)	
 						{
 							floatRotationArray[0] = m_pCurObjectTransform->Rotation_x;
 							floatRotationArray[1] = m_pCurObjectTransform->Rotation_y;
@@ -321,7 +344,7 @@ void CImgui_ObjectTool::ShowInstalledObjectWindow()
 							prevRotationArray[1] = m_pCurObjectTransform->Rotation_y;
 							prevRotationArray[2] = m_pCurObjectTransform->Rotation_z;
 
-							m_pPreObjectTransform = m_pCurObjectTransform;
+							
 						}
 						//static float floatRotationArray[3] = { 0.f,0.f,0.f };
 						//static float prevRotationArray[3] = { 0.f, 0.f, 0.f }; // 이전 회전값 저장용
@@ -368,18 +391,21 @@ void CImgui_ObjectTool::ShowInstalledObjectWindow()
 						ImGui::Text(u8"크기");
 						if (m_pPreObjectTransform != m_pCurObjectTransform)
 						{
-							floatScaleArray[0] = m_pCurObjectTransform->Get_WorldMatrix()->_11;
-							floatScaleArray[1] = m_pCurObjectTransform->Get_WorldMatrix()->_22;
-							floatScaleArray[2] = m_pCurObjectTransform->Get_WorldMatrix()->_33;
+							floatScaleArray[0] = m_pCurObjectTransform->Scale_x;
+							floatScaleArray[1] = m_pCurObjectTransform->Scale_y;
+							floatScaleArray[2] = m_pCurObjectTransform->Scale_z;
 
-							prevScaleArray[0] = m_pCurObjectTransform->Get_WorldMatrix()->_11;
-							prevScaleArray[1] = m_pCurObjectTransform->Get_WorldMatrix()->_22;
-							prevScaleArray[2] = m_pCurObjectTransform->Get_WorldMatrix()->_33;
+							prevScaleArray[0] = m_pCurObjectTransform->Scale_x;
+							prevScaleArray[1] = m_pCurObjectTransform->Scale_y;
+							prevScaleArray[2] = m_pCurObjectTransform->Scale_z;
 
 							m_pPreObjectTransform = m_pCurObjectTransform;
 						}
 						//static float floatScaleArray[3] = { 1.f,1.f,1.f };
 						//static float prevScaleArray[3] = { 1.f, 1.f, 1.f }; // 이전 크기값 저장용
+
+
+
 
 						ImGui::SliderFloat3("##1", floatScaleArray, 0.f, 100.f);
 
@@ -389,8 +415,8 @@ void CImgui_ObjectTool::ShowInstalledObjectWindow()
 							m_pCurObjectTransform->m_vScale = { -prevScaleArray[0], floatScaleArray[1], floatScaleArray[2] };
 							m_pCurObjectTransform->m_vScale = { floatScaleArray[0], floatScaleArray[1], floatScaleArray[2] };
 
-							//m_pCurObjectTransform->Rotation_x = floatRotationArray[0];
-							//m_pCurObjectTransform->Get_WorldMatrix()->_11 = floatScaleArray[0];
+							
+							m_pCurObjectTransform->Scale_x = floatScaleArray[0];
 							prevScaleArray[0] = floatScaleArray[0];
 						}
 
@@ -400,6 +426,7 @@ void CImgui_ObjectTool::ShowInstalledObjectWindow()
 							m_pCurObjectTransform->m_vScale = { floatScaleArray[0], -prevScaleArray[1], floatScaleArray[2] };
 							m_pCurObjectTransform->m_vScale = { floatScaleArray[0], floatScaleArray[1], floatScaleArray[2] };
 
+							m_pCurObjectTransform->Scale_y = floatScaleArray[1];
 							prevScaleArray[1] = floatScaleArray[1];
 						}
 
@@ -410,6 +437,7 @@ void CImgui_ObjectTool::ShowInstalledObjectWindow()
 							m_pCurObjectTransform->m_vScale = { floatScaleArray[0], floatScaleArray[1], -prevScaleArray[1] };
 							m_pCurObjectTransform->m_vScale = { floatScaleArray[0], floatScaleArray[1], floatScaleArray[2] };
 
+							m_pCurObjectTransform->Scale_z = floatScaleArray[2];
 							prevScaleArray[2] = floatScaleArray[2];
 						}
 
@@ -554,9 +582,8 @@ void CImgui_ObjectTool::Save()
 				
 				for(auto iter2 = pMapObject.begin(); iter2 != pMapObject.end(); ++iter2)
 				{
-					wstring TextureInfo = iter2->second->GetTextureKey();
+					wstring TextureInfo = iter2->second->GetObjectKey();
 					DWORD bytesToWrite = 100;
-					//DWORD bytesToWrite = sizeof(wstring);
 					DWORD bytesWritten = 0;	
 					//
 					if (!WriteFile(hFile, TextureInfo.c_str(), bytesToWrite, &bytesWritten, NULL))
@@ -564,6 +591,19 @@ void CImgui_ObjectTool::Save()
 						MSG_BOX("FAILED TO WRITE TO TextureKey TO FILE");	
 						CloseHandle(hFile);	
 					}
+
+					//Texture 키 
+					TextureInfo = iter2->second->GetTextureKey();
+					bytesToWrite = 100;
+					bytesWritten = 0;
+
+					if (!WriteFile(hFile, TextureInfo.c_str(), bytesToWrite, &bytesWritten, NULL))
+					{
+						MSG_BOX("FAILED TO WRITE TO TextureKey TO FILE");
+						CloseHandle(hFile);
+					}
+
+					
 					
 					wstring ObjectName = iter2->second->GetObjectKey();
 					CTransform* pTransform =  dynamic_cast<CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_GameLogic", ObjectName.c_str(), L"Com_Transform"));
@@ -578,6 +618,35 @@ void CImgui_ObjectTool::Save()
 						MSG_BOX("FAILED TO WRITE TO MATRIX TO FILE");
 						CloseHandle(hFile);
 					}
+
+					D3DXVECTOR3 vec3;
+					vec3 = { pTransform->Rotation_x,pTransform->Rotation_y,pTransform->Rotation_z };
+
+					bytesToWrite = sizeof(D3DXVECTOR3);
+					bytesWritten = 0;
+
+					if(!WriteFile(hFile,vec3,bytesToWrite, &bytesWritten,NULL))
+					{
+						MSG_BOX("FAILED TO WRITE TO ROTATION TO FILE");
+						CloseHandle(hFile);	
+					}
+
+
+					vec3 = { pTransform->Scale_x,pTransform->Scale_y,pTransform->Scale_z };	
+
+					bytesToWrite = sizeof(D3DXVECTOR3);	
+					bytesWritten = 0;	
+
+					if (!WriteFile(hFile, vec3, bytesToWrite, &bytesWritten, NULL))	
+					{
+						MSG_BOX("FAILED TO WRITE TO ROTATION TO FILE");	
+						CloseHandle(hFile);	
+					}
+
+					int a = 4;
+					
+
+				
 				}
 			}
 		}

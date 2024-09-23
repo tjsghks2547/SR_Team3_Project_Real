@@ -21,6 +21,7 @@ HRESULT CObject::Ready_GameObject()
 	m_vecTexture.resize(100);
 	//Wall ³ÖÀº°÷
 	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/wall.png", &m_vecTexture[0]);
+	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/Tutorial_Super.png", &m_vecTexture[1]);
 
 	return S_OK;
 }
@@ -51,6 +52,13 @@ void CObject::Render_GameObject()
 	{
 		//auto iter = find_if(m_mapTexture.begin(), m_mapTexture.end(),);
 		m_pGraphicDev->SetTexture(0, m_vecTexture[0]);
+
+	}
+
+	if (m_strTextureKey == L"Super")
+	{
+		//auto iter = find_if(m_mapTexture.begin(), m_mapTexture.end(),);
+		m_pGraphicDev->SetTexture(0, m_vecTexture[1]);
 
 	}
 

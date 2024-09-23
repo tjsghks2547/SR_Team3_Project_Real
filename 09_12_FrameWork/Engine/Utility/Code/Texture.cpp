@@ -15,11 +15,6 @@ CTexture::CTexture(const CTexture& rhs)
 
     for (_uint i = 0; i < iSize; ++i)
         m_vecTexture[i]->AddRef();
-
-    iSize = rhs.m_vecPath.size();
-    m_vecPath.reserve(iSize);
-
-    m_vecPath = rhs.m_vecPath;
 }
 
 CTexture::~CTexture()
@@ -30,9 +25,9 @@ HRESULT CTexture::Ready_Texture(const _tchar* pPath, TEXTUREID eType, const int&
 {
     m_vecTexture.reserve(iCnt);
 
-    IDirect3DBaseTexture9* pTexture = NULL;
+    IDirect3DBaseTexture9* pTexture = NULL; 
 
-    for (_int i = 0; i < iCnt; ++i)
+    for (_int i =0; i< iCnt; ++i)
     {
         TCHAR  szFileName[128] = L"";
 
@@ -48,26 +43,6 @@ HRESULT CTexture::Ready_Texture(const _tchar* pPath, TEXTUREID eType, const int&
             break;
         }
 
-        m_vecPath.push_back(szFileName);
-        m_vecTexture.push_back(pTexture);
-    }
-
-    return S_OK;
-}
-
-HRESULT CTexture::Ready_Texture(const list<_tchar*> pPathList)
-{
-    m_vecTexture.reserve(pPathList.size());
-
-    IDirect3DBaseTexture9* pTexture = NULL;
-
-    for (auto iter : pPathList)
-    {
-        FAILED_CHECK_RETURN(
-            D3DXCreateTextureFromFile(m_pGraphicDev, iter,
-                (LPDIRECT3DTEXTURE9*)&pTexture), E_FAIL);
-
-        m_vecPath.push_back(iter);
         m_vecTexture.push_back(pTexture);
     }
 
@@ -79,7 +54,6 @@ void CTexture::Set_Texture(const _uint& iIndex)
     if (m_vecTexture.size() < iIndex)
         return;
 
-    m_szNowPath = m_vecPath[iIndex];
     m_pGraphicDev->SetTexture(0, m_vecTexture[iIndex]);
 }
 
@@ -88,20 +62,6 @@ CTexture* CTexture::Create(LPDIRECT3DDEVICE9 pGraphicDev, const _tchar* pPath, T
     CTexture* pTexture = new CTexture(pGraphicDev);
 
     if (FAILED(pTexture->Ready_Texture(pPath, eType, iCnt)))
-    {
-        Safe_Release(pTexture);
-        MSG_BOX("Texture Create Failed");
-        return nullptr;
-    }
-
-    return pTexture;
-}
-
-CTexture* CTexture::Create(LPDIRECT3DDEVICE9 pGraphicDev, const list<_tchar*> pPathList)
-{
-    CTexture* pTexture = new CTexture(pGraphicDev);
-
-    if (FAILED(pTexture->Ready_Texture(pPathList)))
     {
         Safe_Release(pTexture);
         MSG_BOX("Texture Create Failed");

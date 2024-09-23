@@ -29,7 +29,6 @@ public:
 public:
 	HRESULT   Ready_Loading(LOADINGID eLoading);
 	_uint     Loading_Stage();
-	_uint	  Loading_AnimData();
 
 public:
 	static unsigned int __stdcall Thread_Main(void* pArg);

@@ -197,64 +197,117 @@ void CStage::init()
 {
 	Engine::CLayer* pLayer = CLayer::Create();	
 	
-
-	HANDLE hFile = CreateFile(L"../Map/hi4.txt", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	DWORD bytesRead = 1; 
+	HANDLE hFile = CreateFile(L"../Map/final.txt", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
-		wstring	teststring = L"";
-		WCHAR buffer[256] = {0};		
-		DWORD bytesRead = 100;
-		
-		
-		if (!ReadFile(hFile, buffer, 100, &bytesRead, NULL))	
+		while (bytesRead > 0)
 		{
-			MSG_BOX("FAILED TO READ TextrueKey");
-			CloseHandle(hFile);
+			//wstring ObjectName = L"";
+			//WCHAR* buffer = new WCHAR[256];
+			WCHAR buffer[256] = { 0 };	
+			bytesRead = 100;
+
+			//오브젝트키 (오브젝트 이름)
+			if (!ReadFile(hFile, buffer, 100, &bytesRead, NULL))
+			{
+				MSG_BOX("FAILED TO READ TextrueKey");
+				CloseHandle(hFile);
+			}
+			
+			wstring* pObjectName = new wstring;
+			*pObjectName = buffer;
+		
+			
+
+
+
+			//wstring TextureName = L"";
+			//WCHAR* buffer2 = new WCHAR[256];
+			WCHAR buffer2[256] = { 0 };	
+			bytesRead = 100;
+
+			//텍스처키 (텍스처 이름)
+			if (!ReadFile(hFile, buffer2, 100, &bytesRead, NULL))
+			{
+				MSG_BOX("FAILED TO READ TextrueKey");
+				CloseHandle(hFile);
+			}
+
+			wstring* pTextureWstring = new wstring;
+			*pTextureWstring = buffer2;
+
+			
+
+
+			int a = 4;
+
+
+			D3DXMATRIX worldmatrix;
+			bytesRead = 0;
+
+			if (!ReadFile(hFile, worldmatrix, sizeof(D3DXMATRIX), &bytesRead, NULL))
+			{
+				MSG_BOX("FAILED TO READ WORLDMAXTIRX");
+				CloseHandle(hFile);
+			}
+
+			D3DXVECTOR3 Rotation_vec3;
+			bytesRead = 0;
+
+			if (!ReadFile(hFile, Rotation_vec3, sizeof(D3DXVECTOR3), &bytesRead, NULL))
+			{
+				MSG_BOX("FAILED TO READ D3DXVECTOR3 INFO");
+				CloseHandle(hFile);
+			}
+
+			D3DXVECTOR3 Sclae_vec3;
+			bytesRead = 0;
+
+			if (!ReadFile(hFile, Sclae_vec3, sizeof(D3DXVECTOR3), &bytesRead, NULL))
+			{
+				MSG_BOX("FAILED TO READ D3DXVECTOR3 INFO");
+				CloseHandle(hFile);
+			}
+
+
+			Engine::CGameObject* pGameObject = nullptr;
+
+			pGameObject = CObject::Create(CGraphicDev::GetInstance()->Get_GraphicDev());
+			if (pGameObject == nullptr)
+			{
+				MSG_BOX("CObject nullptr Error");
+			}
+
+			
+
+			pGameObject->SetTextureKey((*pTextureWstring).c_str());
+
+			//  지금 신이 변경이 안돼서 startScene을 가져와서 문제 발생 
+
+
+
+			map<const _tchar*, CLayer*>& pMapLayer = Engine::Get_CurScenePtr()->GetLayerMapPtr();
+			pMapLayer[L"Layer_GameLogic"]->Add_GameObject((*pObjectName).c_str(), pGameObject);
+
+
+			// 왜 못찾는거지?;;; 아 시발 아직도 신이 안바뀐거였음  이거 찾는 기준이 현재신기준이였음.
+			CTransform* pTransform = dynamic_cast<CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_GameLogic", (*pObjectName).c_str(), L"Com_Transform"));
+			//pTransform->ForGetWorldMaxtrix() = worldmatrix;
+
+
+
+			////회전값만 이제 넣어주면 됨 ( 크기 -> 자전 -> 이동 ) 순서로  아 시발 병신같이 월드매트릭스를 넣어줫네;;
+			// 월드매트릭스에 넣기 전의 크기값을 넣어줘야하네 
+			pTransform->m_vScale = { Sclae_vec3.x,Sclae_vec3.y,Sclae_vec3.z };
+			pTransform->Rotation(ROT_X, Rotation_vec3.x * 3.14f / 180.f);
+			pTransform->Rotation(ROT_Y, Rotation_vec3.y * 3.14f / 180.f);
+			pTransform->Rotation(ROT_Z, Rotation_vec3.z * 3.14f / 180.f);
+			pTransform->Set_Pos(worldmatrix._41, worldmatrix._42, worldmatrix._43);
+
+			//pTransform->m_vAngle = vec3;
+			//D3DXMatrixRotationX(&matRot[ROT_X], m_vAngle.x);
 		}
-
-
-		teststring = buffer; 
-
-		
-		int a = 4; 
-
-		
-		D3DXMATRIX worldmatrix;	
-		bytesRead = 0;	
-		
-		if (!ReadFile(hFile, worldmatrix, sizeof(D3DXMATRIX), &bytesRead, NULL))	
-		{
-			MSG_BOX("FAILED TO READ WORLDMAXTIRX");	
-			CloseHandle(hFile);	
-		}
-		
-		
-		Engine::CGameObject* pGameObject = nullptr;	
-		
-		pGameObject = CObject::Create(CGraphicDev::GetInstance()->Get_GraphicDev());	
-		if (pGameObject == nullptr)
-		{
-			MSG_BOX("CObject nullptr Error");
-		}
-	
-		pGameObject->SetTextureKey(teststring.c_str());
-	
-		//  지금 신이 변경이 안돼서 startScene을 가져와서 문제 발생 
-	
-	
-	
-		map<const _tchar*, CLayer*>& pMapLayer = Engine::Get_CurScenePtr()->GetLayerMapPtr();	
-		pMapLayer[L"Layer_GameLogic"]->Add_GameObject(teststring.c_str(), pGameObject);
-		
-		
-		// 왜 못찾는거지?;;; 아 시발 아직도 신이 안바뀐거였음  이거 찾는 기준이 현재신기준이였음.
-		CTransform* pTransform = dynamic_cast<CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_GameLogic", teststring.c_str(), L"Com_Transform"));
-		pTransform->ForGetWorldMaxtrix() = worldmatrix;
-		
-		pTransform->m_vInfo[INFO_POS] = { worldmatrix._41,worldmatrix._42,worldmatrix._43 };
-		
-
-
 		CloseHandle(hFile);
 	}
 }
