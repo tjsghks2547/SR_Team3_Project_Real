@@ -36,6 +36,14 @@ HRESULT CScene::Ready_Scene()
 	return S_OK;
 }
 
+void CScene::LateReady_Scene()
+{
+	for (auto& pLayer : m_mapLayer)
+	{
+		pLayer.second->LateReady_Layer();
+	}
+}
+
 _int CScene::Update_Scene(const _float& fTimeDelta)
 {
 	_int  iResult(0);

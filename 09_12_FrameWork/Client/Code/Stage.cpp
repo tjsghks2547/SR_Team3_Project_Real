@@ -401,6 +401,7 @@ CStage* CStage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 		return nullptr;
 	}
 
+	pStage->LateReady_Scene();
 	return pStage;
 }
 

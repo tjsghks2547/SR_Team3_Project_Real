@@ -42,6 +42,14 @@ HRESULT CLayer::Ready_Layer()
 	return S_OK;
 }
 
+void CLayer::LateReady_Layer()
+{
+	for (auto& pObj : m_mapObejct)
+	{
+		pObj.second->LateReady_GameObject();
+	}
+}
+
 _int CLayer::Update_Layer(const _float& fTimeDelta)
 {
 	_int  iResult(0);
