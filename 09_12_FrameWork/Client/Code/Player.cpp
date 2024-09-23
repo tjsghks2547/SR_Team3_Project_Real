@@ -39,9 +39,8 @@ HRESULT CPlayer::Ready_GameObject()
     return S_OK;
 }
 
-void CPlayer::Start_GameObject()
+void CPlayer::LateReady_GameObject()
 {
-
 }
 
 _int CPlayer::Update_GameObject(const _float& fTimeDelta)

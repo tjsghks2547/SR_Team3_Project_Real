@@ -13,6 +13,7 @@ protected:
 	virtual ~CComponent();
 
 public:
+	virtual void  LateReady_Component() {}
 	virtual _int  Update_Component(const _float& fTimeDelta) { return 0;}
 	virtual void  LateUpdate_Component(const _float& fTimeDelta) { }
 

@@ -23,6 +23,7 @@ public:
 	//9월 11일 추가한 코드 
 	CScene* Get_Scene() { return m_pScene; }
 
+	void      LateReady_Scene();
 	_int      Update_Scene(const _float& fTimeDelta);
 	void      LateUpdate_Scene(const _float& fTimeDelta);
 	void	  Render_Scene(LPDIRECT3DDEVICE9 pGraphicDev);
