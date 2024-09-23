@@ -208,7 +208,7 @@ void CInvenUI::Key_Input(const _float& fTimeDelta)
     }
     if (GetAsyncKeyState('D'))
     {
-        m_pPlayer->SetPlayerInvenVisible(false);
+      //  m_pPlayer->SetPlayerInvenVisible(false);
     }
 
 }

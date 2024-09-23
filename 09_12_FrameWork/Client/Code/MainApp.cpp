@@ -133,6 +133,7 @@ HRESULT CMainApp::SetUp_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Font(*ppGraphicDev, L"Font_Myungjo", L"명조", 20, 20, FW_NORMAL), E_FAIL);
 	
 	//0913
+	FAILED_CHECK_RETURN(Engine::Ready_Font(*ppGraphicDev, L"Font_Ogu24", L"카페24 써라운드", 24, 24, FW_LIGHT), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Font(*ppGraphicDev, L"Font_Ogu", L"카페24 써라운드", 36, 36, FW_LIGHT), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Font(*ppGraphicDev, L"Font_Ogu48", L"카페24 써라운드", 48, 48, FW_LIGHT), E_FAIL);
 

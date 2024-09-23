@@ -7,6 +7,12 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
     :Engine::CGameObject(pGraphicDev)
     , m_fMoveSpeed(0.f)
     , m_ePlayerState(PLAYERSTATE::PLY_END)
+    , m_ePlayerDir(OBJ_DIRECTION::OBJDIR_FRONT)
+    , m_iPlayerDir(OBJ_DIRECTION::OBJDIR_FRONT)
+    , m_vPlayerDir()
+    , m_vPlayerCurrPos()
+    , m_vPlayerPrevPos()
+    , m_bIsDiagonal(false)
     //0913 임시 졸라 많이 한줄한줄 잘썻죠?ㅋ_ㅋ
     , m_iPlayerCoin(10), m_bInven(false)
 {
@@ -22,14 +28,12 @@ HRESULT CPlayer::Ready_GameObject()
 {
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
-    m_fMoveSpeed = 50.f;
-
     //0913 임시 코드
     m_tPlayerHP.iCurHP = 5;
     m_tPlayerHP.iMaxHP = 6;
 
-    // m_pTransformCom->m_vScale = { 10.f,10.f,10.f };
-    // m_pTransformCom->Rotation(ROT_X, 90.f * 3.141592f / 180.f);
+    m_pTransformCom->m_vScale = { 2.f,2.f,2.f };
+    m_pTransformCom->Set_Pos(0, 2.f, 0);
 
     m_pStateControlCom->ChangeState(PlayerIdle::GetInstance(), this);
     return S_OK;
@@ -42,9 +46,13 @@ void CPlayer::Start_GameObject()
 
 _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 {
+    m_pTransformCom->Get_Info(INFO_POS, &m_vPlayerPrevPos);
+
     Key_Input(fTimeDelta);
 
+
     //카메라 부분넣기
+
 
 
     Add_RenderGroup(RENDER_ALPHA, this);
@@ -54,26 +62,13 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 
 void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-    //일단 플레이어의 좌표가 필요 
+    m_pTransformCom->Get_Info(INFO_POS, &m_vPlayerCurrPos);
 
-    _vec3 vPos;
-    m_pTransformCom->Get_Info(INFO_POS, &vPos);
+    m_vPlayerDir = m_vPlayerCurrPos - m_vPlayerPrevPos;
+    D3DXVec3Normalize(&m_vPlayerDir, &m_vPlayerDir);
+    SetPlayerDirection();
 
-
-
-
-    //플레이어가 밟고 있는 발판이 필요
-    //CTerrainTex* pTerrainTex = dynamic_cast<CTerrainTex*>(Engine::Get_Component(ID_STATIC, L"Layer_GameLogic", L"Terrain", L"Com_Buffer"));
-    //NULL_CHECK(pTerrainTex);
-    //
-    //_float fY =  m_pCCalculatorCom->Compute_HeightOnTerrain(&vPos, pTerrainTex->Get_VtxPos(), VTXCNTX, VTXCNTZ);
-    //
-    //m_pTransformCom->Set_Pos(vPos.x, fY + 1.f, vPos.z);
-
-
-
-
-
+    m_pAnimationCom->Update_Component(fTimeDelta);
     Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
@@ -82,14 +77,59 @@ void CPlayer::Render_GameObject()
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
-    m_pTextureCom->Set_Texture();
-
+    if (m_bIsDiagonal)
+        m_pTextureCom->Set_Texture(m_ePlayerState + 1);
+    else
+        m_pTextureCom->Set_Texture(m_ePlayerState);
     Print_PlayerState();
-    m_pBufferCom->Render_Buffer();
+
+    m_pAnimationCom->Render_Buffer();
 
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);  // 이거 설정안해주면 안됨 전역적으로 장치세팅이 저장되기 때문에
-    //m_pGraphicDev->SetTexture(0, NULL);  // 이거 설정안해주면 그대로 텍스처 나옴 이것도 마찬가지로 전역적으로 장치세팅이 되므로
+    m_pGraphicDev->SetTexture(0, NULL);  // 이거 설정안해주면 그대로 텍스처 나옴 이것도 마찬가지로 전역적으로 장치세팅이 되므로
 }
+
+void CPlayer::SetPlayerDirection(/*OBJ_DIRECTION _ePlayerDir*/)
+{
+    if (m_vPlayerDir.x > 0)
+    {
+        if (m_vPlayerDir.z > 0)
+            m_iPlayerDir = OBJ_DIRECTION::OBJDIR_RIGHT | OBJ_DIRECTION::OBJDIR_BACK;
+
+        else if (m_vPlayerDir.z == 0)
+            m_iPlayerDir = OBJ_DIRECTION::OBJDIR_RIGHT;
+
+        else if (m_vPlayerDir.z < 0)
+            m_iPlayerDir = OBJ_DIRECTION::OBJDIR_RIGHT | OBJ_DIRECTION::OBJDIR_FRONT;
+    }
+
+    else if (m_vPlayerDir.x == 0)
+    {
+        if (m_vPlayerDir.z > 0)
+            m_iPlayerDir = OBJ_DIRECTION::OBJDIR_BACK;
+
+        //else if (m_vPlayerDir.z == 0)
+        //    m_iPlayerDir = OBJ_DIRECTION -> 해당방향 그대로 유지
+
+        else if (m_vPlayerDir.z < 0)
+            m_iPlayerDir = OBJ_DIRECTION::OBJDIR_FRONT;
+    }
+
+    else if (m_vPlayerDir.x < 0)
+    {
+        if (m_vPlayerDir.z > 0)
+            m_iPlayerDir = OBJ_DIRECTION::OBJDIR_LEFT | OBJ_DIRECTION::OBJDIR_BACK;
+
+        else if (m_vPlayerDir.z == 0)
+            m_iPlayerDir = OBJ_DIRECTION::OBJDIR_LEFT;
+
+        else if (m_vPlayerDir.z < 0)
+            m_iPlayerDir = OBJ_DIRECTION::OBJDIR_LEFT | OBJ_DIRECTION::OBJDIR_FRONT;
+    }
+    // m_ePlayerDir = _ePlayerDir;
+    m_pAnimationCom->SetAnimDir(m_iPlayerDir, m_bIsDiagonal);
+}
+
 
 HRESULT CPlayer::Add_Component()
 {
@@ -99,9 +139,13 @@ HRESULT CPlayer::Add_Component()
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
-    pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_PlayerTex"));
+    pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_PlayerTexture"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_STATIC].insert({ L"Com_Texture",pComponent });
+
+    pComponent = m_pAnimationCom = dynamic_cast<CAnimation*>(Engine::Clone_Proto(L"Proto_PlayerAnim"));
+    NULL_CHECK_RETURN(pComponent, E_FAIL);
+    m_mapComponent[ID_DYNAMIC].insert({ L"Com_Animation",pComponent });
 
     pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
@@ -120,115 +164,11 @@ HRESULT CPlayer::Add_Component()
 
 void CPlayer::Key_Input(const _float& fTimeDelta)
 {
-
-    _vec3  vLook;
-    _vec3  vRight;
-
-    m_pTransformCom->Get_Info(INFO_LOOK, &vLook);
-    m_pTransformCom->Get_Info(INFO_RIGHT, &vRight);
-
-    if (GetAsyncKeyState(VK_UP))
-    {
-        m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vLook, &vLook), fTimeDelta, m_fMoveSpeed);
-    }
-
-    if (GetAsyncKeyState(VK_DOWN))
-    {
-        m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vLook, &vLook), fTimeDelta, -m_fMoveSpeed);
-    }
-
-    if (GetAsyncKeyState(VK_LEFT))
-    {
-        // m_pTransformCom->Rotation(ROT_Y, D3DXToRadian(-180.f * fTimeDelta));
-        m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vRight, &vRight), fTimeDelta, -m_fMoveSpeed);
-    }
-
-    if (GetAsyncKeyState(VK_RIGHT))
-    {   
-        //  m_pTransformCom->Rotation(ROT_Y, D3DXToRadian(180.f * fTimeDelta));
-        m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vRight, &vRight), fTimeDelta, m_fMoveSpeed);
-    }
-
-    if (GetAsyncKeyState('I'))
+    if (Engine::GetKeyDown(DIK_I))
     {
         m_bInven = true;
         // 인벤 켰을때 플레이어 키인풋 안받게 해야댐@#! 나중에 하기 ㅋ-ㅋ
     }
-
-    //if (Engine::Get_DIMouseState(DIM_LB) & 0x80)
-    //{
-    //    _vec3	vPickPos = Piking_OnTerrain();
-    //        
-    //    _vec3	vPos;
-    //    m_pTransformCom->Get_Info(INFO_POS, &vPos);
-    //
-    //    _vec3	vDir = vPickPos - vPos;
-    //
-    //    m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vDir, &vDir), fTimeDelta, 15.f);
-    //}
-
-
-    ////마우스 좌클릭 했을때 발생하는 이벤트
-    //if(Engine::Get_DIMouseState(DIM_LB) & 0x80)
-    //{
-
-    //    //Screen space 에서의 점 
-    //    POINT mousepos; 
-    //    GetCursorPos(&mousepos);
-
-    //    float a = mousepos.x;
-    //    float b = mousepos.y;
-
-
-    //    //Screen space의 점을 view스페이스로 전환 
-    //   /* D3DVIEWPORT9 ViewPort; 
-    //    m_pGraphicDev->GetViewport(&ViewPort);*/
-    //    
-    //    D3DMATRIX matProj;
-
-    //    m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matProj);
-
-        //D3DXMatrixInverse(&)
-
-        //D3DVIEWPORT9 ViewPort;
-        //m_pGraphicDev->GetViewport(&ViewPort);
-
-        //D3DXIntersectTri()
-
-
-        //
-        //_matrix matCamWorld, m_matView;
-        //m_pGraphicDev->GetTransform(D3DTS_VIEW, &m_matView);
-        //
-        //D3DXMatrixInverse(&matCamWorld, 0, &m_matView);
-        //
-        //_vec3 vCamLook = { matCamWorld._21,matCamWorld._22,matCamWorld._23 };
-        //
-       // m_pTransformCom->Move_Pos(&vCamLook, fTimeDelta, 10.f);
-
-        //_long dwMouseMove(0);
-
-
-
-        //m_pTransformCom->Move_Pos()
-
-
-   /*
-    if(dwMouseState == Engine::Get_DIKeyState(DIM_LB))
-    {
-        dwMouseXMove = Engine::Get_DIMouseMove(DIMS_X);
-        dwMouseYMove = Engine::Get_DIMouseMove(DIMS_Y);
-
-        cout << "dwMouseXMove" << endl;
-    }*/
-
-
-    //dwMouseXMove = Engine::Get_DIMouseMove(DIMS_X);
-    //dwMouseYMove = Engine::Get_DIMouseMove(DIMS_Y);
-
-
-
-
 }
 
 _vec3 CPlayer::Piking_OnTerrain()
@@ -244,15 +184,17 @@ _vec3 CPlayer::Piking_OnTerrain()
 
 void CPlayer::Print_PlayerState()
 {
-    _tchar buf[32];
-    _vec2 position = { 600,100 };
+    _tchar buf[128];
+    _vec2 position = { 1000,100 };
 
     switch (m_ePlayerState)
     {
     case Engine::PLY_IDLE:
+    case Engine::PLY_IDLEDIAGONAL:
         lstrcpy(buf, L"현재 상태 : IDLE");
         break;
-    case Engine::PLY_WALK:
+    case Engine::PLY_MOVE:
+    case Engine::PLY_MOVEDIAGONAL:
         lstrcpy(buf, L"현재 상태 : WALK");
         break;
     case Engine::PLY_END:
@@ -261,11 +203,44 @@ void CPlayer::Print_PlayerState()
         break;
     }
 
-    Engine::Render_Font(
-        L"Font_Default",
-        buf,
-        &position,
-        D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
+    Engine::Render_Font(L"Font_Ogu24", buf, &position, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
+
+    position = { 1000,130 };
+    switch (m_iPlayerDir)
+    {
+    case Engine::OBJDIR_FRONT:
+        lstrcpy(buf, L"현재 방향 : 앞");
+        break;
+    case Engine::OBJDIR_BACK:
+        lstrcpy(buf, L"현재 상태 : 뒤");
+        break;
+    case Engine::OBJDIR_LEFT:
+        lstrcpy(buf, L"현재 상태 : 왼");
+        break;
+    case Engine::OBJDIR_RIGHT:
+        lstrcpy(buf, L"현재 상태 : 오");
+        break;
+    case Engine::OBJDIR_LEFTBACK:
+        lstrcpy(buf, L"현재 상태 : 왼뒤");
+        break;
+    case Engine::OBJDIR_LEFTFRONT:
+        lstrcpy(buf, L"현재 상태 : 왼앞");
+        break;
+    case Engine::OBJDIR_RIGHTBACK:
+        lstrcpy(buf, L"현재 상태 : 오뒤");
+        break;
+    case Engine::OBJDIR_RIGHTFRONT:
+        lstrcpy(buf, L"현재 상태 : 오앞");
+        break;
+    default:
+        lstrcpy(buf, L"현재 상태 :");
+        break;
+    }
+    Engine::Render_Font(L"Font_Ogu24", buf, &position, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
+
+    position = { 100,160 };
+    lstrcpy(buf, m_pTextureCom->GetNowPath());
+    Engine::Render_Font(L"Font_Ogu24", buf, &position, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
 }
 
 CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -285,6 +260,6 @@ CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 void CPlayer::Free()
 {
     PlayerIdle::DestroyInstance();
-    PlayerWalk::DestroyInstance();
+    PlayerMove::DestroyInstance();
     Engine::CGameObject::Free();
 }
