@@ -18,6 +18,7 @@
 
 #include "State.h"
 #include "StateController.h"
+#include "Animation.h"
 
 #include "CubeTex.h"
 #include "Calculator.h"
@@ -26,8 +27,6 @@
 #include "CStartMap.h"
 #include "MapTex.h"
 
-#include "State.h"
-#include "StateController.h"
 
 
 

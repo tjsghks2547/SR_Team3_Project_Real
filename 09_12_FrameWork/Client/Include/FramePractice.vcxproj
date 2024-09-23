@@ -176,7 +176,7 @@
     <ClInclude Include="..\Header\PipeBoard.h" />
     <ClInclude Include="..\Header\Player.h" />
     <ClInclude Include="..\Header\PlayerIdle.h" />
-    <ClInclude Include="..\Header\PlayerWalk.h" />
+    <ClInclude Include="..\Header\PlayerMove.h" />
     <ClInclude Include="..\Header\PressBlock.h" />
     <ClInclude Include="..\Header\Ray.h" />
     <ClInclude Include="..\Header\SkyBox.h" />
@@ -232,7 +232,7 @@
     <ClCompile Include="..\Code\PipeBoard.cpp" />
     <ClCompile Include="..\Code\Player.cpp" />
     <ClCompile Include="..\Code\PlayerIdle.cpp" />
-    <ClCompile Include="..\Code\PlayerWalk.cpp" />
+    <ClCompile Include="..\Code\PlayerMove.cpp" />
     <ClCompile Include="..\Code\PressBlock.cpp" />
     <ClCompile Include="..\Code\Ray.cpp" />
     <ClCompile Include="..\Code\SkyBox.cpp" />
