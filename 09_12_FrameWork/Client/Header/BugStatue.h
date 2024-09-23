@@ -6,15 +6,14 @@ BEGIN(Engine)
 class CTexture;
 class CRcTex;
 class CTransform;
-class CPipeCom;
 
 END
 
-class CPipe :public Engine::CGameObject
+class CBugStatue :public Engine::CGameObject
 {
 private:
-	explicit CPipe(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual ~CPipe();
+	explicit CBugStatue(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual ~CBugStatue();
 
 public:
 	virtual   HRESULT   Ready_GameObject();
@@ -23,21 +22,26 @@ public:
 	virtual   void      Render_GameObject();
 
 public:
-	void Initialize_Pipe_Option(PIPEFLOW _eUp, PIPEFLOW _eDown, PIPEFLOW _eLeft, PIPEFLOW _eRight, _bool _bIsFixed, _int _iImageID, _vec3 _vPos, _vec3 _fAngle);
-
-private:
-	HRESULT    Add_Component();	
+	void Active_StoneBlock();
+	_int Get_ImageID() { return m_iImageID; }
 
 private:
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTexture* m_pTextureCom;
 	Engine::CTransform* m_pTransformCom;
-	Engine::CPipeCom* m_pPipeCom;
+
+private:
+	HRESULT    Add_Component();
 
 public:
-	static CPipe* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CBugStatue* Create(LPDIRECT3DDEVICE9 pGraphicDev);	
+	void Set_Group(CGameObject* _pStatuePuzzle) { m_pGroup = _pStatuePuzzle; }
+
+private:	
 	vector<IDirect3DTexture9*> m_vecTexture;
-	_int m_iImageID;
+	CTransform* m_pStoneBlock;
+	CGameObject* m_pGroup;
+	_int m_iImageID;	
 
 private:
 	bool LoadTextureFromFile(LPDIRECT3DDEVICE9 d3dDevice, const char* filePath, IDirect3DTexture9** outTexture)
@@ -45,6 +49,7 @@ private:
 		HRESULT hr = D3DXCreateTextureFromFileA(d3dDevice, filePath, outTexture);
 		return SUCCEEDED(hr);
 	}
+
 
 private:
 	virtual void Free();

@@ -23,7 +23,7 @@ public:
 
 public:
 	bool Is_Active() { return m_bIsActive; }
-	void Set_Actice(bool _bIsActive) { m_bIsActive = _bIsActive; }
+	void Set_Active(bool _bIsActive) { m_bIsActive = _bIsActive; }
 	void Key_Input(const _float& fTimeDelta);
 
 private:
@@ -32,7 +32,7 @@ private:
 private:
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTexture* m_pTextureCom;
-	Engine::CTransform* m_pTransformCom; 	
+	Engine::CTransform* m_pTransformCom;
 	_int m_iTileId;
 	_bool m_bIsActive;
 	_bool m_bCheck = false;

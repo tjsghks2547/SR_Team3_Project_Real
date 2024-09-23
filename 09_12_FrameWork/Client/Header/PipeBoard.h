@@ -6,6 +6,7 @@ BEGIN(Engine)
 class CTexture;
 class CRcTex;
 class CTransform;
+class CPipeBoardCom;
 
 END
 
@@ -21,17 +22,23 @@ public:
 	virtual   void	    LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual   void      Render_GameObject();
 
-private:
+private:	
 	HRESULT    Add_Component();
+	void	On_Interacted();
+	void	On_Exit();
+	void	Reset_Connected();
+	void	Check_Connected(CGameObject* _pPipe, _int _eID);
 	void Key_Input(const _float& fTimeDelta);
 
 private:
+	bool m_bIsInteracting;
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTexture* m_pTextureCom;
 	Engine::CTransform* m_pTransformCom;
+	Engine::CPipeBoardCom* m_pPipeBoardCom;
 
 public:
-	static CPipeBoard* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CPipeBoard* Create(LPDIRECT3DDEVICE9 pGraphicDev);	
 
 private:
 	virtual void Free();

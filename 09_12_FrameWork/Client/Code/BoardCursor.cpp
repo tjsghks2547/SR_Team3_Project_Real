@@ -19,22 +19,20 @@ HRESULT CBoardCursor::Ready_GameObject()
 	m_pTransformCom->m_vScale = { 7.f, 7.f, 0.f };
 	m_pTransformCom->Rotation(ROT_X, 90.f * 3.14f / 180.f);
 	//m_pTransformCom->Rotation(ROT_Y, 90.f * 3.14f / 180.f);
-	m_pTransformCom->Set_Pos(0.f, 0.05f, -12.2f);
+	m_pTransformCom->Set_Pos(0.f, 0.11f, -12.2f);
 	return S_OK;
 }
 
 _int CBoardCursor::Update_GameObject(const _float& fTimeDelta)
 {
-    Key_Input(fTimeDelta);
+	Key_Input(fTimeDelta);
 
-    _int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
+	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
-    if (!m_bIsActive)
-        return iExit;
-    
+	if (!m_bIsActive)
+		return iExit;
+
 	Add_RenderGroup(RENDER_ALPHA, this);
-
-
 
 	//Engine::CTransform* pPlayerTransform = dynamic_cast<Engine::CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_GameLogic", L"Player", L"Com_Transform"));
 	//NULL_CHECK_RETURN(pPlayerTransform, -1);	
@@ -48,16 +46,16 @@ _int CBoardCursor::Update_GameObject(const _float& fTimeDelta)
 
 void CBoardCursor::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-    if (!m_bIsActive)
-        return;
+	if (!m_bIsActive)
+		return;
 
 	Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
 void CBoardCursor::Render_GameObject()
 {
-    if (!m_bIsActive)
-        return;
+	if (!m_bIsActive)
+		return;
 
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
@@ -96,52 +94,13 @@ CBoardCursor* CBoardCursor::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 		Safe_Release(pCursor);
 		MSG_BOX("pPipeBoard Create Failed");
 		return nullptr;
-	}	
+	}
 
 	return pCursor;
 }
 void CBoardCursor::Key_Input(const _float& fTimeDelta)
 {
-    if (GetAsyncKeyState('1'))
-    {
-        if (m_bIsActive)
-            m_bIsActive = false;
-        else {
-            m_bIsActive = true;
-            m_pTransformCom->Set_Pos(0.f, 0.05f, 0.f);
-        }           
-    }
 
-    if (!m_bIsActive)
-        return;
-
-    _vec3  vRight;
-    m_pTransformCom->Get_Info(INFO_RIGHT, &vRight);
-    _vec3  vLook;
-    m_pTransformCom->Get_Info(INFO_UP, &vLook);
-
-    if (GetAsyncKeyState(VK_UP))
-    {
-        //m_pTransformCom->Set_Pos();
-        m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vLook, &vLook), fTimeDelta, 100.f);
-    }
-
-    if (GetAsyncKeyState(VK_DOWN))
-    {
-        m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vLook, &vLook), fTimeDelta, -100.f);
-    }
-
-    if (GetAsyncKeyState(VK_LEFT))
-    {
-        //m_pTransformCom->Rotation(ROT_Y, D3DXToRadian(-180.f * fTimeDelta));
-        m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vRight, &vRight), fTimeDelta, -100.f);
-    }
-
-    if (GetAsyncKeyState(VK_RIGHT))
-    {
-        //m_pTransformCom->Rotation(ROT_Y, D3DXToRadian(180.f * fTimeDelta));
-        m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vRight, &vRight), fTimeDelta, 100.f);
-    }
 }
 void CBoardCursor::Free()
 {
