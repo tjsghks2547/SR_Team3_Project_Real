@@ -95,43 +95,80 @@ void CPlayer::Render_GameObject()
 
 void CPlayer::SetPlayerDirection(/*OBJ_DIRECTION _ePlayerDir*/)
 {
+    int num = 0;
+
+
     if (m_vPlayerDir.x > 0)
     {
         if (m_vPlayerDir.z > 0)
-            m_iPlayerDir = OBJ_DIRECTION::OBJDIR_RIGHT | OBJ_DIRECTION::OBJDIR_BACK;
+        {
+            num = OBJ_DIRECTION::OBJDIR_RIGHT | OBJ_DIRECTION::OBJDIR_BACK;
+            m_bIsDiagonal = true;
+        }
+
 
         else if (m_vPlayerDir.z == 0)
-            m_iPlayerDir = OBJ_DIRECTION::OBJDIR_RIGHT;
+        {
+            num = OBJ_DIRECTION::OBJDIR_RIGHT;
+            m_bIsDiagonal = false;
+        }
+
 
         else if (m_vPlayerDir.z < 0)
-            m_iPlayerDir = OBJ_DIRECTION::OBJDIR_RIGHT | OBJ_DIRECTION::OBJDIR_FRONT;
+        {
+            num = OBJ_DIRECTION::OBJDIR_RIGHT | OBJ_DIRECTION::OBJDIR_FRONT;
+            m_bIsDiagonal = true;
+        }
+
     }
 
     else if (m_vPlayerDir.x == 0)
     {
         if (m_vPlayerDir.z > 0)
-            m_iPlayerDir = OBJ_DIRECTION::OBJDIR_BACK;
+        {
+            m_bIsDiagonal = false;
+            num = OBJ_DIRECTION::OBJDIR_BACK;
+        }
 
-        //else if (m_vPlayerDir.z == 0)
-        //    m_iPlayerDir = OBJ_DIRECTION -> 해당방향 그대로 유지
+
+        else if (m_vPlayerDir.z == 0)
+            num = m_iPlayerDir; //-> 해당방향 그대로 유지
 
         else if (m_vPlayerDir.z < 0)
-            m_iPlayerDir = OBJ_DIRECTION::OBJDIR_FRONT;
+        {
+            m_bIsDiagonal = false;
+            num = OBJ_DIRECTION::OBJDIR_FRONT;
+        }
+
     }
 
     else if (m_vPlayerDir.x < 0)
     {
         if (m_vPlayerDir.z > 0)
-            m_iPlayerDir = OBJ_DIRECTION::OBJDIR_LEFT | OBJ_DIRECTION::OBJDIR_BACK;
+        {
+            num = OBJ_DIRECTION::OBJDIR_LEFT | OBJ_DIRECTION::OBJDIR_BACK;
+            m_bIsDiagonal = true;
+        }
+
 
         else if (m_vPlayerDir.z == 0)
-            m_iPlayerDir = OBJ_DIRECTION::OBJDIR_LEFT;
+        {
+            num = OBJ_DIRECTION::OBJDIR_LEFT;
+            m_bIsDiagonal = false;
+        }
 
         else if (m_vPlayerDir.z < 0)
-            m_iPlayerDir = OBJ_DIRECTION::OBJDIR_LEFT | OBJ_DIRECTION::OBJDIR_FRONT;
+        {
+            num = OBJ_DIRECTION::OBJDIR_LEFT | OBJ_DIRECTION::OBJDIR_FRONT;
+            m_bIsDiagonal = false;
+        }
     }
-    // m_ePlayerDir = _ePlayerDir;
-    m_pAnimationCom->SetAnimDir(m_iPlayerDir, m_bIsDiagonal);
+
+    if (num != m_iPlayerDir)
+    {
+        m_iPlayerDir = num;
+        m_pAnimationCom->SetAnimDir(m_ePlayerState, m_iPlayerDir, m_bIsDiagonal);
+    }
 }
 
 
@@ -261,7 +298,7 @@ void CPlayer::Print_PlayerState()
     }
     Engine::Render_Font(L"Font_Ogu24", buf, &position, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
 
-    position = { 100,160 };
+    position = { 1000,160 };
     lstrcpy(buf, m_pTextureCom->GetNowPath());
     Engine::Render_Font(L"Font_Ogu24", buf, &position, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
 }
