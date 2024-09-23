@@ -21,6 +21,7 @@ public:
 
 public:
 	HRESULT		Ready_Layer();
+	void		LateReady_Layer();
 	_int		Update_Layer(const _float& fTimeDelta);
 	void		LateUpdate_Layer(const _float& fTimeDelta);
 	void		Render_Layer();

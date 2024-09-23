@@ -32,6 +32,15 @@ HRESULT CGameObject::Ready_GameObject()
 	return S_OK;
 }
 
+void CGameObject::LateReady_GameObject()
+{
+	for (auto& pComponent : m_mapComponent[ID_STATIC])
+		pComponent.second->LateReady_Component();
+
+	for (auto& pComponent : m_mapComponent[ID_DYNAMIC])
+		pComponent.second->LateReady_Component();
+}
+
 _int CGameObject::Update_GameObject(const _float& fTimeDelta)
 {
 	for (auto& pComponent : m_mapComponent[ID_DYNAMIC])
