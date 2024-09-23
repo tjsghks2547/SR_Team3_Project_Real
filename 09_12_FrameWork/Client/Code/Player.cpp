@@ -45,6 +45,10 @@ void CPlayer::LateReady_GameObject()
 
 _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 {
+    //0920 레이트레디
+    m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
+    NULL_CHECK_RETURN(m_pInven, 0);
+
     m_pTransformCom->Get_Info(INFO_POS, &m_vPlayerPrevPos);
 
     Key_Input(fTimeDelta);
@@ -163,10 +167,28 @@ HRESULT CPlayer::Add_Component()
 
 void CPlayer::Key_Input(const _float& fTimeDelta)
 {
+    //0922
     if (Engine::GetKeyDown(DIK_I))
     {
-        m_bInven = true;
-        // 인벤 켰을때 플레이어 키인풋 안받게 해야댐@#! 나중에 하기 ㅋ-ㅋ
+        if (m_bInven)
+            m_bInven = false;
+        else
+            m_bInven = true;
+    }
+
+    if (m_bInven)
+        return;
+    // 이 아래 추가 하삼 코드!!
+
+
+    //0920 좆임시 아이템 추가
+    if (GetAsyncKeyState('L'))
+    {
+        CItem* pItem = dynamic_cast<CExploreHat*>(CExploreHat::Create(m_pGraphicDev));
+
+        NULL_CHECK_RETURN(pItem);
+
+        m_pInven->Add_Item(pItem);
     }
 }
 

@@ -3,6 +3,11 @@
 #include "PlayerIdle.h"
 #include "PlayerMove.h"
 #include "Export_Utility.h"
+
+//0920
+#include "InvenUI.h"
+#include "ExploreHat.h"
+
 BEGIN(Engine)
 
 class CTexture;
@@ -81,6 +86,7 @@ private:
 	_int		m_iPlayerCoin;
 	PLAYERHP	m_tPlayerHP;
 	_bool		m_bInven;
+	CInvenUI*	m_pInven;
 
 public:
 	static CPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);

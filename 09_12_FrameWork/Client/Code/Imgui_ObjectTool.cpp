@@ -82,29 +82,55 @@ const wchar_t* findInVector(const std::vector<const wchar_t*>& vec, const wchar_
 
 void CImgui_ObjectTool::init()
 {
-	m_vecObjectTexture.resize(20);
+	m_vecObjectTexture.resize(7);
 	//m_vecObjectList.resize(100);
 	
+	// 이거 하나로 묶어버리기 .
+	//char filePath[256];
+	//sprintf_s(filePath, "../Bin/Resource/Texture/wall.png");
+	//
+	//char filePath1[256];
+	//sprintf_s(filePath1, "../Bin/Resource/Texture/Tutorial_Super.png");
+	//
+	//
+	//HRESULT hr = LoadTextureFromFile(CGraphicDev::GetInstance()->Get_GraphicDev(), filePath, &m_vecObjectTexture[0]);
+	//if (FAILED(hr))
+	//{
+	//	MSG_BOX("Object Texutr load Failed");
+	//}	
+	//
+	//hr = LoadTextureFromFile(CGraphicDev::GetInstance()->Get_GraphicDev(), filePath1, &m_vecObjectTexture[1]);
+	//if (FAILED(hr))
+	//{
+	//	MSG_BOX("Object Texutr load Failed");	
+	//}
 
-	char filePath[256];
-	sprintf_s(filePath, "../Bin/Resource/Texture/wall.png");
 
-	char filePath1[256];
-	sprintf_s(filePath1, "../Bin/Resource/Texture/Tutorial_Super.png");
-
-	// 여기서 오류남 
-	HRESULT hr = LoadTextureFromFile(CGraphicDev::GetInstance()->Get_GraphicDev(), filePath, &m_vecObjectTexture[0]);
-	if (FAILED(hr))
+	for (int i = 0; i< m_vecObjectTexture.size(); i++)
 	{
-		MSG_BOX("Object Texutr load Failed");
-	}	
-
-	hr = LoadTextureFromFile(CGraphicDev::GetInstance()->Get_GraphicDev(), filePath1, &m_vecObjectTexture[1]);
-	if (FAILED(hr))
-	{
-		MSG_BOX("Object Texutr load Failed");	
+		char filePath[256];
+		sprintf_s(filePath, "../Bin/Resource/Texture/Object/object%d.png", i);
+	
+		HRESULT hr = LoadTextureFromFile(CGraphicDev::GetInstance()->Get_GraphicDev(), filePath, &m_vecObjectTexture[i]);
+		if (FAILED(hr))
+		{
+			MSG_BOX("Object Texture load failed");
+		}
 	}
 
+	//
+	//for (int i = 1; i < m_vecTerrainTexture.size() + 1; i++)
+	//{
+	//
+	//	char filePath[256];
+	//	sprintf_s(filePath, "../Bin/Resource/Texture/Map/Tile%d.png", i - 1);
+	//
+	//	HRESULT hr = LoadTextureFromFile(CGraphicDev::GetInstance()->Get_GraphicDev(), filePath, &m_vecTerrainTexture[i - 1]);
+	//	if (FAILED(hr))
+	//	{
+	//		MSG_BOX("Terrain Texture load failed");
+	//	}
+	//}
 
 
 }

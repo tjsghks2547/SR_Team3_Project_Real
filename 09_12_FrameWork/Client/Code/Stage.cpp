@@ -319,8 +319,6 @@ HRESULT CStage::Ready_Layer_Environmnet(const _tchar* pLayerTag)
 #pragma endregion
 
 	//여기다가 맵 오브젝트들 넣기 파일 읽어오는기능 
-
-
 	m_mapLayer.insert({ pLayerTag, pLayer });
 
 	return S_OK;
