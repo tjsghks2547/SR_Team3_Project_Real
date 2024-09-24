@@ -3,7 +3,7 @@
 #include "Player.h"
 
 CMiddleFruit::CMiddleFruit(LPDIRECT3DDEVICE9 pGraphicDev)
-    :CItem(pGraphicDev)
+	:CItem(pGraphicDev)
 {
 }
 
@@ -42,6 +42,13 @@ void CMiddleFruit::Render_GameObject()
 	m_pTextureCom->Set_Texture();
 	m_pBufferCom->Render_Buffer();
 
+	m_pCountRCTransformCom->m_vInfo[INFO_POS].x = m_pTransformCom->m_vInfo[INFO_POS].x + 46;
+	m_pCountRCTransformCom->m_vInfo[INFO_POS].y = m_pTransformCom->m_vInfo[INFO_POS].y - 44;
+
+	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pCountRCTransformCom->Get_WorldMatrix());
+	m_pCountRCTextureCom->Set_Texture();
+	m_pBufferCom->Render_Buffer();
+
 	_vec2 vCountPos;
 
 	vCountPos.x = m_pTransformCom->m_vInfo[INFO_POS].x + (WINCX * 0.5f) + 34;
@@ -53,7 +60,7 @@ void CMiddleFruit::Render_GameObject()
 	swprintf(ItemCount, 32, L"%d", m_tInfo.iItemCount);
 
 	wcscat_s(Division, 32, ItemCount);   // "x + °³¼ö"
-	Engine::Render_Font(L"Font_Ogu20", Division, &vCountPos, D3DXCOLOR(0.1f, 0.1f, 0.1f, 1.f));
+	Engine::Render_Font(L"Font_OguBold24", Division, &vCountPos, D3DXCOLOR(0.1f, 0.1f, 0.1f, 1.f));
 
 }
 
@@ -86,8 +93,18 @@ HRESULT CMiddleFruit::Add_Component()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformMiddleFruit", pComponent });
 	m_pTransformCom->m_vScale = { 40.f, 40.f, 1.f };
+	m_pTransformCom->m_vInfo[INFO_POS] = { 0.f, 0.f, 0.1f };
 
-	m_pTransformCom->m_vInfo[INFO_POS] = { 0.f, 0.f, 0.f };
+	//CountRC
+	pComponent = m_pCountRCTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_CountRC"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	m_mapComponent[ID_STATIC].insert({ L"Com_TextureCountRC", pComponent });
+
+	pComponent = m_pCountRCTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformCountRC", pComponent });
+	m_pCountRCTransformCom->m_vScale = { 20.f, 17.f, 1.f };
+	m_pCountRCTransformCom->m_vInfo[INFO_POS] = { 0.f, 0.f, 0.1f };
 
 	return S_OK;
 }

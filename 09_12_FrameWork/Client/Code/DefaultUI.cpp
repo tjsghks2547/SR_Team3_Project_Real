@@ -76,8 +76,8 @@ void CDefaultUI::Render_GameObject()
     _vec2 HpPosition(175, 36);
 
 
-    //Engine::Render_Font(L"Font_Ogu", CoinStr, &position, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
-    Engine::Render_Font(L"Font_Ogu", HPStr, &HpPosition, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
+    //Engine::Render_Font(L"Font_OguBold36", CoinStr, &position, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
+    Engine::Render_Font(L"Font_OguBold36", HPStr, &HpPosition, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
 
     //0915 추가 코드 HPBarSize
     float fHpSizeX = 130.5f;
@@ -101,7 +101,7 @@ void CDefaultUI::Render_GameObject()
     swprintf(CoinStr, 100, L"%d", PlayerCoin);
     _vec2 CoinPosition(1115, 40);
     //Engine::Render_Font(L"Font_Default", (출력할 문자열 / 연동 플레이어 피통 & 코인), &position, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
-    Engine::Render_Font(L"Font_Ogu", CoinStr, &CoinPosition, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
+    Engine::Render_Font(L"Font_OguBold36", CoinStr, &CoinPosition, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
     //===========================
 
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom[SHORTKEY]->Get_WorldMatrix());
