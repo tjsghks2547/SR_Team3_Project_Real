@@ -93,9 +93,6 @@
     <Filter Include="03.IMGUI">
       <UniqueIdentifier>{7eee7adc-4b1e-4cde-9fe4-091a7b9c989e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\08. UI">
-      <UniqueIdentifier>{69be4faf-5faa-47b8-a0bc-150bcdea31aa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\09. Puzzle">
       <UniqueIdentifier>{9c144de7-c0cf-44f3-aaf9-a2f3d86bb587}</UniqueIdentifier>
     </Filter>
@@ -138,12 +135,6 @@
     <Filter Include="02. GameObject\07. Map\00.MapCamera">
       <UniqueIdentifier>{576a28d8-6eef-4f73-afe5-815f9ca8375f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\08. UI\00. DefaultUI">
-      <UniqueIdentifier>{6345767e-9aaa-4ea3-8d03-a7d5615eea3a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\08. UI\01. InvenUI">
-      <UniqueIdentifier>{346f8069-d9f4-488f-9088-15ac45f039e2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03.IMGUI\Imgui_Object">
       <UniqueIdentifier>{45521da8-91c7-4972-82e3-ca46872d78a3}</UniqueIdentifier>
     </Filter>
@@ -180,8 +171,20 @@
     <Filter Include="02. GameObject\10. Item">
       <UniqueIdentifier>{d0229c07-c918-42ec-ad5f-6e2bed385f19}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\10. Item\00. Hat">
+    <Filter Include="02. GameObject\11. UI">
+      <UniqueIdentifier>{69be4faf-5faa-47b8-a0bc-150bcdea31aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\11. UI\00. DefaultUI">
+      <UniqueIdentifier>{6345767e-9aaa-4ea3-8d03-a7d5615eea3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\11. UI\01. InvenUI">
+      <UniqueIdentifier>{346f8069-d9f4-488f-9088-15ac45f039e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\10. Item\00. Equip">
       <UniqueIdentifier>{c9998b2f-a203-421a-9732-dcd959fafd07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\10. Item\01. Consum">
+      <UniqueIdentifier>{c15e7b63-5d79-43c8-b135-9f9aa5349077}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. GameObject\10. Item\99. ItemSelector">
       <UniqueIdentifier>{d0cc4468-d2a0-4047-922b-cc565ef445b9}</UniqueIdentifier>
@@ -312,10 +315,10 @@
       <Filter>02. GameObject\07. Map\00.MapCamera</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\DefaultUI.h">
-      <Filter>02. GameObject\08. UI\00. DefaultUI</Filter>
+      <Filter>02. GameObject\11. UI\00. DefaultUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\InvenUI.h">
-      <Filter>02. GameObject\08. UI\01. InvenUI</Filter>
+      <Filter>02. GameObject\11. UI\01. InvenUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Imgui_ObjectTool.h">
       <Filter>03.IMGUI\Imgui_Object</Filter>
@@ -363,10 +366,22 @@
       <Filter>02. GameObject\10. Item</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\ExploreHat.h">
-      <Filter>02. GameObject\10. Item\00. Hat</Filter>
+      <Filter>02. GameObject\10. Item\00. Equip</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\ItemSelector.h">
       <Filter>02. GameObject\10. Item\99. ItemSelector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Mohican.h">
+      <Filter>02. GameObject\10. Item\00. Equip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PartyHat.h">
+      <Filter>02. GameObject\10. Item\00. Equip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\MiddleFruit.h">
+      <Filter>02. GameObject\10. Item\01. Consum</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\SmallFruit.h">
+      <Filter>02. GameObject\10. Item\01. Consum</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -482,10 +497,10 @@
       <Filter>02. GameObject\07. Map\00.MapCamera</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\DefaultUI.cpp">
-      <Filter>02. GameObject\08. UI\00. DefaultUI</Filter>
+      <Filter>02. GameObject\11. UI\00. DefaultUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\InvenUI.cpp">
-      <Filter>02. GameObject\08. UI\01. InvenUI</Filter>
+      <Filter>02. GameObject\11. UI\01. InvenUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Imgui_ObjectTool.cpp">
       <Filter>03.IMGUI\Imgui_Object</Filter>
@@ -533,13 +548,25 @@
       <Filter>02. GameObject\10. Item</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\ExploreHat.cpp">
-      <Filter>02. GameObject\10. Item\00. Hat</Filter>
+      <Filter>02. GameObject\10. Item\00. Equip</Filter>
     </ClCompile>
     <ClCompile Include="..\Header\ItemSelector.cpp">
       <Filter>02. GameObject\10. Item\99. ItemSelector</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Player.cpp">
-      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+      <Filter>02. GameObject\01. Entity\01. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Mohican.cpp">
+      <Filter>02. GameObject\10. Item\00. Equip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PartyHat.cpp">
+      <Filter>02. GameObject\10. Item\00. Equip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MiddleFruit.cpp">
+      <Filter>02. GameObject\10. Item\01. Consum</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SmallFruit.cpp">
+      <Filter>02. GameObject\10. Item\01. Consum</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

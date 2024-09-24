@@ -7,7 +7,7 @@
 #include "InvenUI.h"
 
 CItemSelector::CItemSelector(LPDIRECT3DDEVICE9 pGraphicDev)
-    :Engine::CGameObject(pGraphicDev)
+	:Engine::CGameObject(pGraphicDev)
 	, m_iCurIdx(-5)
 {
 }
@@ -18,9 +18,9 @@ CItemSelector::~CItemSelector()
 
 HRESULT CItemSelector::Ready_GameObject()
 {
-    FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
+	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
-    return S_OK;
+	return S_OK;
 }
 
 _int CItemSelector::Update_GameObject(const _float& fTimeDelta)
@@ -90,7 +90,7 @@ HRESULT CItemSelector::Add_Component()
 	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformCursor", pComponent });
-	m_pTransformCom->m_vScale = { 70.f, 70.f, 1.f };
+	m_pTransformCom->m_vScale = { 75.f, 70.f, 1.f };
 
 	pComponent = m_pTexButtonCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_EquipOnOffButton"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
@@ -119,7 +119,7 @@ void CItemSelector::Key_Input(const _float& fTimeDelta)
 		return;
 
 	if (Engine::GetKeyDown(DIK_UP))
-	{	
+	{
 		m_iCurIdx -= 5;
 	}
 	if (Engine::GetKeyDown(DIK_LEFT))
@@ -134,25 +134,32 @@ void CItemSelector::Key_Input(const _float& fTimeDelta)
 			return;
 		++m_iCurIdx;
 	}
-
 	if (Engine::GetKeyDown(DIK_I))
 	{
 		m_iCurIdx = -5;
 	}
+
+	if (Engine::GetKeyDown(DIK_S)) // 아이템 사용
+	{
+		m_pInven->Use_Efficacy(m_pInven->Get_CurFilter(), m_iCurIdx);
+	}
+
+
 }
 
 void CItemSelector::Update_ItemInfo()
 {
-	if(m_iCurIdx < 0)
+	if (m_iCurIdx < 0)
 		return;
 
-	CItem::ITEMTYPE eFilter = m_pInven->Get_CurFilter();
+	//CItem::ITEMTYPE 
+	_int iFilter = m_pInven->Get_CurFilter();
 	//현재 어떤 필터로 인벤토리가 열려 있는지 
 
-	if (m_pInven->Is_Empty(eFilter))
+	if (m_pInven->Is_Empty(iFilter))
 		return;
 
-	_int	iItemCount = m_pInven->Get_FilterItemCount(eFilter);
+	_int	iItemCount = m_pInven->Get_FilterItemCount(iFilter);
 
 	if (iItemCount <= m_iCurIdx)
 	{
@@ -161,10 +168,10 @@ void CItemSelector::Update_ItemInfo()
 	}
 
 	_vec3 vPos;
-	vPos = m_pInven->Get_CurItemPos(eFilter, m_iCurIdx);
+	vPos = m_pInven->Get_CurItemPos(iFilter, m_iCurIdx);
 	m_pTransformCom->m_vInfo[INFO_POS] = vPos;
 
-	m_tCopyInfo = m_pInven->Get_ItemInfo(eFilter, m_iCurIdx);
+	m_tCopyInfo = m_pInven->Get_ItemInfo(iFilter, m_iCurIdx);
 }
 
 CItemSelector* CItemSelector::Create(LPDIRECT3DDEVICE9 pGraphicDev)

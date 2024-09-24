@@ -172,9 +172,12 @@
     <ClInclude Include="..\Header\Map.h" />
     <ClInclude Include="..\Header\MapCamera.h" />
     <ClInclude Include="..\Header\MapEditor.h" />
+    <ClInclude Include="..\Header\MiddleFruit.h" />
+    <ClInclude Include="..\Header\Mohican.h" />
     <ClInclude Include="..\Header\MonkeyStatue.h" />
     <ClInclude Include="..\Header\Monster.h" />
     <ClInclude Include="..\Header\Object.h" />
+    <ClInclude Include="..\Header\PartyHat.h" />
     <ClInclude Include="..\Header\Pipe.h" />
     <ClInclude Include="..\Header\PipeBoard.h" />
     <ClInclude Include="..\Header\Player.h" />
@@ -183,6 +186,7 @@
     <ClInclude Include="..\Header\PressBlock.h" />
     <ClInclude Include="..\Header\Ray.h" />
     <ClInclude Include="..\Header\SkyBox.h" />
+    <ClInclude Include="..\Header\SmallFruit.h" />
     <ClInclude Include="..\Header\Stage.h" />
     <ClInclude Include="..\Header\StartBackGround.h" />
     <ClInclude Include="..\Header\StartScene.h" />
@@ -230,9 +234,12 @@
     <ClCompile Include="..\Code\Map.cpp" />
     <ClCompile Include="..\Code\MapCamera.cpp" />
     <ClCompile Include="..\Code\MapEditor.cpp" />
+    <ClCompile Include="..\Code\MiddleFruit.cpp" />
+    <ClCompile Include="..\Code\Mohican.cpp" />
     <ClCompile Include="..\Code\MonkeyStatue.cpp" />
     <ClCompile Include="..\Code\Monster.cpp" />
     <ClCompile Include="..\Code\Object.cpp" />
+    <ClCompile Include="..\Code\PartyHat.cpp" />
     <ClCompile Include="..\Code\Pipe.cpp" />
     <ClCompile Include="..\Code\PipeBoard.cpp" />
     <ClCompile Include="..\Code\Player.cpp" />
@@ -241,6 +248,7 @@
     <ClCompile Include="..\Code\PressBlock.cpp" />
     <ClCompile Include="..\Code\Ray.cpp" />
     <ClCompile Include="..\Code\SkyBox.cpp" />
+    <ClCompile Include="..\Code\SmallFruit.cpp" />
     <ClCompile Include="..\Code\Stage.cpp" />
     <ClCompile Include="..\Code\StartBackGround.cpp" />
     <ClCompile Include="..\Code\StartScene.cpp" />

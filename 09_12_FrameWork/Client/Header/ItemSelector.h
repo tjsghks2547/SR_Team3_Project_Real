@@ -16,13 +16,14 @@ class CItemSelector : public Engine::CGameObject
 private:
 	explicit CItemSelector(LPDIRECT3DDEVICE9 pGraphicDev);
 	virtual ~CItemSelector();
-	
+
 public:
 	virtual   HRESULT   Ready_GameObject();
 	virtual   _int      Update_GameObject(const _float& fTimeDelta);
 	virtual   void	    LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual   void      Render_GameObject();
 
+	void	   ResetIdx() { m_iCurIdx = -5; }
 private:
 	HRESULT    Add_Component();
 	void	   Key_Input(const _float& fTimeDelta);
@@ -39,7 +40,7 @@ private:
 	Engine::CTransform* m_pTransButtonCom;
 
 
-	CInvenUI*	m_pInven;
+	CInvenUI* m_pInven;
 
 	_int		m_iCurIdx;
 	_int		m_iPrevIdx;

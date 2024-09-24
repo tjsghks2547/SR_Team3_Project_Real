@@ -100,9 +100,6 @@
     <Filter Include="04. Component\00.VIBuffer\07. MapTex\01.StartMap">
       <UniqueIdentifier>{f9adec19-72c6-4cec-8148-72c00ade1581}</UniqueIdentifier>
     </Filter>
-    <Filter Include="07.CollisionMgr">
-      <UniqueIdentifier>{0be1ac36-f435-443e-a328-33a71476fb34}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Header\Management.h">
@@ -198,9 +195,6 @@
     <ClInclude Include="..\..\Header\BoundBox.h">
       <Filter>04. Component\00.VIBuffer\08. BoundBox</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Header\CollisionMgr.h">
-      <Filter>07.CollisionMgr</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\Management.cpp">
@@ -287,11 +281,11 @@
     <ClCompile Include="..\Code\PipeCom.cpp">
       <Filter>04. Component\06. Puzzle\PipeGame\PipeBoard</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\BoundBox.cpp">
-      <Filter>04. Component\00.VIBuffer\08. BoundBox</Filter>
+    <ClCompile Include="..\Code\CBoundBox.cpp">
+      <Filter>02. Layer</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Header\CollisionMgr.cpp">
-      <Filter>07.CollisionMgr</Filter>
+    <ClCompile Include="..\..\Header\BoundBox.cpp">
+      <Filter>04. Component\00.VIBuffer\08. BoundBox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
