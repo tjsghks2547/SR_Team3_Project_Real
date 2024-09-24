@@ -15,6 +15,7 @@ private:
 
 public:
 	HRESULT					Ready_Transform();
+	virtual  void			LateReady_Component();
 	virtual  _int			Update_Component(const _float& fTimeDelta);
 	virtual  void			LateUpdate_Component();
 

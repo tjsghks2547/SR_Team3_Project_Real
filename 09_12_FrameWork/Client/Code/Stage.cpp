@@ -71,8 +71,8 @@ HRESULT CStage::Ready_Layer_Environmnet(const _tchar* pLayerTag)
 
 	Engine::CGameObject* pGameObject = nullptr; 
 
-	_vec3 Eye = { 0.f, 10.f, -10.f };
-	_vec3 At  = {0.f, 0.f, 1.f };
+	_vec3 Eye = { 0.f, 0.f, 0.f };
+	_vec3 At  = {0.f, 1.f, 1.f };
 	_vec3 Up = { 0.f, 1.f, 0.f };
 
 	pGameObject = CDynamicCamera::Create(m_pGraphicDev, &Eye, &At, &Up);	
@@ -398,8 +398,6 @@ CStage* CStage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 		MSG_BOX("Stage Create Failed");
 		return nullptr;
 	}
-
-	pStage->LateReady_Scene();
 	return pStage;
 }
 
