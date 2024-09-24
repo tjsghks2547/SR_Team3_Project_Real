@@ -20,12 +20,6 @@ HRESULT CInvenUI::Ready_GameObject()
 
     // 인벤토리 간격
     m_InvenInterval = { 145.7f, 137.f };
-    // 인벤토리 타입별 첫번째 칸 위치
-    //for (size_t i = 0; i < CItem::TYPE_END; i++)
-    //{
-    //    m_vInvenPos[i] = { -459.5f, 39.5f, 0.1f };
-    //}
-    // 인벤토리 초기 선택 필터
     m_iItemFilter = CItem::EQUIP;
 
     //0913 레이트 레디로 보내야 함 일단 업데이트로 보내놨다
@@ -91,7 +85,7 @@ void CInvenUI::Render_GameObject()
     {
         _vec2 HpPosition(556.f, 15.f);
 
-        Engine::Render_Font(L"Font_Ogu48", L"인벤토리", &HpPosition, D3DXCOLOR(0.999f, 0.98f, 0.9f, 1.f));
+        Engine::Render_Font(L"Font_OguBold48", L"인벤토리", &HpPosition, D3DXCOLOR(0.999f, 0.98f, 0.9f, 1.f));
 
         m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom[BACKGROUND]->Get_WorldMatrix());
         m_pTextureCom[BACKGROUND]->Set_Texture();
@@ -168,7 +162,7 @@ void CInvenUI::Add_Item(CItem* _Item)
     }
 
     m_ItemList[eType].push_back(_Item); // 해당 필터 벡터 뒤에 넣어줌
-    Set_InvenPos(m_ItemList[eType].size()-1, eType);
+    Set_InvenPos(m_ItemList[eType].size() - 1, eType);
     _Item->Set_ItemPos(m_vInvenPos[eType]); //인벤 위치를 저장해둔 
 
 }
@@ -176,7 +170,7 @@ void CInvenUI::Add_Item(CItem* _Item)
 void CInvenUI::Remove_Item()
 {
     //아이템 0개되면 삭제치기
-    for (size_t iFilter= 0; iFilter < CItem::TYPE_END; iFilter++)
+    for (size_t iFilter = 0; iFilter < CItem::TYPE_END; iFilter++)
     {
         vector<CItem*>::iterator iter = m_ItemList[iFilter].begin();
         while (iter != m_ItemList[iFilter].end())
@@ -184,10 +178,7 @@ void CInvenUI::Remove_Item()
             if ((*iter)->Get_ItemInfo().iItemCount == 0)
             {
                 // 삭제된 다음 요소
-                //_vec3 ItemPrevPos = (*iter)->Get_ItemPos();
                 iter = m_ItemList[iFilter].erase(iter);
-                //(*iter)->Set_ItemPos(ItemPrevPos);
-
             }
             else
             {
@@ -202,7 +193,7 @@ void CInvenUI::Remove_Item()
             m_ItemList[iFilter][j]->Set_ItemPos(m_vInvenPos[iFilter]);
         }
     }
-    
+
 }
 
 HRESULT CInvenUI::Add_Component()

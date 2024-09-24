@@ -17,6 +17,8 @@ public:
 private:
 	HRESULT    Add_Component();
 
+	CTexture* m_pCountRCTextureCom;
+	CTransform* m_pCountRCTransformCom;
 
 public:
 	static CSmallFruit* Create(LPDIRECT3DDEVICE9 pGraphicDev);

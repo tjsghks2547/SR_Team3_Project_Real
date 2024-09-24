@@ -75,6 +75,8 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_IconButton", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/IconButton.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_EquipOnOffButton", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/EquipOnOff.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_TextBox", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/TextBox.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_InvenCursor", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/UI_Cursor_White.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_CountRC", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/CountRC.png", TEX_NORMAL)), E_FAIL);
 	//Item
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_ExploreHat", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/Explore.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_PartyHat", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/PartyHat.png", TEX_NORMAL)), E_FAIL);
