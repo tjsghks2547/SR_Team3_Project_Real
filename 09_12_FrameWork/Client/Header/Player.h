@@ -46,9 +46,7 @@ public:
 	void			SetPlayerState(PLAYERSTATE _ePlayerState)
 	{
 		m_ePlayerState = _ePlayerState;
-		/*if (m_bIsDiagonal)
-			m_ePlayerState = static_cast<PLAYERSTATE>(m_ePlayerState + 1);*/
-		m_pAnimationCom->SetAnimFrame(m_ePlayerState);
+		m_pAnimationCom->SetAnimFrame(m_ePlayerState, m_bIsDiagonal);
 	}
 
 	OBJ_DIRECTION	GetPlayerDirection() { return m_ePlayerDir; }

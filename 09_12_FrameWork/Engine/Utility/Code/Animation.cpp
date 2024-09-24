@@ -1,29 +1,29 @@
 #include "Animation.h"
 
 CAnimation::CAnimation()
-	: m_eCurrentDir(OBJ_DIRECTION::OBJDIR_FRONT)
+	: m_eCurrentState(PLAYERSTATE::PLY_IDLE)
+	, m_eCurrentDir(0)
 	, currentFrame(0)
 	, m_fAccTime(0.2f)
-	, m_bIsDiagonal(false)
 {
 }
 
 CAnimation::CAnimation(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CVIBuffer(pGraphicDev)
+	, m_eCurrentState(PLAYERSTATE::PLY_IDLE)
 	, m_eCurrentDir(OBJ_DIRECTION::OBJDIR_FRONT)
 	, currentFrame(0)
 	, m_fAccTime(0.2f)
-	, m_bIsDiagonal(false)
 {
 	//pGraphicDev->AddRef();
 }
 
 CAnimation::CAnimation(const CAnimation& rhs)
 	:CVIBuffer(rhs)
+	, m_eCurrentState(PLAYERSTATE::PLY_IDLE)
 	, m_eCurrentDir(OBJ_DIRECTION::OBJDIR_FRONT)
 	, currentFrame(0)
 	, m_fAccTime(0.2f)
-	, m_bIsDiagonal(false)
 {
 	m_currentFrameCount = rhs.m_currentFrameCount;
 	m_vecFrameCount = rhs.m_vecFrameCount;
@@ -95,7 +95,6 @@ HRESULT CAnimation::Ready_Animation(
 	pIndex[1]._1 = 2;
 	pIndex[1]._2 = 3;
 
-	SetAnimFrame(PLAYERSTATE::PLY_IDLE);
 	return S_OK;
 }
 
@@ -107,8 +106,8 @@ _int CAnimation::Update_Component(const _float& fTimeDelta)
 	{
 		m_fAccTime += 0.2f;
 
-		currentFrame++;
 		UpdateUV();
+		currentFrame++;
 		if (currentFrame >= m_vecFramePlay[m_eCurrentState][m_eCurrentDir].size() - 1)
 		{
 			currentFrame = 0;
@@ -155,10 +154,9 @@ void CAnimation::Free()
 void CAnimation::SetAnimFrame(PLAYERSTATE _eObjState, bool _bDiagonal)
 {
 	currentFrame = 0;
+	m_eCurrentState = _eObjState;
 	if (_bDiagonal)
-		m_eCurrentState = _eObjState;// static_cast<PLAYERSTATE>(_eObjState + 1);
-	else
-		m_eCurrentState = _eObjState;
+		m_eCurrentState = static_cast<PLAYERSTATE>(_eObjState + 1);
 
 	m_currentFrameCount = m_vecFrameCount[m_eCurrentState];
 
@@ -176,5 +174,31 @@ void CAnimation::SetAnimFrame(PLAYERSTATE _eObjState, bool _bDiagonal)
 	m_vecCurrentFrameUV.x = 1.f / m_currentFrameCount.x;
 	m_vecCurrentFrameUV.y = 1.f / m_currentFrameCount.y;
 
+
 	UpdateUV();
+}
+
+void CAnimation::UpdateUV()
+{
+	VTXTEX* pVertex = nullptr;
+	m_pVB->Lock(0, 0, (void**)&pVertex, 0);
+
+	int frameX = m_vecFramePlay[m_eCurrentState][m_eCurrentDir][currentFrame]
+		% (int)m_currentFrameCount.x;
+	int frameY = m_vecFramePlay[m_eCurrentState][m_eCurrentDir][currentFrame]
+		/ m_currentFrameCount.x;
+
+	float FrameU = 1.f / m_currentFrameCount.x;
+	float FrameV = 1.f / m_currentFrameCount.y;
+
+	pVertex[0].vTexUV = { frameX * FrameU,
+						  frameY * FrameV };
+	pVertex[1].vTexUV = { pVertex[0].vTexUV.x + FrameU,
+						  pVertex[0].vTexUV.y };
+	pVertex[2].vTexUV = { pVertex[0].vTexUV.x + FrameU,
+						  pVertex[0].vTexUV.y + FrameV };
+	pVertex[3].vTexUV = { pVertex[0].vTexUV.x,
+						  pVertex[0].vTexUV.y + FrameV };
+
+	m_pVB->Unlock();
 }

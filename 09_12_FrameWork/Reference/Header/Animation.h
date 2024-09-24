@@ -25,63 +25,19 @@ public:
 	virtual	 void   		Render_Buffer();
 
 public:
-	void SetAnimFrame(PLAYERSTATE _ePlayerState, bool _bDiagonal = false);
-	void SetAnimDir(int _dir, bool& _bDiagonal)
+	void SetAnimFrame(PLAYERSTATE _ePlayerState, bool _bDiagonal);
+	void SetAnimDir(PLAYERSTATE _ePlayerState, int _dir, bool _bDiagonal)
 	{
-		if (m_iCurrentDir != _dir)
-		{
-			currentFrame = 0;
-			m_iCurrentDir = _dir;
-			switch (_dir)
-			{
-			case (int)OBJ_DIRECTION::OBJDIR_FRONT:
-			case (int)OBJ_DIRECTION::OBJDIR_BACK:
-			case (int)OBJ_DIRECTION::OBJDIR_LEFT:
-			case (int)OBJ_DIRECTION::OBJDIR_RIGHT:
-				m_eCurrentDir = log(_dir) / log(2); // 0,1,2,3
-				_bDiagonal = false;
-				break;
+		if (_bDiagonal)
+			m_eCurrentDir = round(_dir * 0.6 - 3);
+		else
+			m_eCurrentDir = log(_dir) / log(2); // 0,1,2,3
 
-			case (int)OBJ_DIRECTION::OBJDIR_LEFTFRONT:
-			case (int)OBJ_DIRECTION::OBJDIR_LEFTBACK:
-			case (int)OBJ_DIRECTION::OBJDIR_RIGHTFRONT:
-			case (int)OBJ_DIRECTION::OBJDIR_RIGHTBACK:
-				m_eCurrentDir = round(_dir * 0.6 - 3);
-				_bDiagonal = true;
-				break;
-			}
-
-			if (m_bIsDiagonal != _bDiagonal)
-			{
-				m_bIsDiagonal = _bDiagonal;
-				SetAnimFrame(m_eCurrentState, m_bIsDiagonal);
-			}
-
-			UpdateUV();
-		}
+		SetAnimFrame(_ePlayerState, _bDiagonal);
 	}
 
-	void UpdateUV()
-	{
-		VTXTEX* pVertex = nullptr;
-		m_pVB->Lock(0, 0, (void**)&pVertex, 0);
+	void UpdateUV();
 
-		int frameX = m_vecFramePlay[m_eCurrentState][m_eCurrentDir][currentFrame]
-			% (int)m_currentFrameCount.x;
-		int frameY = m_vecFramePlay[m_eCurrentState][m_eCurrentDir][currentFrame]
-			/ m_currentFrameCount.x;
-
-		pVertex[0].vTexUV = { frameX * m_vecCurrentFrameUV.x,
-							  frameY * m_vecCurrentFrameUV.y };
-		pVertex[1].vTexUV = { pVertex[0].vTexUV.x + m_vecCurrentFrameUV.x,
-							  pVertex[0].vTexUV.y };
-		pVertex[2].vTexUV = { pVertex[0].vTexUV.x + m_vecCurrentFrameUV.x,
-							  pVertex[0].vTexUV.y + m_vecCurrentFrameUV.y };
-		pVertex[3].vTexUV = { pVertex[0].vTexUV.x,
-							  pVertex[0].vTexUV.y + m_vecCurrentFrameUV.y };
-
-		m_pVB->Unlock();
-	}
 private:
 
 	// Loading에서 Animation.dat 정보를 받아와서
@@ -98,9 +54,8 @@ private:
 	PLAYERSTATE			m_eCurrentState;
 	int					m_eCurrentDir;
 	int					m_iCurrentDir;
-	bool				m_bIsDiagonal;
-	int					currentFrame;
 
+	int					currentFrame;
 	float				m_fAccTime;
 
 public:
