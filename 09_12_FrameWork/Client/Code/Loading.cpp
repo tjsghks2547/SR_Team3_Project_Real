@@ -58,7 +58,7 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_PlayerTex2", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Player0.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_TerrainTexture", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Terrain/Terrain0.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_SkyBox", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/SkyBox/burger%d.dds", TEX_CUBE, 4)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_StartMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map/Tutorial_Map.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_StartMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Tutorial_Map.png", TEX_NORMAL)), E_FAIL);
 	//UI
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_HPFrame", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/HeartHPFrame_UI2.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_HPBar", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/HPBar.png", TEX_NORMAL)), E_FAIL);
@@ -77,6 +77,11 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_TextBox", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/TextBox.png", TEX_NORMAL)), E_FAIL);
 	//Item
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_ExploreHat", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/Explore.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_PartyHat", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/PartyHat.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Mohican", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/Mohican.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_SmallFruit", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/SmallFruit.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MiddleFruit", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/MiddleFruit.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_BigFruit", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/BigFruit.png", TEX_NORMAL)), E_FAIL);
 
 
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_PipeBoardTex", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/puzzle/Sprite_MoonForest_MazePuzzleFloor2Line.png", TEX_NORMAL)), E_FAIL);

@@ -20,7 +20,7 @@ HRESULT CExploreHat::Ready_GameObject()
 		L"탐험할 때 필수로 챙기는 모자. \
 		탐험가가 된 기분..!!! \
 		끼얏 -? 호!",
-		0 };
+		0, 1 };
 
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 

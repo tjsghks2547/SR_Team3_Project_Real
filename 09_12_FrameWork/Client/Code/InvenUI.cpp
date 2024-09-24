@@ -20,10 +20,13 @@ HRESULT CInvenUI::Ready_GameObject()
 
     // 인벤토리 간격
     m_InvenInterval = { 145.7f, 137.f };
-    // 인벤토리 첫번째 칸 위치
-    m_vInvenPos = { -459.5f, 39.5f, 0.1f };
+    // 인벤토리 타입별 첫번째 칸 위치
+    //for (size_t i = 0; i < CItem::TYPE_END; i++)
+    //{
+    //    m_vInvenPos[i] = { -459.5f, 39.5f, 0.1f };
+    //}
     // 인벤토리 초기 선택 필터
-    m_tItemFilter = CItem::EQUIP;
+    m_iItemFilter = CItem::EQUIP;
 
     //0913 레이트 레디로 보내야 함 일단 업데이트로 보내놨다
     //m_pPlayer = dynamic_cast<CPlayer*>(Engine::Get_GameObject(L"Layer_GameLogic", L"Player"));
@@ -35,9 +38,16 @@ HRESULT CInvenUI::Ready_GameObject()
 
 _int CInvenUI::Update_GameObject(const _float& fTimeDelta)
 {
-
     m_pPlayer = dynamic_cast<CPlayer*>(Engine::Get_GameObject(L"Layer_GameLogic", L"Player"));
     NULL_CHECK_RETURN(m_pPlayer, 0);
+
+    Remove_Item();
+
+    if (m_bCursorCreate == false)
+    {
+        m_bCursorCreate = true;
+        m_pItemSelector = dynamic_cast<CItemSelector*>(CItemSelector::Create(m_pGraphicDev));
+    }
 
     _int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
@@ -47,7 +57,7 @@ _int CInvenUI::Update_GameObject(const _float& fTimeDelta)
         Engine::Add_RenderGroup(RENDER_UI, this);
         Key_Input(fTimeDelta);
 
-        for (auto& pItem : m_ItemList[m_tItemFilter])
+        for (auto& pItem : m_ItemList[m_iItemFilter])
         {
             if (pItem == nullptr)
                 continue;
@@ -118,7 +128,7 @@ void CInvenUI::Render_GameObject()
 
         // 인벤토리 아이템 출력
 
-        for (auto& pItem : m_ItemList[m_tItemFilter])
+        for (auto& pItem : m_ItemList[m_iItemFilter])
         {
             if (pItem == nullptr)
                 continue;
@@ -131,6 +141,68 @@ void CInvenUI::Render_GameObject()
         }
 
     }
+}
+
+void CInvenUI::Use_Efficacy(_int _iFilter, _int _iIdx)
+{
+    m_ItemList[_iFilter].at(_iIdx)->Use_Item();
+}
+
+void CInvenUI::Add_Item(CItem* _Item)
+{
+    CItem::ITEMTYPE eType = _Item->Get_ItemInfo().eType; // 아이템종류
+    if (m_ItemList[eType].size() > 14) // 인벤 사이즈가 15이상이라면 리턴
+        return;
+
+    if (eType == CItem::CONSUM || eType == CItem::OTHER)// 소비기타일 경우 
+    {
+        _int eItemEnum = _Item->Get_ItemInfo().eItemEnum; // 들어온 아이템 이름
+        for (size_t i = 0; i < m_ItemList[eType].size(); i++)
+        {
+            if (m_ItemList[eType].at(i)->Get_ItemInfo().eItemEnum == eItemEnum)//같은 아이템일경우
+            {
+                m_ItemList[eType].at(i)->Set_ItemCount(1);// 카운트를 +1해줌
+                return;
+            }
+        }
+    }
+
+    m_ItemList[eType].push_back(_Item); // 해당 필터 벡터 뒤에 넣어줌
+    Set_InvenPos(m_ItemList[eType].size()-1, eType);
+    _Item->Set_ItemPos(m_vInvenPos[eType]); //인벤 위치를 저장해둔 
+
+}
+
+void CInvenUI::Remove_Item()
+{
+    //아이템 0개되면 삭제치기
+    for (size_t iFilter= 0; iFilter < CItem::TYPE_END; iFilter++)
+    {
+        vector<CItem*>::iterator iter = m_ItemList[iFilter].begin();
+        while (iter != m_ItemList[iFilter].end())
+        {
+            if ((*iter)->Get_ItemInfo().iItemCount == 0)
+            {
+                // 삭제된 다음 요소
+                //_vec3 ItemPrevPos = (*iter)->Get_ItemPos();
+                iter = m_ItemList[iFilter].erase(iter);
+                //(*iter)->Set_ItemPos(ItemPrevPos);
+
+            }
+            else
+            {
+                ++iter;
+            }
+        }
+        for (size_t j = 0; j < m_ItemList[iFilter].size(); j++)
+        {
+            // 인벤토리 위치를 업데이트
+            Set_InvenPos(j, static_cast<CItem::ITEMTYPE>(iFilter));
+            // 아이템의 위치를 새로 설정
+            m_ItemList[iFilter][j]->Set_ItemPos(m_vInvenPos[iFilter]);
+        }
+    }
+    
 }
 
 HRESULT CInvenUI::Add_Component()
@@ -240,11 +312,6 @@ void CInvenUI::Key_Input(const _float& fTimeDelta)
     }
     if (Engine::GetKeyDown(DIK_DOWN))
     {
-        if (m_bCursorCreate == false)
-        {
-            m_bCursorCreate = true;
-            m_pItemSelector = dynamic_cast<CItemSelector*>(CItemSelector::Create(m_pGraphicDev));
-        }
     }
     if (Engine::GetKeyDown(DIK_LEFT))
     {
@@ -252,9 +319,21 @@ void CInvenUI::Key_Input(const _float& fTimeDelta)
     if (Engine::GetKeyDown(DIK_RIGHT))
     {
     }
-    if (Engine::GetKeyDown(DIK_F))
+    if (Engine::GetKeyDown(DIK_E))
     {
-        m_tItemFilter = CItem::CONSUM;
+        if (m_iItemFilter < 3)
+        {
+            ++m_iItemFilter;
+            m_pItemSelector->ResetIdx();
+        }
+    }
+    if (Engine::GetKeyDown(DIK_Q))
+    {
+        if (m_iItemFilter > 0)
+        {
+            --m_iItemFilter;
+            m_pItemSelector->ResetIdx();
+        }
     }
 
 }

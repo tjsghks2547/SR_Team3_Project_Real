@@ -5,8 +5,12 @@
 #include "Export_Utility.h"
 
 //0920
-#include "InvenUI.h"
 #include "ExploreHat.h"
+#include "PartyHat.h"
+#include "SmallFruit.h"
+#include "MiddleFruit.h"
+#include "Mohican.h"
+#include "InvenUI.h"
 
 BEGIN(Engine)
 
@@ -52,10 +56,18 @@ public:
 	OBJ_DIRECTION	GetPlayerDirection() { return m_ePlayerDir; }
 	void			SetPlayerDirection();
 	bool			GetPlayerDiagonal() { return m_bIsDiagonal; }
+	
 	//0913 임시 코드
 	_int			GetPlayerCoin() { return m_iPlayerCoin; }
 	PLAYERHP		GetPlayerHP() { return m_tPlayerHP; }
 	_bool			GetPlayerInven() { return m_bInven; }
+	//0924 임시 추가 코드
+	void			SetPlayerCurHP(_int _SetHP) 
+	{ 
+		m_tPlayerHP.iCurHP += _SetHP;  
+		if (m_tPlayerHP.iCurHP > m_tPlayerHP.iMaxHP)
+			m_tPlayerHP.iCurHP = m_tPlayerHP.iMaxHP;
+	}
 
 
 private:

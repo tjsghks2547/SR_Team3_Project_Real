@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Export_Utility.h"
 #include "Export_System.h"
+//#include "Player.h"
 
 BEGIN(Engine)
 
@@ -10,7 +11,7 @@ class CTexture;
 class CTransform;
 
 END
-
+class CPlayer;
 class CItem : public Engine::CGameObject
 {
 protected:
@@ -21,8 +22,8 @@ public:
 
 	enum ITEMTYPE { EQUIP, CONSUM, OTHER, QUEST, TYPE_END };
 
-	enum EQUIPITEM { EXPLORE, EQUIP_END };
-	enum CONSUMITEM { MINI_FRUIT, MIDDLE_FRUIT, BIG_FRUIT, CONSUM_END };
+	enum EQUIPITEM { EXPLORE, PARTY, MOHICAN, EQUIP_END };
+	enum CONSUMITEM { SMALL_FRUIT, MIDDLE_FRUIT, BIG_FRUIT, CONSUM_END };
 	enum OTHERITEM { LEAF, BRANCH, OTHER_END };
 	enum QUESTITEM { NET, DRAWTOOL, QUEST_END };
 
@@ -30,22 +31,26 @@ public:
 	{
 		ITEMTYPE			eType;
 		_int				eItemEnum;
-		const _tchar*		pName;
-		const _tchar*		pInfo;
+		const _tchar* pName;
+		const _tchar* pInfo;
 		_int				iPrice;
+		_int				iItemCount;
 	};
 
 public:
 	ITEM_INFO   Get_ItemInfo() { return m_tInfo; }
-	_vec3		Get_ItemPos() 
+	_vec3		Get_ItemPos()
 	{
 		_vec3 vPos;
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
 		return vPos;
 	}
 
-	void		Set_ItemPos(_vec3 _ItemPos) 
-	{ m_pTransformCom->m_vInfo[INFO_POS] = _ItemPos; }
+	void		Set_ItemPos(_vec3 _ItemPos)
+	{
+		m_pTransformCom->m_vInfo[INFO_POS] = _ItemPos;
+	}
+	void		Set_ItemCount(_int _AddItemCount) { m_tInfo.iItemCount += _AddItemCount; }
 
 public:
 	virtual   HRESULT   Ready_GameObject();
@@ -53,19 +58,21 @@ public:
 	virtual   void      LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual   void      Render_GameObject();
 
+	virtual   void      Use_Item() {}
+
 protected:
 	HRESULT    Add_Component();
 
 protected:
-	Engine::CRcTex*				m_pBufferCom;
-	CTexture*					m_pTextureCom;
-	CTransform*					m_pTransformCom;
+	Engine::CRcTex* m_pBufferCom;
+	CTexture* m_pTextureCom;
+	CTransform* m_pTransformCom;
 	//vector<Engine::CTexture*>				m_pTextureCom[TYPE_END];
 	//vector<Engine::CTransform*>			m_pTransformCom[TYPE_END];
 
 protected:
 	ITEM_INFO				m_tInfo;
-
+	CPlayer* m_pPlayer;
 public:
 	static CItem* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 

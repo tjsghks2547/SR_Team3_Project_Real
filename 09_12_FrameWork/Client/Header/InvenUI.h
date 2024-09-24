@@ -28,35 +28,30 @@ public:
 
 
 public:
-	_bool	Is_Empty(CItem::ITEMTYPE _Itemfilter) { return m_ItemList[_Itemfilter].empty(); }
-	void	Add_Item(CItem* _Item)
+	void	Use_Efficacy(_int _iFilter, _int _iIdx);
+	_bool	Is_Empty(_int _Itemfilter) { return m_ItemList[_Itemfilter].empty(); }
+	void	Add_Item(CItem* _Item);
+	void	Remove_Item();
+	void	Set_InvenPos(int _iInvenItemIdx, CItem::ITEMTYPE _eType)
 	{
-		int eType = _Item->Get_ItemInfo().eType;
-		if (m_ItemList[eType].size() > 14)
-			return;
-
-		m_ItemList[eType].push_back(_Item);
-		_Item->Set_ItemPos(m_vInvenPos);
-
-		Set_InvenPos(m_ItemList[eType].size());
-	};
-	void	Set_InvenPos(int _iInvenCount)
-	{
-		if (_iInvenCount % 5 == 0)
+		if (_iInvenItemIdx % 5 == 0)
 		{
-			m_vInvenPos = { -459.5f,  39.5f - (m_InvenInterval.y * (_iInvenCount / 5)), 0.1f };
+			m_vInvenPos[_eType] = { -459.5f,  39.5f - (m_InvenInterval.y * (_iInvenItemIdx / 5)), 0.1f };
 			return;
 		}
-		m_vInvenPos.x += m_InvenInterval.x;
+		m_vInvenPos[_eType].x += m_InvenInterval.x;
 	}
 
-	CItem::ITEMTYPE			Get_CurFilter() { return m_tItemFilter; }
-	_int					Get_FilterItemCount(CItem::ITEMTYPE _eItemfilter) { return m_ItemList[_eItemfilter].size(); }
-	_vec3					Get_CurItemPos(CItem::ITEMTYPE _Itemfilter, int _idx) { return m_ItemList[_Itemfilter].at(_idx)->Get_ItemPos(); }
-	CItem::ITEM_INFO		Get_ItemInfo(CItem::ITEMTYPE _Itemfilter, int _idx)
+	//CItem::ITEMTYPE			
+	_int					Get_CurFilter() { return m_iItemFilter; }
+	_int					Get_FilterItemCount(_int _eItemfilter) { return m_ItemList[_eItemfilter].size(); }
+	_vec3					Get_CurItemPos(_int _Itemfilter, int _idx) { return m_ItemList[_Itemfilter].at(_idx)->Get_ItemPos(); }
+	CItem::ITEM_INFO		Get_ItemInfo(_int _Itemfilter, int _idx)
 	{
 		return m_ItemList[_Itemfilter].at(_idx)->Get_ItemInfo();
 	}
+
+
 private:
 	HRESULT    Add_Component();
 
@@ -70,7 +65,7 @@ private:
 	Engine::CTexture* m_pTextureCom[INVENUI_END];
 	Engine::CTransform* m_pTransformCom[INVENUI_END];
 
-	CItemSelector* m_pItemSelector;
+	CItemSelector*		m_pItemSelector;
 	_bool				m_bCursorCreate;
 
 private:
@@ -79,10 +74,11 @@ private:
 
 	vector<CItem*>	m_ItemList[CItem::TYPE_END];
 
-	_vec3			m_vInvenPos; // 인벤 칸 위치
+	_vec3			m_vInvenPos[CItem::TYPE_END]; // 인벤 칸 위치
 	_vec2			m_InvenInterval; // 간격
 
-	CItem::ITEMTYPE  m_tItemFilter;
+	//CItem::ITEMTYPE  
+	_int	m_iItemFilter;
 
 public:
 	static CInvenUI* Create(LPDIRECT3DDEVICE9 pGraphicDev);

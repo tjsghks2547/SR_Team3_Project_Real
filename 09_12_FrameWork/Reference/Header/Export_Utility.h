@@ -4,7 +4,6 @@
 #include "ComponentMgr.h"
 #include "Renderer.h"
 #include "LightMgr.h"
-#include "CollisionMgr.h"
 
 
 #include "TriCol.h"
