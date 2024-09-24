@@ -101,8 +101,6 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev, Engine::CManagement
 	FAILED_CHECK_RETURN((*ppManagement)->Set_Scene(pScene), E_FAIL); // 이게 현재 신 정해주는거 전 씬은 없애주고	
 
 	
-	(*ppManagement)->LateReady_Scene();
-	
 	
 	// ================================================================================
 	//pScene = CLogo::Create(pGraphicDev);

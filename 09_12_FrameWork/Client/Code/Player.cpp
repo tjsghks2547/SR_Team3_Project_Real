@@ -41,6 +41,7 @@ HRESULT CPlayer::Ready_GameObject()
 
 void CPlayer::LateReady_GameObject()
 {
+    Engine::CGameObject::LateReady_GameObject();
 }
 
 _int CPlayer::Update_GameObject(const _float& fTimeDelta)
