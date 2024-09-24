@@ -209,10 +209,7 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
     //0922
     if (Engine::GetKeyDown(DIK_I))
     {
-        if (m_bInven)
-            m_bInven = false;
-        else
-            m_bInven = true;
+        m_bInven = m_bInven ? false : true;
     }
 
     if (m_bInven)
@@ -221,13 +218,32 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 
 
     //0920 좆임시 아이템 추가
-    if (GetAsyncKeyState('L'))
+    if (Engine::GetKeyDown(DIK_L))
     {
         CItem* pItem = dynamic_cast<CExploreHat*>(CExploreHat::Create(m_pGraphicDev));
-
         NULL_CHECK_RETURN(pItem);
-
         m_pInven->Add_Item(pItem);
+
+        pItem = dynamic_cast<CPartyHat*>(CPartyHat::Create(m_pGraphicDev));
+        NULL_CHECK_RETURN(pItem);
+        m_pInven->Add_Item(pItem);
+
+        pItem = dynamic_cast<CMohican*>(CMohican::Create(m_pGraphicDev));
+        NULL_CHECK_RETURN(pItem);
+        m_pInven->Add_Item(pItem);
+
+        pItem = dynamic_cast<CSmallFruit*>(CSmallFruit::Create(m_pGraphicDev));
+        NULL_CHECK_RETURN(pItem);
+        m_pInven->Add_Item(pItem);
+
+        pItem = dynamic_cast<CMiddleFruit*>(CMiddleFruit::Create(m_pGraphicDev));
+        NULL_CHECK_RETURN(pItem);
+        m_pInven->Add_Item(pItem);
+    }
+
+    if (Engine::GetKeyDown(DIK_K))
+    {
+        //0923 임시 대화상자
     }
 }
 
