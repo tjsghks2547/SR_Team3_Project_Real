@@ -1,7 +1,8 @@
 #include "BoundBox.h"
 
 CBoundBox::CBoundBox()
-    : m_pVecMin(0.f,0.f,0.f)
+    : m_pMesh(nullptr)
+    , m_pVecMin(0.f,0.f,0.f)
     , m_pVecMax(0.f,0.f,0.f)
 {
     
@@ -9,6 +10,7 @@ CBoundBox::CBoundBox()
 
 CBoundBox::CBoundBox(LPDIRECT3DDEVICE9 pGraphicDev)
     :CComponent(pGraphicDev)
+    , m_pMesh(nullptr)
     , m_pVecMin(0.f,0.f,0.f)
     , m_pVecMax(0.f,0.f,0.f)
 {
@@ -29,20 +31,27 @@ CBoundBox::~CBoundBox()
 
 HRESULT CBoundBox::Ready_Buffer()
 {
+    if (FAILED(D3DXCreateBox(m_pGraphicDev, 1.5f, 1.5f, 1.5f, &m_pMesh, NULL))) {
+        // 冠胶 积己 角菩 贸府
+        int a = 4; 
+    }
 
-    D3DXCreateBox(m_pGraphicDev, 20.0f, 20.0f, 20.0f, &m_pMesh, NULL);
     D3DXVECTOR3* pVertices;
 
-    m_pMesh->LockVertexBuffer(D3DLOCK_READONLY, (void**)&pVertices);
-    D3DXComputeBoundingBox(pVertices, m_pMesh->GetNumVertices(), m_pMesh->GetNumBytesPerVertex(), &m_pVecMin, &m_pVecMax);
-    m_pMesh->UnlockVertexBuffer();
+   //m_pMesh->LockVertexBuffer(D3DLOCK_READONLY, (void**)&pVertices);
+   //D3DXComputeBoundingBox(pVertices, m_pMesh->GetNumVertices(), m_pMesh->GetNumBytesPerVertex(), &m_pVecMin, &m_pVecMax);
+   //m_pMesh->UnlockVertexBuffer();
 
     return S_OK;
 }
 
-void CBoundBox::Render_Buffer()
+void CBoundBox::Render_Buffer() 
 {
+    m_pGraphicDev->SetTexture(0, 0);
+    m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
     m_pMesh->DrawSubset(0);
+    m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+
     
 }
 

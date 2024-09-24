@@ -161,6 +161,7 @@ call CopyUtility.bat</Command>
     <ClInclude Include="..\..\Header\BoundBox.h" />
     <ClInclude Include="..\..\Header\Calculator.h" />
     <ClInclude Include="..\..\Header\Camera.h" />
+    <ClInclude Include="..\..\Header\CollisionMgr.h" />
     <ClInclude Include="..\..\Header\Component.h" />
     <ClInclude Include="..\..\Header\ComponentMgr.h" />
     <ClInclude Include="..\..\Header\CStartMap.h" />
@@ -188,13 +189,13 @@ call CopyUtility.bat</Command>
     <ClInclude Include="..\..\Header\VIBuffer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Header\BoundBox.cpp" />
+    <ClCompile Include="..\..\Header\CollisionMgr.cpp" />
     <ClCompile Include="..\Code\Animation.cpp" />
     <ClCompile Include="..\Code\AnimationTex.cpp" />
     <ClCompile Include="..\Code\Animator.cpp" />
+    <ClCompile Include="..\Code\BoundBox.cpp" />
     <ClCompile Include="..\Code\Calculator.cpp" />
     <ClCompile Include="..\Code\Camera.cpp" />
-    <ClCompile Include="..\Code\CBoundBox.cpp" />
     <ClCompile Include="..\Code\Component.cpp" />
     <ClCompile Include="..\Code\ComponentMgr.cpp" />
     <ClCompile Include="..\Code\CStartMap.cpp" />

@@ -80,7 +80,6 @@ void CPlayer::Render_GameObject()
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
-
     if (m_bIsDiagonal)
         m_pTextureCom->Set_Texture(m_ePlayerState + 1);
     else
@@ -88,6 +87,8 @@ void CPlayer::Render_GameObject()
     Print_PlayerState();
   
     m_pAnimationCom->Render_Buffer();
+   
+    m_pBoundBox->Render_Buffer();
 
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);  // 이거 설정안해주면 안됨 전역적으로 장치세팅이 저장되기 때문에
     m_pGraphicDev->SetTexture(0, NULL);  // 이거 설정안해주면 그대로 텍스처 나옴 이것도 마찬가지로 전역적으로 장치세팅이 되므로
@@ -200,7 +201,9 @@ HRESULT CPlayer::Add_Component()
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_State", pComponent });
 
-    
+    pComponent = m_pBoundBox = dynamic_cast<CBoundBox*>(Engine::Clone_Proto(L"Proto_BoundBox"));    
+    NULL_CHECK_RETURN(pComponent, E_FAIL);  
+    m_mapComponent[ID_DYNAMIC].insert({ L"Com_BoundBox", pComponent }); 
 
 }
 

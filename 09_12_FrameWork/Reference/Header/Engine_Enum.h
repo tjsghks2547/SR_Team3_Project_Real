@@ -21,6 +21,10 @@ namespace Engine
 	// 09.19 안주헌
 	enum PIPEFLOW { FLOW_UP, FLOW_DOWN, FLOW_LEFT, FLOW_RIGHT, FLOW_END };
 
+	// 09.24 김선환
+	enum GROUP_TYPE { PLAYER, MOSNTER ,OBJECT,COLLISION_END};
+
+
 	// 행동 순서는 변경해도 되나, 무조건 DIAGONAL은 이전 행동 다음에 적을 것
 	enum PLAYERSTATE
 	{
