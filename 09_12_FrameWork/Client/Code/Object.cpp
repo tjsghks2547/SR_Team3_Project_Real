@@ -157,10 +157,10 @@ HRESULT CObject::Add_Component()
 	
 	 
 	// 9월 23일 추가 선환 충돌관련 박스 
-	pComponent = m_pBoundBox = dynamic_cast<CBoundBox*>(Engine::Clone_Proto(L"Proto_BoundBox"));
+	pComponent = m_pBoundBox = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_pBoundBox->SetGameObjectPtr(this);
-	m_mapComponent[ID_DYNAMIC].insert({ L"Com_BoundBox", pComponent });
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collider", pComponent });
 
 	return S_OK;	
 
@@ -193,4 +193,9 @@ CObject* CObject::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 void CObject::Free()
 {
 	Engine::CGameObject::Free();
+}
+
+void CObject::OnCollision(CGameObject* _pOther)
+{
+	int a = 4; 
 }

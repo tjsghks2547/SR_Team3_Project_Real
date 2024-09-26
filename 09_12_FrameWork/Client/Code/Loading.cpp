@@ -37,7 +37,7 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_State", Engine::CStateController::Create(m_pGraphicDev)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_PipeBoard", Engine::CPipeBoardCom::Create(m_pGraphicDev)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Pipe", Engine::CPipeCom::Create(m_pGraphicDev)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_BoundBox", Engine::CBoundBox::Create(m_pGraphicDev)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Collider", Engine::CCollider::Create(m_pGraphicDev)), E_FAIL);
 
 
 	lstrcpy(m_szLoading, L"Buffer Loading................");

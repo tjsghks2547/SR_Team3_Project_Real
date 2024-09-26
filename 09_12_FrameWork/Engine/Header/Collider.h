@@ -5,14 +5,16 @@ BEGIN(Engine)
 
 class CGameObject;
 
-class ENGINE_DLL CBoundBox : public CComponent
+class ENGINE_DLL CCollider : public CComponent
 {
+	
+
 
 private:
-	explicit CBoundBox();
-	explicit CBoundBox(LPDIRECT3DDEVICE9 pGraphicDev);
-	explicit CBoundBox(const CBoundBox& rhs);
-	virtual  ~CBoundBox();
+	explicit CCollider();
+	explicit CCollider(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit CCollider(const CCollider& rhs);
+	virtual  ~CCollider();
 
 
 public:
@@ -23,7 +25,7 @@ public:
 
 
 public:
-	static CBoundBox* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CCollider* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	CComponent* Clone();
 	void SetGameObjectPtr(CGameObject* _pGameObj)
 	{
@@ -37,19 +39,28 @@ private:
 
 
 private:
-	LPD3DXMESH m_pMesh;
-	_vec3	   m_VecMin;
-	_vec3	   m_VecMax;
-
-	_vec3      m_vWolrdVecMin;
-	_vec3      m_vWolrdVecMax;
+	LPD3DXMESH	 m_pMesh;
+				 
+	_vec3		 m_VecMin;
+	_vec3		 m_VecMax;
+	_vec3		 m_vWolrdVecMin;
+	_vec3		 m_vWolrdVecMax;
 
 	D3DXVECTOR3* pVertices;
-
 	CGameObject* m_pGameObjPtr;
+
+
+	static UINT  g_iNextID; //Á¤Àû¸É¹ö¶ó °´Ã¼³»¿ë¿¡ Æ÷ÇÔ¾ÈµÊ 
+	UINT         m_iID; 
+
 
 public:
 	bool  m_bisCollision;
+
+	UINT GetID() { return m_iID; }
+	
+	
+
 };
 
 END

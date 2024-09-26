@@ -204,10 +204,10 @@ HRESULT CPlayer::Add_Component()
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_State", pComponent });
 
-    pComponent = m_pBoundBox = dynamic_cast<CBoundBox*>(Engine::Clone_Proto(L"Proto_BoundBox"));    
+    pComponent = m_pBoundBox = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));    
     NULL_CHECK_RETURN(pComponent, E_FAIL);  
     m_pBoundBox->SetGameObjectPtr(this);    
-    m_mapComponent[ID_DYNAMIC].insert({ L"Com_BoundBox", pComponent }); 
+    m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collider", pComponent }); 
 
 }
 

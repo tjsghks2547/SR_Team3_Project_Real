@@ -23,7 +23,7 @@ class CCalculator;
 class CStateController;
 
 //0923 선환 충돌 테스트
-class CBoundBox;
+class CCollider;
 
 END
 
@@ -87,7 +87,7 @@ private:
 	Engine::CStateController* m_pStateControlCom;
 
 	//바운드 박스 테스트 
-	Engine::CBoundBox* m_pBoundBox;
+	Engine::CCollider* m_pBoundBox;
 
 	float m_fMoveSpeed;
 	PLAYERSTATE m_ePlayerState;

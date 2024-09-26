@@ -1,42 +1,48 @@
-#include "BoundBox.h"
+#include "Collider.h"
 #include "GameObject.h"
 #include "Transform.h"
 
-CBoundBox::CBoundBox()
+UINT CCollider::g_iNextID = 0;
+
+
+CCollider::CCollider()
     : m_pMesh(nullptr)
     , m_VecMin(0.f, 0.f, 0.f)
     , m_VecMax(0.f, 0.f, 0.f)
     , m_pGameObjPtr(nullptr)
     , m_bisCollision(false)
+    , m_iID(0)
 {
 
 }
 
-CBoundBox::CBoundBox(LPDIRECT3DDEVICE9 pGraphicDev)
+CCollider::CCollider(LPDIRECT3DDEVICE9 pGraphicDev)
     :CComponent(pGraphicDev)
     , m_pMesh(nullptr)
     , m_VecMin(0.f, 0.f, 0.f)
     , m_VecMax(0.f, 0.f, 0.f)
     , m_pGameObjPtr(nullptr)
     , m_bisCollision(false)
+    , m_iID(0)
 {
 
 }
 
-CBoundBox::CBoundBox(const CBoundBox& rhs)
+CCollider::CCollider(const CCollider& rhs)
     :CComponent(rhs)
     , m_pMesh(rhs.m_pMesh)
     , m_VecMin(rhs.m_VecMin)
     , m_VecMax(rhs.m_VecMax)
     , m_bisCollision(rhs.m_bisCollision)
+    , m_iID(g_iNextID++)
 {
 }
 
-CBoundBox::~CBoundBox()
+CCollider::~CCollider()
 {
 }
 
-HRESULT CBoundBox::Ready_Buffer()
+HRESULT CCollider::Ready_Buffer()
 {
     if (FAILED(D3DXCreateBox(m_pGraphicDev, 1.5f, 1.5f, 1.5f, &m_pMesh, NULL))) {
         // 冠胶 积己 角菩 贸府
@@ -52,7 +58,7 @@ HRESULT CBoundBox::Ready_Buffer()
     return S_OK;
 }
 
-void CBoundBox::Render_Buffer()
+void CCollider::Render_Buffer()
 {
     if (m_bisCollision == true)
     {
@@ -105,7 +111,7 @@ void CBoundBox::Render_Buffer()
 
 }
 
-_int CBoundBox::Update_Component(const _float& fTimeDelta)
+_int CCollider::Update_Component(const _float& fTimeDelta)
 {
     D3DXMATRIX worldmatirx;
 
@@ -127,13 +133,13 @@ _int CBoundBox::Update_Component(const _float& fTimeDelta)
     return 0;
 }
 
-void CBoundBox::LateUpdate_Component()
+void CCollider::LateUpdate_Component()
 {
 }
 
-CBoundBox* CBoundBox::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CCollider* CCollider::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-    CBoundBox* pBoundBox = new CBoundBox(pGraphicDev);
+    CCollider* pBoundBox = new CCollider(pGraphicDev);
 
     if (FAILED(pBoundBox->Ready_Buffer()))
     {
@@ -145,14 +151,15 @@ CBoundBox* CBoundBox::Create(LPDIRECT3DDEVICE9 pGraphicDev)
     return pBoundBox;
 }
 
-CComponent* CBoundBox::Clone()
+CComponent* CCollider::Clone()
 {
-    return new CBoundBox(*this);
+    return new CCollider(*this);
 }
 
-void CBoundBox::Free()
+void CCollider::Free()
 {
     CComponent::Free();
 }
+
 
 

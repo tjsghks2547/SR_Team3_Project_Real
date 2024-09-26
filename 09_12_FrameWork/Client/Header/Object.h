@@ -7,7 +7,7 @@ BEGIN(Engine)
 class CRcTex;
 class CTransform;
 class CTexture;
-class CBoundBox;
+class CCollider;
 
 END
 
@@ -34,7 +34,7 @@ private:
 	Engine::CRcTex*     m_pBufferCom;
 	Engine::CTexture*   m_pTextureCom;
 	Engine::CTransform* m_pTransformCom;
-	Engine::CBoundBox*  m_pBoundBox;
+	Engine::CCollider*  m_pBoundBox;
 
 public:
 	static CObject* Create(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -46,6 +46,9 @@ private:
 	vector<IDirect3DTexture9*> m_vecTexture;
 	map<string, IDirect3DTexture9*> m_mapTexture;
 
+
+public:
+	virtual void OnCollision(CGameObject* _pOther);
 
 private:
 	//LPD3DXMESH  m_pMesh;

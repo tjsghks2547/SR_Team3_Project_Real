@@ -195,7 +195,7 @@
     <ClInclude Include="..\..\Header\PipeCom.h">
       <Filter>04. Component\06. Puzzle\PipeGame\Pipe</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Header\BoundBox.h">
+    <ClInclude Include="..\..\Header\Collider.h">
       <Filter>04. Component\00.VIBuffer\08. BoundBox</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Header\CollisionMgr.h">
@@ -290,7 +290,7 @@
     <ClCompile Include="..\Code\CBoundBox.cpp">
       <Filter>02. Layer</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Header\BoundBox.cpp">
+    <ClCompile Include="..\..\Header\Collider.cpp">
       <Filter>04. Component\00.VIBuffer\08. BoundBox</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CollisionMgr.cpp">

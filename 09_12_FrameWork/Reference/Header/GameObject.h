@@ -2,6 +2,7 @@
 
 #include "Base.h"
 #include "Component.h"
+#include "Collider.h"
 
 BEGIN(Engine)
 
@@ -60,6 +61,11 @@ public:
 	void SetTextureKey(wstring _strKey) { m_strTextureKey = _strKey; }
 	wstring GetTextureKey() { return m_strTextureKey; }
 
+
+public:
+	virtual void OnCollision(CGameObject* _pOther) {  };
+	virtual void OnCollisionEnter(CGameObject* _pOther) {  };
+	virtual void OnCollisionExit(CGameObject* _pOther) {  };	
 };
 
 END
