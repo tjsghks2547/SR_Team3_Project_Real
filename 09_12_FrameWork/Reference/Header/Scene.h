@@ -35,9 +35,14 @@ public:
 	virtual  void  Free();
 
 
-	//8월 26일 작업
+	//9월 26일 작업
 public:
 	map<const _tchar*, CLayer*>& GetLayerMapPtr() { return m_mapLayer; }
+	const vector<CGameObject*>&  GetVecObjlist(GROUP_TYPE _eType) { return m_vecArrObj[(UINT)_eType]; };
+	HRESULT						 Add_ObjectGroup(GROUP_TYPE _eType, CGameObject* pGameObject);
+
+private:
+	vector<CGameObject*>          m_vecArrObj[GROUP_TYPE::GROUP_END];
 };
 
 END

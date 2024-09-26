@@ -89,6 +89,9 @@ void CPlayer::Render_GameObject()
     Print_PlayerState();
   
     m_pAnimationCom->Render_Buffer();
+    
+    //9월 25일 충돌관련
+    m_pBoundBox->Render_Buffer();
 
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);  // 이거 설정안해주면 안됨 전역적으로 장치세팅이 저장되기 때문에
     m_pGraphicDev->SetTexture(0, NULL);  // 이거 설정안해주면 그대로 텍스처 나옴 이것도 마찬가지로 전역적으로 장치세팅이 되므로
@@ -161,7 +164,7 @@ void CPlayer::SetPlayerDirection(/*OBJ_DIRECTION _ePlayerDir*/)
         else if (m_vPlayerDir.z < 0)
         {
             num = OBJ_DIRECTION::OBJDIR_LEFT | OBJ_DIRECTION::OBJDIR_FRONT;
-            m_bIsDiagonal = false;
+            m_bIsDiagonal = true;
         }
     }
 
@@ -201,7 +204,10 @@ HRESULT CPlayer::Add_Component()
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_State", pComponent });
 
-    
+    pComponent = m_pBoundBox = dynamic_cast<CBoundBox*>(Engine::Clone_Proto(L"Proto_BoundBox"));    
+    NULL_CHECK_RETURN(pComponent, E_FAIL);  
+    m_pBoundBox->SetGameObjectPtr(this);    
+    m_mapComponent[ID_DYNAMIC].insert({ L"Com_BoundBox", pComponent }); 
 
 }
 

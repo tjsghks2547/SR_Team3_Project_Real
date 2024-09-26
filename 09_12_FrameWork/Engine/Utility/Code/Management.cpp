@@ -41,7 +41,8 @@ HRESULT CManagement::Set_Scene(CScene* pScene)
 	Engine::Clear_RenderGroup();
 
 	m_pScene = pScene;
-	m_pScene->LateReady_Scene();
+	m_pScene->Ready_Scene();	
+	m_pScene->LateReady_Scene();	
 
 	return S_OK;
 }

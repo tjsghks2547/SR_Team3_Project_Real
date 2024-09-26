@@ -25,8 +25,6 @@
     <Filter Include="02. GameObject\00. Background">
       <UniqueIdentifier>{2536c3b3-b821-4b39-ad9d-87f879386e4b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\03. Terrain">
-    </Filter>
     <Filter Include="03.IMGUI">
       <UniqueIdentifier>{7eee7adc-4b1e-4cde-9fe4-091a7b9c989e}</UniqueIdentifier>
     </Filter>
@@ -189,6 +187,7 @@
     <Filter Include="02. GameObject\10. Item\99. ItemSelector">
       <UniqueIdentifier>{d0cc4468-d2a0-4047-922b-cc565ef445b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\01. Entity\03. Terrain" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -228,7 +227,7 @@
       <Filter>01. Scene\02. Loading</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Terrain.h">
-      <Filter>02. GameObject\03. Terrain</Filter>
+      <Filter>02. GameObject\01. Entity\03. Terrain</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\DynamicCamera.h">
       <Filter>02. GameObject\04. DynamicCamera</Filter>
@@ -407,7 +406,7 @@
       <Filter>01. Scene\02. Loading</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Terrain.cpp">
-      <Filter>02. GameObject\03. Terrain</Filter>
+      <Filter>02. GameObject\01. Entity\03. Terrain</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\DynamicCamera.cpp">
       <Filter>02. GameObject\04. DynamicCamera</Filter>

@@ -131,6 +131,10 @@ void CObject::Render_GameObject()
 	//m_pBoundBox->Ready_Buffer();	
 
 	m_pBufferCom->Render_Buffer();
+
+	m_pBoundBox->Render_Buffer();
+
+
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 
@@ -150,11 +154,17 @@ HRESULT CObject::Add_Component()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 
+	
+	 
 	// 9월 23일 추가 선환 충돌관련 박스 
-	//pComponent = m_pBoundBox = dynamic_cast<CBoundBox*>(Engine::Clone_Proto(L"Proto_BoundBox"));
-	//NULL_CHECK_RETURN(pComponent, E_FAIL);	
-	//m_mapComponent[ID_DYNAMIC].insert({ L"Com_BoundBox", pComponent });	
-	//return S_OK;	
+	pComponent = m_pBoundBox = dynamic_cast<CBoundBox*>(Engine::Clone_Proto(L"Proto_BoundBox"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	m_pBoundBox->SetGameObjectPtr(this);
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_BoundBox", pComponent });
+
+	return S_OK;	
+
+
 }
 
 HRESULT CObject::SetUp_Material()

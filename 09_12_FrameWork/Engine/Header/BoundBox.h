@@ -3,7 +3,9 @@
 
 BEGIN(Engine)
 
-class ENGINE_DLL CBoundBox : public CComponent 
+class CGameObject;
+
+class ENGINE_DLL CBoundBox : public CComponent
 {
 
 private:
@@ -23,17 +25,31 @@ public:
 public:
 	static CBoundBox* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	CComponent* Clone();
+	void SetGameObjectPtr(CGameObject* _pGameObj)
+	{
+		m_pGameObjPtr = _pGameObj;
+	}
 
-
+	_vec3 GetWorldVecMin() { return m_vWolrdVecMin; }
+	_vec3 GetWorldVecMax() { return m_vWolrdVecMax; }
 private:
 	virtual void Free();
 
 
 private:
-	LPD3DXMESH m_pMesh; 
-	_vec3	   m_pVecMin;
-	_vec3	   m_pVecMax;
-};
-	
-END	
+	LPD3DXMESH m_pMesh;
+	_vec3	   m_VecMin;
+	_vec3	   m_VecMax;
 
+	_vec3      m_vWolrdVecMin;
+	_vec3      m_vWolrdVecMax;
+
+	D3DXVECTOR3* pVertices;
+
+	CGameObject* m_pGameObjPtr;
+
+public:
+	bool  m_bisCollision;
+};
+
+END

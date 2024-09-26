@@ -350,7 +350,9 @@ HRESULT CStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 	pGameObject = CPlayer::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Player", pGameObject), E_FAIL);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PLAYER, pGameObject);
 
+	CScene* pScene = CManagement::GetInstance()->GetCurScenePtr();
 
 	//pGameObject = CMonster::Create(m_pGraphicDev);
 	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
@@ -392,12 +394,12 @@ CStage* CStage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CStage* pStage = new CStage(pGraphicDev);
 
-	if (FAILED(pStage->Ready_Scene()))
-	{
-		Safe_Release(pStage);
-		MSG_BOX("Stage Create Failed");
-		return nullptr;
-	}
+	//if (FAILED(pStage->Ready_Scene()))
+	//{
+	//	Safe_Release(pStage);
+	//	MSG_BOX("Stage Create Failed");
+	//	return nullptr;
+	//}
 	return pStage;
 }
 
@@ -504,12 +506,11 @@ void CStage::init()
 			map<const _tchar*, CLayer*>& pMapLayer = Engine::Get_CurScenePtr()->GetLayerMapPtr();
 			pMapLayer[L"Layer_GameLogic"]->Add_GameObject((*pObjectName).c_str(), pGameObject);
 
+			CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MOSNTER, pGameObject);
 
 			// 왜 못찾는거지?;;; 아 시발 아직도 신이 안바뀐거였음  이거 찾는 기준이 현재신기준이였음.
 			CTransform* pTransform = dynamic_cast<CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_GameLogic", (*pObjectName).c_str(), L"Com_Transform"));
 			//pTransform->ForGetWorldMaxtrix() = worldmatrix;
-
-
 
 			////회전값만 이제 넣어주면 됨 ( 크기 -> 자전 -> 이동 ) 순서로  아 시발 병신같이 월드매트릭스를 넣어줫네;;
 			// 월드매트릭스에 넣기 전의 크기값을 넣어줘야하네 
@@ -524,4 +525,8 @@ void CStage::init()
 		}
 		CloseHandle(hFile);
 	}
+	
+
+	//9월25일 충돌관련
+	CCollisionMgr::GetInstance()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::MOSNTER);
 }

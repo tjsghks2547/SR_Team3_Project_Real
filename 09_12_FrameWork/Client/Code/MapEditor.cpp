@@ -140,12 +140,12 @@ CMapEditor* CMapEditor::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CMapEditor* pMapEditor = new CMapEditor(pGraphicDev);
 
-	if(FAILED(pMapEditor->Ready_Scene()))
-	{
-		Safe_Release(pMapEditor);
-		MSG_BOX("MapEditor Create Failed");
-		return nullptr;
-	}
+	//if(FAILED(pMapEditor->Ready_Scene()))
+	//{
+	//	Safe_Release(pMapEditor);
+	//	MSG_BOX("MapEditor Create Failed");
+	//	return nullptr;
+	//}
 
 	return pMapEditor;
 }

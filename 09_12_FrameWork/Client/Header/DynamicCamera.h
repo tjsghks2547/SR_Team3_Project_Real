@@ -4,7 +4,7 @@
 #include "Base.h"
 #include "Define.h"
 
-enum CAMERASTATE
+enum class CAMERASTATE
 {
 	DEBUG = 0,
 	PLAYER,

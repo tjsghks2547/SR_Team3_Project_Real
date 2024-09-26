@@ -91,12 +91,12 @@ CLogo* CLogo::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CLogo* pLogo = new CLogo(pGraphicDev);
 
-	if(FAILED(pLogo->Ready_Scene()))
-	{
-		Safe_Release(pLogo);
-		MSG_BOX("Logo Create Failed");
-		return nullptr;
-	}
+	//if(FAILED(pLogo->Ready_Scene()))
+	//{
+	//	Safe_Release(pLogo);
+	//	MSG_BOX("Logo Create Failed");
+	//	return nullptr;
+	//}
 
 	return pLogo;
 }

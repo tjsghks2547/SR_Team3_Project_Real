@@ -100,6 +100,9 @@
     <Filter Include="04. Component\00.VIBuffer\07. MapTex\01.StartMap">
       <UniqueIdentifier>{f9adec19-72c6-4cec-8148-72c00ade1581}</UniqueIdentifier>
     </Filter>
+    <Filter Include="07. CollisionMgr">
+      <UniqueIdentifier>{0f61ba5a-5298-430a-9a04-7c5ebbd65bc4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Header\Management.h">
@@ -195,6 +198,9 @@
     <ClInclude Include="..\..\Header\BoundBox.h">
       <Filter>04. Component\00.VIBuffer\08. BoundBox</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Header\CollisionMgr.h">
+      <Filter>07. CollisionMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\Management.cpp">
@@ -286,6 +292,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Header\BoundBox.cpp">
       <Filter>04. Component\00.VIBuffer\08. BoundBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CollisionMgr.cpp">
+      <Filter>07. CollisionMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -114,12 +114,12 @@ CStartScene* CStartScene::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CStartScene* pStartScene = new CStartScene(pGraphicDev);
 
-	if (FAILED(pStartScene->Ready_Scene()))
-	{
-		Safe_Release(pStartScene);
-		MSG_BOX("MapEditor Create Failed");
-		return nullptr;
-	}
+	//if (FAILED(pStartScene->Ready_Scene()))
+	//{
+	//	Safe_Release(pStartScene);
+	//	MSG_BOX("MapEditor Create Failed");
+	//	return nullptr;
+	//}
 
 	return pStartScene;
 }

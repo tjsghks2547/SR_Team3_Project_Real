@@ -161,6 +161,7 @@ call CopyUtility.bat</Command>
     <ClInclude Include="..\..\Header\BoundBox.h" />
     <ClInclude Include="..\..\Header\Calculator.h" />
     <ClInclude Include="..\..\Header\Camera.h" />
+    <ClInclude Include="..\..\Header\CollisionMgr.h" />
     <ClInclude Include="..\..\Header\Component.h" />
     <ClInclude Include="..\..\Header\ComponentMgr.h" />
     <ClInclude Include="..\..\Header\CStartMap.h" />
@@ -195,6 +196,7 @@ call CopyUtility.bat</Command>
     <ClCompile Include="..\Code\Calculator.cpp" />
     <ClCompile Include="..\Code\Camera.cpp" />
     <ClCompile Include="..\Code\CBoundBox.cpp" />
+    <ClCompile Include="..\Code\CollisionMgr.cpp" />
     <ClCompile Include="..\Code\Component.cpp" />
     <ClCompile Include="..\Code\ComponentMgr.cpp" />
     <ClCompile Include="..\Code\CStartMap.cpp" />

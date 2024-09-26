@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "CollisionMgr.h"
 
 CScene::CScene(LPDIRECT3DDEVICE9 pGraphicDev)
 	:m_pGraphicDev(pGraphicDev)
@@ -52,6 +53,8 @@ _int CScene::Update_Scene(const _float& fTimeDelta)
 	{
 		iResult = pLayer.second->Update_Layer(fTimeDelta);
 
+		CCollisionMgr::GetInstance()->update();
+
 		if (iResult & 0x80000000)
 			return iResult; 
 	}
@@ -81,4 +84,13 @@ void CScene::Free()
 	m_mapLayer.clear();
 
 	Safe_Release(m_pGraphicDev);
+}
+
+HRESULT CScene::Add_ObjectGroup(GROUP_TYPE _eType, CGameObject* pGameObject)
+{
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+
+	m_vecArrObj[(UINT)_eType].push_back(pGameObject);
+
+	return S_OK;
 }

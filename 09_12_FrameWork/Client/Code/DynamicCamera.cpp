@@ -97,13 +97,13 @@ void CDynamicCamera::Render_GameObject()
 
     switch (m_eCameraState)
     {
-    case DEBUG:
+    case CAMERASTATE::DEBUG:
         lstrcpy(buf, L"카메라 상태 : DEBUG");
         break;
-    case PLAYER:
+    case CAMERASTATE::PLAYER:
         lstrcpy(buf, L"카메라 상태 : PLAYER");
         break;
-    case EVENT:
+    case CAMERASTATE::EVENT:
         lstrcpy(buf, L"카메라 상태 : EVENT");
         break;
     default:
