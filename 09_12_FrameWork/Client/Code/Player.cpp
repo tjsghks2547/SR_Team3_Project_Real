@@ -43,21 +43,23 @@ HRESULT CPlayer::Ready_GameObject()
 void CPlayer::LateReady_GameObject()
 {
     Engine::CGameObject::LateReady_GameObject();
+    
+    //0926 레이트레디
+    m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
+    NULL_CHECK_RETURN(m_pInven);
+
+    m_pQuickSlot = dynamic_cast<CQuickSlot*>(Engine::Get_GameObject(L"Layer_UI", L"QuickSlot_UI"));
+    NULL_CHECK_RETURN(m_pInven);
 }
 
 _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 {
-    //0920 레이트레디
-    m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
-    NULL_CHECK_RETURN(m_pInven, 0);
-
     m_pTransformCom->Get_Info(INFO_POS, &m_vPlayerPrevPos);
 
     Key_Input(fTimeDelta);
 
 
     //카메라 부분넣기
-
 
 
     Add_RenderGroup(RENDER_ALPHA, this);

@@ -160,6 +160,7 @@
     <ClInclude Include="..\Header\Define.h" />
     <ClInclude Include="..\Header\DynamicCamera.h" />
     <ClInclude Include="..\Header\ExploreHat.h" />
+    <ClInclude Include="..\Header\ExpressMonkey.h" />
     <ClInclude Include="..\Header\FirePit.h" />
     <ClInclude Include="..\Header\ImGuiManger.h" />
     <ClInclude Include="..\Header\Imgui_ObjectTool.h" />
@@ -179,6 +180,7 @@
     <ClInclude Include="..\Header\Monster.h" />
     <ClInclude Include="..\Header\MusicStatue.h" />
     <ClInclude Include="..\Header\NoteStatue.h" />
+    <ClInclude Include="..\Header\NPC.h" />
     <ClInclude Include="..\Header\Object.h" />
     <ClInclude Include="..\Header\PartyHat.h" />
     <ClInclude Include="..\Header\Pipe.h" />
@@ -232,6 +234,7 @@
     <ClCompile Include="..\Code\CrystalPuzzle.cpp" />
     <ClCompile Include="..\Code\DynamicCamera.cpp" />
     <ClCompile Include="..\Code\ExploreHat.cpp" />
+    <ClCompile Include="..\Code\ExpressMonkey.cpp" />
     <ClCompile Include="..\Code\FirePit.cpp" />
     <ClCompile Include="..\Code\ImGuiManger.cpp" />
     <ClCompile Include="..\Code\Imgui_ObjectTool.cpp" />
@@ -250,6 +253,7 @@
     <ClCompile Include="..\Code\Monster.cpp" />
     <ClCompile Include="..\Code\MusicStatue.cpp" />
     <ClCompile Include="..\Code\NoteStatue.cpp" />
+    <ClCompile Include="..\Code\NPC.cpp" />
     <ClCompile Include="..\Code\Object.cpp" />
     <ClCompile Include="..\Code\PartyHat.cpp" />
     <ClCompile Include="..\Code\Pipe.cpp" />

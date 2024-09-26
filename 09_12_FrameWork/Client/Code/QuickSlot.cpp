@@ -5,7 +5,7 @@ CQuickSlot::CQuickSlot(LPDIRECT3DDEVICE9 pGraphicDev)
     :Engine::CGameObject(pGraphicDev)
     , m_fElapsedTime(100.f)
 {
-    ZeroMemory(&m_pQuickSlot, sizeof(m_pQuickSlot));
+
 }
 
 CQuickSlot::~CQuickSlot()
@@ -14,6 +14,9 @@ CQuickSlot::~CQuickSlot()
 
 HRESULT CQuickSlot::Ready_GameObject()
 {
+    for (int i = 0; i < 4; ++i)
+        m_pQuickSlot[i] = nullptr;
+
     m_QuickInterval = 65.f; // Äü½½·Ô ¾ÆÀÌÅÛ °£°Ý
     m_vFirstItemPos = { -516.f, 242.f, 0.1f };
 
@@ -58,6 +61,13 @@ void CQuickSlot::Add_QuickSlotItem(_int _iIndex, CItem* _pItem)
 {
     m_pQuickSlot[_iIndex] = _pItem;  //Äü½½·Ô¿¡ ¾ÆÅÛ ³Ö±â!
     _pItem->Set_QuickPos(Set_QuickSlotPos(_iIndex)); //Äü½½·Ô Æ®·£½ºÆû À§Ä¡ º¯°æ ¼¼ÆÃ¤Ð¤Ð
+}
+
+void CQuickSlot::Use_QuickItem(_int _iIdx)
+{
+    if (nullptr == m_pQuickSlot[_iIdx])
+        return;
+    m_pQuickSlot[_iIdx]->Use_Item();
 }
 
 void CQuickSlot::BulkingSlot(const _float& fTimeDelta)

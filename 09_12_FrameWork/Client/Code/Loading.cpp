@@ -84,6 +84,8 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_SmallFruit", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/SmallFruit.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MiddleFruit", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/MiddleFruit.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_BigFruit", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/BigFruit.png", TEX_NORMAL)), E_FAIL);
+	//NPC
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_ExpressMonkey", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/ExpressMonkey.png", TEX_NORMAL)), E_FAIL);
 
 	//Puzzle
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_PipeBoardTex", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/puzzle/Sprite_MoonForest_MazePuzzleFloor2Line.png", TEX_NORMAL)), E_FAIL);
