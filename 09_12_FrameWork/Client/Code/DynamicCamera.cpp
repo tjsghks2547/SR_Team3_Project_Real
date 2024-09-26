@@ -16,7 +16,10 @@ CDynamicCamera::CDynamicCamera(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_playerTransform(nullptr)
     , m_eCameraState(CAMERASTATE::PLAYER)
     , m_fZoomDeltaTime(0.f)
+    , m_fZoomInTimer(0.f)
     , m_bZoomTrigger(false)
+    , m_fZoomRatio(100.f)
+    , m_fMoveToPlayerSpeed(0.f)
 {
 
 
@@ -42,6 +45,8 @@ HRESULT CDynamicCamera::Ready_GameObject(const _vec3* pEye
     m_fAspect = _fAspect;
     m_fNear = _fNear;
     m_fFar = _fFar;
+
+    m_fMoveToPlayerSpeed = 50.f;
 
     FAILED_CHECK_RETURN(CCamera::Ready_GameObject(), E_FAIL);
 
@@ -78,6 +83,8 @@ _int CDynamicCamera::Update_GameObject(const _float& fTimeDelta)
     D3DXMatrixInverse(&m_matCameraWorld, 0, &m_matView);
 
     Key_Input(fTimeDelta);
+    ResetZoom(fTimeDelta);
+
     if (m_bZoomTrigger)
         ZoomToTrigger(fTimeDelta);
 
@@ -121,6 +128,18 @@ void CDynamicCamera::Render_GameObject()
     default:
         break;
     }
+    Engine::Render_Font(L"Font_Ogu24", buf, &position, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
+
+    if (m_bZoomTrigger)
+        lstrcpy(buf, L"줌 트리거 ON");
+    else
+        lstrcpy(buf, L"줌 트리거 OFF");
+
+    position = { 1000,150 };
+    Engine::Render_Font(L"Font_Ogu24", buf, &position, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
+
+    position = { 1000,200 };
+    _stprintf_s(buf, 128, L"[%2.f %2.f]", m_vTowardMove.y, m_vTowardMove.z);
     Engine::Render_Font(L"Font_Ogu24", buf, &position, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
 }
 
@@ -223,7 +242,7 @@ void CDynamicCamera::Mouse_Move(const _float& fTimeDelta)
         memcpy(&vLook, &matCamWorld.m[2][0], sizeof(_vec3));
 
         _vec3	vLength = *D3DXVec3Normalize(&vLook, &vLook)
-            * fTimeDelta * dwMouseMove / 5;
+            * fTimeDelta * dwMouseMove;
 
         m_vEye += vLength;
         m_vAt += vLength;
@@ -236,8 +255,8 @@ void CDynamicCamera::Mouse_Move(const _float& fTimeDelta)
         _vec3 vLength = *D3DXVec3Normalize(&vUp, &vUp) * fTimeDelta;
         if (dwMouseMove = Engine::Get_DIMouseMove(DIMS_Y))
         {
-            m_vEye += vLength * dwMouseMove;
-            m_vAt += vLength * dwMouseMove;
+            m_vEye += vLength * dwMouseMove * 50.f;
+            m_vAt += vLength * dwMouseMove * 50.f;
         }
 
         _vec3	vRight;
@@ -245,8 +264,8 @@ void CDynamicCamera::Mouse_Move(const _float& fTimeDelta)
         vLength = *D3DXVec3Normalize(&vRight, &vRight) * fTimeDelta;
         if (dwMouseMove = Engine::Get_DIMouseMove(DIMS_X))
         {
-            m_vEye += vLength * -dwMouseMove;
-            m_vAt += vLength * -dwMouseMove;
+            m_vEye += vLength * -dwMouseMove * 50.f;
+            m_vAt += vLength * -dwMouseMove * 50.f;
         }
     }
 
@@ -288,10 +307,10 @@ void CDynamicCamera::MoveToPlayer(const _float& fTimeDelta)
     vTargetPos.z += m_vIntervalPos.z;
 
     _vec3 vDir = vTargetPos - m_vEye;
-    if (abs(vDir.x) < 0.1f) vDir.x = 0;
-    if (abs(vDir.y) < 0.1f) vDir.y = 0;
-    if (abs(vDir.z) < 0.1f) vDir.z = 0;
-    _vec3 vMoveDir = *D3DXVec3Normalize(&vDir, &vDir) * fTimeDelta * 5.f;
+    if (abs(vDir.x) < 0.01f * m_fMoveToPlayerSpeed) vDir.x = 0;
+    if (abs(vDir.y) < 0.01f * m_fMoveToPlayerSpeed) vDir.y = 0;
+    if (abs(vDir.z) < 0.01f * m_fMoveToPlayerSpeed) vDir.z = 0;
+    _vec3 vMoveDir = *D3DXVec3Normalize(&vDir, &vDir) * fTimeDelta * m_fMoveToPlayerSpeed;
 
     m_vEye += vMoveDir;
     m_vAt += vMoveDir;
@@ -299,39 +318,22 @@ void CDynamicCamera::MoveToPlayer(const _float& fTimeDelta)
 
 void CDynamicCamera::ZoomTo(_float fRatio, _float fDuration)
 {
+    if (m_bZoomTrigger)
+        return;
+
     m_bZoomTrigger = true;
     m_fZoomDeltaTime = 0.f;
-    m_fZoomRatio = fRatio;
     m_fZoomDuration = fDuration;
 
     // 최종으로 위치할 값 
-    m_vTowardMove = m_vOriginInterval * (m_fZoomRatio / 100.f);
+    m_vTowardMove = m_vOriginInterval * (abs(fRatio - m_fZoomRatio) / 100.f);
     // 초당 이동속도
     m_vTowardMove /= m_fZoomDuration;
-}
 
-void CDynamicCamera::SetCamera_Dash(const _float& fTimeDelta, _bool _opt)
-{
-    if (_opt && m_vIntervalPos.y >= 12)
-    {
-        return;
-    }
+    if (fRatio > m_fZoomRatio)
+        m_vTowardMove *= -1;
 
-    if (!_opt && m_vIntervalPos.y <= m_vOriginInterval.y)
-    {
-        return;
-    }
-
-    int dir = _opt * 2 - 1;
-    float fSpeed = 3.f * dir;
-
-    _vec3 vLook;
-    memcpy(&vLook, &m_matCameraWorld.m[2][0], sizeof(_vec3));
-    D3DXVec3Normalize(&vLook, &vLook);
-
-    _vec3 vLength = vLook * fTimeDelta * fSpeed;
-    m_vIntervalPos -= vLength;
-
+    m_fZoomRatio = fRatio;
 }
 
 void CDynamicCamera::ZoomToTrigger(const _float& fTimeDelta)
@@ -341,11 +343,27 @@ void CDynamicCamera::ZoomToTrigger(const _float& fTimeDelta)
 
     m_fZoomDeltaTime += fTimeDelta;
     if (m_fZoomDeltaTime >= m_fZoomDuration)
+    {
         m_bZoomTrigger = false;
+    }
+
 }
 
-void CDynamicCamera::ResetCamera(const _float& fTimeDelta)
+void CDynamicCamera::ResetZoom(const _float& fTimeDelta)
 {
+    if (m_fZoomRatio == 100)
+        return;
+
+    if (m_Player->GetPlayerState() == PLAYERSTATE::PLY_DASH ||
+        m_Player->GetPlayerState() == PLAYERSTATE::PLY_DASHDIAGONAL)
+        return;
+
+    m_fZoomInTimer += fTimeDelta;
+    if (m_fZoomInTimer >= 3.f)
+    {
+        ZoomTo(100.f, 2.f);
+        m_fZoomInTimer = 0.f;
+    }
 }
 
 void CDynamicCamera::GetPlayerInfo()

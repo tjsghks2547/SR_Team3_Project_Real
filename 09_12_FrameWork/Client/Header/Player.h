@@ -58,7 +58,10 @@ public:
 	OBJ_DIRECTION	GetPlayerDirection() { return m_ePlayerDir; }
 	void			SetPlayerDirection();
 	bool			GetPlayerDiagonal() { return m_bIsDiagonal; }
+	
+	CCamera* GetCamera() { return m_CCamera; }
 	void			SetCamera(CCamera* _camera) { m_CCamera = _camera; }
+
 	//0913 임시 코드
 	_int			GetPlayerCoin() { return m_iPlayerCoin; }
 	PLAYERHP		GetPlayerHP() { return m_tPlayerHP; }
