@@ -32,6 +32,7 @@ private:
 	static PlayerDash* m_instance;
 	float m_fMoveSpeed;
 	float m_fMoveDuration;
+	bool m_bZoomOutTrigger;
 
 private:
 	void Key_Input(const _float& fTimeDelta);

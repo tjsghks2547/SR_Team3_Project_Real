@@ -46,10 +46,8 @@ private:
 	void  Mouse_Move(const _float& fTimeDelta);
 	void  MoveToPlayer(const _float& fTimeDelta);
 
-	void  SetCamera_Dash(const _float& fTimeDelta, _bool _opt);
-
 	void  ZoomToTrigger(const _float& fTimeDelta);
-	void  ResetCamera(const _float& fTimeDelta);
+	void  ResetZoom(const _float& fTimeDelta);
 	void  GetPlayerInfo();
 
 private:
@@ -64,6 +62,7 @@ private:
 
 	_vec3 m_vIntervalPos; // 플레이어 좌표에서 이만큼 떨어진 곳에 카메라를 배치시킵니다.
 	_vec3 m_vOriginInterval; // 평소의 IntervalPos 값
+	float m_fMoveToPlayerSpeed;
 
 	// Zoom
 	// 외부에서 ZoomTo()함수에 의해 true가 돼, 업데이트에서 줌인/아웃이 진행
@@ -78,8 +77,11 @@ private:
 	// ZoomRatio까지 가기까지 걸리는 시간
 	float m_fZoomDuration;
 
+	// 목표지점
 	_vec3 m_vTowardMove;
 
+	// 시간을 계산할 변수 += fTimeDelta하여 3보다 커지면 줌인이 시작된다.
+	float m_fZoomInTimer;
 public:
 	static  CDynamicCamera* Create(LPDIRECT3DDEVICE9 pGraphicDev
 		, const _vec3* pEye

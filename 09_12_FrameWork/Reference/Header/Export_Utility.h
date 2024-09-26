@@ -17,6 +17,7 @@
 #include "RcTex.h"
 #include "TerrainTex.h"
 #include "Camera.h"
+#include "../Client/Header/DynamicCamera.h"
 
 #include "State.h"
 #include "StateController.h"

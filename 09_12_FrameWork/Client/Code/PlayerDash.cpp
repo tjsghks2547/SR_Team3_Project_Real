@@ -13,6 +13,7 @@ void PlayerDash::Enter()
 
     m_fMoveSpeed = 0.5f;
     m_fMoveDuration = 0.f;
+    m_bZoomOutTrigger = false;
 }
 
 void PlayerDash::Update(const _float& fTimeDelta)
@@ -31,16 +32,25 @@ void PlayerDash::Update(const _float& fTimeDelta)
     }
     Key_Input(fTimeDelta);
 
-    /*if (m_fMoveDuration > 3.f)
-        (dynamic_cast<CPlayer*>(m_CGameObject))->SetDashTrigger(true);
+    if (m_fMoveDuration > 3.f && !m_bZoomOutTrigger)
+    {
+        dynamic_cast<CDynamicCamera*>(
+            dynamic_cast<CPlayer*>(m_CGameObject)->GetCamera()
+            )->ZoomTo(60.f, 2);
+
+        m_bZoomOutTrigger = true;
+    }
+
+
     else
-        m_fMoveDuration += fTimeDelta;*/
+        m_fMoveDuration += fTimeDelta;
 }
 
 
 void PlayerDash::Exit()
 {
     m_fMoveDuration = 0.f;
+    m_bZoomOutTrigger = false;
 }
 
 void PlayerDash::Key_Input(const _float& fTimeDelta)

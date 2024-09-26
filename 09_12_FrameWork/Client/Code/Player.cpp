@@ -34,7 +34,7 @@ HRESULT CPlayer::Ready_GameObject()
     m_tPlayerHP.iMaxHP = 6;
 
     m_pTransformCom->m_vScale = { 20.f,20.f,20.f };
-    m_pTransformCom->Set_Pos(200.f, 10.f, 700.f);
+    m_pTransformCom->Set_Pos(200.f, 30.f, 700.f);
 
     m_pStateControlCom->ChangeState(PlayerIdle::GetInstance(), this);
     return S_OK;

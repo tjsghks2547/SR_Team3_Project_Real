@@ -41,7 +41,7 @@ namespace Engine
 		PLY_MOVE,
 		PLY_MOVEDIAGONAL,
 		PLY_DASH,
-		//PLY_DASHDIAGONAL,
+		PLY_DASHDIAGONAL,
 		PLY_END
 	};
 
