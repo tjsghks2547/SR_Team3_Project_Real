@@ -89,10 +89,10 @@ void CDefaultUI::Render_GameObject()
 
     //===========================
 
-
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom[COIN_UI]->Get_WorldMatrix());
     m_pTextureCom[COIN_UI]->Set_Texture();
     m_pBufferCom->Render_Buffer();
+
     //0913 코인 텍스트 렌더링
     //===========================
     _int PlayerCoin = m_pPlayer->GetPlayerCoin();
@@ -102,13 +102,8 @@ void CDefaultUI::Render_GameObject()
     _vec2 CoinPosition(1115, 40);
     //Engine::Render_Font(L"Font_Default", (출력할 문자열 / 연동 플레이어 피통 & 코인), &position, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
     Engine::Render_Font(L"Font_OguBold36", CoinStr, &CoinPosition, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
+
     //===========================
-
-    m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom[SHORTKEY]->Get_WorldMatrix());
-    m_pTextureCom[SHORTKEY]->Set_Texture();
-    m_pBufferCom->Render_Buffer();
-
-
 
 }
 
@@ -122,6 +117,7 @@ HRESULT CDefaultUI::Add_Component()
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
+
     //HPFRAME
     pComponent = m_pTextureCom[HPFRAME] = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_HPFrame"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
@@ -133,6 +129,7 @@ HRESULT CDefaultUI::Add_Component()
     m_pTransformCom[HPFRAME]->m_vInfo[INFO_POS] = { -450.f, 310.f, 0.1f }; // UI 위치긴한디 상수로 넣어도 됨?ㅇㅅㅇ
     m_pTransformCom[HPFRAME]->m_vScale = { 174.f, 30.f, 1.f }; // 해당 UI의 스케일
 
+
     //HPBAR
     pComponent = m_pTextureCom[HPBAR] = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_HPBar"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
@@ -143,6 +140,7 @@ HRESULT CDefaultUI::Add_Component()
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformHPBar", pComponent });
     m_pTransformCom[HPBAR]->m_vInfo[INFO_POS] = { -420.f, 310.f, 0.1f };
     m_pTransformCom[HPBAR]->m_vScale = { 130.5f, 17.f, 1.f };
+
 
     //HPBACK
     pComponent = m_pTextureCom[HPBACK] = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_HPBarBack"));
@@ -166,17 +164,6 @@ HRESULT CDefaultUI::Add_Component()
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformCoinUI", pComponent });
     m_pTransformCom[COIN_UI]->m_vInfo[INFO_POS] = { 510.f, 305.f, 0.1f };
     m_pTransformCom[COIN_UI]->m_vScale = { 104.f, 38.5f, 1.f };
-
-    //SHORTKEY
-    pComponent = m_pTextureCom[SHORTKEY] = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_KeyBoardUI"));
-    NULL_CHECK_RETURN(pComponent, E_FAIL);
-    m_mapComponent[ID_DYNAMIC].insert({ L"Com_TextureShortKey", pComponent });
-
-    pComponent = m_pTransformCom[SHORTKEY] = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
-    NULL_CHECK_RETURN(pComponent, E_FAIL);
-    m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformShortKey", pComponent });
-    m_pTransformCom[SHORTKEY]->m_vInfo[INFO_POS] = { -455.f, 245.f, 0.1f }; // UI 위치긴한디 상수로 넣어도 됨?ㅇㅅㅇ
-    m_pTransformCom[SHORTKEY]->m_vScale = { 200.f, 37.5f, 1.f }; // 해당 UI의 스케일
 
     return S_OK;
 }

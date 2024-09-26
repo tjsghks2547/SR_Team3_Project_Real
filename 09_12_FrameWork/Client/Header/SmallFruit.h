@@ -14,6 +14,7 @@ public:
 	virtual   void      Render_GameObject();
 
 	virtual	   void	   Use_Item();
+	//virtual	   void	   Render_QuickItem();
 private:
 	HRESULT    Add_Component();
 

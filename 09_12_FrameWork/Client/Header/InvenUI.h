@@ -46,11 +46,8 @@ public:
 	_int					Get_CurFilter() { return m_iItemFilter; }
 	_int					Get_FilterItemCount(_int _eItemfilter) { return m_ItemList[_eItemfilter].size(); }
 	_vec3					Get_CurItemPos(_int _Itemfilter, int _idx) { return m_ItemList[_Itemfilter].at(_idx)->Get_ItemPos(); }
-	CItem::ITEM_INFO		Get_ItemInfo(_int _Itemfilter, int _idx)
-	{
-		return m_ItemList[_Itemfilter].at(_idx)->Get_ItemInfo();
-	}
-
+	CItem::ITEM_INFO		Get_ItemInfo(_int _Itemfilter, int _idx) { return m_ItemList[_Itemfilter].at(_idx)->Get_ItemInfo(); }
+	CItem* Get_Item(_int _Itemfilter, int _idx) { return m_ItemList[_Itemfilter].at(_idx); }
 
 private:
 	HRESULT    Add_Component();
@@ -65,7 +62,7 @@ private:
 	Engine::CTexture* m_pTextureCom[INVENUI_END];
 	Engine::CTransform* m_pTransformCom[INVENUI_END];
 
-	CItemSelector*		m_pItemSelector;
+	CItemSelector* m_pItemSelector;
 	_bool				m_bCursorCreate;
 
 private:

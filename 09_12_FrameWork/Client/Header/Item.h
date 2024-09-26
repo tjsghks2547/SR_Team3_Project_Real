@@ -45,10 +45,14 @@ public:
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
 		return vPos;
 	}
-
 	void		Set_ItemPos(_vec3 _ItemPos)
 	{
 		m_pTransformCom->m_vInfo[INFO_POS] = _ItemPos;
+	}
+	void		Set_QuickPos(_vec3 _ItemPos)
+	{
+		m_pQuickTransformCom->m_vInfo[INFO_POS] = _ItemPos;
+		m_pQuickTransformCom->m_vScale = { 27.f, 27.f, 0.1f };
 	}
 	void		Set_ItemCount(_int _AddItemCount) { m_tInfo.iItemCount += _AddItemCount; }
 
@@ -59,20 +63,23 @@ public:
 	virtual   void      Render_GameObject();
 
 	virtual   void      Use_Item() {}
+	void		Render_QuickItem();
 
 protected:
 	HRESULT    Add_Component();
 
 protected:
 	Engine::CRcTex* m_pBufferCom;
-	CTexture* m_pTextureCom;
-	CTransform* m_pTransformCom;
-	//vector<Engine::CTexture*>				m_pTextureCom[TYPE_END];
-	//vector<Engine::CTransform*>			m_pTransformCom[TYPE_END];
+	Engine::CTexture* m_pTextureCom;
+	Engine::CTransform* m_pTransformCom;
+
+	//Engine::CTexture*		m_pQuickTextureCom;
+	Engine::CTransform* m_pQuickTransformCom;
 
 protected:
 	ITEM_INFO				m_tInfo;
 	CPlayer* m_pPlayer;
+
 public:
 	static CItem* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 

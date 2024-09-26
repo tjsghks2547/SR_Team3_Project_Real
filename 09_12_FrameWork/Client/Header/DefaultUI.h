@@ -30,7 +30,7 @@ private:
 	HRESULT    Add_Component();
 
 private:
-	enum DEFAULT_UI { HPFRAME, HPBAR, HPBACK, COIN_UI, SHORTKEY, UI_END };
+	enum DEFAULT_UI { HPFRAME, HPBAR, HPBACK, COIN_UI, UI_END };
 private:
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTexture* m_pTextureCom[UI_END];
@@ -38,7 +38,6 @@ private:
 
 
 private:
-	// 0913 임시 추가 코드
 	CPlayer* m_pPlayer;
 
 public:

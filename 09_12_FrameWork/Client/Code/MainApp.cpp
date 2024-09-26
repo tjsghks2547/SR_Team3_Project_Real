@@ -137,10 +137,12 @@ HRESULT CMainApp::SetUp_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Font(*ppGraphicDev, L"Font_Myungjo", L"명조", 20, 20, FW_NORMAL), E_FAIL);
 	
 	//0922
-	FAILED_CHECK_RETURN(Engine::Ready_Font(*ppGraphicDev, L"Font_OguBold24", L"카페24 써라운드", 24, 24, FW_LIGHT), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Font(*ppGraphicDev, L"Font_OguBold36", L"카페24 써라운드", 36, 36, FW_LIGHT), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Font(*ppGraphicDev, L"Font_OguBold14", L"카페24 써라운드", 14, 14, FW_NORMAL), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Font(*ppGraphicDev, L"Font_OguBold24", L"카페24 써라운드", 24, 24, FW_NORMAL), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Font(*ppGraphicDev, L"Font_OguBold36", L"카페24 써라운드", 36, 36, FW_NORMAL), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Font(*ppGraphicDev, L"Font_OguBold48", L"카페24 써라운드", 48, 48, FW_NORMAL), E_FAIL);
 
+	FAILED_CHECK_RETURN(Engine::Ready_Font(*ppGraphicDev, L"Font_Ogu10", L"카페24 써라운드 에어", 10, 12, FW_THIN), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Font(*ppGraphicDev, L"Font_Ogu14", L"카페24 써라운드 에어", 14, 18, FW_LIGHT), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Font(*ppGraphicDev, L"Font_Ogu22", L"카페24 써라운드 에어", 18, 24, FW_LIGHT), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Font(*ppGraphicDev, L"Font_Ogu24", L"카페24 써라운드 에어", 20, 26, FW_THIN), E_FAIL);

@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Item.h"
+#include "QuickSlot.h"
 
 BEGIN(Engine)
 
@@ -35,18 +36,18 @@ private:
 	Engine::CTexture* m_pTextureCom;
 	Engine::CTransform* m_pTransformCom;
 
-	//±ÍÂú¾Æ¼­ °Á ÀÌ°É·Î Çß¾î¿© ¿åÇÒÅ×¸é ÇØºÁ..!
 	Engine::CTexture* m_pTexButtonCom;
 	Engine::CTransform* m_pTransButtonCom;
 
 
 	CInvenUI* m_pInven;
+	CQuickSlot* m_pQuickSlot;//0925
 
 	_int		m_iCurIdx;
 	_int		m_iPrevIdx;
 
 	CItem::ITEM_INFO	m_tCopyInfo;
-
+	_bool				m_bWaitQuickNum;
 public:
 	static CItemSelector* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
