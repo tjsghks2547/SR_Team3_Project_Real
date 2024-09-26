@@ -30,7 +30,7 @@ namespace Engine
 	};
 
 	// 09.24 김선환
-	enum GROUP_TYPE { PLAYER, MOSNTER, OBJECT, GROUP_END = 32 };
+	enum GROUP_TYPE { PLAYER, MONSTER, OBJECT, NPC, GROUP_END = 32 };
 
 
 	// 행동 순서는 변경해도 되나, 무조건 DIAGONAL은 이전 행동 다음에 적을 것

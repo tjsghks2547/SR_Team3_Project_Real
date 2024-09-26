@@ -5,6 +5,7 @@
 IMPLEMENT_SINGLETON(CCollisionMgr)
 
 CCollisionMgr::CCollisionMgr()
+	:m_arrCheck{}
 {
 }
 

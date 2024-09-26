@@ -32,7 +32,7 @@ public:
 		vQuickSlotPos.x = vQuickSlotPos.x + (m_QuickInterval * _iQuickItemIdx);
 		return vQuickSlotPos;
 	}
-	void		Use_QuickItem(_int _iIdx) { m_pQuickSlot[_iIdx]->Use_Item(); }
+	void		Use_QuickItem(_int _iIdx);
 	void		Set_Time() { m_fElapsedTime = 0.0f; }
 	void		BulkingSlot(const _float& fTimeDelta);
 private:

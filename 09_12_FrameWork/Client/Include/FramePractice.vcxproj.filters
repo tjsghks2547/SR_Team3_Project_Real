@@ -218,6 +218,12 @@
     <Filter Include="02. GameObject\09. Puzzle\00. Common Object\00. Stone">
       <UniqueIdentifier>{b6ddbc6b-0647-4f18-b10e-0edc6c2d6637}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\12. NPC">
+      <UniqueIdentifier>{64900277-82b0-48f5-8c62-7f452b165c08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. NPC\00. ExpressMonkey">
+      <UniqueIdentifier>{0f348598-7cf2-4fff-bd3a-ab39ae656221}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -439,6 +445,12 @@
     <ClInclude Include="..\Header\StonePedestal.h">
       <Filter>02. GameObject\09. Puzzle\00. Common Object\03. Stone Pedestal</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\NPC.h">
+      <Filter>02. GameObject\12. NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ExpressMonkey.h">
+      <Filter>02. GameObject\12. NPC\00. ExpressMonkey</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FramePractice.cpp">
@@ -650,6 +662,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\StonePedestal.cpp">
       <Filter>02. GameObject\09. Puzzle\00. Common Object\03. Stone Pedestal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\NPC.cpp">
+      <Filter>02. GameObject\12. NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ExpressMonkey.cpp">
+      <Filter>02. GameObject\12. NPC\00. ExpressMonkey</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

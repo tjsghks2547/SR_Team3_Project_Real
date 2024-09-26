@@ -7,6 +7,8 @@
 #include "Monster.h"
 #include "DefaultUI.h"
 #include "InvenUI.h"
+#include "QuickSlot.h"
+#include "ExpressMonkey.h"
 
 #include "Pipe.h"
 #include "PipeBoard.h"
