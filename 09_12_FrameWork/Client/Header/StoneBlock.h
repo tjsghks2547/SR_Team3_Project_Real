@@ -29,7 +29,12 @@ private:
 private:
 	HRESULT    Add_Component();
 
-public:	
+public:
+	_bool Is_Move() { return m_bIsMove; }
+	_int Get_ImageID() { return m_iImageID; }	
+	void Set_ImageID(_int _iID) { m_iImageID = _iID; }	
+
+private:	
 	_bool m_bIsMove;
 	_vec3 m_fTargetPos;
 	vector<IDirect3DTexture9*> m_vecTexture;	

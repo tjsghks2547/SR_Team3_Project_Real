@@ -48,36 +48,19 @@ void CMonkeyStatue::Render_GameObject()
 
 void CMonkeyStatue::Active_StoneBlock()
 {
-	//for (auto iter = m_vecStoneBlocks.begin(); iter != m_vecStoneBlocks.end(); iter++)
-	//{
-	//	if (m_bIs) {	
-	//		static_cast<CStoneBlock*>((*iter))->Move_StoneBlock(true, _vec3{ 0.f, 3.f, 0.f });
-	//		static_cast<CStoneBlockHole*>(iter)->m_iImageID = 0;
-	//		m_bIs = false;
-	//	}			
-	//	else {
-	//		static_cast<CStoneBlock*>(iter)->Move_StoneBlock(true, _vec3{ 0.f, -3.f, 0.f });
-	//		static_cast<CStoneBlockHole*>(iter)->m_iImageID = 1;
-	//		m_bIs = true;
-	//	}					
-	//}
-
 	for (int i = 0; i < m_vecStoneBlocks.size(); i++)
 	{
 		if (m_bIs) {
 			static_cast<CStoneBlock*>(m_vecStoneBlocks[i])->Move_StoneBlock(true, _vec3{0.f, 3.f, 0.f});
-			static_cast<CStoneBlockHole*>(m_vecStoneBlocksHoles[i])->m_iImageID = 0;
+			static_cast<CStoneBlockHole*>(m_vecStoneBlocksHoles[i])->Set_ImageID(0);
 		}
 		else {
 			static_cast<CStoneBlock*>(m_vecStoneBlocks[i])->Move_StoneBlock(true, _vec3{ 0.f, -3.f, 0.f });
-			static_cast<CStoneBlockHole*>(m_vecStoneBlocksHoles[i])->m_iImageID = 1;			
+			static_cast<CStoneBlockHole*>(m_vecStoneBlocksHoles[i])->Set_ImageID(1);
 		}
 	}
 
-	if(m_bIs)
-		m_bIs = false;
-	else
-		m_bIs = true;
+	m_bIs = m_bIs ? false : true;
 }
 
 HRESULT CMonkeyStatue::Add_Component()
@@ -117,9 +100,7 @@ void CMonkeyStatue::Key_Input(const _float& fTimeDelta)
 {
 	if (Engine::GetKeyUp(DIK_4))
 	{
-		Active_StoneBlock();
-		//for (auto& iter : m_vecCrystals)
-		//	static_cast<CPressBlock*>(iter)->On_CollisionEnter();
+		//Active_StoneBlock();			
 	}
 }
 

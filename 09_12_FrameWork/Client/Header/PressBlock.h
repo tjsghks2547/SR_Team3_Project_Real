@@ -6,7 +6,6 @@ BEGIN(Engine)
 class CTexture;
 class CRcTex;
 class CTransform;
-class CPipeBoardCom;
 
 END
 
@@ -26,19 +25,26 @@ private:
 	HRESULT    Add_Component();
 
 public:
+	_bool Is_Clear() { return m_bIsCleared; }
+	_int Get_ImageID() { return m_iImageID; }
+	void Set_Clear(_int _bIsClear) { m_bIsCleared = _bIsClear; }
+	void Set_ImageID(_int _iID) { m_iImageID = _iID; }
+	void Set_Group(CGameObject* _pGroup) { m_pGroup = _pGroup; }
 	void On_CollisionEnter();
 	void On_CollisionExit();
 
-private:	
+private:
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTexture* m_pTextureCom;
-	Engine::CTransform* m_pTransformCom;	
+	Engine::CTransform* m_pTransformCom;
 
 public:
 	static CPressBlock* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+
+private:
 	CGameObject* m_pGroup;
 	vector<IDirect3DTexture9*> m_vecTexture;
-	_int m_iImageID;	
+	_int m_iImageID;
 	_bool m_bIsPressed;
 	_bool m_bIsCleared;
 

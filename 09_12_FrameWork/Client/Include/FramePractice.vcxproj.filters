@@ -160,12 +160,6 @@
     <Filter Include="02. GameObject\09. Puzzle\Crystal Puzzle\Press Block">
       <UniqueIdentifier>{a780f2be-e503-4bcd-8b33-3fe75487a8f4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\09. Puzzle\Monkey Statue\Stone Block">
-      <UniqueIdentifier>{4372aa6e-191c-4155-87a5-d9de5785bd44}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\09. Puzzle\Monkey Statue\Stone Block Hole">
-      <UniqueIdentifier>{663197a3-1e03-44e7-9742-eae790fadecd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\10. Item">
       <UniqueIdentifier>{d0229c07-c918-42ec-ad5f-6e2bed385f19}</UniqueIdentifier>
     </Filter>
@@ -188,6 +182,42 @@
       <UniqueIdentifier>{d0cc4468-d2a0-4047-922b-cc565ef445b9}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. GameObject\01. Entity\03. Terrain" />
+    <Filter Include="02. GameObject\09. Puzzle\00. Common Object">
+      <UniqueIdentifier>{9c246355-1a19-4509-bc00-a124a5a0223a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\00. Common Object\01. Stone Block">
+      <UniqueIdentifier>{fc857829-e08a-41bb-9d45-747a7e650e69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\00. Common Object\02. Stone Block Hole">
+      <UniqueIdentifier>{0c1c1756-576b-4ed7-8d27-32458caaa690}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\00. Common Object\03. Stone Pedestal">
+      <UniqueIdentifier>{7c818d53-0d9c-497c-8536-fbeae92d5478}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\Scale Puzzle">
+      <UniqueIdentifier>{71a6c80c-e430-48ed-a078-8ae733cf9eeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\Music Puzzle">
+      <UniqueIdentifier>{d285ddac-6321-4fd3-aa62-0bd94f4cbed2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\Music Puzzle\Fire Pit">
+      <UniqueIdentifier>{427640fb-9103-4816-b4a3-66a5d0100892}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\Music Puzzle\Music Statue">
+      <UniqueIdentifier>{807e98e9-bac6-42a1-84a2-284d44c3f83d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\Music Puzzle\Note Statue">
+      <UniqueIdentifier>{6b7cdf20-3487-4edb-a5c4-0a757c6fc8c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\Scale Puzzle\Scale">
+      <UniqueIdentifier>{0e532489-19f9-4601-915a-a095f9c512a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\Scale Puzzle\Weight Comparator">
+      <UniqueIdentifier>{8022e469-7504-4521-8d63-a3d4ca106a5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\00. Common Object\00. Stone">
+      <UniqueIdentifier>{b6ddbc6b-0647-4f18-b10e-0edc6c2d6637}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -346,12 +376,6 @@
     <ClInclude Include="..\Header\PressBlock.h">
       <Filter>02. GameObject\09. Puzzle\Crystal Puzzle\Press Block</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\StoneBlock.h">
-      <Filter>02. GameObject\09. Puzzle\Monkey Statue\Stone Block</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\StoneBlockHole.h">
-      <Filter>02. GameObject\09. Puzzle\Monkey Statue\Stone Block Hole</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\PipeBoard.h">
       <Filter>02. GameObject\09. Puzzle\PipeGame\Board</Filter>
     </ClInclude>
@@ -387,6 +411,33 @@
     </ClInclude>
     <ClInclude Include="PlayerDash.h">
       <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Stone.h">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\00. Stone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\FirePit.h">
+      <Filter>02. GameObject\09. Puzzle\Music Puzzle\Fire Pit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\MusicStatue.h">
+      <Filter>02. GameObject\09. Puzzle\Music Puzzle\Music Statue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\NoteStatue.h">
+      <Filter>02. GameObject\09. Puzzle\Music Puzzle\Note Statue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Scale.h">
+      <Filter>02. GameObject\09. Puzzle\Scale Puzzle\Scale</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\WeightComparator.h">
+      <Filter>02. GameObject\09. Puzzle\Scale Puzzle\Weight Comparator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\StoneBlockHole.h">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\02. Stone Block Hole</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\StoneBlock.h">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\01. Stone Block</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\StonePedestal.h">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\03. Stone Pedestal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -534,12 +585,6 @@
     <ClCompile Include="..\Code\PressBlock.cpp">
       <Filter>02. GameObject\09. Puzzle\Crystal Puzzle\Press Block</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\StoneBlock.cpp">
-      <Filter>02. GameObject\09. Puzzle\Monkey Statue\Stone Block</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\StoneBlockHole.cpp">
-      <Filter>02. GameObject\09. Puzzle\Monkey Statue\Stone Block Hole</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\PipeBoard.cpp">
       <Filter>02. GameObject\09. Puzzle\PipeGame\Board</Filter>
     </ClCompile>
@@ -578,6 +623,33 @@
     </ClCompile>
     <ClCompile Include="..\Code\PlayerDash.cpp">
       <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Stone.cpp">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\00. Stone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\FirePit.cpp">
+      <Filter>02. GameObject\09. Puzzle\Music Puzzle\Fire Pit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MusicStatue.cpp">
+      <Filter>02. GameObject\09. Puzzle\Music Puzzle\Music Statue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\NoteStatue.cpp">
+      <Filter>02. GameObject\09. Puzzle\Music Puzzle\Note Statue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Scale.cpp">
+      <Filter>02. GameObject\09. Puzzle\Scale Puzzle\Scale</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\WeightComparator.cpp">
+      <Filter>02. GameObject\09. Puzzle\Scale Puzzle\Weight Comparator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\StoneBlockHole.cpp">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\02. Stone Block Hole</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\StoneBlock.cpp">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\01. Stone Block</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\StonePedestal.cpp">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\03. Stone Pedestal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

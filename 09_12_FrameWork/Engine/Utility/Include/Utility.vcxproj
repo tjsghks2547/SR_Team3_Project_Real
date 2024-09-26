@@ -123,7 +123,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;System.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../../../Reference/Library</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../../Reference/Library;fmodL_vc.lib;fmodstudioL_vc.lib</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>cd /d $(SolutionDir)
@@ -178,10 +178,12 @@ call CopyUtility.bat</Command>
     <ClInclude Include="..\..\Header\PipeBoardCom.h" />
     <ClInclude Include="..\..\Header\PipeCom.h" />
     <ClInclude Include="..\..\Header\PureVesselTex.h" />
+    <ClInclude Include="..\..\Header\PuzzleObject.h" />
     <ClInclude Include="..\..\Header\RcCol.h" />
     <ClInclude Include="..\..\Header\RcTex.h" />
     <ClInclude Include="..\..\Header\Renderer.h" />
     <ClInclude Include="..\..\Header\Scene.h" />
+    <ClInclude Include="..\..\Header\SoundManager.h" />
     <ClInclude Include="..\..\Header\State.h" />
     <ClInclude Include="..\..\Header\StateController.h" />
     <ClInclude Include="..\..\Header\TerrainTex.h" />
@@ -214,10 +216,12 @@ call CopyUtility.bat</Command>
     <ClCompile Include="..\Code\PipeBoardCom.cpp" />
     <ClCompile Include="..\Code\PipeCom.cpp" />
     <ClCompile Include="..\Code\PureVesselTex.cpp" />
+    <ClCompile Include="..\Code\PuzzleObject.cpp" />
     <ClCompile Include="..\Code\RcCol.cpp" />
     <ClCompile Include="..\Code\RcTex.cpp" />
     <ClCompile Include="..\Code\Renderer.cpp" />
     <ClCompile Include="..\Code\Scene.cpp" />
+    <ClCompile Include="..\Code\SoundManager.cpp" />
     <ClCompile Include="..\Code\StateController.cpp" />
     <ClCompile Include="..\Code\TerrainTex.cpp" />
     <ClCompile Include="..\Code\Texture.cpp" />

@@ -58,32 +58,32 @@ void CBugStatuePuzzle::Check_Matched()
 		if (static_cast<CBugStatue*>(m_vecStatues[i])->Get_ImageID() != 1)
 			return;
 		else
-			static_cast<CStoneBlock*>(m_vecStoneBlocks[i])->m_iImageID = 2;
+			static_cast<CStoneBlock*>(m_vecStoneBlocks[i])->Set_ImageID(2);
 	}
 
 	for (int i = 0; i < m_vecStoneBlocks.size(); ++i)
 	{
 		static_cast<CStoneBlock*>(m_vecStoneBlocks[i])->Move_StoneBlock(true, _vec3{0.f, -3.f, 0.f});
-		static_cast<CStoneBlockHole*>(m_vecStoneBlocksHoles[i])->m_iImageID = 1;
+		static_cast<CStoneBlockHole*>(m_vecStoneBlocksHoles[i])->Set_ImageID(1);
 	}
 }
 
 void CBugStatuePuzzle::Key_Input(const _float& fTimeDelta)
 {
-	if (Engine::GetKeyUp(DIK_1))
-	{		
-		static_cast<CBugStatue*>(m_vecStatues[0])->Active_StoneBlock();
-	}
+	//if (Engine::GetKeyUp(DIK_1))
+	//{		
+	//	static_cast<CBugStatue*>(m_vecStatues[0])->Active_StoneBlock();
+	//}
 
-	if (Engine::GetKeyUp(DIK_2))
-	{
-		static_cast<CBugStatue*>(m_vecStatues[1])->Active_StoneBlock();
-	}
+	//if (Engine::GetKeyUp(DIK_2))
+	//{
+	//	static_cast<CBugStatue*>(m_vecStatues[1])->Active_StoneBlock();
+	//}
 
-	if (Engine::GetKeyUp(DIK_3))
-	{
-		static_cast<CBugStatue*>(m_vecStatues[2])->Active_StoneBlock();
-	}
+	//if (Engine::GetKeyUp(DIK_3))
+	//{
+	//	static_cast<CBugStatue*>(m_vecStatues[2])->Active_StoneBlock();
+	//}
 }
 
 void CBugStatuePuzzle::Free()

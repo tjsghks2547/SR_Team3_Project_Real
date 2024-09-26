@@ -52,7 +52,7 @@ void CCrystalPuzzle::Check_Matched()
 	int i = 0;
 	for (auto& iter : m_vecPressBlocks)
 	{
-		if (static_cast<CPressBlock*>(iter)->m_iImageID != static_cast<CCrystal*>(m_vecCrystals[i])->m_iImageID) {
+		if (static_cast<CPressBlock*>(iter)->Get_ImageID() != static_cast<CCrystal*>(m_vecCrystals[i])->Get_ImageID()) {
 			//MSG_BOX("NOT Matched!");
 			return;
 		}
@@ -64,8 +64,8 @@ void CCrystalPuzzle::Check_Matched()
 		static_cast<CCrystal*>(iter)->Set_Active(false);
 	}		
 	for (auto& iter : m_vecPressBlocks) {
-		static_cast<CPressBlock*>(iter)->m_bIsCleared = true;
-		static_cast<CPressBlock*>(iter)->m_iImageID = 8;
+		static_cast<CPressBlock*>(iter)->Set_Clear(true);
+		static_cast<CPressBlock*>(iter)->Set_ImageID(8);
 	}
 
 	//All Matched Function

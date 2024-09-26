@@ -16,10 +16,12 @@ HRESULT CStoneBlock::Ready_GameObject()
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 	m_pTransformCom->m_vScale = { 3.f, 3.f, 0.f };	
 	m_iImageID = 0;
-	m_vecTexture.resize(3);
+	m_vecTexture.resize(5);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_StoneBlock.png", &m_vecTexture[0]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_StoneBlockOnce.png", &m_vecTexture[1]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_StoneBlockOnce_Clear.png", &m_vecTexture[2]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_OceanStoneBlockOnce.png", &m_vecTexture[3]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_OceanStoneBlockOnce_Clear.png", &m_vecTexture[4]);
 	return S_OK;
 }
 

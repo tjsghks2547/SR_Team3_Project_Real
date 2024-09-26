@@ -24,7 +24,7 @@ public:
 public:
 	void Set_Group(CGameObject* _pGroup) { m_pGroup = _pGroup; }
 	void On_Collision();
-	_int Get_ImageID() { return m_iImageID; }
+	_int Get_ImageID() { return m_iImageID; }	
 
 private:
 	Engine::CRcTex* m_pBufferCom;
@@ -37,7 +37,7 @@ private:
 public:
 	static CCombinationStatue* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
-public:
+private:
 	vector<IDirect3DTexture9*> m_vecTexture;
 	_int m_iImageID;	
 	CGameObject* m_pGroup;

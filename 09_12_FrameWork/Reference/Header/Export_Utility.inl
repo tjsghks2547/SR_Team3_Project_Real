@@ -46,6 +46,35 @@ inline void Render_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 }
 
 
+inline void Sound_Initialize()
+{
+	CSoundManager::GetInstance()->Initialize();
+}
+
+inline void Play_Sound(const _tchar* pSoundKey, CHANNELID eID, float fVolume) {
+	CSoundManager::GetInstance()->Play_Sound(pSoundKey, eID, fVolume);
+}
+
+inline void PlayBGM(_tchar* pSoundKey, float fVolume) {
+	CSoundManager::GetInstance()->PlayBGM(pSoundKey, fVolume);
+}
+
+inline void StopSound(CHANNELID eID) {
+	CSoundManager::GetInstance()->StopSound(eID);
+}
+
+inline void StopAll() {
+	CSoundManager::GetInstance()->StopAll();
+}
+
+inline void SetChannelVolume(CHANNELID eID, float fVolume) {
+	CSoundManager::GetInstance()->SetChannelVolume(eID, fVolume);
+}
+
+inline _tchar* Get_CurBGM() {
+	return CSoundManager::GetInstance()->Get_CurBGM();
+}
+
 
 inline HRESULT Ready_Proto(const _tchar* pComponentTag, CComponent* pComponent)
 {
