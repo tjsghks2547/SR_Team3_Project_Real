@@ -248,6 +248,23 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
         m_pInven->Add_Item(pItem);
     }
 
+    if (Engine::GetKeyDown(DIK_1))
+    {
+        m_pQuickSlot->Use_QuickItem(0);
+    }
+    else if (Engine::GetKeyDown(DIK_2))
+    {
+        m_pQuickSlot->Use_QuickItem(1);
+    }
+    else if (Engine::GetKeyDown(DIK_3))
+    {
+        m_pQuickSlot->Use_QuickItem(2);
+    }
+    else if (Engine::GetKeyDown(DIK_4))
+    {
+        m_pQuickSlot->Use_QuickItem(3);
+    }
+
     if (Engine::GetKeyDown(DIK_K))
     {
         //0923 임시 대화상자

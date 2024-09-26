@@ -11,6 +11,7 @@
 #include "MiddleFruit.h"
 #include "Mohican.h"
 #include "InvenUI.h"
+#include "QuickSlot.h"
 
 BEGIN(Engine)
 
@@ -99,10 +100,12 @@ private:
 	int	  m_iPlayerDir;
 
 	//0913 임시 코드
+	CInvenUI*	m_pInven;
+	CQuickSlot* m_pQuickSlot;
+
 	_int		m_iPlayerCoin;
 	PLAYERHP	m_tPlayerHP;
 	_bool		m_bInven;
-	CInvenUI*	m_pInven;
 
 
 	

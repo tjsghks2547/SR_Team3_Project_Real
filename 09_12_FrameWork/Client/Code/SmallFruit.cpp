@@ -84,8 +84,11 @@ HRESULT CSmallFruit::Add_Component()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformSmallFruit", pComponent });
 	m_pTransformCom->m_vScale = { 40.f, 40.f, 1.f };
-
 	m_pTransformCom->m_vInfo[INFO_POS] = { 0.f, 0.f, 0.1f };
+	//0925Quick
+	pComponent = m_pQuickTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformQuick", pComponent });
 
 	//CountRC
 	pComponent = m_pCountRCTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_CountRC"));
