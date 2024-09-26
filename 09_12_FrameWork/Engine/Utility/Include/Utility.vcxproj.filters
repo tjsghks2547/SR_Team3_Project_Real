@@ -103,11 +103,21 @@
     <Filter Include="07. CollisionMgr">
       <UniqueIdentifier>{0f61ba5a-5298-430a-9a04-7c5ebbd65bc4}</UniqueIdentifier>
     </Filter>
+
     <Filter Include="03. GameObject\Puzzle Object">
       <UniqueIdentifier>{324894bf-882e-4664-adba-1cc361c4ebf3}</UniqueIdentifier>
     </Filter>
     <Filter Include="08. SoundMgr">
       <UniqueIdentifier>{6da7b389-666a-431b-b04b-4ccd44a32e05}</UniqueIdentifier>
+     </Filter>
+
+    <Filter Include="04. Component\07. Animatior2">
+      <UniqueIdentifier>{5dab97d2-7f94-43dc-813e-91fff26e8be3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\07. Animatior2\Animation2">
+      <UniqueIdentifier>{99c9f589-5792-4b4a-89e0-6da6c702abae}</UniqueIdentifier>
+     </Filter>
+
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -207,11 +217,21 @@
     <ClInclude Include="..\..\Header\CollisionMgr.h">
       <Filter>07. CollisionMgr</Filter>
     </ClInclude>
+
     <ClInclude Include="..\..\Header\SoundManager.h">
       <Filter>08. SoundMgr</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Header\PuzzleObject.h">
       <Filter>03. GameObject\Puzzle Object</Filter>
+    </ClInclude>  
+
+    <ClInclude Include="..\..\Header\Animatior2.h">
+      <Filter>04. Component\07. Animatior2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Header\Animation2.h">
+      <Filter>04. Component\07. Animatior2\Animation2</Filter>
+    </ClInclude>  
+
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -308,11 +328,21 @@
     <ClCompile Include="..\Code\CollisionMgr.cpp">
       <Filter>07. CollisionMgr</Filter>
     </ClCompile>
+
     <ClCompile Include="..\Code\SoundManager.cpp">
       <Filter>08. SoundMgr</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\PuzzleObject.cpp">
       <Filter>03. GameObject\Puzzle Object</Filter>
+    </ClCompile>  
+
+    <ClCompile Include="..\Code\Animatior2.cpp">
+      <Filter>04. Component\07. Animatior2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Animation2.cpp">
+      <Filter>04. Component\07. Animatior2\Animation2</Filter>
+    </ClCompile>  
+
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
