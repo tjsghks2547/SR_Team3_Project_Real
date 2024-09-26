@@ -39,25 +39,46 @@ public:
 	virtual   void		LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual   void      Render_GameObject();
 
-
+	void  ZoomTo(_float fRatio, _float fDuration);
 
 private:
 	void  Key_Input(const _float& fTimeDelta);
 	void  Mouse_Move(const _float& fTimeDelta);
 	void  MoveToPlayer(const _float& fTimeDelta);
 
+	void  SetCamera_Dash(const _float& fTimeDelta, _bool _opt);
+
+	void  ZoomToTrigger(const _float& fTimeDelta);
+	void  ResetCamera(const _float& fTimeDelta);
 	void  GetPlayerInfo();
 
 private:
 
+	_matrix m_matCameraWorld;
 	// 0923 동영 : 카메라 모드에 따른 화면 출력을 위한 변수
-	CTransform* m_playerTransform;
-	_vec3			m_vPlayerPos;
-	_vec3			m_vPlayerLook;
-
-	_vec3			m_MoveToPlayerEye;
-	_vec3			m_MoveToPlayerAt;
 	CAMERASTATE m_eCameraState;
+
+	CPlayer* m_Player;
+	CTransform* m_playerTransform;
+	_vec3 m_vPlayerPos; // 플레이어의 좌표
+
+	_vec3 m_vIntervalPos; // 플레이어 좌표에서 이만큼 떨어진 곳에 카메라를 배치시킵니다.
+	_vec3 m_vOriginInterval; // 평소의 IntervalPos 값
+
+	// Zoom
+	// 외부에서 ZoomTo()함수에 의해 true가 돼, 업데이트에서 줌인/아웃이 진행
+	bool m_bZoomTrigger;
+
+	// 시간을 계산할 변수 += fTimeDelta하여 duration보다 커지면 줌인/아웃이 끝난다.
+	float m_fZoomDeltaTime;
+
+	// 카메라 줌 비율 100이 기본 상황 / 50이면 기본에서 절반만큼 축소, 150이면 기본에서 두배만큼 확대
+	float m_fZoomRatio;
+
+	// ZoomRatio까지 가기까지 걸리는 시간
+	float m_fZoomDuration;
+
+	_vec3 m_vTowardMove;
 
 public:
 	static  CDynamicCamera* Create(LPDIRECT3DDEVICE9 pGraphicDev

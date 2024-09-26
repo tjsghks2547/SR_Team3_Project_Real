@@ -5,6 +5,7 @@
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
     :Engine::CGameObject(pGraphicDev)
+    , m_CCamera(nullptr)
     , m_fMoveSpeed(0.f)
     , m_ePlayerState(PLAYERSTATE::PLY_END)
     , m_ePlayerDir(OBJ_DIRECTION::OBJDIR_FRONT)
@@ -86,7 +87,8 @@ void CPlayer::Render_GameObject()
         m_pTextureCom->Set_Texture(m_ePlayerState + 1);
     else
         m_pTextureCom->Set_Texture(m_ePlayerState);
-    Print_PlayerState();
+
+   //Print_PlayerState();
   
     m_pAnimationCom->Render_Buffer();
     

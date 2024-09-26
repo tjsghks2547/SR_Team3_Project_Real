@@ -21,7 +21,10 @@ void PlayerIdle::Update(const _float& fTimeDelta)
         Engine::GetKeyDown(DIK_LEFT) ||
         Engine::GetKeyDown(DIK_RIGHT))
     {
-        m_pStateController->ChangeState(PlayerMove::GetInstance(), m_CGameObject);
+        if (Engine::GetKeyPress(DIK_LSHIFT))
+            m_pStateController->ChangeState(PlayerDash::GetInstance(), m_CGameObject);
+        else
+            m_pStateController->ChangeState(PlayerMove::GetInstance(), m_CGameObject);
     }
 }
 

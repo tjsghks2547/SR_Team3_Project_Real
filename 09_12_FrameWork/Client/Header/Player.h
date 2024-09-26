@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "PlayerIdle.h"
 #include "PlayerMove.h"
+#include "PlayerDash.h"
 #include "Export_Utility.h"
 
 //0920
@@ -57,7 +58,7 @@ public:
 	OBJ_DIRECTION	GetPlayerDirection() { return m_ePlayerDir; }
 	void			SetPlayerDirection();
 	bool			GetPlayerDiagonal() { return m_bIsDiagonal; }
-	
+	void			SetCamera(CCamera* _camera) { m_CCamera = _camera; }
 	//0913 임시 코드
 	_int			GetPlayerCoin() { return m_iPlayerCoin; }
 	PLAYERHP		GetPlayerHP() { return m_tPlayerHP; }
@@ -85,6 +86,7 @@ private:
 	Engine::CCamera* m_pCamera;
 	Engine::CCalculator* m_pCCalculatorCom;
 	Engine::CStateController* m_pStateControlCom;
+	CCamera* m_CCamera;
 
 	//바운드 박스 테스트 
 	Engine::CCollider* m_pBoundBox;

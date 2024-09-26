@@ -1,21 +1,21 @@
 #include "pch.h"
-#include "PlayerMove.h"
+#include "PlayerDash.h"
 #include "Player.h"
 
-PlayerMove* PlayerMove::m_instance = nullptr;
+PlayerDash* PlayerDash::m_instance = nullptr;
 
-void PlayerMove::Enter()
+void PlayerDash::Enter()
 {
-    (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(PLAYERSTATE::PLY_MOVE);
+    (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(PLAYERSTATE::PLY_DASH);
 
     if (!m_pStateController)
         SetComponent();
 
-    m_fMoveSpeed = 50.f;
-
+    m_fMoveSpeed = 0.5f;
+    m_fMoveDuration = 0.f;
 }
 
-void PlayerMove::Update(const _float& fTimeDelta)
+void PlayerDash::Update(const _float& fTimeDelta)
 {
     if (!Engine::GetKeyPress(DIK_UP) &&
         !Engine::GetKeyPress(DIK_DOWN) &&
@@ -25,18 +25,25 @@ void PlayerMove::Update(const _float& fTimeDelta)
         m_pStateController->ChangeState(PlayerIdle::GetInstance(), m_CGameObject);
     }
 
-    if (Engine::GetKeyPress(DIK_LSHIFT))
-        m_pStateController->ChangeState(PlayerDash::GetInstance(), m_CGameObject);
-
+    else if (Engine::GetKeyUp(DIK_LSHIFT))
+    {
+        m_pStateController->ChangeState(PlayerMove::GetInstance(), m_CGameObject);
+    }
     Key_Input(fTimeDelta);
+
+    /*if (m_fMoveDuration > 3.f)
+        (dynamic_cast<CPlayer*>(m_CGameObject))->SetDashTrigger(true);
+    else
+        m_fMoveDuration += fTimeDelta;*/
 }
 
-void PlayerMove::Exit()
+
+void PlayerDash::Exit()
 {
-
+    m_fMoveDuration = 0.f;
 }
 
-void PlayerMove::Key_Input(const _float& fTimeDelta)
+void PlayerDash::Key_Input(const _float& fTimeDelta)
 {
 
     _vec3  vLook;
