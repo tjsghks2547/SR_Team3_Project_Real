@@ -103,6 +103,12 @@
     <Filter Include="07. CollisionMgr">
       <UniqueIdentifier>{0f61ba5a-5298-430a-9a04-7c5ebbd65bc4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Component\07. Animatior2">
+      <UniqueIdentifier>{5dab97d2-7f94-43dc-813e-91fff26e8be3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\07. Animatior2\Animation2">
+      <UniqueIdentifier>{99c9f589-5792-4b4a-89e0-6da6c702abae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Header\Management.h">
@@ -201,6 +207,12 @@
     <ClInclude Include="..\..\Header\CollisionMgr.h">
       <Filter>07. CollisionMgr</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Header\Animatior2.h">
+      <Filter>04. Component\07. Animatior2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Header\Animation2.h">
+      <Filter>04. Component\07. Animatior2\Animation2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\Management.cpp">
@@ -295,6 +307,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CollisionMgr.cpp">
       <Filter>07. CollisionMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Animatior2.cpp">
+      <Filter>04. Component\07. Animatior2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Animation2.cpp">
+      <Filter>04. Component\07. Animatior2\Animation2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
