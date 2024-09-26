@@ -7,7 +7,7 @@
 #include "Monster.h"
 #include "DefaultUI.h"
 #include "InvenUI.h"
-#include "QuickSlot.h" //0925
+
 #include "Pipe.h"
 #include "PipeBoard.h"
 #include "Crystal.h"
@@ -21,6 +21,13 @@
 #include "BugStatuePuzzle.h"
 #include "CombinationPuzzle.h"
 #include "CombinationStatue.h"
+#include "MusicStatue.h"
+#include "NoteStatue.h"
+#include "FirePit.h"
+#include "Scale.h"
+#include "WeightComparator.h"
+#include "Stone.h"
+#include "StonePedestal.h"
 
 
 #include "Terrain.h"

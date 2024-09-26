@@ -5,6 +5,7 @@
 #include "Renderer.h"
 #include "LightMgr.h"
 #include "CollisionMgr.h"
+#include "SoundManager.h"
 
 
 #include "TriCol.h"
@@ -64,6 +65,15 @@ inline void  Clear_RenderGroup();
 inline  HRESULT  Ready_Light(LPDIRECT3DDEVICE9 pGraphicDev,
 								const D3DLIGHT9* pLightInfo,
 								const _uint& iIndex);
+
+//sound
+inline void Sound_Initialize();
+inline void Play_Sound(const _tchar* pSoundKey, CHANNELID eID, float fVolume);
+inline void PlayBGM(_tchar* pSoundKey, float fVolume);
+inline void StopSound(CHANNELID eID);
+inline void StopAll();
+inline void SetChannelVolume(CHANNELID eID, float fVolume);
+inline _tchar* Get_CurBGM();
 
 inline void		Release_Utility();
 

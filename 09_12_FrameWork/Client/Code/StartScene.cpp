@@ -27,6 +27,9 @@ HRESULT CStartScene::Ready_Scene()
 
 	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 
+	Engine::Sound_Initialize();
+	Engine::Play_Sound(L"BGM_19_TutorialAmbience.wav", SOUND_BGM, 1.f);	
+
 	return S_OK;
 }
 

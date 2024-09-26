@@ -23,13 +23,13 @@ HRESULT CPressBlock::Ready_GameObject()
 	m_bIsCleared = false;
 	m_pGroup = nullptr;
 
-	m_vecTexture.resize(9);	
+	m_vecTexture.resize(9);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_PressBlock_Up.png", &m_vecTexture[0]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_PressBlock_Up_Yellow.png", &m_vecTexture[1]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_PressBlock_Up_Green.png", &m_vecTexture[2]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_PressBlock_Up_Red.png", &m_vecTexture[3]);
 
-	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_PressBlock_Down.png", &m_vecTexture[4]);		
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_PressBlock_Down.png", &m_vecTexture[4]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_PressBlock_Down_Yellow.png", &m_vecTexture[5]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_PressBlock_Down_Green.png", &m_vecTexture[6]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_PressBlock_Down_Red.png", &m_vecTexture[7]);
@@ -43,10 +43,10 @@ _int CPressBlock::Update_GameObject(const _float& fTimeDelta)
 {
 	Add_RenderGroup(RENDER_ALPHA, this);
 
-	if (Engine::GetKeyUp(DIK_5))
-	{
-		On_CollisionEnter();
-	}
+	//if (Engine::GetKeyUp(DIK_5))
+	//{
+	//	On_CollisionEnter();
+	//}
 
 	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
@@ -62,7 +62,7 @@ void CPressBlock::Render_GameObject()
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	if(m_bIsCleared)
+	if (m_bIsCleared)
 		m_pGraphicDev->SetTexture(0, m_vecTexture[8]);
 	else
 		m_pGraphicDev->SetTexture(0, m_vecTexture[m_iImageID + (m_bIsPressed * 4)]);
@@ -95,13 +95,13 @@ void CPressBlock::On_CollisionEnter()
 		m_iImageID = 8;
 		m_bIsPressed = false;
 		return;
-	}		
+	}
 
 	m_iImageID++;
 	m_iImageID %= 4;
 	m_bIsPressed = true;
 
-	if(m_pGroup != nullptr)
+	if (m_pGroup != nullptr)
 		static_cast<CCrystalPuzzle*>(m_pGroup)->Check_Matched();
 }
 

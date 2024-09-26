@@ -13,8 +13,13 @@
 #include <unordered_map>
 #include <ctime>
 
+#include "fmod.h"
+#include "fmod.hpp"
+#include "fmod_codec.h"
+#pragma comment(lib, "fmod_vc.lib")
 
-
+#include <io.h>
+#include <iostream>
 
 #include "Engine_Enum.h"
 #include "Engine_Macro.h"

@@ -21,6 +21,9 @@ public:
 	virtual   void	    LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual   void      Render_GameObject();
 
+	void Set_ImageID(_int _iId) { m_iImageID = _iId; }
+	_int Get_ImageID() { return m_iImageID; }
+
 private:
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTexture* m_pTextureCom;
@@ -30,7 +33,9 @@ private:
 	HRESULT    Add_Component();
 
 public:
-	static CStoneBlockHole* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CStoneBlockHole* Create(LPDIRECT3DDEVICE9 pGraphicDev);	
+
+private:
 	vector<IDirect3DTexture9*> m_vecTexture;
 	CTransform* m_pStoneBlock;
 	_int m_iImageID;
