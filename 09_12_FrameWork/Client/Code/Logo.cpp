@@ -64,7 +64,7 @@ void CLogo::Render_Scene()
 
 HRESULT CLogo::Ready_Prototype()
 {
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_LogoTex", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Sprite_BabyOgu_Slide.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_LogoTex", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Sprite_BabyOgu_Movement.png", TEX_NORMAL)), E_FAIL);
 	//FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_LogoTex", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Player0.jpg", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_RcTex", Engine::CRcTex::Create(m_pGraphicDev)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_AnimationTex", Engine::CAnimationTex::Create(m_pGraphicDev)), E_FAIL);

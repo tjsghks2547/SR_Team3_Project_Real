@@ -40,6 +40,9 @@
     <Filter Include="99. Export">
       <UniqueIdentifier>{fc6dfe1b-922b-4994-9f8a-246064415066}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05. ResourceMgr">
+      <UniqueIdentifier>{9f20006d-6b70-4f7b-80b7-4e60dcdbbe3e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\GraphicDev.cpp">

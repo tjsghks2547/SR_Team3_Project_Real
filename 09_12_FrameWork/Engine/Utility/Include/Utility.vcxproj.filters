@@ -52,9 +52,6 @@
     <Filter Include="03. GameObject\Camera">
       <UniqueIdentifier>{8a254cf1-3640-47bb-a453-01e09c29d9a1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. Component\03. Calculator">
-      <UniqueIdentifier>{d70971f5-fdb5-4002-98fb-07c720b3edca}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04. Component\00.VIBuffer\04. CubeTex">
       <UniqueIdentifier>{5b8e1d69-339f-461d-b537-3bb93fbdf77a}</UniqueIdentifier>
     </Filter>
@@ -115,6 +112,9 @@
     <Filter Include="04. Component\00.VIBuffer\08. Collider">
       <UniqueIdentifier>{e82c3a38-a3b9-4d96-a374-d00eb9366c4c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Component\02. Texture\03. Calculator">
+      <UniqueIdentifier>{d70971f5-fdb5-4002-98fb-07c720b3edca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Header\Management.h">
@@ -163,7 +163,7 @@
       <Filter>03. GameObject\Camera</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Header\Calculator.h">
-      <Filter>04. Component\03. Calculator</Filter>
+      <Filter>04. Component\02. Texture\03. Calculator</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Header\CubeTex.h">
       <Filter>04. Component\00.VIBuffer\04. CubeTex</Filter>
@@ -219,7 +219,7 @@
     <ClInclude Include="..\..\Header\PuzzleObject.h">
       <Filter>03. GameObject\Puzzle Object</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Header\Animatior2.h">
+    <ClInclude Include="..\..\Header\Animator2.h">
       <Filter>04. Component\07. Animatior2</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Header\Animation2.h">
@@ -273,7 +273,7 @@
       <Filter>03. GameObject\Camera</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Calculator.cpp">
-      <Filter>04. Component\03. Calculator</Filter>
+      <Filter>04. Component\02. Texture\03. Calculator</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CubeTex.cpp">
       <Filter>04. Component\00.VIBuffer\04. CubeTex</Filter>
@@ -311,9 +311,6 @@
     <ClCompile Include="..\Code\PipeCom.cpp">
       <Filter>04. Component\06. Puzzle\PipeGame\PipeBoard</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CBoundBox.cpp">
-      <Filter>02. Layer</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Header\Collider.cpp">
       <Filter>04. Component\00.VIBuffer\08. Collider</Filter>
     </ClCompile>
@@ -326,7 +323,7 @@
     <ClCompile Include="..\Code\PuzzleObject.cpp">
       <Filter>03. GameObject\Puzzle Object</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Animatior2.cpp">
+    <ClCompile Include="..\Code\Animator2.cpp">
       <Filter>04. Component\07. Animatior2</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Animation2.cpp">

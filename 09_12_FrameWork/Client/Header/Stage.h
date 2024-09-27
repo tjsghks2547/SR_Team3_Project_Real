@@ -41,6 +41,10 @@
 #include "Object.h"
 
 
+//9월 27일 애니메이션 테스트
+#include "TestObject.h"
+
+
 class CStage : public Engine::CScene
 {
 private:

@@ -128,7 +128,7 @@ void CObject::Render_GameObject()
 			Ogu_House_Table*/
 	//Ogu_House_Table
 
-	//m_pBoundBox->Ready_Buffer();	
+
 
 	m_pBufferCom->Render_Buffer();
 

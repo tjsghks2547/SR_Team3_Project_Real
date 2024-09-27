@@ -29,7 +29,12 @@
 #include "AnimationTex.h"
 #include "CStartMap.h"
 #include "MapTex.h"
-#include "Collider.h"	
+#include "Collider.h"
+
+// 애니메이션 프레임워크테스트
+#include "Animator2.h"
+#include "Animation2.h"
+
 
 
 

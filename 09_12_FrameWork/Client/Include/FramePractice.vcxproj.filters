@@ -224,6 +224,9 @@
     <Filter Include="02. GameObject\12. NPC\00. ExpressMonkey">
       <UniqueIdentifier>{0f348598-7cf2-4fff-bd3a-ab39ae656221}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\13.TestObject">
+      <UniqueIdentifier>{e7db2bb3-c74f-4e00-86ff-ceaa635ae2f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -451,6 +454,9 @@
     <ClInclude Include="..\Header\ExpressMonkey.h">
       <Filter>02. GameObject\12. NPC\00. ExpressMonkey</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\TestObject.h">
+      <Filter>02. GameObject\13.TestObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FramePractice.cpp">
@@ -668,6 +674,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\ExpressMonkey.cpp">
       <Filter>02. GameObject\12. NPC\00. ExpressMonkey</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\TestObject.cpp">
+      <Filter>02. GameObject\13.TestObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

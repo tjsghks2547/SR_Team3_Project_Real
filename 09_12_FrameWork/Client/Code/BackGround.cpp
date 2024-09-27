@@ -32,7 +32,7 @@ _int CBackGround::Update_GameObject(const _float& fTimeDelta)
 
 void CBackGround::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-	m_pAnimationCom->Update_Component_test(fTimeDelta,6,6,0,5,31);
+	m_pAnimationCom->Update_Component_test(fTimeDelta,12,12,0,10,144);
 
 	Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
 }

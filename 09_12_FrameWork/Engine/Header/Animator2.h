@@ -2,19 +2,19 @@
 #include "Component.h"
 
 
-
+BEGIN(Engine)
 
 class CAnimation2;
 class CGameObject;
 
 
-class CAnimatior2 :public CComponent
+class ENGINE_DLL CAnimator2 :public CComponent
 {
 private:
-	explicit CAnimatior2();
-	explicit CAnimatior2(LPDIRECT3DDEVICE9 pGraphicDev);
-	explicit CAnimatior2(const CAnimatior2& rhs);
-	virtual  ~CAnimatior2();
+	explicit CAnimator2();
+	explicit CAnimator2(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit CAnimator2(const CAnimator2& rhs);
+	virtual  ~CAnimator2();
 
 private:
 	map<wstring, CAnimation2*>		m_mapAnim;  //모든 애니메이션 정보 저장
@@ -27,7 +27,7 @@ private:
 
 public:
 	CGameObject* GetGameObj() { return m_pOwner; }
-
+	static CAnimator2* Create(LPDIRECT3DDEVICE9 pGraphicDev);	
 
 public:
 
@@ -46,10 +46,12 @@ public:
 	virtual void  LateReady_Component();
 	virtual _int  Update_Component(const _float& fTimeDelta);
 	virtual void  LateUpdate_Component(const _float& fTimeDelta);
+	void   render();
+	
 
-protected:
-	LPDIRECT3DDEVICE9	 m_pGraphicDev;
-	_bool				 m_bClone;
+public:
+	void SetAnimationFrame(const wstring& _strName, int _idx);
+
 
 public:
 	virtual CComponent*  Clone() ;
@@ -58,3 +60,4 @@ protected:
 	virtual void  Free();
 };
 
+END
