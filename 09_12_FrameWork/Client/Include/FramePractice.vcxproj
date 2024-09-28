@@ -186,8 +186,14 @@
     <ClInclude Include="..\Header\Pipe.h" />
     <ClInclude Include="..\Header\PipeBoard.h" />
     <ClInclude Include="..\Header\Player.h" />
+    <ClInclude Include="..\Header\PlayerDash.h" />
     <ClInclude Include="..\Header\PlayerIdle.h" />
+    <ClInclude Include="..\Header\PlayerInteractionBox.h" />
+    <ClInclude Include="..\Header\PlayerLift.h" />
+    <ClInclude Include="..\Header\PlayerLiftMove.h" />
     <ClInclude Include="..\Header\PlayerMove.h" />
+    <ClInclude Include="..\Header\PlayerPush.h" />
+    <ClInclude Include="..\Header\PlayerSwing.h" />
     <ClInclude Include="..\Header\PressBlock.h" />
     <ClInclude Include="..\Header\QuickSlot.h" />
     <ClInclude Include="..\Header\Ray.h" />
@@ -203,6 +209,7 @@
     <ClInclude Include="..\Header\StoneBlockHole.h" />
     <ClInclude Include="..\Header\StonePedestal.h" />
     <ClInclude Include="..\Header\Terrain.h" />
+    <ClInclude Include="..\Header\TestCol.h" />
     <ClInclude Include="..\Header\TestMap.h" />
     <ClInclude Include="..\Header\DefaultUI.h" />
     <ClInclude Include="..\Header\TestObject.h" />
@@ -218,7 +225,6 @@
     <ClInclude Include="imstb_textedit.h" />
     <ClInclude Include="imstb_truetype.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="PlayerDash.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Struct.h" />
     <ClInclude Include="targetver.h" />
@@ -262,7 +268,12 @@
     <ClCompile Include="..\Code\Player.cpp" />
     <ClCompile Include="..\Code\PlayerDash.cpp" />
     <ClCompile Include="..\Code\PlayerIdle.cpp" />
+    <ClCompile Include="..\Code\PlayerInteractionBox.cpp" />
+    <ClCompile Include="..\Code\PlayerLift.cpp" />
+    <ClCompile Include="..\Code\PlayerLiftMove.cpp" />
     <ClCompile Include="..\Code\PlayerMove.cpp" />
+    <ClCompile Include="..\Code\PlayerPush.cpp" />
+    <ClCompile Include="..\Code\PlayerSwing.cpp" />
     <ClCompile Include="..\Code\PressBlock.cpp" />
     <ClCompile Include="..\Code\QuickSlot.cpp" />
     <ClCompile Include="..\Code\Ray.cpp" />
@@ -277,6 +288,7 @@
     <ClCompile Include="..\Code\StoneBlockHole.cpp" />
     <ClCompile Include="..\Code\StonePedestal.cpp" />
     <ClCompile Include="..\Code\Terrain.cpp" />
+    <ClCompile Include="..\Code\TestCol.cpp" />
     <ClCompile Include="..\Code\TestMap.cpp" />
     <ClCompile Include="..\Code\DefaultUI.cpp" />
     <ClCompile Include="..\Code\TestObject.cpp" />

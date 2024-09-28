@@ -37,7 +37,9 @@ public:
 	}
 
 	void UpdateUV();
-
+	int  GetCurrentFrame() { return currentFrame; }
+	bool IsAnimationEnd() { return m_bAnimationEnd; }
+	void SetAnimationPlaying() { m_bAnimationEnd = false; }
 private:
 
 	// Loading에서 Animation.dat 정보를 받아와서
@@ -58,6 +60,7 @@ private:
 	int					currentFrame;
 	float				m_fAccTime;
 
+	bool				m_bAnimationEnd;
 public:
 	static CAnimation* Create(LPDIRECT3DDEVICE9	      pGraphicDev,
 		const vector<_vec2>		  _vecFrameCount,

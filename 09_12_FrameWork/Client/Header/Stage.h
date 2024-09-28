@@ -4,6 +4,7 @@
 #include "BackGround.h"
 
 #include "Player.h"
+#include "PlayerInteractionBox.h"
 #include "Monster.h"
 #include "DefaultUI.h"
 #include "InvenUI.h"
@@ -39,7 +40,7 @@
 #include "TestMap.h"
 #include "Map.h"
 #include "Object.h"
-
+#include "TestCol.h"
 
 //9월 27일 애니메이션 테스트
 #include "TestObject.h"

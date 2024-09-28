@@ -418,9 +418,6 @@
     <ClInclude Include="..\Header\QuickSlot.h">
       <Filter>02. GameObject\11. UI\00. DefaultUI</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerDash.h">
-      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\Stone.h">
       <Filter>02. GameObject\09. Puzzle\00. Common Object\00. Stone</Filter>
     </ClInclude>
@@ -456,6 +453,27 @@
     </ClInclude>
     <ClInclude Include="..\Header\TestObject.h">
       <Filter>02. GameObject\13.TestObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PlayerInteractionBox.h">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PlayerLift.h">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PlayerLiftMove.h">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PlayerSwing.h">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PlayerPush.h">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PlayerDash.h">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\TestCol.h">
+      <Filter>02. GameObject\01. Entity\01. Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -677,6 +695,24 @@
     </ClCompile>
     <ClCompile Include="..\Code\TestObject.cpp">
       <Filter>02. GameObject\13.TestObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PlayerInteractionBox.cpp">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PlayerLift.cpp">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PlayerLiftMove.cpp">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PlayerSwing.cpp">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PlayerPush.cpp">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\TestCol.cpp">
+      <Filter>02. GameObject\01. Entity\01. Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
