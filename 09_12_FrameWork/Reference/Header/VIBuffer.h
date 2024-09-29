@@ -16,7 +16,7 @@ protected:
 public:
 	virtual  HRESULT  Ready_Buffer();
 	virtual  void	  Render_Buffer();
-
+	virtual  void     SetTextureScale(float fScaleSize);
 
 protected:
 	LPDIRECT3DVERTEXBUFFER9     m_pVB;

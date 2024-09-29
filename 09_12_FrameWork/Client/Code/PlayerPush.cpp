@@ -1,23 +1,20 @@
 #include "pch.h"
-#include "PlayerDash.h"
+#include "PlayerPush.h"
 #include "Player.h"
 
-PlayerDash* PlayerDash::m_instance = nullptr;
+PlayerPush* PlayerPush::m_instance = nullptr;
 
-void PlayerDash::Enter()
+void PlayerPush::Enter()
 {
-    (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(PLAYERSTATE::PLY_DASH);
+    (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(PLAYERSTATE::PLY_PUSH);
 
     if (!m_pStateController)
         SetComponent();
 
-    m_fMoveSpeed = 100.f;
-    (dynamic_cast<CPlayer*>(m_CGameObject))->SetMoveSpeed(m_fMoveSpeed);
-    m_fMoveDuration = 0.f;
-    m_bZoomOutTrigger = false;
+    m_fMoveSpeed = 0.5f;
 }
 
-void PlayerDash::Update(const _float& fTimeDelta)
+void PlayerPush::Update(const _float& fTimeDelta)
 {
     if (!Engine::GetKeyPress(DIK_UP) &&
         !Engine::GetKeyPress(DIK_DOWN) &&
@@ -26,46 +23,27 @@ void PlayerDash::Update(const _float& fTimeDelta)
     {
         m_pStateController->ChangeState(PlayerIdle::GetInstance(), m_CGameObject);
     }
-
-    else if (Engine::GetKeyUp(DIK_LSHIFT))
-    {
-        m_pStateController->ChangeState(PlayerMove::GetInstance(), m_CGameObject);
-    }
-    Key_Input(fTimeDelta);
-
-    if (m_fMoveDuration > 3.f && !m_bZoomOutTrigger)
-    {
-        dynamic_cast<CDynamicCamera*>(
-            dynamic_cast<CPlayer*>(m_CGameObject)->GetCamera()
-            )->ZoomTo(60.f, 2);
-
-        m_bZoomOutTrigger = true;
-    }
-
-
-    else
-        m_fMoveDuration += fTimeDelta;
 }
 
 
-void PlayerDash::Exit()
+void PlayerPush::Exit()
 {
-    m_fMoveDuration = 0.f;
-    m_bZoomOutTrigger = false;
 }
 
-void PlayerDash::Key_Input(const _float& fTimeDelta)
+void PlayerPush::Key_Input(const _float& fTimeDelta)
 {
 
     _vec3  vLook;
     _vec3  vRight;
+    _vec3  vPlayerDir;
 
     m_pTransformCom->Get_Info(INFO_LOOK, &vLook);
     m_pTransformCom->Get_Info(INFO_RIGHT, &vRight);
-
+    vPlayerDir = (dynamic_cast<CPlayer*>(m_CGameObject))->GetPlayerDirVector();
 
     if (Engine::GetKeyPress(DIK_UP))
     {
+        
         m_pTransformCom->Move_Pos(
             D3DXVec3Normalize(&vLook, &vLook), fTimeDelta, m_fMoveSpeed);
     }

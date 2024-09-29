@@ -92,6 +92,19 @@ void CVIBuffer::Render_Buffer()
 	//m_pGraphicDev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_dwVtxCnt-8, 12, m_dwTriCnt-4);
 }
 
+void CVIBuffer::SetTextureScale(float fScaleSize)
+{
+	VTXTEX* pVertex = NULL;
+	m_pVB->Lock(0, 0, (void**)&pVertex, 0);
+
+	pVertex[0].vPosition = { -fScaleSize, fScaleSize, 0.f };
+	pVertex[1].vPosition = { fScaleSize, fScaleSize, 0.f };
+	pVertex[2].vPosition = { fScaleSize, -fScaleSize, 0.f };
+	pVertex[3].vPosition = { -fScaleSize, -fScaleSize, 0.f };
+
+	m_pVB->Unlock();
+}
+
 void CVIBuffer::Free()
 {
 	Safe_Release(m_pIB);

@@ -16,16 +16,27 @@ void PlayerIdle::Enter()
 
 void PlayerIdle::Update(const _float& fTimeDelta)
 {
-    if (Engine::GetKeyDown(DIK_UP) ||
-        Engine::GetKeyDown(DIK_DOWN) ||
-        Engine::GetKeyDown(DIK_LEFT) ||
-        Engine::GetKeyDown(DIK_RIGHT))
+    if (Engine::GetKeyPress(DIK_UP) ||
+        Engine::GetKeyPress(DIK_DOWN) ||
+        Engine::GetKeyPress(DIK_LEFT) ||
+        Engine::GetKeyPress(DIK_RIGHT))
     {
         if (Engine::GetKeyPress(DIK_LSHIFT))
             m_pStateController->ChangeState(PlayerDash::GetInstance(), m_CGameObject);
         else
             m_pStateController->ChangeState(PlayerMove::GetInstance(), m_CGameObject);
+
+
     }
+
+    if (Engine::GetKeyPress(DIK_A))
+        m_pStateController->ChangeState(PlayerSwing::GetInstance(), m_CGameObject);
+
+    if (Engine::GetKeyDown(DIK_S) &&
+        (dynamic_cast<CPlayer*>(m_CGameObject))->GetCollideObj() != nullptr)
+        m_pStateController->ChangeState(PlayerLift::GetInstance(), m_CGameObject);
+
+
 }
 
 

@@ -5,15 +5,15 @@
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
     :Engine::CGameObject(pGraphicDev)
-    , m_CCamera(nullptr)
-    , m_fMoveSpeed(0.f)
+    , m_pCamera(nullptr)
     , m_ePlayerState(PLAYERSTATE::PLY_END)
-    , m_ePlayerDir(OBJ_DIRECTION::OBJDIR_FRONT)
     , m_iPlayerDir(OBJ_DIRECTION::OBJDIR_FRONT)
-    , m_vPlayerDir()
     , m_vPlayerCurrPos()
     , m_vPlayerPrevPos()
     , m_bIsDiagonal(false)
+    , m_bSwingTrigger(false)
+    , m_CCollideObj(nullptr)
+    , m_fMoveSpeed(0.f)
     //0913 임시 졸라 많이 한줄한줄 잘썻죠?ㅋ_ㅋ
     , m_iPlayerCoin(10), m_bInven(false)
 {
@@ -43,24 +43,17 @@ HRESULT CPlayer::Ready_GameObject()
 void CPlayer::LateReady_GameObject()
 {
     Engine::CGameObject::LateReady_GameObject();
-    
-    //0926 레이트레디
-    m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
-    NULL_CHECK_RETURN(m_pInven);
 
-    m_pQuickSlot = dynamic_cast<CQuickSlot*>(Engine::Get_GameObject(L"Layer_UI", L"QuickSlot_UI"));
-    NULL_CHECK_RETURN(m_pInven);
+    //hat = dynamic_cast<CExploreHat*>(CExploreHat::Create(m_pGraphicDev));
 }
 
 _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 {
+    m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
+    NULL_CHECK_RETURN(m_pInven, 0);
+
     m_pTransformCom->Get_Info(INFO_POS, &m_vPlayerPrevPos);
-
     Key_Input(fTimeDelta);
-
-
-    //카메라 부분넣기
-
 
     Add_RenderGroup(RENDER_ALPHA, this);
 
@@ -70,9 +63,7 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
     m_pTransformCom->Get_Info(INFO_POS, &m_vPlayerCurrPos);
-
-    m_vPlayerDir = m_vPlayerCurrPos - m_vPlayerPrevPos;
-    D3DXVec3Normalize(&m_vPlayerDir, &m_vPlayerDir);
+    //hat->Set_ItemPos(m_vPlayerCurrPos);
     SetPlayerDirection();
 
     m_pAnimationCom->Update_Component(fTimeDelta);
@@ -90,10 +81,11 @@ void CPlayer::Render_GameObject()
     else
         m_pTextureCom->Set_Texture(m_ePlayerState);
 
-   //Print_PlayerState();
-  
+    //Print_PlayerState();
+
     m_pAnimationCom->Render_Buffer();
-    
+    //hat->Render_GameObject();
+
     //9월 25일 충돌관련
     m_pBoundBox->Render_Buffer();
 
@@ -101,10 +93,11 @@ void CPlayer::Render_GameObject()
     m_pGraphicDev->SetTexture(0, NULL);  // 이거 설정안해주면 그대로 텍스처 나옴 이것도 마찬가지로 전역적으로 장치세팅이 되므로
 }
 
-void CPlayer::SetPlayerDirection(/*OBJ_DIRECTION _ePlayerDir*/)
+void CPlayer::SetPlayerDirection()
 {
     int num = 0;
-
+    m_vPlayerDir = m_vPlayerCurrPos - m_vPlayerPrevPos;
+    D3DXVec3Normalize(&m_vPlayerDir, &m_vPlayerDir);
 
     if (m_vPlayerDir.x > 0)
     {
@@ -137,7 +130,6 @@ void CPlayer::SetPlayerDirection(/*OBJ_DIRECTION _ePlayerDir*/)
             m_bIsDiagonal = false;
             num = OBJ_DIRECTION::OBJDIR_BACK;
         }
-
 
         else if (m_vPlayerDir.z == 0)
             num = m_iPlayerDir; //-> 해당방향 그대로 유지
@@ -172,11 +164,13 @@ void CPlayer::SetPlayerDirection(/*OBJ_DIRECTION _ePlayerDir*/)
         }
     }
 
-    if (num != m_iPlayerDir)
-    {
-        m_iPlayerDir = num;
-        m_pAnimationCom->SetAnimDir(m_ePlayerState, m_iPlayerDir, m_bIsDiagonal);
-    }
+    ////////////////////////////////////////////////////////////////////////
+    if (num == m_iPlayerDir)
+        return;
+
+    // 방향이 이전과 다르면 애니메이션 갱신
+    m_iPlayerDir = num;
+    m_pAnimationCom->SetAnimDir(m_ePlayerState, m_iPlayerDir, m_bIsDiagonal);
 }
 
 
@@ -208,27 +202,24 @@ HRESULT CPlayer::Add_Component()
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_State", pComponent });
 
-    pComponent = m_pBoundBox = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));    
-    NULL_CHECK_RETURN(pComponent, E_FAIL);  
-    m_pBoundBox->SetGameObjectPtr(this);    
-    m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collider", pComponent }); 
-
+    pComponent = m_pBoundBox = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
+    NULL_CHECK_RETURN(pComponent, E_FAIL);
+    m_pBoundBox->SetGameObjectPtr(this);
+    m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collider", pComponent });
 }
 
 void CPlayer::Key_Input(const _float& fTimeDelta)
 {
     //0922
     if (Engine::GetKeyDown(DIK_I))
-    {
-        m_bInven = m_bInven ? false : true;
-    }
+        m_bInven ^= TRUE;
 
     if (m_bInven)
         return;
     // 이 아래 추가 하삼 코드!!
 
 
-    //0920 좆임시 아이템 추가
+    //0920 임시 아이템 추가
     if (Engine::GetKeyDown(DIK_L))
     {
         CItem* pItem = dynamic_cast<CExploreHat*>(CExploreHat::Create(m_pGraphicDev));
@@ -250,23 +241,14 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
         pItem = dynamic_cast<CMiddleFruit*>(CMiddleFruit::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
         m_pInven->Add_Item(pItem);
+
+
     }
 
-    if (Engine::GetKeyDown(DIK_1))
+    for (int i = 0; i < 4; i++)
     {
-        m_pQuickSlot->Use_QuickItem(0);
-    }
-    else if (Engine::GetKeyDown(DIK_2))
-    {
-        m_pQuickSlot->Use_QuickItem(1);
-    }
-    else if (Engine::GetKeyDown(DIK_3))
-    {
-        m_pQuickSlot->Use_QuickItem(2);
-    }
-    else if (Engine::GetKeyDown(DIK_4))
-    {
-        m_pQuickSlot->Use_QuickItem(3);
+        if (Engine::GetKeyDown(DIK_1 + i))
+            m_pQuickSlot->Use_QuickItem(i);
     }
 
     if (Engine::GetKeyDown(DIK_K))

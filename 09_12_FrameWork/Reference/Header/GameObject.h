@@ -35,7 +35,7 @@ protected:
 
 	//0913
 	_float									m_fViewZ;
-
+	OBJ_TYPE						   m_eObjType;
 public:
 	CComponent* Find_Component(COMPONENTID eID, const _tchar* pComponentTag);
 
@@ -60,7 +60,8 @@ public:
 	
 	void SetTextureKey(wstring _strKey) { m_strTextureKey = _strKey; }
 	wstring GetTextureKey() { return m_strTextureKey; }
-
+	void SetObjectType(OBJ_TYPE _eObjType) { m_eObjType = _eObjType; }
+	OBJ_TYPE GetObjectType() { return m_eObjType; }
 
 public:
 	virtual void OnCollision(CGameObject* _pOther) {  };

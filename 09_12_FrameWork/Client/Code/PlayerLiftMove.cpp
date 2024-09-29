@@ -1,60 +1,43 @@
 #include "pch.h"
-#include "PlayerDash.h"
+#include "PlayerLiftMove.h"
 #include "Player.h"
 
-PlayerDash* PlayerDash::m_instance = nullptr;
+PlayerLiftMove* PlayerLiftMove::m_instance = nullptr;
 
-void PlayerDash::Enter()
+void PlayerLiftMove::Enter()
 {
-    (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(PLAYERSTATE::PLY_DASH);
+    (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(
+        PLAYERSTATE::PLY_LIFTMOVE);
+
 
     if (!m_pStateController)
         SetComponent();
 
-    m_fMoveSpeed = 100.f;
+    m_CAnimComp = dynamic_cast<CPlayer*>(m_CGameObject)->GetAnimationComp();
+    m_fMoveSpeed = 20.f;
     (dynamic_cast<CPlayer*>(m_CGameObject))->SetMoveSpeed(m_fMoveSpeed);
-    m_fMoveDuration = 0.f;
-    m_bZoomOutTrigger = false;
 }
 
-void PlayerDash::Update(const _float& fTimeDelta)
+void PlayerLiftMove::Update(const _float& fTimeDelta)
 {
     if (!Engine::GetKeyPress(DIK_UP) &&
         !Engine::GetKeyPress(DIK_DOWN) &&
         !Engine::GetKeyPress(DIK_LEFT) &&
         !Engine::GetKeyPress(DIK_RIGHT))
     {
-        m_pStateController->ChangeState(PlayerIdle::GetInstance(), m_CGameObject);
+        m_pStateController->ChangeState(PlayerLift::GetInstance(), m_CGameObject);
     }
 
-    else if (Engine::GetKeyUp(DIK_LSHIFT))
-    {
-        m_pStateController->ChangeState(PlayerMove::GetInstance(), m_CGameObject);
-    }
     Key_Input(fTimeDelta);
 
-    if (m_fMoveDuration > 3.f && !m_bZoomOutTrigger)
-    {
-        dynamic_cast<CDynamicCamera*>(
-            dynamic_cast<CPlayer*>(m_CGameObject)->GetCamera()
-            )->ZoomTo(60.f, 2);
-
-        m_bZoomOutTrigger = true;
-    }
-
-
-    else
-        m_fMoveDuration += fTimeDelta;
 }
 
 
-void PlayerDash::Exit()
+void PlayerLiftMove::Exit()
 {
-    m_fMoveDuration = 0.f;
-    m_bZoomOutTrigger = false;
 }
 
-void PlayerDash::Key_Input(const _float& fTimeDelta)
+void PlayerLiftMove::Key_Input(const _float& fTimeDelta)
 {
 
     _vec3  vLook;
@@ -68,6 +51,7 @@ void PlayerDash::Key_Input(const _float& fTimeDelta)
     {
         m_pTransformCom->Move_Pos(
             D3DXVec3Normalize(&vLook, &vLook), fTimeDelta, m_fMoveSpeed);
+
     }
 
 
@@ -90,4 +74,12 @@ void PlayerDash::Key_Input(const _float& fTimeDelta)
         m_pTransformCom->Move_Pos(D3DXVec3Normalize(
             &vRight, &vRight), fTimeDelta, m_fMoveSpeed);
     }
+
+    _vec3 colObjPos;
+    m_pTransformCom->Get_Info(INFO_POS, &colObjPos);
+    colObjPos.y += 20;
+
+    dynamic_cast<CTransform*>(
+        colObj->Get_Component(ID_DYNAMIC, L"Com_Transform")
+        )->Set_Pos(colObjPos);
 }

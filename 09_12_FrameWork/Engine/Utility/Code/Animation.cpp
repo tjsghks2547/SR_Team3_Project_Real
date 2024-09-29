@@ -57,8 +57,6 @@ HRESULT CAnimation::Ready_Animation(
 		m_vecFramePlay.push_back(iter);
 	}
 
-
-
 	m_dwTriCnt = 2;
 	m_dwVtxCnt = 4;
 	m_dwVtxSize = sizeof(VTXTEX);
@@ -104,14 +102,17 @@ _int CAnimation::Update_Component(const _float& fTimeDelta)
 
 	if (m_fAccTime <= 0.f)
 	{
+		m_bAnimationEnd = false;
 		m_fAccTime += 0.2f;
+
+		if (currentFrame >= m_vecFramePlay[m_eCurrentState][m_eCurrentDir].size())
+		{
+			m_bAnimationEnd = true;
+			currentFrame = 0;
+		}
 
 		UpdateUV();
 		currentFrame++;
-		if (currentFrame >= m_vecFramePlay[m_eCurrentState][m_eCurrentDir].size() - 1)
-		{
-			currentFrame = 0;
-		}
 	}
 	return 0;
 }

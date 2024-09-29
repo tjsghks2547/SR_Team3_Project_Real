@@ -46,7 +46,7 @@ HRESULT CDynamicCamera::Ready_GameObject(const _vec3* pEye
     m_fNear = _fNear;
     m_fFar = _fFar;
 
-    m_fMoveToPlayerSpeed = 50.f;
+
 
     FAILED_CHECK_RETURN(CCamera::Ready_GameObject(), E_FAIL);
 
@@ -74,19 +74,20 @@ void CDynamicCamera::LateReady_GameObject()
     m_vAt = { 0.f, -1.f, 1.f };
     m_vAt += m_vEye;
 
+
     CCamera::LateReady_GameObject();
 }
 
 _int CDynamicCamera::Update_GameObject(const _float& fTimeDelta)
 {
+    m_fMoveToPlayerSpeed = m_Player->GetMoveSpeed();
     _int iExit = CCamera::Update_GameObject(fTimeDelta);
-    D3DXMatrixInverse(&m_matCameraWorld, 0, &m_matView);
+
 
     Key_Input(fTimeDelta);
-    ResetZoom(fTimeDelta);
 
-    if (m_bZoomTrigger)
-        ZoomToTrigger(fTimeDelta);
+
+
 
     Add_RenderGroup(RENDER_UI, this);
     return iExit;
@@ -94,6 +95,11 @@ _int CDynamicCamera::Update_GameObject(const _float& fTimeDelta)
 
 void CDynamicCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 {
+    D3DXMatrixInverse(&m_matCameraWorld, 0, &m_matView);
+    ResetZoom(fTimeDelta);
+    if (m_bZoomTrigger)
+        ZoomToTrigger(fTimeDelta);
+
     if (m_eCameraState == CAMERASTATE::PLAYER)
     {
         GetPlayerInfo();
@@ -111,36 +117,6 @@ void CDynamicCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CDynamicCamera::Render_GameObject()
 {
-    _tchar buf[128];
-    _vec2 position = { 1000,100 };
-
-    switch (m_eCameraState)
-    {
-    case CAMERASTATE::DEBUG:
-        lstrcpy(buf, L"카메라 상태 : DEBUG");
-        break;
-    case CAMERASTATE::PLAYER:
-        lstrcpy(buf, L"카메라 상태 : PLAYER");
-        break;
-    case CAMERASTATE::EVENT:
-        lstrcpy(buf, L"카메라 상태 : EVENT");
-        break;
-    default:
-        break;
-    }
-    Engine::Render_Font(L"Font_Ogu24", buf, &position, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
-
-    if (m_bZoomTrigger)
-        lstrcpy(buf, L"줌 트리거 ON");
-    else
-        lstrcpy(buf, L"줌 트리거 OFF");
-
-    position = { 1000,150 };
-    Engine::Render_Font(L"Font_Ogu24", buf, &position, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
-
-    position = { 1000,200 };
-    _stprintf_s(buf, 128, L"[%2.f %2.f]", m_vTowardMove.y, m_vTowardMove.z);
-    Engine::Render_Font(L"Font_Ogu24", buf, &position, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
 }
 
 CDynamicCamera* CDynamicCamera::Create(LPDIRECT3DDEVICE9 pGraphicDev
