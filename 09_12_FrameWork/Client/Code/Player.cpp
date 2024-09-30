@@ -14,10 +14,12 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_bSwingTrigger(false)
     , m_CCollideObj(nullptr)
     , m_fMoveSpeed(0.f)
-    //0913 ÀÓ½Ã Á¹¶ó ¸¹ÀÌ ÇÑÁÙÇÑÁÙ Àß›§ÁÒ?¤»_¤»
+    // UI ê´€ë ¨ ì´ˆê¸°í™”
+    , m_iPlayerCoin(10), m_bInven(false), m_bQuest(false)
+    , m_bInvincible(false)
+    //0913 ì„ì‹œ ì¡¸ë¼ ë§ì´ í•œì¤„í•œì¤„ ì˜Â›ã²?ã…‹_ã…‹
     , m_iPlayerCoin(10), m_bInven(false)
 {
-    //0913 ¾ê±îÁö^^ ¸ÚÁö°Ô ÃÊ±âÈ­~!!!
     ZeroMemory(&m_tPlayerHP, sizeof(PLAYERHP));
 }
 
@@ -29,12 +31,12 @@ HRESULT CPlayer::Ready_GameObject()
 {
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
-    //0913 ÀÓ½Ã ÄÚµå
+    //0913 ì„ì‹œ ì½”ë“œ
     m_tPlayerHP.iCurHP = 5;
     m_tPlayerHP.iMaxHP = 6;
 
     m_pTransformCom->m_vScale = { 20.f,20.f,20.f };
-    m_pTransformCom->Set_Pos(200.f, 30.f, 700.f);
+    m_pTransformCom->Set_Pos(200.f, 30.f, 500.f);
 
     m_pStateControlCom->ChangeState(PlayerIdle::GetInstance(), this);
     return S_OK;
@@ -43,6 +45,15 @@ HRESULT CPlayer::Ready_GameObject()
 void CPlayer::LateReady_GameObject()
 {
     Engine::CGameObject::LateReady_GameObject();
+
+    m_pQuestUI = dynamic_cast<CQuestUI*>(Engine::Get_GameObject(L"Layer_UI", L"Quest_UI"));
+    NULL_CHECK_RETURN(m_pQuestUI); // ì•„ì§ ìŠ¤í…Œì´ì§€ì— ì•ˆë§Œë“¬
+
+    m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
+    NULL_CHECK_RETURN(m_pInven);
+
+    m_pQuickSlot = dynamic_cast<CQuickSlot*>(Engine::Get_GameObject(L"Layer_UI", L"QuickSlot_UI"));
+    NULL_CHECK_RETURN(m_pInven);
 
     //hat = dynamic_cast<CExploreHat*>(CExploreHat::Create(m_pGraphicDev));
 }
@@ -53,6 +64,7 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
     NULL_CHECK_RETURN(m_pInven, 0);
 
     m_pTransformCom->Get_Info(INFO_POS, &m_vPlayerPrevPos);
+
     Key_Input(fTimeDelta);
 
     Add_RenderGroup(RENDER_ALPHA, this);
@@ -67,7 +79,10 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
     SetPlayerDirection();
 
     m_pAnimationCom->Update_Component(fTimeDelta);
+
+    //DurationInvincible(fTimeDelta);
     Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
+
 }
 
 void CPlayer::Render_GameObject()
@@ -86,11 +101,11 @@ void CPlayer::Render_GameObject()
     m_pAnimationCom->Render_Buffer();
     //hat->Render_GameObject();
 
-    //9¿ù 25ÀÏ Ãæµ¹°ü·Ã
+    //9ì›” 25ì¼ ì¶©ëŒê´€ë ¨
     m_pBoundBox->Render_Buffer();
 
-    m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);  // ÀÌ°Å ¼³Á¤¾ÈÇØÁÖ¸é ¾ÈµÊ Àü¿ªÀûÀ¸·Î ÀåÄ¡¼¼ÆÃÀÌ ÀúÀåµÇ±â ¶§¹®¿¡
-    m_pGraphicDev->SetTexture(0, NULL);  // ÀÌ°Å ¼³Á¤¾ÈÇØÁÖ¸é ±×´ë·Î ÅØ½ºÃ³ ³ª¿È ÀÌ°Íµµ ¸¶Âù°¡Áö·Î Àü¿ªÀûÀ¸·Î ÀåÄ¡¼¼ÆÃÀÌ µÇ¹Ç·Î
+    m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);  // ì´ê±° ì„¤ì •ì•ˆí•´ì£¼ë©´ ì•ˆë¨ ì „ì—­ì ìœ¼ë¡œ ì¥ì¹˜ì„¸íŒ…ì´ ì €ì¥ë˜ê¸° ë•Œë¬¸ì—
+    m_pGraphicDev->SetTexture(0, NULL);  // ì´ê±° ì„¤ì •ì•ˆí•´ì£¼ë©´ ê·¸ëŒ€ë¡œ í…ìŠ¤ì²˜ ë‚˜ì˜´ ì´ê²ƒë„ ë§ˆì°¬ê°€ì§€ë¡œ ì „ì—­ì ìœ¼ë¡œ ì¥ì¹˜ì„¸íŒ…ì´ ë˜ë¯€ë¡œ
 }
 
 void CPlayer::SetPlayerDirection()
@@ -132,7 +147,7 @@ void CPlayer::SetPlayerDirection()
         }
 
         else if (m_vPlayerDir.z == 0)
-            num = m_iPlayerDir; //-> ÇØ´ç¹æÇâ ±×´ë·Î À¯Áö
+            num = m_iPlayerDir; //-> í•´ë‹¹ë°©í–¥ ê·¸ëŒ€ë¡œ ìœ ì§€
 
         else if (m_vPlayerDir.z < 0)
         {
@@ -168,11 +183,25 @@ void CPlayer::SetPlayerDirection()
     if (num == m_iPlayerDir)
         return;
 
-    // ¹æÇâÀÌ ÀÌÀü°ú ´Ù¸£¸é ¾Ö´Ï¸ŞÀÌ¼Ç °»½Å
+    // ë°©í–¥ì´ ì´ì „ê³¼ ë‹¤ë¥´ë©´ ì• ë‹ˆë©”ì´ì…˜ ê°±ì‹ 
     m_iPlayerDir = num;
     m_pAnimationCom->SetAnimDir(m_ePlayerState, m_iPlayerDir, m_bIsDiagonal);
 }
 
+
+void CPlayer::DurationInvincible(const _float& fTimeDelta)
+{
+    if (!m_bInvincible)
+        return;
+
+    static float fDurationTime = 0.f;
+    fDurationTime += fTimeDelta;
+    if (fDurationTime >= 3.f)
+    {
+        fDurationTime = 0.f;
+        m_bInvincible = false;
+    }
+}
 
 HRESULT CPlayer::Add_Component()
 {
@@ -212,14 +241,25 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 {
     //0922
     if (Engine::GetKeyDown(DIK_I))
-        m_bInven ^= TRUE;
+    {
+        m_bInven = m_bInven ? false : true;
+        if (m_bQuest)
+            m_bQuest = false;
+    }
 
-    if (m_bInven)
+    if (Engine::GetKeyDown(DIK_O))
+    {
+        m_bQuest = m_bQuest ? false : true;
+        if (m_bInven)
+            m_bInven = false;
+    }
+
+    if (m_bInven || m_bQuest)
         return;
-    // ÀÌ ¾Æ·¡ Ãß°¡ ÇÏ»ï ÄÚµå!!
+    // ì´ ì•„ë˜ ì¶”ê°€ í•˜ì‚¼ ì½”ë“œ!!
 
 
-    //0920 ÀÓ½Ã ¾ÆÀÌÅÛ Ãß°¡
+    //0920 ì¢†ì„ì‹œ ì•„ì´í…œ ì¶”ê°€
     if (Engine::GetKeyDown(DIK_L))
     {
         CItem* pItem = dynamic_cast<CExploreHat*>(CExploreHat::Create(m_pGraphicDev));
@@ -241,20 +281,40 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
         pItem = dynamic_cast<CMiddleFruit*>(CMiddleFruit::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
         m_pInven->Add_Item(pItem);
-
-
     }
 
+    if (Engine::GetKeyDown(DIK_1))
+    {
+        m_pQuickSlot->Use_QuickItem(0);
+    }
+    else if (Engine::GetKeyDown(DIK_2))
+    {
+        m_pQuickSlot->Use_QuickItem(1);
+    }
+    else if (Engine::GetKeyDown(DIK_3))
+    {
+        m_pQuickSlot->Use_QuickItem(2);
+    }
+    else if (Engine::GetKeyDown(DIK_4))
+    {
+        m_pQuickSlot->Use_QuickItem(3);
+    }
+
+    //ì˜¤ ì´ê²ƒë„ ë¨?êµ¿êµ¿
     for (int i = 0; i < 4; i++)
     {
         if (Engine::GetKeyDown(DIK_1 + i))
             m_pQuickSlot->Use_QuickItem(i);
     }
 
+
     if (Engine::GetKeyDown(DIK_K))
     {
-        //0923 ÀÓ½Ã ´ëÈ­»óÀÚ
+        //0923 ì„ì‹œ ëŒ€í™”ìƒì
     }
+
+    if (Engine::GetKeyDown(DIK_SPACE))
+        m_bInvincible ^= TRUE;
 }
 
 _vec3 CPlayer::Piking_OnTerrain()
@@ -277,11 +337,11 @@ void CPlayer::Print_PlayerState()
     {
     case Engine::PLY_IDLE:
     case Engine::PLY_IDLEDIAGONAL:
-        lstrcpy(buf, L"ÇöÀç »óÅÂ : IDLE");
+        lstrcpy(buf, L"í˜„ì¬ ìƒíƒœ : IDLE");
         break;
     case Engine::PLY_MOVE:
     case Engine::PLY_MOVEDIAGONAL:
-        lstrcpy(buf, L"ÇöÀç »óÅÂ : WALK");
+        lstrcpy(buf, L"í˜„ì¬ ìƒíƒœ : WALK");
         break;
     case Engine::PLY_END:
         break;
@@ -295,31 +355,31 @@ void CPlayer::Print_PlayerState()
     switch (m_iPlayerDir)
     {
     case Engine::OBJDIR_FRONT:
-        lstrcpy(buf, L"ÇöÀç ¹æÇâ : ¾Õ");
+        lstrcpy(buf, L"í˜„ì¬ ë°©í–¥ : ì•");
         break;
     case Engine::OBJDIR_BACK:
-        lstrcpy(buf, L"ÇöÀç »óÅÂ : µÚ");
+        lstrcpy(buf, L"í˜„ì¬ ìƒíƒœ : ë’¤");
         break;
     case Engine::OBJDIR_LEFT:
-        lstrcpy(buf, L"ÇöÀç »óÅÂ : ¿Ş");
+        lstrcpy(buf, L"í˜„ì¬ ìƒíƒœ : ì™¼");
         break;
     case Engine::OBJDIR_RIGHT:
-        lstrcpy(buf, L"ÇöÀç »óÅÂ : ¿À");
+        lstrcpy(buf, L"í˜„ì¬ ìƒíƒœ : ì˜¤");
         break;
     case Engine::OBJDIR_LEFTBACK:
-        lstrcpy(buf, L"ÇöÀç »óÅÂ : ¿ŞµÚ");
+        lstrcpy(buf, L"í˜„ì¬ ìƒíƒœ : ì™¼ë’¤");
         break;
     case Engine::OBJDIR_LEFTFRONT:
-        lstrcpy(buf, L"ÇöÀç »óÅÂ : ¿Ş¾Õ");
+        lstrcpy(buf, L"í˜„ì¬ ìƒíƒœ : ì™¼ì•");
         break;
     case Engine::OBJDIR_RIGHTBACK:
-        lstrcpy(buf, L"ÇöÀç »óÅÂ : ¿ÀµÚ");
+        lstrcpy(buf, L"í˜„ì¬ ìƒíƒœ : ì˜¤ë’¤");
         break;
     case Engine::OBJDIR_RIGHTFRONT:
-        lstrcpy(buf, L"ÇöÀç »óÅÂ : ¿À¾Õ");
+        lstrcpy(buf, L"í˜„ì¬ ìƒíƒœ : ì˜¤ì•");
         break;
     default:
-        lstrcpy(buf, L"ÇöÀç »óÅÂ :");
+        lstrcpy(buf, L"í˜„ì¬ ìƒíƒœ :");
         break;
     }
     Engine::Render_Font(L"Font_Ogu24", buf, &position, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
@@ -347,5 +407,14 @@ void CPlayer::Free()
 {
     PlayerIdle::DestroyInstance();
     PlayerMove::DestroyInstance();
+    PlayerDash::DestroyInstance();
+    PlayerPush::DestroyInstance();
+    PlayerLift::DestroyInstance();
+    PlayerLiftMove::DestroyInstance();
+    PlayerDance::DestroyInstance();
+    PlayerSmash::DestroyInstance();
+    PlayerRolling::DestroyInstance();
+    PlayerHurt::DestroyInstance();
+
     Engine::CGameObject::Free();
 }

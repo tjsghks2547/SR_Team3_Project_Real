@@ -3,14 +3,14 @@
 #include "Player.h"
 #include "Export_Utility.h"
 
-class PlayerIdle : public CState
+class PlayerHurt : public CState
 {
 public:
 
-	static PlayerIdle* GetInstance()
+	static PlayerHurt* GetInstance()
 	{
 		if (!m_instance)
-			m_instance = new PlayerIdle;
+			m_instance = new PlayerHurt;
 
 		return m_instance;
 	}
@@ -29,7 +29,8 @@ public:
 	virtual void Free() {}
 
 private:
-	static PlayerIdle* m_instance;
-	float m_fDuration;
-	float m_fKeyDownTimer;
+	static PlayerHurt* m_instance;
+
+private:
+	float m_fFixedTimer;
 };

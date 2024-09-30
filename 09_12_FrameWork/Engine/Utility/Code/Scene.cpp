@@ -53,11 +53,11 @@ _int CScene::Update_Scene(const _float& fTimeDelta)
 	{
 		iResult = pLayer.second->Update_Layer(fTimeDelta);
 
-		CCollisionMgr::GetInstance()->update();
 
 		if (iResult & 0x80000000)
 			return iResult; 
 	}
+	CCollisionMgr::GetInstance()->update();
 
 	return iResult;
 }

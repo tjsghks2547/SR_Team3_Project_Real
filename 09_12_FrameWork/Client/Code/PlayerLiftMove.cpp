@@ -20,10 +20,10 @@ void PlayerLiftMove::Enter()
 
 void PlayerLiftMove::Update(const _float& fTimeDelta)
 {
-    if (!Engine::GetKeyPress(DIK_UP) &&
-        !Engine::GetKeyPress(DIK_DOWN) &&
-        !Engine::GetKeyPress(DIK_LEFT) &&
-        !Engine::GetKeyPress(DIK_RIGHT))
+    if (!Engine::GetKeyPress(CONTROL_KEY::PLY_UPKEY) &&
+        !Engine::GetKeyPress(CONTROL_KEY::PLY_DOWNKEY) &&
+        !Engine::GetKeyPress(CONTROL_KEY::PLY_LEFTKEY) &&
+        !Engine::GetKeyPress(CONTROL_KEY::PLY_RIGHTKEY))
     {
         m_pStateController->ChangeState(PlayerLift::GetInstance(), m_CGameObject);
     }

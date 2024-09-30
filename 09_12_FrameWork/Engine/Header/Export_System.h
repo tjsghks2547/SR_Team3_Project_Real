@@ -35,7 +35,8 @@ inline void				Render_Font(const _tchar* pFontTag
 	, const _tchar* pString
 	, const _vec2* pPos
 	, D3DXCOLOR Color
-	, _vec2 vXYSize = { 600.f, 600.f }); //0922
+	, TEXTRANGE _eTextRange = TEXT_DEFAULT
+	, _vec2 vXYSize = { 600.f, 600.f });
 
 // inputDev
 
@@ -43,6 +44,7 @@ inline _byte	Get_DIKeyState(_ubyte byKeyID);
 inline _bool    GetKeyDown(_ubyte byKeyID);
 inline _bool	GetKeyUp(_ubyte byKeyID);
 inline _bool	GetKeyPress(_ubyte byKeyID);
+inline _bool    GetAnyActionKeyDown();
 
 inline _byte	Get_DIMouseState(MOUSEKEYSTATE eMouse);
 inline _long	Get_DIMouseMove(MOUSEMOVESTATE eMouseState);

@@ -27,12 +27,17 @@ HRESULT CFontMgr::Ready_Font(LPDIRECT3DDEVICE9 pGraphicDev, const _tchar* pFontT
 }
 
 //0922
-void CFontMgr::Render_Font(const _tchar* pFontTag, const _tchar* pString, const _vec2* pPos, D3DXCOLOR Color, _vec2 pXYSize)
+void CFontMgr::Render_Font(const _tchar* pFontTag,
+    const _tchar* pString,
+    const _vec2* pPos,
+    D3DXCOLOR Color,
+    TEXTRANGE _eTextRange,
+    _vec2 vXYSize)
 {
     CMyFont* pMyFont = Find_Font(pFontTag);
     NULL_CHECK(pMyFont);
 
-    pMyFont->Render_Font(pString, pPos, Color, pXYSize);
+    pMyFont->Render_Font(pString, pPos, Color, _eTextRange, vXYSize);
 }
 
 CMyFont* CFontMgr::Find_Font(const _tchar* pFontTag)
@@ -40,7 +45,7 @@ CMyFont* CFontMgr::Find_Font(const _tchar* pFontTag)
     auto iter = find_if(m_mapFont.begin(), m_mapFont.end(), CTag_Finder(pFontTag));
 
     if (iter == m_mapFont.end())
-        return nullptr; 
+        return nullptr;
 
     return iter->second;
 }

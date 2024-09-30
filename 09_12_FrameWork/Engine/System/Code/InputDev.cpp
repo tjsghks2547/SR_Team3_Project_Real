@@ -13,6 +13,21 @@ CInputDev::~CInputDev(void)
 	Free();
 }
 
+_bool CInputDev::GetAnyActionKeyDown()
+{
+	_bool returnValue = false;
+	int keyArray[] = { PLY_LEFTKEY, PLY_RIGHTKEY, PLY_UPKEY, PLY_DOWNKEY,
+					   PLY_DASHKEY, PLY_SWINGKEY, PLY_LIFTKEY, PLY_ROLLKEY,
+					   PLY_DANCEKEY, PLY_SMASHKEY };
+
+	for (int i = 0; i < CONTROLKEY::PLY_ENDKEY; i++)
+	{
+		returnValue |= GetKeyDown(keyArray[i]);
+	}
+
+	return returnValue;
+}
+
 HRESULT CInputDev::Ready_InputDev(HINSTANCE hInst, HWND hWnd)
 {
 	//DInput 컴객체를 생성하는 함수 

@@ -48,9 +48,10 @@ inline void Render_Font(const _tchar* pFontTag,
 	const _tchar* pString,
 	const _vec2* pPos,
 	D3DXCOLOR Color,
-	_vec2 vXYSize) //0922
+	TEXTRANGE _eTextRange,
+	_vec2 vXYSize)
 {
-	CFontMgr::GetInstance()->Render_Font(pFontTag, pString, pPos, Color, vXYSize);
+	CFontMgr::GetInstance()->Render_Font(pFontTag, pString, pPos, Color, _eTextRange, vXYSize);
 }
 
 inline _byte Get_DIKeyState(_ubyte byKeyID)
@@ -71,6 +72,11 @@ inline _bool GetKeyUp(_ubyte byKeyID)
 inline _bool GetKeyPress(_ubyte byKeyID)
 {
 	return CInputDev::GetInstance()->GetKeyPress(byKeyID);
+}
+
+inline _bool GetAnyActionKeyDown()
+{
+	return CInputDev::GetInstance()->GetAnyActionKeyDown();
 }
 
 inline _byte Get_DIMouseState(MOUSEKEYSTATE eMouse)

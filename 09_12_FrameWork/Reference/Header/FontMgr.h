@@ -16,18 +16,19 @@ private:
 
 public:
 	HRESULT    Ready_Font(LPDIRECT3DDEVICE9 pGraphicDev
-							, const _tchar* pFontTag
-							, const _tchar* pFontType
-							, const _uint& iWidth
-							, const _uint& iHeight
-							, const _uint& iWeight);
+		, const _tchar* pFontTag
+		, const _tchar* pFontType
+		, const _uint& iWidth
+		, const _uint& iHeight
+		, const _uint& iWeight);
 
-	
+
 	void       Render_Font(const _tchar* pFontTag
-							, const _tchar* pString
-							, const _vec2* pPos
-							, D3DXCOLOR Color
-							, _vec2 vXYPos); //0922
+		, const _tchar* pString
+		, const _vec2* pPos
+		, D3DXCOLOR Color
+		, TEXTRANGE _eTextRange
+		, _vec2 vXYSize);
 
 
 
@@ -35,7 +36,7 @@ private:
 	CMyFont* Find_Font(const _tchar* pFontTag);
 
 private:
-	map<const _tchar*, CMyFont*> m_mapFont; 
+	map<const _tchar*, CMyFont*> m_mapFont;
 
 
 private:

@@ -227,6 +227,18 @@
     <Filter Include="02. GameObject\13.TestObject">
       <UniqueIdentifier>{e7db2bb3-c74f-4e00-86ff-ceaa635ae2f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\11. UI\02. TextBoxUI">
+      <UniqueIdentifier>{fd955999-e386-45ca-b820-c1e3a904bef1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\11. UI\03. QuestUI">
+      <UniqueIdentifier>{47d656e0-a13d-4757-9058-e6648fbdd251}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\11. UI\03. QuestUI\QuestAcceptUI">
+      <UniqueIdentifier>{f8189902-93dc-4b8a-910c-3b5416fe87e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\11. UI\03. QuestUI\QuestCursor">
+      <UniqueIdentifier>{7fbdfa33-aa03-48c0-bc90-a1ec6f9a3ee8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -475,6 +487,36 @@
     <ClInclude Include="..\Header\TestCol.h">
       <Filter>02. GameObject\01. Entity\01. Player</Filter>
     </ClInclude>
+
+    <ClInclude Include="..\Header\InteractionButton.h">
+      <Filter>02. GameObject\11. UI\02. TextBoxUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\TextBox.h">
+      <Filter>02. GameObject\11. UI\02. TextBoxUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\QuestUI.h">
+      <Filter>02. GameObject\11. UI\03. QuestUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\QuestAccept.h">
+      <Filter>02. GameObject\11. UI\03. QuestUI\QuestAcceptUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\QuestCursor.h">
+      <Filter>02. GameObject\11. UI\03. QuestUI\QuestCursor</Filter>
+    </ClInclude>
+
+    <ClInclude Include="..\Header\PlayerDance.h">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PlayerHurt.h">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PlayerRolling.h">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PlayerSmash.h">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FramePractice.cpp">
@@ -713,6 +755,35 @@
     </ClCompile>
     <ClCompile Include="..\Code\TestCol.cpp">
       <Filter>02. GameObject\01. Entity\01. Player</Filter>
+    </ClCompile>
+
+    <ClCompile Include="..\Code\InteractionButton.cpp">
+      <Filter>02. GameObject\11. UI\02. TextBoxUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\TextBox.cpp">
+      <Filter>02. GameObject\11. UI\02. TextBoxUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\QuestUI.cpp">
+      <Filter>02. GameObject\11. UI\03. QuestUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\QuestAccept.cpp">
+      <Filter>02. GameObject\11. UI\03. QuestUI\QuestAcceptUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\QuestCursor.cpp">
+      <Filter>02. GameObject\11. UI\03. QuestUI\QuestCursor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PlayerDance.cpp">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PlayerHurt.cpp">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PlayerRolling.cpp">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PlayerSmash.cpp">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
