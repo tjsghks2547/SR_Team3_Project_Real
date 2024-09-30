@@ -16,6 +16,15 @@ HRESULT CExpressMonkey::Ready_GameObject()
 
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
+    //D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/MonkeyIDLE2.png", &m_pNPCTex);
+    //m_pAnimatorCom->CreateAnimation(L"MonkeyIDLE", m_pNPCTex, _vec2(0.f, 0.f), _vec2(180.f, 200.f), _vec2(180.f, 0.f), 0.12f, 7);
+
+    //D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/MonkeyIDLE.png", &m_pNPCTex);
+    //m_pAnimatorCom->CreateAnimation(L"MonkeyIDLE", m_pNPCTex, _vec2(0.f, 0.f), _vec2(136.5f, 145.f), _vec2(136.5f, 0.f), 0.12f, 14,_vec2(2048.f,145.f)); 
+
+    D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/Monkey.png", &m_pNPCTex);
+    m_pAnimatorCom->CreateAnimation(L"MonkeyIDLE", m_pNPCTex, _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.12f, 7, _vec2(2048.f, 256.f));
+
     m_tInfo.pName = L"숭숭 익스프레스";
     m_tInfo.pContent = L"익스프레스 이용권이 없으면 태워줄 수 없어요. 이용권을 가지고 다시 말 걸어주세요.";
 
@@ -23,7 +32,7 @@ HRESULT CExpressMonkey::Ready_GameObject()
     m_tQuestInfo.pQuestContent = L"숭숭 익스프레스 이용권이 없으면 숭숭 익스프레스를 이용할 수 없다고?! 이용권을 찾아서 다시 오자!";
 
     _vec3 vMarkPos = m_pTransformCom->m_vInfo[INFO_POS];
-    vMarkPos.y += 30.f;
+    vMarkPos.y += 35.f;
     m_pMarkTransformCom->m_vInfo[INFO_POS] = vMarkPos;
 
 
@@ -63,8 +72,13 @@ void CExpressMonkey::Render_GameObject()
 {
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
-    m_pTextureCom->Set_Texture();
-    m_pBufferCom->Render_Buffer();
+    //m_pTextureCom->Set_Texture();
+    m_pGraphicDev->SetTexture(0, m_pNPCTex);
+    m_pAnimatorCom->Play(L"MonkeyIDLE", true);
+    m_pAnimatorCom->render();
+
+
+    //m_pBufferCom->Render_Buffer();
     m_pColliderCom->Render_Buffer();
 
     if (!m_bQuestClear)
@@ -73,19 +87,22 @@ void CExpressMonkey::Render_GameObject()
 
         if (!m_bQuestAccept)
         {
-            m_pMarkTextureCom[EXCLAMATION]->Set_Texture();
-            m_pBufferCom->Render_Buffer();
+            m_pGraphicDev->SetTexture(0, m_pTex[EXCLAMATION]);
+            m_pMarkAnimatorCom->Play(L"ExclamMarkAnim", true);
+            m_pMarkAnimatorCom->render();
             return;
         }
         if (m_bQuestSucess)
         {
-            m_pMarkTextureCom[YELLOWQUEST]->Set_Texture();
-            m_pBufferCom->Render_Buffer();
-
+            m_pGraphicDev->SetTexture(0, m_pTex[YELLOWQUEST]);
+            m_pMarkAnimatorCom->Play(L"YellowQuestAnim", true);
+            m_pMarkAnimatorCom->render();
             return;
         }
-        m_pMarkTextureCom[GRAYQUEST]->Set_Texture();
-        m_pBufferCom->Render_Buffer();
+
+        m_pGraphicDev->SetTexture(0, m_pTex[GRAYQUEST]);
+        m_pMarkAnimatorCom->Play(L"GrayQuestAnim", true);
+        m_pMarkAnimatorCom->render();
 
     }
 
@@ -161,19 +178,23 @@ HRESULT CExpressMonkey::Add_Component()
 {
     CComponent* pComponent = NULL;
 
-    pComponent = m_pBufferCom = dynamic_cast<CRcTex*>(Engine::Clone_Proto(L"Proto_RcTex"));
-    NULL_CHECK_RETURN(pComponent, E_FAIL);
-    m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
+    //pComponent = m_pBufferCom = dynamic_cast<CRcTex*>(Engine::Clone_Proto(L"Proto_RcTex"));
+    //NULL_CHECK_RETURN(pComponent, E_FAIL);
+    //m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
-    pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_ExpressMonkey"));
+    //pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_ExpressMonkey"));
+    //NULL_CHECK_RETURN(pComponent, E_FAIL);
+    //m_mapComponent[ID_STATIC].insert({ L"Com_Texture",pComponent });
+
+    pComponent = m_pAnimatorCom = dynamic_cast<CAnimator2*>(Engine::Clone_Proto(L"Proto_Animator"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
-    m_mapComponent[ID_STATIC].insert({ L"Com_Texture",pComponent });
+    m_mapComponent[ID_DYNAMIC].insert({ L"Com_Ani_Buffer", pComponent });
 
     pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
-    m_pTransformCom->m_vScale = { 28.f, 21.f, 30.f };
-    m_pTransformCom->Set_Pos(200.f, 20.f, 800.f);
+    m_pTransformCom->m_vScale = { 20.f, 20.f, 20.f };
+    m_pTransformCom->Set_Pos(200.f, 50.f, 800.f);
 
     pComponent = m_pColliderCom = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);

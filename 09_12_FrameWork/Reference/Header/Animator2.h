@@ -18,29 +18,29 @@ private:
 
 private:
 	map<wstring, CAnimation2*>		m_mapAnim;  //모든 애니메이션 정보 저장
-	CAnimation2*					m_pCurAnim; // 현재 재생중인 Animation
-	CGameObject*					m_pOwner;   //Animator 소유 오브젝트
+	CAnimation2* m_pCurAnim; // 현재 재생중인 Animation
+	CGameObject* m_pOwner;   //Animator 소유 오브젝트
 	bool							m_bRepeat;  // 반복재생 여부 
-	
-	CAnimation2*					m_pAnim;    // 애니메이션
+
+	CAnimation2* m_pAnim;    // 애니메이션
 
 
 public:
 	CGameObject* GetGameObj() { return m_pOwner; }
-	static CAnimator2* Create(LPDIRECT3DDEVICE9 pGraphicDev);	
+	static CAnimator2* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 public:
 
 	void CreateAnimation(const wstring& _strName,
-						 IDirect3DTexture9* _pTex,
-						 _vec2 _vLT,
-						 _vec2 _vSliceSize,
-						 _vec2 _vStep,
-						 float _fDuration,
-						 UINT  _iFrameCount,
-						 _vec2 _ImgSize);
+		IDirect3DTexture9* _pTex,
+		_vec2 _vLT,
+		_vec2 _vSliceSize,
+		_vec2 _vStep,
+		float _fDuration,
+		UINT  _iFrameCount,
+		_vec2 _ImgSize);
 
-	CAnimation2*  FindAnimation(const wstring& _strName);
+	CAnimation2* FindAnimation(const wstring& _strName);
 	void		  Play(const wstring& _strName, bool _bRepeat);
 
 public:
@@ -48,14 +48,14 @@ public:
 	virtual _int  Update_Component(const _float& fTimeDelta);
 	virtual void  LateUpdate_Component(const _float& fTimeDelta);
 	void   render();
-	
+
 
 public:
 	void SetAnimationFrame(const wstring& _strName, int _idx);
 
 
 public:
-	virtual CComponent*  Clone() ;
+	virtual CComponent* Clone();
 
 protected:
 	virtual void  Free();

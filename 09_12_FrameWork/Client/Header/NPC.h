@@ -14,6 +14,8 @@ class CTexture;
 class CTriCol;
 class CTransform;
 class CCollider;
+class CAnimator2;
+class CAnimation2;
 
 END
 class CTextBox;
@@ -50,23 +52,23 @@ protected:
 
 protected:
 	Engine::CRcTex* m_pBufferCom;
-	Engine::CTexture* m_pTextureCom;
+	Engine::CTexture* m_pTextureCom; // 쓸라나?
+
+	Engine::CAnimator2* m_pAnimatorCom; //추가
 	Engine::CTransform* m_pTransformCom;
 	Engine::CCollider* m_pColliderCom;
 
-	Engine::CTexture* m_pMarkTextureCom[MARK_END];
+	Engine::CAnimator2* m_pMarkAnimatorCom;
 	Engine::CTransform* m_pMarkTransformCom;
 
 	NPC_INFO				m_tInfo;
 	CQuestUI::QUEST_INFO	m_tQuestInfo;
 	_bool					m_bConversation; // 대화 중
 
+	//구조체로 바꿀 생각이긴 한디.. 귀찬 ㅋㅋ-ㅂ-
 	_bool					m_bQuestAccept; // 퀘스트 수락여부
-	// 이새기가 false일 때 물음표 / true일 때 느낌표 
-	_bool					m_bQuestSucess; // 클리어 가능
-
+	_bool					m_bQuestSucess; // 클리어 가능 상태
 	_bool					m_bQuestClear; // 클리어 여부
-	// 이새기가 true 되면 물음표 느낌표 둘다 출력 안함
 
 	CInteractionButton* m_pInterButton;
 	CTextBox* m_pTextBox;
@@ -78,5 +80,7 @@ protected:
 protected:
 	virtual void Free();
 
+	IDirect3DTexture9* m_pTex[MARK_END];
+	IDirect3DTexture9* m_pNPCTex;
 };
 
