@@ -29,6 +29,9 @@ namespace Engine
 		MAXCHANNEL
 	};
 
+	//0927 ºÀ¹ÎÁö
+	enum TEXTRANGE { TEXT_DEFAULT, TEXT_CENTER, TEXTRANGE_END };
+
 	// 09.24 ±è¼±È¯
 	enum GROUP_TYPE { PLAYER, MONSTER, OBJECT, NPC, GROUP_END = 32 };
 

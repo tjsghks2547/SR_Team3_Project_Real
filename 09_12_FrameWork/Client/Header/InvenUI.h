@@ -22,14 +22,17 @@ private:
 
 public:
 	virtual   HRESULT   Ready_GameObject();
+	virtual   void      LateReady_GameObject();
 	virtual   _int      Update_GameObject(const _float& fTimeDelta);
 	virtual   void      LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual   void      Render_GameObject();
 
 
 public:
-	void	Use_Efficacy(_int _iFilter, _int _iIdx);
+	_bool	Find_Item(CItem::ITEMTYPE _eType, _int eItemEnum);
 	_bool	Is_Empty(_int _Itemfilter) { return m_ItemList[_Itemfilter].empty(); }
+
+	void	Use_Efficacy(_int _iFilter, _int _iIdx);
 	void	Add_Item(CItem* _Item);
 	void	Remove_Item();
 	void	Set_InvenPos(int _iInvenItemIdx, CItem::ITEMTYPE _eType)
@@ -63,7 +66,7 @@ private:
 	Engine::CTransform* m_pTransformCom[INVENUI_END];
 
 	CItemSelector* m_pItemSelector;
-	_bool				m_bCursorCreate;
+	//_bool				m_bCursorCreate;
 
 private:
 	// 0913 임시 추가 코드

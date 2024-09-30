@@ -132,6 +132,14 @@ HRESULT CStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 	dynamic_cast<CPlayerInteractionBox*>(InteractionObj)->SetPlayer(
 		dynamic_cast<CPlayer*>(PlayerObj));
 
+	//0926
+	pGameObject = CExpressMonkey::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_ExMonkey", pGameObject), E_FAIL);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+
+
+
 	pGameObject = CTestCol::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"TestCol", pGameObject), E_FAIL);
@@ -563,10 +571,8 @@ HRESULT CStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 
 HRESULT CStage::Ready_Layer_UI(const _tchar* pLayerTag)
 {
-	//0913
 	Engine::CLayer* pLayer = CLayer::Create();
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
-
 
 	Engine::CGameObject* pGameObject = nullptr;
 	pGameObject = CDefaultUI::Create(m_pGraphicDev);
@@ -579,13 +585,15 @@ HRESULT CStage::Ready_Layer_UI(const _tchar* pLayerTag)
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Inven_UI", pGameObject), E_FAIL);
 	m_mapLayer.insert({ pLayerTag, pLayer });
 
-	//0925
 	pGameObject = CQuickSlot::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"QuickSlot_UI", pGameObject), E_FAIL);
 	m_mapLayer.insert({ pLayerTag, pLayer });
 
-
+	pGameObject = CQuestUI::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Quest_UI", pGameObject), E_FAIL);
+	m_mapLayer.insert({ pLayerTag, pLayer });
 	return S_OK;
 }
 
@@ -613,7 +621,7 @@ void CStage::init()
 	Engine::CLayer* pLayer = CLayer::Create();	
 	
 	DWORD bytesRead = 1; 
-	HANDLE hFile = CreateFile(L"../Map/newmap1.txt", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	HANDLE hFile = CreateFile(L"../Map/newmap6.txt", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
 		while (bytesRead > 0)
@@ -729,4 +737,5 @@ void CStage::init()
 	//9월25일 충돌관련
 	CCollisionMgr::GetInstance()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);
 	CCollisionMgr::GetInstance()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::OBJECT);
+	CCollisionMgr::GetInstance()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::NPC);
 }

@@ -35,7 +35,8 @@ inline void				Render_Font(const _tchar* pFontTag
 	, const _tchar* pString
 	, const _vec2* pPos
 	, D3DXCOLOR Color
-	, _vec2 vXYSize = { 600.f, 600.f }); //0922
+	, TEXTRANGE _eTextRange = TEXT_DEFAULT
+	, _vec2 vXYSize = { 600.f, 600.f });
 
 // inputDev
 

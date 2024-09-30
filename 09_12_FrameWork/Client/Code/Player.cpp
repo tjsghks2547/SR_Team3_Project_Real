@@ -14,10 +14,9 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_bSwingTrigger(false)
     , m_CCollideObj(nullptr)
     , m_fMoveSpeed(0.f)
-    //0913 임시 졸라 많이 한줄한줄 잘썻죠?ㅋ_ㅋ
-    , m_iPlayerCoin(10), m_bInven(false)
+    // UI 관련 초기화
+    , m_iPlayerCoin(10), m_bInven(false), m_bQuest(false)
 {
-    //0913 얘까지^^ 멋지게 초기화~!!!
     ZeroMemory(&m_tPlayerHP, sizeof(PLAYERHP));
 }
 
@@ -44,15 +43,22 @@ void CPlayer::LateReady_GameObject()
 {
     Engine::CGameObject::LateReady_GameObject();
 
+    m_pQuestUI = dynamic_cast<CQuestUI*>(Engine::Get_GameObject(L"Layer_UI", L"Quest_UI"));
+    NULL_CHECK_RETURN(m_pQuestUI); // 아직 스테이지에 안만듬
+
+    m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
+    NULL_CHECK_RETURN(m_pInven);
+
+    m_pQuickSlot = dynamic_cast<CQuickSlot*>(Engine::Get_GameObject(L"Layer_UI", L"QuickSlot_UI"));
+    NULL_CHECK_RETURN(m_pInven);
+
     //hat = dynamic_cast<CExploreHat*>(CExploreHat::Create(m_pGraphicDev));
 }
 
 _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 {
-    m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
-    NULL_CHECK_RETURN(m_pInven, 0);
-
     m_pTransformCom->Get_Info(INFO_POS, &m_vPlayerPrevPos);
+
     Key_Input(fTimeDelta);
 
     Add_RenderGroup(RENDER_ALPHA, this);
@@ -212,14 +218,25 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 {
     //0922
     if (Engine::GetKeyDown(DIK_I))
-        m_bInven ^= TRUE;
+    {
+        m_bInven = m_bInven ? false : true;
+        if (m_bQuest)
+            m_bQuest = false;
+    }
 
-    if (m_bInven)
+    if (Engine::GetKeyDown(DIK_O))
+    {
+        m_bQuest = m_bQuest ? false : true;
+        if (m_bInven)
+            m_bInven = false;
+    }
+
+    if (m_bInven || m_bQuest)
         return;
     // 이 아래 추가 하삼 코드!!
 
 
-    //0920 임시 아이템 추가
+    //0920 좆임시 아이템 추가
     if (Engine::GetKeyDown(DIK_L))
     {
         CItem* pItem = dynamic_cast<CExploreHat*>(CExploreHat::Create(m_pGraphicDev));
@@ -241,20 +258,32 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
         pItem = dynamic_cast<CMiddleFruit*>(CMiddleFruit::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
         m_pInven->Add_Item(pItem);
-
-
     }
 
+    if (Engine::GetKeyDown(DIK_1))
+    {
+        m_pQuickSlot->Use_QuickItem(0);
+    }
+    else if (Engine::GetKeyDown(DIK_2))
+    {
+        m_pQuickSlot->Use_QuickItem(1);
+    }
+    else if (Engine::GetKeyDown(DIK_3))
+    {
+        m_pQuickSlot->Use_QuickItem(2);
+    }
+    else if (Engine::GetKeyDown(DIK_4))
+    {
+        m_pQuickSlot->Use_QuickItem(3);
+    }
+
+    //오 이것도 됨?굿굿
     for (int i = 0; i < 4; i++)
     {
         if (Engine::GetKeyDown(DIK_1 + i))
             m_pQuickSlot->Use_QuickItem(i);
     }
 
-    if (Engine::GetKeyDown(DIK_K))
-    {
-        //0923 임시 대화상자
-    }
 }
 
 _vec3 CPlayer::Piking_OnTerrain()

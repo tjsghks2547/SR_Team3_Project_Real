@@ -13,14 +13,15 @@ private:
 
 public:
 	HRESULT     Ready_Font(const _tchar* pFontType,
-							const _uint& iWidth,
-							const _uint& iHeight,
-							const _uint& iWeight);
+		const _uint& iWidth,
+		const _uint& iHeight,
+		const _uint& iWeight);
 
 	void		Render_Font(const _tchar* pString,
-							const _vec2* pLTPos,
-							D3DXCOLOR Color,
-							_vec2 pXYPos); //0922
+		const _vec2* pLTPos,
+		D3DXCOLOR Color,
+		TEXTRANGE _eTextRange,
+		_vec2 pXYSize);
 
 private:
 	LPDIRECT3DDEVICE9  m_pGraphicDev;
@@ -30,10 +31,10 @@ private:
 
 public:
 	static CMyFont* Create(LPDIRECT3DDEVICE9 pGraphicDev,
-							const _tchar* pFontType,
-							const _uint& iWidth,
-							const _uint& iHeight,
-							const _uint& iWeight);
+		const _tchar* pFontType,
+		const _uint& iWidth,
+		const _uint& iHeight,
+		const _uint& iWeight);
 
 private:
 	virtual void Free();

@@ -6,7 +6,8 @@
 
 CInvenUI::CInvenUI(LPDIRECT3DDEVICE9 pGraphicDev)
     :Engine::CGameObject(pGraphicDev)
-    , m_bCursorCreate(false), m_pItemSelector(nullptr)
+    //, m_bCursorCreate(false)
+    , m_pItemSelector(nullptr)
 {
 }
 
@@ -22,26 +23,23 @@ HRESULT CInvenUI::Ready_GameObject()
     m_InvenInterval = { 145.7f, 137.f };
     m_iItemFilter = CItem::EQUIP;
 
-    //0913 레이트 레디로 보내야 함 일단 업데이트로 보내놨다
-    //m_pPlayer = dynamic_cast<CPlayer*>(Engine::Get_GameObject(L"Layer_GameLogic", L"Player"));
-    //NULL_CHECK_RETURN(m_pPlayer, E_FAIL);
-
     return S_OK;
+
+}
+
+void CInvenUI::LateReady_GameObject()
+{
+    m_pPlayer = dynamic_cast<CPlayer*>(Engine::Get_GameObject(L"Layer_GameLogic", L"Player"));
+    NULL_CHECK_RETURN(m_pPlayer);
+
+    m_pItemSelector = dynamic_cast<CItemSelector*>(CItemSelector::Create(m_pGraphicDev));
+    NULL_CHECK_RETURN(m_pItemSelector);
 
 }
 
 _int CInvenUI::Update_GameObject(const _float& fTimeDelta)
 {
-    m_pPlayer = dynamic_cast<CPlayer*>(Engine::Get_GameObject(L"Layer_GameLogic", L"Player"));
-    NULL_CHECK_RETURN(m_pPlayer, 0);
-
     Remove_Item();
-
-    if (m_bCursorCreate == false)
-    {
-        m_bCursorCreate = true;
-        m_pItemSelector = dynamic_cast<CItemSelector*>(CItemSelector::Create(m_pGraphicDev));
-    }
 
     _int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
@@ -135,6 +133,19 @@ void CInvenUI::Render_GameObject()
         }
 
     }
+}
+
+_bool CInvenUI::Find_Item(CItem::ITEMTYPE _eType, _int _eItemEnum)
+{
+    if (m_ItemList[_eType].size() == 0)
+        return false;
+
+    for (auto& Item : m_ItemList[_eType])
+    {
+        if (Item->Get_ItemInfo().eItemEnum == _eItemEnum)
+            return true;
+    }
+    return false;
 }
 
 void CInvenUI::Use_Efficacy(_int _iFilter, _int _iIdx)
