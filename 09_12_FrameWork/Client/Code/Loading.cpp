@@ -81,6 +81,10 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_TextBox", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/TextBox.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_InvenCursor", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/UI_Cursor_White.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_CountRC", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/CountRC.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_InteractionButton", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/InteractionButton.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_QuestUI", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/Quest_UI.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_QuestCursor", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/QuestCursor.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_QuestAcceptUI", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/QuestAcceptUI.png", TEX_NORMAL)), E_FAIL);
 	//Item
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_ExploreHat", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/Explore.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_PartyHat", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/PartyHat.png", TEX_NORMAL)), E_FAIL);
@@ -90,6 +94,9 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_BigFruit", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/BigFruit.png", TEX_NORMAL)), E_FAIL);
 	//NPC
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_ExpressMonkey", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/ExpressMonkey.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_ExclamationMark", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/ExclamationMark.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_GrayQuest", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/GrayQuest.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_YellowQuest", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/YellowQuest.png", TEX_NORMAL)), E_FAIL);
 
 	//Puzzle
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_PipeBoardTex", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/puzzle/Sprite_MoonForest_MazePuzzleFloor2Line.png", TEX_NORMAL)), E_FAIL);

@@ -165,6 +165,7 @@
     <ClInclude Include="..\Header\ImGuiManger.h" />
     <ClInclude Include="..\Header\Imgui_ObjectTool.h" />
     <ClInclude Include="..\Header\Imgui_Terrain.h" />
+    <ClInclude Include="..\Header\InteractionButton.h" />
     <ClInclude Include="..\Header\InvenUI.h" />
     <ClInclude Include="..\Header\Item.h" />
     <ClInclude Include="..\Header\ItemSelector.h" />
@@ -199,6 +200,9 @@
     <ClInclude Include="..\Header\PlayerSmash.h" />
     <ClInclude Include="..\Header\PlayerSwing.h" />
     <ClInclude Include="..\Header\PressBlock.h" />
+    <ClInclude Include="..\Header\QuestAccept.h" />
+    <ClInclude Include="..\Header\QuestCursor.h" />
+    <ClInclude Include="..\Header\QuestUI.h" />
     <ClInclude Include="..\Header\QuickSlot.h" />
     <ClInclude Include="..\Header\Ray.h" />
     <ClInclude Include="..\Header\Scale.h" />
@@ -217,6 +221,7 @@
     <ClInclude Include="..\Header\TestMap.h" />
     <ClInclude Include="..\Header\DefaultUI.h" />
     <ClInclude Include="..\Header\TestObject.h" />
+    <ClInclude Include="..\Header\TextBox.h" />
     <ClInclude Include="..\Header\WeightComparator.h" />
     <ClInclude Include="FramePractice.h" />
     <ClInclude Include="framework.h" />
@@ -250,6 +255,7 @@
     <ClCompile Include="..\Code\ImGuiManger.cpp" />
     <ClCompile Include="..\Code\Imgui_ObjectTool.cpp" />
     <ClCompile Include="..\Code\Imgui_Terrain.cpp" />
+    <ClCompile Include="..\Code\InteractionButton.cpp" />
     <ClCompile Include="..\Code\InvenUI.cpp" />
     <ClCompile Include="..\Code\Item.cpp" />
     <ClCompile Include="..\Code\Loading.cpp" />
@@ -283,6 +289,9 @@
     <ClCompile Include="..\Code\PlayerSmash.cpp" />
     <ClCompile Include="..\Code\PlayerSwing.cpp" />
     <ClCompile Include="..\Code\PressBlock.cpp" />
+    <ClCompile Include="..\Code\QuestAccept.cpp" />
+    <ClCompile Include="..\Code\QuestCursor.cpp" />
+    <ClCompile Include="..\Code\QuestUI.cpp" />
     <ClCompile Include="..\Code\QuickSlot.cpp" />
     <ClCompile Include="..\Code\Ray.cpp" />
     <ClCompile Include="..\Code\Scale.cpp" />
@@ -300,6 +309,7 @@
     <ClCompile Include="..\Code\TestMap.cpp" />
     <ClCompile Include="..\Code\DefaultUI.cpp" />
     <ClCompile Include="..\Code\TestObject.cpp" />
+    <ClCompile Include="..\Code\TextBox.cpp" />
     <ClCompile Include="..\Code\WeightComparator.cpp" />
     <ClCompile Include="..\Header\ItemSelector.cpp" />
     <ClCompile Include="FramePractice.cpp" />

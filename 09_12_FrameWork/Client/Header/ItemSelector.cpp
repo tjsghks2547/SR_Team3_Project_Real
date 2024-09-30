@@ -23,13 +23,18 @@ HRESULT CItemSelector::Ready_GameObject()
 	return S_OK;
 }
 
+void CItemSelector::LateReady_GameObject()
+{
+}
+
 _int CItemSelector::Update_GameObject(const _float& fTimeDelta)
 {
 	//레이트 레디 필요
 	m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
 	NULL_CHECK_RETURN(m_pInven, 0);
+
 	m_pQuickSlot = dynamic_cast<CQuickSlot*>(Engine::Get_GameObject(L"Layer_UI", L"QuickSlot_UI"));
-	NULL_CHECK_RETURN(m_pQuickSlot, 0);
+	NULL_CHECK_RETURN(m_pQuickSlot,0);
 
 	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
@@ -61,7 +66,7 @@ void CItemSelector::Render_GameObject()
 
 	_vec2 ItemInfoPos(930.f, 492.f);
 	_vec2 vXYSize(290.f, 400.f);
-	Engine::Render_Font(L"Font_Ogu22", m_tCopyInfo.pInfo, &ItemInfoPos, D3DXCOLOR(0.999f, 0.98f, 0.9f, 0.7f), vXYSize);
+	Engine::Render_Font(L"Font_Ogu22", m_tCopyInfo.pInfo, &ItemInfoPos, D3DXCOLOR(0.999f, 0.98f, 0.9f, 0.7f), TEXT_DEFAULT, vXYSize);
 
 	// 버튼
 
@@ -158,9 +163,12 @@ void CItemSelector::Key_Input(const _float& fTimeDelta)
 
 	//방향키, 인덱스 이동.
 	m_iPrevIdx = m_iCurIdx;
+	_int iFilter = m_pInven->Get_CurFilter();
 
 	if (Engine::GetKeyDown(DIK_DOWN))
 	{
+		if (m_pInven->Is_Empty(iFilter))
+			return;
 		if (m_iCurIdx >= 10)
 			return;
 		m_iCurIdx += 5;
@@ -171,6 +179,8 @@ void CItemSelector::Key_Input(const _float& fTimeDelta)
 	if (Engine::GetKeyDown(DIK_UP))
 	{
 		m_iCurIdx -= 5;
+		if (m_iCurIdx < 0)
+			m_iCurIdx = -5;
 	}
 	if (Engine::GetKeyDown(DIK_LEFT))
 	{

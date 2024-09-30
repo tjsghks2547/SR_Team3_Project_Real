@@ -13,13 +13,14 @@
 #include "PlayerHurt.h"
 #include "Export_Utility.h"
 
-//0920
+//민지
 #include "ExploreHat.h"
 #include "PartyHat.h"
 #include "SmallFruit.h"
 #include "MiddleFruit.h"
 #include "Mohican.h"
 #include "InvenUI.h"
+#include "QuestUI.h" //0928
 #include "QuickSlot.h"
 
 BEGIN(Engine)
@@ -67,7 +68,6 @@ private:
 	virtual ~CPlayer();
 
 public:
-	//0913 진짜진짜 임시
 	struct PLAYERHP
 	{
 		_int	iCurHP;
@@ -132,11 +132,13 @@ public:
 	// 플레이어 능력치 관련 //////////////////////////////////////////////////////
 	float			GetMoveSpeed() { return m_fMoveSpeed; }
 	void			SetMoveSpeed(float _fSpeed) { m_fMoveSpeed = _fSpeed; }
-	//0913 임시 코드
+	
+	
+	//민지
 	_int			GetPlayerCoin() { return m_iPlayerCoin; }
 	PLAYERHP		GetPlayerHP() { return m_tPlayerHP; }
+	_bool			GetPlayerQuestUI() { return m_bQuest; }//0928
 	_bool			GetPlayerInven() { return m_bInven; }
-	//0924 임시 추가 코드
 	void			SetPlayerCurHP(_int _SetHP)
 	{
 		m_tPlayerHP.iCurHP += _SetHP;
@@ -191,14 +193,15 @@ private:
 	float m_fMoveSpeed;
 	_bool m_bInvincible;
 
-	//0913 임시 코드
-	_bool		m_bInven;
-	CInvenUI* m_pInven;
+	//민지
+	CInvenUI*   m_pInven;
+	CQuestUI*   m_pQuestUI;//0928
 	CQuickSlot* m_pQuickSlot;
 
 	_int		m_iPlayerCoin;
 	PLAYERHP	m_tPlayerHP;
-
+	_bool		m_bInven;
+	_bool		m_bQuest;
 public:
 	static CPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
