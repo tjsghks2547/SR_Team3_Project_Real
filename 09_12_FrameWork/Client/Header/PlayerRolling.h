@@ -3,13 +3,13 @@
 #include "Player.h"
 #include "Export_Utility.h"
 
-class PlayerPush : public CState
+class PlayerRolling : public CState
 {
 public:
-    static PlayerPush* GetInstance()
+    static PlayerRolling* GetInstance()
     {
         if (!m_instance)
-            m_instance = new PlayerPush;
+            m_instance = new PlayerRolling;
 
         return m_instance;
     }
@@ -28,9 +28,9 @@ public:
     virtual void Free() {}
 
 private:
-    static PlayerPush* m_instance;
+    static PlayerRolling* m_instance;
     float m_fMoveSpeed;
-    CGameObject* colObj;
+
 private:
     void Key_Input(const _float& fTimeDelta);
 };

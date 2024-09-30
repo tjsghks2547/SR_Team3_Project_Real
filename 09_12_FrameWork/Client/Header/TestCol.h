@@ -26,6 +26,7 @@ public:
 	virtual			void			LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual			void			Render_GameObject();
 
+	virtual			void			OnCollision(CGameObject* _pOther);
 public:
 	void			SetPlayer(CPlayer* _Player) { m_CPlayer = _Player; }
 private:

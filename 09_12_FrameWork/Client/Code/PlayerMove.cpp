@@ -17,22 +17,29 @@ void PlayerMove::Enter()
 
 void PlayerMove::Update(const _float& fTimeDelta)
 {
-    if (!Engine::GetKeyPress(DIK_UP) &&
-        !Engine::GetKeyPress(DIK_DOWN) &&
-        !Engine::GetKeyPress(DIK_LEFT) &&
-        !Engine::GetKeyPress(DIK_RIGHT))
+    if (!Engine::GetKeyPress(CONTROL_KEY::PLY_UPKEY) &&
+        !Engine::GetKeyPress(CONTROL_KEY::PLY_DOWNKEY) &&
+        !Engine::GetKeyPress(CONTROL_KEY::PLY_LEFTKEY) &&
+        !Engine::GetKeyPress(CONTROL_KEY::PLY_RIGHTKEY))
     {
         m_pStateController->ChangeState(PlayerIdle::GetInstance(), m_CGameObject);
     }
 
-    if (Engine::GetKeyPress(DIK_LSHIFT))
+    if (Engine::GetKeyPress(CONTROL_KEY::PLY_DASHKEY))
         m_pStateController->ChangeState(PlayerDash::GetInstance(), m_CGameObject);
 
-    if (Engine::GetKeyPress(DIK_A))
+    if (Engine::GetKeyPress(CONTROL_KEY::PLY_SWINGKEY))
         m_pStateController->ChangeState(PlayerSwing::GetInstance(), m_CGameObject);
 
+    if (Engine::GetKeyPress(CONTROL_KEY::PLY_SMASHKEY))
+    {
+        m_pStateController->ChangeState(PlayerSmash::GetInstance(), m_CGameObject);
+    }
 
-
+    if (Engine::GetKeyDown(CONTROL_KEY::PLY_ROLLKEY))
+    {
+        m_pStateController->ChangeState(PlayerRolling::GetInstance(), m_CGameObject);
+    }
     Key_Input(fTimeDelta);
 }
 
@@ -52,15 +59,15 @@ void PlayerMove::Key_Input(const _float& fTimeDelta)
     m_pTransformCom->Get_Info(INFO_RIGHT, &vRight);
     vPlayerDir = (dynamic_cast<CPlayer*>(m_CGameObject))->GetPlayerDirVector();
 
-    if (Engine::GetKeyPress(DIK_UP))
+    if (Engine::GetKeyPress(CONTROL_KEY::PLY_UPKEY))
     {
-        if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPushTrigger() &&
+        /*if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPushTrigger() &&
             vPlayerDir.x == 0 &&
             vPlayerDir.z == 1)
         {
             m_pStateController->ChangeState(PlayerPush::GetInstance(), m_CGameObject);
             return;
-        }
+        }*/
 
 
         m_pTransformCom->Move_Pos(
@@ -68,45 +75,45 @@ void PlayerMove::Key_Input(const _float& fTimeDelta)
     }
 
 
-    if (Engine::GetKeyPress(DIK_DOWN))
+    if (Engine::GetKeyPress(CONTROL_KEY::PLY_DOWNKEY))
     {
-        if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPushTrigger() &&
+        /*if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPushTrigger() &&
             vPlayerDir.x == 0 &&
             vPlayerDir.z == -1)
         {
             m_pStateController->ChangeState(PlayerPush::GetInstance(), m_CGameObject);
             return;
-        }
+        }*/
 
         m_pTransformCom->Move_Pos(D3DXVec3Normalize(
             &vLook, &vLook), fTimeDelta, -m_fMoveSpeed);
     }
 
 
-    if (Engine::GetKeyPress(DIK_LEFT))
+    if (Engine::GetKeyPress(CONTROL_KEY::PLY_LEFTKEY))
     {
-        if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPushTrigger() &&
+        /*if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPushTrigger() &&
             vPlayerDir.x == -1 &&
             vPlayerDir.z == 0)
         {
             m_pStateController->ChangeState(PlayerPush::GetInstance(), m_CGameObject);
             return;
-        }
+        }*/
 
         m_pTransformCom->Move_Pos(D3DXVec3Normalize(
             &vRight, &vRight), fTimeDelta, -m_fMoveSpeed);
     }
 
 
-    if (Engine::GetKeyPress(DIK_RIGHT))
+    if (Engine::GetKeyPress(CONTROL_KEY::PLY_RIGHTKEY))
     {
-        if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPushTrigger() &&
+        /*if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPushTrigger() &&
             vPlayerDir.x == 1 &&
             vPlayerDir.z == 0)
         {
             m_pStateController->ChangeState(PlayerPush::GetInstance(), m_CGameObject);
             return;
-        }
+        }*/
         m_pTransformCom->Move_Pos(D3DXVec3Normalize(
             &vRight, &vRight), fTimeDelta, m_fMoveSpeed);
     }

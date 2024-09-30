@@ -36,5 +36,5 @@ private:
 
 private:
 	void Key_Input(const _float& fTimeDelta);
-
+	void CameraZoomOut(const _float& fTimeDelta);
 };

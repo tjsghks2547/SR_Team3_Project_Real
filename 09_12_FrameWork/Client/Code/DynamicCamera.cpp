@@ -20,6 +20,11 @@ CDynamicCamera::CDynamicCamera(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_bZoomTrigger(false)
     , m_fZoomRatio(100.f)
     , m_fMoveToPlayerSpeed(0.f)
+
+    , m_fShakeDeltaTime(0.f)
+    , m_bShakeTrigger(false)
+    , fShakeTickTime(0.f)
+    , m_fShakeDuration(0.f)
 {
 
 
@@ -63,6 +68,7 @@ void CDynamicCamera::LateReady_GameObject()
         ID_DYNAMIC, L"Layer_GameLogic", L"Player", L"Com_Transform"));
     NULL_CHECK_RETURN(m_playerTransform, );
 
+    m_vIntervalPos.x = 0;
     m_vIntervalPos.y = 100;
     m_vIntervalPos.z = -100;
     m_vOriginInterval = m_vIntervalPos;
@@ -74,6 +80,7 @@ void CDynamicCamera::LateReady_GameObject()
     m_vAt = { 0.f, -1.f, 1.f };
     m_vAt += m_vEye;
 
+    srand((unsigned int)time(NULL));
 
     CCamera::LateReady_GameObject();
 }
@@ -96,9 +103,14 @@ _int CDynamicCamera::Update_GameObject(const _float& fTimeDelta)
 void CDynamicCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 {
     D3DXMatrixInverse(&m_matCameraWorld, 0, &m_matView);
+
     ResetZoom(fTimeDelta);
+
     if (m_bZoomTrigger)
         ZoomToTrigger(fTimeDelta);
+
+    if (m_bShakeTrigger)
+        ShakeMoveTrigger(fTimeDelta);
 
     if (m_eCameraState == CAMERASTATE::PLAYER)
     {
@@ -340,6 +352,51 @@ void CDynamicCamera::ResetZoom(const _float& fTimeDelta)
         ZoomTo(100.f, 2.f);
         m_fZoomInTimer = 0.f;
     }
+}
+
+void CDynamicCamera::ShakeMove(_float fDuration)
+{
+    fShakeTickTime = 10.f;
+    m_fShakeDuration = fDuration;
+    m_bShakeTrigger = true;
+}
+
+void CDynamicCamera::ShakeMoveTrigger(const _float& fTimeDelta)
+{
+    m_fShakeDeltaTime += fTimeDelta;
+    fShakeTickTime += fTimeDelta;
+
+    if (m_fShakeDeltaTime >= m_fShakeDuration)
+    {
+        m_bShakeTrigger = false;
+        m_fShakeDeltaTime = 0.f;
+
+        m_vIntervalPos = m_vOriginInterval;
+        return;
+    }
+
+    static bool interval = true;
+    static int value = 100;
+    //if (fShakeTickTime >= 0.01f)
+    //{
+    //    fShakeTickTime = 0.f;
+
+    //    if (interval)
+    //    {
+    //        interval = false;
+    //        m_vIntervalPos.y = value;
+    //        
+    //    }
+    //    else
+    //    {
+    //        interval = true;
+    //        m_vIntervalPos.y = -value;
+    //        value /= 2;
+    //    }
+
+
+    //    //
+    //}
 }
 
 void CDynamicCamera::GetPlayerInfo()

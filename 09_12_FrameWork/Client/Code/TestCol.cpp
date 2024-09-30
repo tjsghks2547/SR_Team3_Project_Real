@@ -19,7 +19,7 @@ HRESULT CTestCol::Ready_GameObject()
 
     SetObjectType(OBJ_TYPE::PUSH_ABLE);
 
-    LoadTextureFromFile(m_pGraphicDev, 
+    LoadTextureFromFile(m_pGraphicDev,
         "../Bin/Resource/Texture/puzzle/Sprite_FirePit.png",
         &m_Texture);
     return S_OK;
@@ -32,6 +32,8 @@ void CTestCol::LateReady_GameObject()
         m_CPlayer->Get_Component(ID_DYNAMIC, L"Com_Transform"));
     _vec3 PlayerPos;
     PlayerTrasform->Get_Info(INFO_POS, &PlayerPos);
+    PlayerPos.x += 30;
+    PlayerPos.z += 30;
     m_pTransformCom->Set_Pos(PlayerPos);
 }
 
@@ -55,9 +57,25 @@ void CTestCol::Render_GameObject()
     m_pGraphicDev->SetTexture(0, m_Texture);
     m_pBufferCom->Render_Buffer();
     m_pBoundBox->Render_Buffer();
-    
+
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);  // 이거 설정안해주면 안됨 전역적으로 장치세팅이 저장되기 때문에
     m_pGraphicDev->SetTexture(0, NULL);  // 이거 설정안해주면 그대로 텍스처 나옴 이것도 마찬가지로 전역적으로 장치세팅이 되므로
+}
+
+void CTestCol::OnCollision(CGameObject* _pOther)
+{
+    if (_pOther->GetObjectKey() == L"Player")
+    {
+        /*CPlayer* obj = dynamic_cast<CPlayer*>(_pOther);
+
+        if (obj->IsInvincible())
+            return;
+
+        dynamic_cast<CStateController*>(obj->Get_Component(
+            ID_DYNAMIC, L"Com_State"))->ChangeState(PlayerHurt::GetInstance(), obj);*/
+
+
+    }
 }
 
 HRESULT CTestCol::Add_Component()

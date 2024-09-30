@@ -42,6 +42,7 @@ private:
 
 public:
 	static CPlayerInteractionBox* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual void OnCollisionEnter(CGameObject* _pOther);
 	virtual void OnCollision(CGameObject* _pOther);
 	virtual void OnCollisionExit(CGameObject* _pOther);
 

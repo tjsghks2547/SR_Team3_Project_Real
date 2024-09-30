@@ -3,13 +3,13 @@
 #include "Player.h"
 #include "Export_Utility.h"
 
-class PlayerPush : public CState
+class PlayerSmash : public CState
 {
 public:
-    static PlayerPush* GetInstance()
+    static PlayerSmash* GetInstance()
     {
         if (!m_instance)
-            m_instance = new PlayerPush;
+            m_instance = new PlayerSmash;
 
         return m_instance;
     }
@@ -27,10 +27,11 @@ public:
     virtual void Exit();
     virtual void Free() {}
 
+    void SetStateCount(int _iType) { m_iStateCount = _iType; }
 private:
-    static PlayerPush* m_instance;
-    float m_fMoveSpeed;
-    CGameObject* colObj;
+    static PlayerSmash* m_instance;
+
 private:
-    void Key_Input(const _float& fTimeDelta);
+    int m_iStateCount = 0;
+    CAnimation* m_CAnimComp = nullptr;
 };
