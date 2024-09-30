@@ -5,9 +5,11 @@
 CNPC::CNPC(LPDIRECT3DDEVICE9 pGraphicDev)
 	:Engine::CGameObject(pGraphicDev)
 	, m_pInterButton(nullptr), m_pTextBox(nullptr), m_pQuestAcceptUI(nullptr)
+	//, m_pTex(nullptr)
 	, m_bConversation(false)
 	, m_bQuestAccept(false), m_bQuestSucess(false), m_bQuestClear(false)
 {
+	ZeroMemory(&m_pTex, sizeof(m_pTex));
 }
 
 CNPC::~CNPC()
@@ -17,6 +19,20 @@ CNPC::~CNPC()
 HRESULT CNPC::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
+
+	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/UI/ExclamMarkAnim.png", &m_pTex[EXCLAMATION]);
+	m_pMarkAnimatorCom->CreateAnimation(L"ExclamMarkAnim", m_pTex[EXCLAMATION], _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.12f, 7, _vec2(2048.f, 256.f));
+
+	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/UI/GrayQuestAnim.png", &m_pTex[GRAYQUEST]);
+	m_pMarkAnimatorCom->CreateAnimation(L"GrayQuestAnim", m_pTex[GRAYQUEST], _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.12f, 1, _vec2(512.f, 256.f));
+
+	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/UI/YellowQuestAnim.png", &m_pTex[YELLOWQUEST]);
+	m_pMarkAnimatorCom->CreateAnimation(L"YellowQuestAnim", m_pTex[YELLOWQUEST], _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.12f, 7, _vec2(2048.f, 256.f));
+
+	//m_pMarkAnimatorCom[GRAYQUEST]->Play(L"GrayQuest", true);
+
+
+	//m_pMarkAnimatorCom[YELLOWQUEST]->Play(L"YellowQuestAnim", true);
 
 	return S_OK;
 }
@@ -80,22 +96,15 @@ HRESULT CNPC::Add_Component()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
-	//QuestUI
-	pComponent = m_pMarkTextureCom[EXCLAMATION] = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_ExclamationMark"));
+	pComponent = m_pMarkAnimatorCom = dynamic_cast<CAnimator2*>(Engine::Clone_Proto(L"Proto_Animator"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	m_mapComponent[ID_STATIC].insert({ L"Com_TextureExclamation", pComponent });
-	pComponent = m_pMarkTextureCom[GRAYQUEST] = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_GrayQuest"));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	m_mapComponent[ID_STATIC].insert({ L"Com_TextureGrayQuest", pComponent });
-	pComponent = m_pMarkTextureCom[YELLOWQUEST] = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_YellowQuest"));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	m_mapComponent[ID_STATIC].insert({ L"Com_TextureYellowQuest", pComponent });
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_ExclamAni_Buffer", pComponent });
 
 	pComponent = m_pMarkTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformMark", pComponent });
 	m_pMarkTransformCom->m_vInfo[INFO_POS] = { 0.f, 0.f, 0.5f };
-	m_pMarkTransformCom->m_vScale = { 6.f, 9.f, 10.f };
+	m_pMarkTransformCom->m_vScale = { 10.f, 10.f, 1.f };
 
 	return S_OK;
 }

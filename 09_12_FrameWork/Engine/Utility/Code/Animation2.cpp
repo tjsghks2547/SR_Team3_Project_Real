@@ -3,11 +3,11 @@
 
 CAnimation2::CAnimation2()
 	:m_strName(L"")
-	,m_pAnimator(nullptr)
-	,m_pTex(nullptr)
-	,m_iCurFrm(0)
-	,m_fAccTime(0.f)
-	,m_bFinish(false)
+	, m_pAnimator(nullptr)
+	, m_pTex(nullptr)
+	, m_iCurFrm(0)
+	, m_fAccTime(0.f)
+	, m_bFinish(false)
 {
 
 }
@@ -33,7 +33,7 @@ CAnimation2::CAnimation2(const CVIBuffer& rhs)
 	//, m_iCurFrm(0)
 	//, m_fAccTime(0.f)
 	//, m_bFinish(false)
-	
+
 {
 
 }
@@ -49,18 +49,18 @@ void CAnimation2::update()
 	if (m_bFinish)
 		return;
 
-	m_fAccTime += CTimerMgr::GetInstance()->Get_TimeDelta(L"Timer_FPS60");	
+	m_fAccTime += CTimerMgr::GetInstance()->Get_TimeDelta(L"Timer_FPS60");
 
 	if (m_fAccTime > m_vecFrm[m_iCurFrm].fDuration)
 	{
 		++m_iCurFrm;
 
-		if(m_vecFrm.size() <= m_iCurFrm)
+		if (m_vecFrm.size() <= m_iCurFrm)
 		{
 			m_iCurFrm = -1;
-			m_bFinish = true; 
+			m_bFinish = true;
 			m_fAccTime = 0.f;
-			return; 
+			return;
 		}
 		m_fAccTime = m_fAccTime - m_vecFrm[m_iCurFrm].fDuration;
 	}
@@ -69,15 +69,15 @@ void CAnimation2::update()
 
 HRESULT CAnimation2::Ready_Buffer()
 {
-	
+
 	return S_OK;
 }
 
 void CAnimation2::Render_Buffer()
 {
-	
-	VTXTEX2* pVertex = nullptr;	
-	m_pVB->Lock(0, 0, (void**)&pVertex, 0);	
+
+	VTXTEX2* pVertex = nullptr;
+	m_pVB->Lock(0, 0, (void**)&pVertex, 0);
 
 	pVertex[0].vTexUV = { m_vecFrm[m_iCurFrm].vLT.x,m_vecFrm[m_iCurFrm].vLT.y };
 
@@ -89,10 +89,10 @@ void CAnimation2::Render_Buffer()
 
 	pVertex[3].vTexUV = { m_vecFrm[m_iCurFrm].vLT.x
 						 , m_vecFrm[m_iCurFrm].vLT.y + m_vecFrm[m_iCurFrm].vSlice.y };
-	
-	m_pVB->Unlock();	
 
-	CVIBuffer::Render_Buffer();	
+	m_pVB->Unlock();
+
+	CVIBuffer::Render_Buffer();
 }
 
 
@@ -121,7 +121,7 @@ HRESULT CAnimation2::Create(IDirect3DTexture9* _pTex, _vec2 _vLT, _vec2 _vSliceS
 	pVertex[2].vPosition = { 1.f, -1.f, 0.f };
 	pVertex[3].vPosition = { -1.f, -1.f, 0.f };
 
-	
+
 	m_pVB->Unlock();
 
 	INDEX32* pIndex = nullptr;
@@ -150,11 +150,27 @@ HRESULT CAnimation2::Create(IDirect3DTexture9* _pTex, _vec2 _vLT, _vec2 _vSliceS
 
 	tAnimFrm frm = {};
 
-	for (UINT i = 0; i < _iFrameCount; ++i)
+	float test_x = 0;
+	float test_y = 0;
+
+	if (textureWidth != _ImgSize.x)
 	{
+		test_x = textureWidth - _ImgSize.x;
+	}
+
+
+	if (textureHeight != _ImgSize.y)
+	{
+		test_y = textureHeight - _ImgSize.y;
+	}
+
+
+	for (UINT i = 0; i <= _iFrameCount; ++i)
+	{
+
 		frm.fDuration = _fDuration;
-		frm.vSlice = _vSliceSize / textureWidth;
-		frm.vLT = _vLT / textureWidth + _vStep / textureWidth * (float)i;
+		frm.vSlice = { (_vSliceSize.x + test_x) / textureWidth, (_vSliceSize.y + test_y) / textureHeight };
+		frm.vLT = { _vLT.x / textureWidth + _vStep.x / textureWidth * (float)i,  _vLT.y / textureHeight + _vStep.y / textureHeight * (float)i };
 
 		m_vecFrm.push_back(frm);
 	}
@@ -166,5 +182,5 @@ HRESULT CAnimation2::Create(IDirect3DTexture9* _pTex, _vec2 _vLT, _vec2 _vSliceS
 
 CComponent* CAnimation2::Clone()
 {
-	return new CAnimation2(*this);	
+	return new CAnimation2(*this);
 }

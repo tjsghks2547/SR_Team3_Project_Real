@@ -18,8 +18,8 @@ class ENGINE_DLL CAnimation2 : public CVIBuffer
 {
 private:
 	wstring			      m_strName;
-	CAnimator2*			  m_pAnimator;
-	IDirect3DTexture9*    m_pTex;       // Animation이 사용하는 텍스처
+	CAnimator2* m_pAnimator;
+	IDirect3DTexture9* m_pTex;       // Animation이 사용하는 텍스처
 	vector<tAnimFrm>      m_vecFrm;		// 모든 프레임 정보 
 	int                   m_iCurFrm;    // 현재 프레임
 	float                 m_fAccTime;   // 시간 누적
@@ -33,9 +33,9 @@ private:
 	virtual ~CAnimation2();
 
 public:
-	
+
 	const wstring& GetName() { return m_strName; }
-	bool IsFinish()          { return m_bFinish; }
+	bool IsFinish() { return m_bFinish; }
 	void SetFinish(bool _bFinish) { m_bFinish = _bFinish; }
 
 
@@ -43,13 +43,13 @@ public:
 	{
 		m_bFinish = false;
 		m_iCurFrm = _iFrameIdx;
-		m_fAccTime = 0.f; 
+		m_fAccTime = 0.f;
 	}
 
 
 	int GetCurrentFrm() { return m_iCurFrm; }
 	tAnimFrm& GetFrame(int _iIdx) { return m_vecFrm[_iIdx]; }
-	UINT GetMaxFrame() { return (UINT)m_vecFrm.size();}
+	UINT GetMaxFrame() { return (UINT)m_vecFrm.size(); }
 
 
 private:
@@ -58,16 +58,16 @@ private:
 
 public:
 	HRESULT Create(IDirect3DTexture9* _pTex,
-				_vec2 _vLT,
-		        _vec2 _vSliceSize,
-		        _vec2 _vStep,
-		        float _fDuration,
-		        UINT  _iFrameCount,
-				_vec2 _ImgSize);
+		_vec2 _vLT,
+		_vec2 _vSliceSize,
+		_vec2 _vStep,
+		float _fDuration,
+		UINT  _iFrameCount,
+		_vec2 _ImgSize);
 
-	void update(); 
-	virtual  HRESULT  Ready_Buffer();		
-	virtual  void     Render_Buffer();	
+	void update();
+	virtual  HRESULT  Ready_Buffer();
+	virtual  void     Render_Buffer();
 
 public:
 	friend class CAnimator2;
