@@ -32,13 +32,27 @@ void PlayerLift::Enter()
         dynamic_cast<CTransform*>(
             (dynamic_cast<CPlayer*>(m_CGameObject))->Get_Component(
                 ID_DYNAMIC, L"Com_Transform"))->Get_Info(INFO_POS, &vDownPos);
-        
+
+        _vec3  vPlayerDir = (dynamic_cast<CPlayer*>(m_CGameObject))->GetPlayerDirVector2();
+
+        if (vPlayerDir.z == 1)
+            vDownPos.z += 30;
+        else if (vPlayerDir.z == -1)
+            vDownPos.z -= 30;
+        else
+        {
+            if (vPlayerDir.x == 1)
+                vDownPos.x += 30;
+            else if (vPlayerDir.x == -1)
+                vDownPos.x -= 30;
+        }
+
         (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(
             PLAYERSTATE::PLY_LIFTEND);
         break;
     }
 
-    
+
 }
 
 void PlayerLift::Update(const _float& fTimeDelta)
@@ -46,7 +60,7 @@ void PlayerLift::Update(const _float& fTimeDelta)
     _vec3 vCurObjPos;
     _vec3 vPlayerHeadPos;
     _vec3 currentPosition;
-    
+
     switch (m_iStateCount)
     {
     case 0:
@@ -64,7 +78,7 @@ void PlayerLift::Update(const _float& fTimeDelta)
                 ID_DYNAMIC, L"Com_Transform"))->Get_Info(INFO_POS, &vPlayerHeadPos);
         vPlayerHeadPos.y += 20;
 
-        currentPosition = vColPos; 
+        currentPosition = vColPos;
         MoveAlongBezierCurve(fTimeDelta, currentPosition, vColPos, vPlayerHeadPos);
 
         dynamic_cast<CTransform*>(
@@ -73,44 +87,34 @@ void PlayerLift::Update(const _float& fTimeDelta)
 
         break;
     case 1:
-        if (Engine::GetKeyPress(DIK_UP) ||
-            Engine::GetKeyPress(DIK_DOWN) ||
-            Engine::GetKeyPress(DIK_LEFT) ||
-            Engine::GetKeyPress(DIK_RIGHT))
+        if (Engine::GetKeyPress(CONTROL_KEY::PLY_UPKEY) ||
+            Engine::GetKeyPress(CONTROL_KEY::PLY_DOWNKEY) ||
+            Engine::GetKeyPress(CONTROL_KEY::PLY_LEFTKEY) ||
+            Engine::GetKeyPress(CONTROL_KEY::PLY_RIGHTKEY))
         {
             PlayerLiftMove::GetInstance()->SetColObj(colObj);
             m_pStateController->ChangeState(PlayerLiftMove::GetInstance(), m_CGameObject);
-            
+
         }
 
-        if (Engine::GetKeyDown(DIK_S))
+        if (Engine::GetKeyDown(CONTROL_KEY::PLY_LIFTKEY))
         {
             m_iStateCount++;
             m_pStateController->ChangeState(PlayerLift::GetInstance(), m_CGameObject);
-            
+
         }
-        
-        
+
+
         break;
     case 2:
         if (m_CAnimComp->IsAnimationEnd())
         {
             m_iStateCount = 0;
             m_pStateController->ChangeState(PlayerIdle::GetInstance(), m_CGameObject);
-            
+
         }
-            
-        if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPlayerDirVector().z == 1)
-            vDownPos.z += 30;
-        else if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPlayerDirVector().z == -1)
-            vDownPos.z -= 30;
-        else
-        {
-            if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPlayerDirVector().x == 1)
-                vDownPos.x += 50;
-            else if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPlayerDirVector().x == -1)
-                vDownPos.x -= 50;
-        }
+
+
 
         dynamic_cast<CTransform*>(
             dynamic_cast<CPlayer*>(m_CGameObject)->Get_Component(
@@ -118,7 +122,7 @@ void PlayerLift::Update(const _float& fTimeDelta)
         vPlayerHeadPos.y += 20;
 
         currentPosition = vPlayerHeadPos;
-        MoveAlongBezierCurve(fTimeDelta, currentPosition, vPlayerHeadPos, vDownPos);
+        MoveAlongBezierCurve(fTimeDelta, currentPosition, vPlayerHeadPos, vDownPos, false);
 
         dynamic_cast<CTransform*>(
             colObj->Get_Component(ID_DYNAMIC, L"Com_Transform")
@@ -126,7 +130,7 @@ void PlayerLift::Update(const _float& fTimeDelta)
 
         break;
     }
-    
+
 }
 
 
@@ -174,7 +178,8 @@ void PlayerLift::Key_Input(const _float& fTimeDelta)
 }
 
 void PlayerLift::MoveAlongBezierCurve(
-    float fTimeDelta, _vec3& currentPosition, const _vec3& A, const _vec3& B)
+    float fTimeDelta, _vec3& currentPosition, const _vec3& A, const _vec3& B,
+    _bool isLift)
 {
     //float timeElapsed = 0.0f;
     const float duration = 1.0f;
@@ -187,6 +192,15 @@ void PlayerLift::MoveAlongBezierCurve(
     }
 
 
-    _vec3 controlPoint1 = _vec3(A.x, B.y, (A.z + B.z) / 2.0f );
+    _vec3 controlPoint1;
+
+    if (isLift)
+    {
+        controlPoint1 = _vec3(A.x, B.y, (A.z + B.z) / 2.0f);
+    }
+    else
+    {
+        controlPoint1 = _vec3(B.x, A.y, (A.z + B.z) / 2.0f);
+    }
     currentPosition = QuadraticBezier(A, controlPoint1, B, t);
 }

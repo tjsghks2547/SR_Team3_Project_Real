@@ -14,6 +14,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_bSwingTrigger(false)
     , m_CCollideObj(nullptr)
     , m_fMoveSpeed(0.f)
+    , m_bInvincible(false)
     //0913 임시 졸라 많이 한줄한줄 잘썻죠?ㅋ_ㅋ
     , m_iPlayerCoin(10), m_bInven(false)
 {
@@ -34,7 +35,7 @@ HRESULT CPlayer::Ready_GameObject()
     m_tPlayerHP.iMaxHP = 6;
 
     m_pTransformCom->m_vScale = { 20.f,20.f,20.f };
-    m_pTransformCom->Set_Pos(200.f, 30.f, 700.f);
+    m_pTransformCom->Set_Pos(200.f, 30.f, 500.f);
 
     m_pStateControlCom->ChangeState(PlayerIdle::GetInstance(), this);
     return S_OK;
@@ -49,6 +50,7 @@ void CPlayer::LateReady_GameObject()
 
 _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 {
+
     m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
     NULL_CHECK_RETURN(m_pInven, 0);
 
@@ -67,7 +69,10 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
     SetPlayerDirection();
 
     m_pAnimationCom->Update_Component(fTimeDelta);
+
+    //DurationInvincible(fTimeDelta);
     Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
+
 }
 
 void CPlayer::Render_GameObject()
@@ -174,6 +179,20 @@ void CPlayer::SetPlayerDirection()
 }
 
 
+void CPlayer::DurationInvincible(const _float& fTimeDelta)
+{
+    if (!m_bInvincible)
+        return;
+
+    static float fDurationTime = 0.f;
+    fDurationTime += fTimeDelta;
+    if (fDurationTime >= 3.f)
+    {
+        fDurationTime = 0.f;
+        m_bInvincible = false;
+    }
+}
+
 HRESULT CPlayer::Add_Component()
 {
     CComponent* pComponent = NULL;
@@ -255,6 +274,9 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
     {
         //0923 임시 대화상자
     }
+
+    if (Engine::GetKeyDown(DIK_SPACE))
+        m_bInvincible ^= TRUE;
 }
 
 _vec3 CPlayer::Piking_OnTerrain()
@@ -347,5 +369,14 @@ void CPlayer::Free()
 {
     PlayerIdle::DestroyInstance();
     PlayerMove::DestroyInstance();
+    PlayerDash::DestroyInstance();
+    PlayerPush::DestroyInstance();
+    PlayerLift::DestroyInstance();
+    PlayerLiftMove::DestroyInstance();
+    PlayerDance::DestroyInstance();
+    PlayerSmash::DestroyInstance();
+    PlayerRolling::DestroyInstance();
+    PlayerHurt::DestroyInstance();
+
     Engine::CGameObject::Free();
 }

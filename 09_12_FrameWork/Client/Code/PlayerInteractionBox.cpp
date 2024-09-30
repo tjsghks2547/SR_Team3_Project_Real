@@ -22,6 +22,7 @@ HRESULT CPlayerInteractionBox::Ready_GameObject()
 
 void CPlayerInteractionBox::LateReady_GameObject()
 {
+    m_CPlayer->SetCollideObj(this);
     Engine::CGameObject::LateReady_GameObject();
 }
 
@@ -95,13 +96,26 @@ CPlayerInteractionBox* CPlayerInteractionBox::Create(LPDIRECT3DDEVICE9 pGraphicD
     return pinteractionBox;
 }
 
+void CPlayerInteractionBox::OnCollisionEnter(CGameObject* _pOther)
+{
+    switch (_pOther->GetObjectType())
+    {
+    case OBJ_TYPE::PUSH_ABLE:
+        m_CPlayer->SetCollideObj(_pOther);
+        m_CPlayer->SetPushTrigger(true);
+        dynamic_cast<CStateController*>(
+            m_CPlayer->Get_Component(ID_DYNAMIC, L"Com_State")
+            )->ChangeState(PlayerPush::GetInstance(), m_CPlayer);
+        break;
+    }
+}
+
 void CPlayerInteractionBox::OnCollision(CGameObject* _pOther)
 {
-    m_CPlayer->SetCollideObj(_pOther);
     switch (_pOther->GetObjectType())
     {
     case OBJ_TYPE::LIFT_ABLE:
-        
+
         break;
 
     case OBJ_TYPE::PUSH_ABLE:
@@ -112,7 +126,7 @@ void CPlayerInteractionBox::OnCollision(CGameObject* _pOther)
             CStateController* m_playerTransform =
                 dynamic_cast<CStateController*>(Engine::Get_Component(
                     ID_DYNAMIC, L"Layer_GameLogic", L"Player", L"Com_State"));
-        //    m_CPlayer->SetPushTrigger(true);
+            //    m_CPlayer->SetPushTrigger(true);
         }
         break;
 

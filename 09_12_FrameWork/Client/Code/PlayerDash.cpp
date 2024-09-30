@@ -19,32 +19,27 @@ void PlayerDash::Enter()
 
 void PlayerDash::Update(const _float& fTimeDelta)
 {
-    if (!Engine::GetKeyPress(DIK_UP) &&
-        !Engine::GetKeyPress(DIK_DOWN) &&
-        !Engine::GetKeyPress(DIK_LEFT) &&
-        !Engine::GetKeyPress(DIK_RIGHT))
+    if (!Engine::GetKeyPress(CONTROLKEY::PLY_UPKEY) &&
+        !Engine::GetKeyPress(CONTROLKEY::PLY_DOWNKEY) &&
+        !Engine::GetKeyPress(CONTROLKEY::PLY_LEFTKEY) &&
+        !Engine::GetKeyPress(CONTROLKEY::PLY_RIGHTKEY))
     {
         m_pStateController->ChangeState(PlayerIdle::GetInstance(), m_CGameObject);
     }
 
-    else if (Engine::GetKeyUp(DIK_LSHIFT))
+    else if (Engine::GetKeyUp(CONTROLKEY::PLY_DASHKEY))
     {
         m_pStateController->ChangeState(PlayerMove::GetInstance(), m_CGameObject);
     }
-    Key_Input(fTimeDelta);
 
-    if (m_fMoveDuration > 3.f && !m_bZoomOutTrigger)
+    if (Engine::GetKeyPress(CONTROLKEY::PLY_SMASHKEY))
     {
-        dynamic_cast<CDynamicCamera*>(
-            dynamic_cast<CPlayer*>(m_CGameObject)->GetCamera()
-            )->ZoomTo(60.f, 2);
-
-        m_bZoomOutTrigger = true;
+        m_pStateController->ChangeState(PlayerSmash::GetInstance(), m_CGameObject);
     }
 
+    Key_Input(fTimeDelta);
+    CameraZoomOut(fTimeDelta);
 
-    else
-        m_fMoveDuration += fTimeDelta;
 }
 
 
@@ -56,7 +51,6 @@ void PlayerDash::Exit()
 
 void PlayerDash::Key_Input(const _float& fTimeDelta)
 {
-
     _vec3  vLook;
     _vec3  vRight;
 
@@ -90,4 +84,22 @@ void PlayerDash::Key_Input(const _float& fTimeDelta)
         m_pTransformCom->Move_Pos(D3DXVec3Normalize(
             &vRight, &vRight), fTimeDelta, m_fMoveSpeed);
     }
+}
+
+void PlayerDash::CameraZoomOut(const _float& fTimeDelta)
+{
+    // 대쉬 시작한지 3초가 지났다면 카메라 줌아웃을 시작합니다.
+    if (m_fMoveDuration > 3.f && !m_bZoomOutTrigger)
+    {
+        // 2초 동안 원본대비 60%만큼 줌아웃
+        dynamic_cast<CDynamicCamera*>(
+            dynamic_cast<CPlayer*>(m_CGameObject)->GetCamera()
+            )->ZoomTo(60.f, 2);
+
+        m_bZoomOutTrigger = true;
+    }
+
+
+    else
+        m_fMoveDuration += fTimeDelta;
 }

@@ -475,6 +475,18 @@
     <ClInclude Include="..\Header\TestCol.h">
       <Filter>02. GameObject\01. Entity\01. Player</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\PlayerDance.h">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PlayerHurt.h">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PlayerRolling.h">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PlayerSmash.h">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FramePractice.cpp">
@@ -713,6 +725,18 @@
     </ClCompile>
     <ClCompile Include="..\Code\TestCol.cpp">
       <Filter>02. GameObject\01. Entity\01. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PlayerDance.cpp">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PlayerHurt.cpp">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PlayerRolling.cpp">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PlayerSmash.cpp">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

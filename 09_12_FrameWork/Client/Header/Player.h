@@ -7,6 +7,10 @@
 #include "PlayerLift.h"
 #include "PlayerLiftMove.h"
 #include "PlayerPush.h"
+#include "PlayerDance.h"
+#include "PlayerSmash.h"
+#include "PlayerRolling.h"
+#include "PlayerHurt.h"
 #include "Export_Utility.h"
 
 //0920
@@ -31,7 +35,20 @@ class CStateController;
 class CCollider;
 
 END
-
+// Engine_Enum에서 작동 안 하길래 여기에 작성
+enum CONTROL_KEY
+{
+	PLY_LEFTKEY = DIK_LEFT,
+	PLY_RIGHTKEY = DIK_RIGHT,
+	PLY_UPKEY = DIK_UP,
+	PLY_DOWNKEY = DIK_DOWN,
+	PLY_DASHKEY = DIK_LSHIFT,
+	PLY_SWINGKEY = DIK_A,
+	PLY_LIFTKEY = DIK_S,
+	PLY_ROLLKEY = DIK_D,
+	PLY_DANCEKEY = DIK_Q,
+	PLY_SMASHKEY = DIK_E,
+};
 struct PLAYERINFO
 {
 	_int iCurrHP;
@@ -64,6 +81,7 @@ public:
 	virtual			void			Render_GameObject();
 
 public:
+	// 애니메이션 관련 /////////////////////////////////////////////////////////
 	CAnimation* GetAnimationComp() { return m_pAnimationCom; }
 
 	PLAYERSTATE		GetPlayerState() { return m_ePlayerState; }
@@ -81,11 +99,37 @@ public:
 	void			SetCollideObj(CGameObject* _obj) { m_CCollideObj = _obj; }
 
 	_vec3			GetPlayerDirVector() { return m_vPlayerDir; }
+	_vec3			GetPlayerDirVector2()
+	{
+		_vec3 returnValue = _vec3(0.f, 0.f, 0.f);
+		if (m_iPlayerDir & OBJDIR_LEFT)
+			returnValue.x = -1;
+		else if (m_iPlayerDir & OBJDIR_RIGHT)
+			returnValue.x = 1;
+		else
+			returnValue.x = 0;
+
+		if (m_iPlayerDir & OBJDIR_BACK)
+			returnValue.z = 1;
+		else if (m_iPlayerDir & OBJDIR_FRONT)
+			returnValue.z = -1;
+		else
+			returnValue.z = 0;
+
+		return returnValue;
+
+	}
 	void			SetPlayerDirection();
+	void			FixPlayerDir(int _fixDir)
+	{
+		m_iPlayerDir = _fixDir;
+		DisableDiagonal();
+		m_pAnimationCom->SetAnimDir(m_ePlayerState, m_iPlayerDir, false);
+	}
+	void			DisableDiagonal() { m_bIsDiagonal = false; }
+	///////////////////////////////////////////////////////////////////////////
 
-	CCamera* GetCamera() { return m_pCamera; }
-	void			SetCamera(CCamera* _camera) { m_pCamera = _camera; }
-
+	// 플레이어 능력치 관련 //////////////////////////////////////////////////////
 	float			GetMoveSpeed() { return m_fMoveSpeed; }
 	void			SetMoveSpeed(float _fSpeed) { m_fMoveSpeed = _fSpeed; }
 	//0913 임시 코드
@@ -98,8 +142,19 @@ public:
 		m_tPlayerHP.iCurHP += _SetHP;
 		if (m_tPlayerHP.iCurHP > m_tPlayerHP.iMaxHP)
 			m_tPlayerHP.iCurHP = m_tPlayerHP.iMaxHP;
+		else if (m_tPlayerHP.iCurHP < 0)
+			m_tPlayerHP.iCurHP = 0;
 	}
-
+	void			SetPlayerMaxHP(_int _SetHP)
+	{
+		m_tPlayerHP.iMaxHP = _SetHP;
+	}
+	void			SetInvincible(_bool value = true) { m_bInvincible = value; }
+	bool			IsInvincible() { return m_bInvincible; }
+	void			DurationInvincible(const _float& fTimeDelta);
+	////////////////////////////////////////////////////////////////////////////
+	CCamera* GetCamera() { return m_pCamera; }
+	void			SetCamera(CCamera* _camera) { m_pCamera = _camera; }
 	CItem* hat;
 private:
 	HRESULT			Add_Component();
@@ -132,7 +187,9 @@ private:
 	_bool m_bPushTrigger;
 	CGameObject* m_CCollideObj;
 
+	///////////////////////////////////////////////////////
 	float m_fMoveSpeed;
+	_bool m_bInvincible;
 
 	//0913 임시 코드
 	_bool		m_bInven;

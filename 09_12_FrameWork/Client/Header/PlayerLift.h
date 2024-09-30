@@ -42,7 +42,8 @@ private:
 private:
 	void Key_Input(const _float& fTimeDelta);
 	void MoveAlongBezierCurve(
-		float deltaTime, _vec3& currentPosition, const _vec3& A, const _vec3& B);
+		float deltaTime, _vec3& currentPosition, const _vec3& A, const _vec3& B,
+		_bool isLift = true);
 
 	_vec3 Lerp(const _vec3& a, const _vec3& b, float t) {
 		return _vec3(

@@ -3,14 +3,14 @@
 #include "Player.h"
 #include "Export_Utility.h"
 
-class PlayerIdle : public CState
+class PlayerDance : public CState
 {
 public:
 
-	static PlayerIdle* GetInstance()
+	static PlayerDance* GetInstance()
 	{
 		if (!m_instance)
-			m_instance = new PlayerIdle;
+			m_instance = new PlayerDance;
 
 		return m_instance;
 	}
@@ -28,8 +28,11 @@ public:
 	virtual void Exit();
 	virtual void Free() {}
 
+	void SetDanceType(int _iType) { m_iDanceType = _iType; }
 private:
-	static PlayerIdle* m_instance;
-	float m_fDuration;
-	float m_fKeyDownTimer;
+	static PlayerDance* m_instance;
+	int m_iDanceType = 0;
+
+	float m_fTickTime = 0.f;
+	int m_iPlayerMaxHP;
 };
