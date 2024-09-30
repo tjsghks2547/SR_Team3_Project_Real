@@ -17,8 +17,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
     // UI 관련 초기화
     , m_iPlayerCoin(10), m_bInven(false), m_bQuest(false)
     , m_bInvincible(false)
-    //0913 임시 졸라 많이 한줄한줄 잘㎲?ㅋ_ㅋ
-    , m_iPlayerCoin(10), m_bInven(false)
+
 {
     ZeroMemory(&m_tPlayerHP, sizeof(PLAYERHP));
 }
@@ -330,63 +329,7 @@ _vec3 CPlayer::Piking_OnTerrain()
 
 void CPlayer::Print_PlayerState()
 {
-    _tchar buf[128];
-    _vec2 position = { 1000,100 };
 
-    switch (m_ePlayerState)
-    {
-    case Engine::PLY_IDLE:
-    case Engine::PLY_IDLEDIAGONAL:
-        lstrcpy(buf, L"현재 상태 : IDLE");
-        break;
-    case Engine::PLY_MOVE:
-    case Engine::PLY_MOVEDIAGONAL:
-        lstrcpy(buf, L"현재 상태 : WALK");
-        break;
-    case Engine::PLY_END:
-        break;
-    default:
-        break;
-    }
-
-    Engine::Render_Font(L"Font_Ogu24", buf, &position, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
-
-    position = { 1000,130 };
-    switch (m_iPlayerDir)
-    {
-    case Engine::OBJDIR_FRONT:
-        lstrcpy(buf, L"현재 방향 : 앞");
-        break;
-    case Engine::OBJDIR_BACK:
-        lstrcpy(buf, L"현재 상태 : 뒤");
-        break;
-    case Engine::OBJDIR_LEFT:
-        lstrcpy(buf, L"현재 상태 : 왼");
-        break;
-    case Engine::OBJDIR_RIGHT:
-        lstrcpy(buf, L"현재 상태 : 오");
-        break;
-    case Engine::OBJDIR_LEFTBACK:
-        lstrcpy(buf, L"현재 상태 : 왼뒤");
-        break;
-    case Engine::OBJDIR_LEFTFRONT:
-        lstrcpy(buf, L"현재 상태 : 왼앞");
-        break;
-    case Engine::OBJDIR_RIGHTBACK:
-        lstrcpy(buf, L"현재 상태 : 오뒤");
-        break;
-    case Engine::OBJDIR_RIGHTFRONT:
-        lstrcpy(buf, L"현재 상태 : 오앞");
-        break;
-    default:
-        lstrcpy(buf, L"현재 상태 :");
-        break;
-    }
-    Engine::Render_Font(L"Font_Ogu24", buf, &position, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
-
-    position = { 1000,160 };
-    lstrcpy(buf, m_pTextureCom->GetNowPath());
-    Engine::Render_Font(L"Font_Ogu24", buf, &position, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
 }
 
 CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
