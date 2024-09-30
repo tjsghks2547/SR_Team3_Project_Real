@@ -51,6 +51,11 @@ public:
 	virtual void OnCollision(CGameObject* _pOther);
 
 private:
-	//LPD3DXMESH  m_pMesh;
+
+	bool LoadTextureFromFile(LPDIRECT3DDEVICE9 d3dDevice, const char* filePath, IDirect3DTexture9** outTexture)
+	{
+		HRESULT hr = D3DXCreateTextureFromFileA(d3dDevice, filePath, outTexture);
+		return SUCCEEDED(hr);
+	}
 };
 

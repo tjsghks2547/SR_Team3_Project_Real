@@ -296,14 +296,137 @@ void CImgui_ObjectTool::ShowObjectWindow()
 			m_strCurObjectName = L"Ogu_House_Table";
 		}
 
-		if (ImGui::ImageButton("Ogu_House", m_vecObjectTexture[10], imageSize))
+		if (ImGui::ImageButton("Flower_Pot", m_vecObjectTexture[10], imageSize))
 		{
-			m_sCurTextureData = L"Ogu_House";
-			m_sCurTextureKey = L"Ogu_House";
-			m_strCurObjectName = L"Ogu_House";
+			m_sCurTextureData = L"Flower_Pot";
+			m_sCurTextureKey = L"Flower_Pot";
+			m_strCurObjectName = L"Flower_Pot";
 		}
 
 
+		if (ImGui::ImageButton("Street_Lamp", m_vecObjectTexture[11], imageSize))
+		{
+			m_sCurTextureData = L"Street_Lamp";
+			m_sCurTextureKey = L"Street_Lamp";
+			m_strCurObjectName = L"Street_Lamp";
+		}
+
+		if (ImGui::ImageButton("No_Flower_Pot", m_vecObjectTexture[12], imageSize))
+		{
+			m_sCurTextureData = L"No_Flower_Pot";
+			m_sCurTextureKey = L"No_Flower_Pot";
+			m_strCurObjectName = L"No_Flower_Pot";
+		}
+
+		if (ImGui::ImageButton("One_Flower_Pot", m_vecObjectTexture[13], imageSize))
+		{
+			m_sCurTextureData = L"One_Flower_Pot";
+			m_sCurTextureKey = L"One_Flower_Pot";
+			m_strCurObjectName = L"One_Flower_Pot";
+		}
+
+		if (ImGui::ImageButton("One_No_Flower_Pot", m_vecObjectTexture[14], imageSize))
+		{
+			m_sCurTextureData = L"One_No_Flower_Pot";
+			m_sCurTextureKey = L"One_No_Flower_Pot";
+			m_strCurObjectName = L"One_No_Flower_Pot";
+		}
+
+
+		if (ImGui::ImageButton("Forest_Tree", m_vecObjectTexture[15], imageSize))
+		{
+			m_sCurTextureData = L"Forest_Tree";
+			m_sCurTextureKey = L"Forest_Tree";
+			m_strCurObjectName = L"Forest_Tree";
+		}
+
+
+		if (ImGui::ImageButton("Long_Wall", m_vecObjectTexture[16], imageSize))
+		{
+			m_sCurTextureData = L"Long_Wall";
+			m_sCurTextureKey = L"Long_Wall";
+			m_strCurObjectName = L"Long_Wall";
+		}
+
+		if (ImGui::ImageButton("Background_Wall", m_vecObjectTexture[17], imageSize))
+		{
+			m_sCurTextureData = L"Background_Wall";
+			m_sCurTextureKey = L"Background_Wall";
+			m_strCurObjectName = L"Background_Wall";
+		}
+
+
+		if (ImGui::ImageButton("Cart", m_vecObjectTexture[18], imageSize))
+		{
+			m_sCurTextureData = L"Cart";
+			m_sCurTextureKey = L"Cart";
+			m_strCurObjectName = L"Cart";
+		}
+
+		if (ImGui::ImageButton("Tutorial_Store2", m_vecObjectTexture[19], imageSize))
+		{
+			m_sCurTextureData = L"Tutorial_Store2";
+			m_sCurTextureKey = L"Tutorial_Store2";
+			m_strCurObjectName = L"Tutorial_Store2";
+		}
+
+		if (ImGui::ImageButton("One_Tree", m_vecObjectTexture[20], imageSize))
+		{
+			m_sCurTextureData = L"One_Tree";
+			m_sCurTextureKey = L"One_Tree";
+			m_strCurObjectName = L"One_Tree";
+		}
+
+		if (ImGui::ImageButton("Background_Sky", m_vecObjectTexture[21], imageSize))
+		{
+			m_sCurTextureData = L"Background_Sky";
+			m_sCurTextureKey = L"Background_Sky";
+			m_strCurObjectName = L"Background_Sky";
+		}
+
+		if (ImGui::ImageButton("Bucket", m_vecObjectTexture[22], imageSize))
+		{
+			m_sCurTextureData = L"Bucket";
+			m_sCurTextureKey = L"Bucket";
+			m_strCurObjectName = L"Bucket";
+		}
+
+		if (ImGui::ImageButton("Trash_Can", m_vecObjectTexture[23], imageSize))
+		{
+			m_sCurTextureData = L"Trash_Can";
+			m_sCurTextureKey = L"Trash_Can";
+			m_strCurObjectName = L"Trash_Can";
+		}
+
+		if (ImGui::ImageButton("bicycle", m_vecObjectTexture[24], imageSize))
+		{
+			m_sCurTextureData = L"bicycle";
+			m_sCurTextureKey = L"bicycle";
+			m_strCurObjectName = L"bicycle";
+		}
+
+		if (ImGui::ImageButton("Mini_Chair", m_vecObjectTexture[25], imageSize))
+		{
+			m_sCurTextureData = L"Mini_Chair";
+			m_sCurTextureKey = L"Mini_Chair";
+			m_strCurObjectName = L"Mini_Chair";
+		}
+
+
+		if (ImGui::ImageButton("Fence", m_vecObjectTexture[26], imageSize))
+		{
+			m_sCurTextureData = L"Fence";
+			m_sCurTextureKey = L"Fence";
+			m_strCurObjectName = L"Fence";
+		}
+
+		if (ImGui::ImageButton("Grass_collection", m_vecObjectTexture[27], imageSize))
+		{
+			m_sCurTextureData = L"Grass_collection";
+			m_sCurTextureKey = L"Grass_collection";
+			m_strCurObjectName = L"Grass_collection";
+
+		};
 
 		//일단 오브젝트 생성해보기 
 		ImGui::End();
@@ -558,6 +681,8 @@ void CImgui_ObjectTool::ShowInstalledObjectWindow()
 void CImgui_ObjectTool::InstallObject(wstring _TextureKey, wstring _CurTextureData, wstring _forConvert)
 {
 
+	static int index = m_vecObjectList.size();
+
 	Engine::CLayer* pLayer = CLayer::Create();	
 	if (pLayer == nullptr)	
 	{
@@ -580,11 +705,11 @@ void CImgui_ObjectTool::InstallObject(wstring _TextureKey, wstring _CurTextureDa
 	// 새로운 객체를 만들어야하네 계속
 	wstring* dynamicWstring = new wstring(_forConvert + to_wstring(index));	
 	//dynamicWstring = &_forConvert;		
-	m_vecObjectList.push_back((*dynamicWstring).c_str());	
+	m_vecObjectList.push_back((*dynamicWstring).c_str());		
 	pMapLayer[L"Layer_GameLogic"]->Add_GameObject((*dynamicWstring).c_str(), pGameObject);	
 	pGameObject->SetObjectKey(*dynamicWstring);		// imgui 창에 나올 이름				
 	pGameObject->SetTextureKey(m_sCurTextureKey);       // imgui 설정한 텍스처
-	index++;
+	index++;	
 }
 
 void CImgui_ObjectTool::Save()
@@ -773,8 +898,10 @@ void CImgui_ObjectTool::Read()
 				wstring* pObjectName = new wstring;
 				*pObjectName = buffer;
 
-
-
+				if (bytesRead <= 0)	
+				{
+					break;	
+				}
 
 
 				//wstring TextureName = L"";
@@ -791,7 +918,6 @@ void CImgui_ObjectTool::Read()
 
 				wstring* pTextureWstring = new wstring;
 				*pTextureWstring = buffer2;
-
 
 
 
@@ -863,6 +989,17 @@ void CImgui_ObjectTool::Read()
 					pTransform->Rotation(ROT_Y, Rotation_vec3.y * 3.14f / 180.f);
 					pTransform->Rotation(ROT_Z, Rotation_vec3.z * 3.14f / 180.f);
 					pTransform->Set_Pos(worldmatrix._41, worldmatrix._42, worldmatrix._43);
+
+
+					pTransform->Rotation_x = Rotation_vec3.x;
+					pTransform->Rotation_y = Rotation_vec3.y;
+					pTransform->Rotation_z = Rotation_vec3.z;
+
+
+
+					pTransform->Scale_x = Sclae_vec3.x;	
+					pTransform->Scale_y = Sclae_vec3.y;	
+					pTransform->Scale_z = Sclae_vec3.z;	
 
 					//pTransform->m_vAngle = vec3;
 					//D3DXMatrixRotationX(&matRot[ROT_X], m_vAngle.x);

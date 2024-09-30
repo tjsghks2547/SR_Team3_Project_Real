@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Stage.h"
 #include "Export_Utility.h"
-
+#include "WorldHeartStage.h"
 
 
 CStage::CStage(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -30,6 +30,18 @@ HRESULT CStage::Ready_Scene()
 _int CStage::Update_Scene(const _float& fTimeDelta)
 {
 	_int  iExit = Engine::CScene::Update_Scene(fTimeDelta);
+
+
+	if (GetAsyncKeyState('M') & 0x8000)
+	{
+		Engine::CScene* pStage2 = CWorldHearStage::Create(m_pGraphicDev);	
+		NULL_CHECK_RETURN(pStage2, -1);
+
+		FAILED_CHECK_RETURN(Engine::Set_Scene(pStage2), E_FAIL);
+		pStage2->init(); // 맵툴에서 가져온 오브젝트들을 위해 사용 
+
+		return 0;
+	}
 
 	return iExit;
 }
@@ -622,7 +634,7 @@ void CStage::init()
 	Engine::CLayer* pLayer = CLayer::Create();	
 	
 	DWORD bytesRead = 1; 
-	HANDLE hFile = CreateFile(L"../Map/newmap6.txt", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	HANDLE hFile = CreateFile(L"../Map/realmap10.txt", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
 		while (bytesRead > 0)

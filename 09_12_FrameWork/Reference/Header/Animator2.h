@@ -37,7 +37,8 @@ public:
 						 _vec2 _vSliceSize,
 						 _vec2 _vStep,
 						 float _fDuration,
-						 UINT  _iFrameCount);
+						 UINT  _iFrameCount,
+						 _vec2 _ImgSize);
 
 	CAnimation2*  FindAnimation(const wstring& _strName);
 	void		  Play(const wstring& _strName, bool _bRepeat);

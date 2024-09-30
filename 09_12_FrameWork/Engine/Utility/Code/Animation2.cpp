@@ -96,7 +96,7 @@ void CAnimation2::Render_Buffer()
 }
 
 
-HRESULT CAnimation2::Create(IDirect3DTexture9* _pTex, _vec2 _vLT, _vec2 _vSliceSize, _vec2 _vStep, float _fDuration, UINT _iFrameCount)
+HRESULT CAnimation2::Create(IDirect3DTexture9* _pTex, _vec2 _vLT, _vec2 _vSliceSize, _vec2 _vStep, float _fDuration, UINT _iFrameCount, _vec2 _ImgSize)
 {
 
 

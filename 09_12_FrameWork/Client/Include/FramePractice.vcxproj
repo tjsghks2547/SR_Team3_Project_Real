@@ -223,6 +223,8 @@
     <ClInclude Include="..\Header\TestObject.h" />
     <ClInclude Include="..\Header\TextBox.h" />
     <ClInclude Include="..\Header\WeightComparator.h" />
+    <ClInclude Include="..\Header\WorldHeartStage.h" />
+    <ClInclude Include="WorldHeartMap.h" />
     <ClInclude Include="FramePractice.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="imconfig.h" />
@@ -311,7 +313,9 @@
     <ClCompile Include="..\Code\TestObject.cpp" />
     <ClCompile Include="..\Code\TextBox.cpp" />
     <ClCompile Include="..\Code\WeightComparator.cpp" />
+    <ClCompile Include="..\Code\WorldHeartStage.cpp" />
     <ClCompile Include="..\Header\ItemSelector.cpp" />
+    <ClCompile Include="WorldHeartMap.cpp" />
     <ClCompile Include="FramePractice.cpp" />
     <ClCompile Include="imgui.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>

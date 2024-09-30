@@ -41,7 +41,8 @@ HRESULT CManagement::Set_Scene(CScene* pScene)
 	Engine::Clear_RenderGroup();
 
 	m_pScene = pScene;
-	m_pScene->Ready_Scene();	
+	m_pScene->Ready_Scene();
+	m_pScene->init(); // 맵툴에서 가져온 오브젝트들을 위해 사용 
 	m_pScene->LateReady_Scene();	
 
 	return S_OK;

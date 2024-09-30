@@ -18,19 +18,20 @@ HRESULT CObject::Ready_GameObject()
 
 	//여기서 텍스처 다 넣자 
 
-	m_vecTexture.resize(100);	
-	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/Object/object0.png", &m_vecTexture[0]);
-	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/Object/object1.png", &m_vecTexture[1]);
-	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/Object/object2.png", &m_vecTexture[2]);
-	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/Object/object3.png", &m_vecTexture[3]);
-	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/Object/object5.png", &m_vecTexture[4]);
-	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/Object/object6.png", &m_vecTexture[5]);
-	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/Object/object7.png", &m_vecTexture[6]);
-	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/Object/object8.png", &m_vecTexture[7]);
-	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/Object/object9.png", &m_vecTexture[8]);
-	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/Object/object10.png", &m_vecTexture[9]);
+	m_vecTexture.resize(100);
 
-	//D3DXCreateBox(m_pGraphicDev, 10.0f, 10.0f, 10.0f, &m_pMesh, NULL);	
+
+	for (int i = 0; i < m_vecTexture.size(); i++)
+	{
+		char filePath[256];
+		sprintf_s(filePath, "../Bin/Resource/Texture/Object/object%d.png", i);
+
+		HRESULT hr = LoadTextureFromFile(CGraphicDev::GetInstance()->Get_GraphicDev(), filePath, &m_vecTexture[i]);
+		if (FAILED(hr))
+		{
+			MSG_BOX("Object Texture load failed");
+		}
+	}
 	return S_OK;
 }
 
@@ -54,15 +55,7 @@ void CObject::Render_GameObject()
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	
-	//LPD3DXMESH m_pMesh;
-	//D3DXCreateBox(m_pGraphicDev, 20.0f, 20.0f, 20.0f, &m_pMesh, NULL);
-	//m_pMesh->DrawSubset(0);
-
-	//m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-	//m_pMesh->DrawSubset(0);
-	//m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-
-	if (m_strTextureKey == L"Wall") 
+	if (m_strTextureKey == L"Wall")
 	{
 		//auto iter = find_if(m_mapTexture.begin(), m_mapTexture.end(),);
 		m_pGraphicDev->SetTexture(0, m_vecTexture[0]);
@@ -100,24 +93,116 @@ void CObject::Render_GameObject()
 		m_pGraphicDev->SetTexture(0, m_vecTexture[5]);
 	}
 
-	if (m_strTextureKey == L"Carpet")
+	if (m_strTextureKey == L"Bench")
 	{
 		m_pGraphicDev->SetTexture(0, m_vecTexture[6]);
 	}
 
-	if (m_strTextureKey == L"Ogu_House_Floor")
+	if (m_strTextureKey == L"Carpet")
 	{
 		m_pGraphicDev->SetTexture(0, m_vecTexture[7]);
 	}
 
-	if (m_strTextureKey == L"Ogu_House_Table")
+	if (m_strTextureKey == L"Ogu_House_Floor")
 	{
 		m_pGraphicDev->SetTexture(0, m_vecTexture[8]);
 	}
 
-	if (m_strTextureKey == L"Ogu_House")
+	if (m_strTextureKey == L"Ogu_House_Table")
 	{
 		m_pGraphicDev->SetTexture(0, m_vecTexture[9]);
+	}
+
+	if (m_strTextureKey == L"Flower_Pot")
+	{
+		m_pGraphicDev->SetTexture(0, m_vecTexture[10]);
+	}
+
+	if (m_strTextureKey == L"Street_Lamp")
+	{
+		m_pGraphicDev->SetTexture(0, m_vecTexture[11]);
+	}
+
+	if (m_strTextureKey == L"No_Flower_Pot")
+	{
+		m_pGraphicDev->SetTexture(0, m_vecTexture[12]);
+	}
+
+
+	if (m_strTextureKey == L"One_Flower_Pot")
+	{
+		m_pGraphicDev->SetTexture(0, m_vecTexture[13]);
+	}
+
+	if (m_strTextureKey == L"One_No_Flower_Pot")
+	{
+		m_pGraphicDev->SetTexture(0, m_vecTexture[14]);
+	}
+
+	if (m_strTextureKey == L"Forest_Tree")
+	{
+		m_pGraphicDev->SetTexture(0, m_vecTexture[15]);
+	}
+
+	if (m_strTextureKey == L"Long_Wall")
+	{
+		m_pGraphicDev->SetTexture(0, m_vecTexture[16]);
+	}
+
+	if (m_strTextureKey == L"Background_Wall")
+	{
+		m_pGraphicDev->SetTexture(0, m_vecTexture[17]);
+	}
+
+	if (m_strTextureKey == L"Cart")
+	{
+		m_pGraphicDev->SetTexture(0, m_vecTexture[18]);
+	}
+
+	if (m_strTextureKey == L"Tutorial_Store2")
+	{
+		m_pGraphicDev->SetTexture(0, m_vecTexture[19]);
+	}
+
+	if (m_strTextureKey == L"One_Tree")
+	{
+		m_pGraphicDev->SetTexture(0, m_vecTexture[20]);
+	}
+
+	if (m_strTextureKey == L"Background_Sky")
+	{
+		m_pGraphicDev->SetTexture(0, m_vecTexture[21]);
+	}
+
+	if (m_strTextureKey == L"Bucket")
+	{
+		m_pGraphicDev->SetTexture(0, m_vecTexture[22]);
+	}
+
+	if (m_strTextureKey == L"Trash_Can")
+	{
+		m_pGraphicDev->SetTexture(0, m_vecTexture[23]);
+	}
+
+	if (m_strTextureKey == L"bicycle")
+	{
+		m_pGraphicDev->SetTexture(0, m_vecTexture[24]);
+	}
+
+	if (m_strTextureKey == L"Mini_Chair")
+	{
+		m_pGraphicDev->SetTexture(0, m_vecTexture[25]);
+	}
+
+
+	if (m_strTextureKey == L"Fence")
+	{
+		m_pGraphicDev->SetTexture(0, m_vecTexture[26]);
+	}
+
+	if (m_strTextureKey == L"Grass_collection")
+	{
+		m_pGraphicDev->SetTexture(0, m_vecTexture[27]);
 	}
 
 

@@ -19,7 +19,7 @@ HRESULT CTestObject::Ready_GameObject()
 	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/Sprite_BabyOgu_Swing1.png", &m_pTex);	
 
 	
-	m_pAnimatorCom->CreateAnimation(L"Test", m_pTex, _vec2(0.f, 0.f), _vec2(292.5f, 292.5f), _vec2(292.5f, 0.f), 0.2f, 6);
+	m_pAnimatorCom->CreateAnimation(L"Test", m_pTex, _vec2(0.f, 0.f), _vec2(292.5f, 292.5f), _vec2(292.5f, 0.f), 0.2f, 6,_vec2(2048.f,2048.f));
 
 	m_pAnimatorCom->Play(L"Test", true);
 
