@@ -2,18 +2,20 @@
 
 CAnimation::CAnimation()
 	: m_eCurrentState(PLAYERSTATE::PLY_IDLE)
-	, m_eCurrentDir(0)
+	, m_iCurrentDir(0)
 	, currentFrame(0)
 	, m_fAccTime(0.2f)
+	, m_bAniamtionPause(false)
 {
 }
 
 CAnimation::CAnimation(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CVIBuffer(pGraphicDev)
 	, m_eCurrentState(PLAYERSTATE::PLY_IDLE)
-	, m_eCurrentDir(OBJ_DIRECTION::OBJDIR_FRONT)
+	, m_iCurrentDir(0)
 	, currentFrame(0)
 	, m_fAccTime(0.2f)
+	, m_bAniamtionPause(false)
 {
 	//pGraphicDev->AddRef();
 }
@@ -21,9 +23,10 @@ CAnimation::CAnimation(LPDIRECT3DDEVICE9 pGraphicDev)
 CAnimation::CAnimation(const CAnimation& rhs)
 	:CVIBuffer(rhs)
 	, m_eCurrentState(PLAYERSTATE::PLY_IDLE)
-	, m_eCurrentDir(OBJ_DIRECTION::OBJDIR_FRONT)
+	, m_iCurrentDir(0)
 	, currentFrame(0)
 	, m_fAccTime(0.2f)
+	, m_bAniamtionPause(false)
 {
 	m_currentFrameCount = rhs.m_currentFrameCount;
 	m_vecFrameCount = rhs.m_vecFrameCount;
@@ -98,6 +101,9 @@ HRESULT CAnimation::Ready_Animation(
 
 _int CAnimation::Update_Component(const _float& fTimeDelta)
 {
+	if (m_bAniamtionPause)
+		return 0;
+
 	m_fAccTime -= fTimeDelta;
 
 	if (m_fAccTime <= 0.f)
@@ -105,7 +111,7 @@ _int CAnimation::Update_Component(const _float& fTimeDelta)
 		m_bAnimationEnd = false;
 		m_fAccTime += 0.2f;
 
-		if (currentFrame >= m_vecFramePlay[m_eCurrentState][m_eCurrentDir].size())
+		if (currentFrame >= m_vecFramePlay[m_eCurrentState][m_iCurrentDir].size())
 		{
 			m_bAnimationEnd = true;
 			currentFrame = 0;
@@ -184,9 +190,9 @@ void CAnimation::UpdateUV()
 	VTXTEX* pVertex = nullptr;
 	m_pVB->Lock(0, 0, (void**)&pVertex, 0);
 
-	int frameX = m_vecFramePlay[m_eCurrentState][m_eCurrentDir][currentFrame]
+	int frameX = m_vecFramePlay[m_eCurrentState][m_iCurrentDir][currentFrame]
 		% (int)m_currentFrameCount.x;
-	int frameY = m_vecFramePlay[m_eCurrentState][m_eCurrentDir][currentFrame]
+	int frameY = m_vecFramePlay[m_eCurrentState][m_iCurrentDir][currentFrame]
 		/ m_currentFrameCount.x;
 
 	float FrameU = 1.f / m_currentFrameCount.x;

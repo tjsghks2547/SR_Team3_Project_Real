@@ -40,6 +40,7 @@ public:
 	virtual   void      Render_GameObject();
 
 	void  ZoomTo(_float fRatio, _float fDuration);
+	void  ShakeMove(_float fDuration);
 
 private:
 	void  Key_Input(const _float& fTimeDelta);
@@ -48,6 +49,8 @@ private:
 
 	void  ZoomToTrigger(const _float& fTimeDelta);
 	void  ResetZoom(const _float& fTimeDelta);
+
+	void  ShakeMoveTrigger(const _float& fTimeDelta);
 	void  GetPlayerInfo();
 
 private:
@@ -82,6 +85,13 @@ private:
 
 	// 시간을 계산할 변수 += fTimeDelta하여 3보다 커지면 줌인이 시작된다.
 	float m_fZoomInTimer;
+
+	// Shake =========================================================
+	float m_fShakeDeltaTime;
+	bool m_bShakeTrigger;
+	float fShakeTickTime;
+	float m_fShakeDuration;
+
 public:
 	static  CDynamicCamera* Create(LPDIRECT3DDEVICE9 pGraphicDev
 		, const _vec3* pEye

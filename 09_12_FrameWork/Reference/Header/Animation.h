@@ -29,9 +29,9 @@ public:
 	void SetAnimDir(PLAYERSTATE _ePlayerState, int _dir, bool _bDiagonal)
 	{
 		if (_bDiagonal)
-			m_eCurrentDir = round(_dir * 0.6 - 3);
+			m_iCurrentDir = round(_dir * 0.6 - 3);
 		else
-			m_eCurrentDir = log(_dir) / log(2); // 0,1,2,3
+			m_iCurrentDir = log(_dir) / log(2); // 0,1,2,3
 
 		SetAnimFrame(_ePlayerState, _bDiagonal);
 	}
@@ -40,6 +40,7 @@ public:
 	int  GetCurrentFrame() { return currentFrame; }
 	bool IsAnimationEnd() { return m_bAnimationEnd; }
 	void SetAnimationPlaying() { m_bAnimationEnd = false; }
+	void SetAnimationPause(bool _value) { m_bAniamtionPause = _value; }
 private:
 
 	// Loading에서 Animation.dat 정보를 받아와서
@@ -54,13 +55,14 @@ private:
 
 
 	PLAYERSTATE			m_eCurrentState;
-	int					m_eCurrentDir;
+	//int					m_eCurrentDir;
 	int					m_iCurrentDir;
 
 	int					currentFrame;
 	float				m_fAccTime;
 
 	bool				m_bAnimationEnd;
+	bool				m_bAniamtionPause;
 public:
 	static CAnimation* Create(LPDIRECT3DDEVICE9	      pGraphicDev,
 		const vector<_vec2>		  _vecFrameCount,
