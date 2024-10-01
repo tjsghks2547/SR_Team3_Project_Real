@@ -25,6 +25,7 @@ CDynamicCamera::CDynamicCamera(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_bShakeTrigger(false)
     , fShakeTickTime(0.f)
     , m_fShakeDuration(0.f)
+    , m_fShakePower(0.3f)
 {
 
 
@@ -356,47 +357,38 @@ void CDynamicCamera::ResetZoom(const _float& fTimeDelta)
 
 void CDynamicCamera::ShakeMove(_float fDuration)
 {
-    fShakeTickTime = 10.f;
-    m_fShakeDuration = fDuration;
+    shakeTimer = shakeDuration = fDuration;
     m_bShakeTrigger = true;
+    m_fPrevShakeAtYPos = m_vAt.y;
 }
 
 void CDynamicCamera::ShakeMoveTrigger(const _float& fTimeDelta)
 {
-    m_fShakeDeltaTime += fTimeDelta;
-    fShakeTickTime += fTimeDelta;
-
-    if (m_fShakeDeltaTime >= m_fShakeDuration)
+    if (shakeTimer > 0.0f)
     {
-        m_bShakeTrigger = false;
-        m_fShakeDeltaTime = 0.f;
+        // 흔들림의 경과 시간 계산
+        elapsedTime += fTimeDelta;
 
-        m_vIntervalPos = m_vOriginInterval;
-        return;
+        // 사인 함수를 사용한 상하 진동 계산
+        float offsetY = shakeAmplitude * sinf(elapsedTime * shakeFrequency * 2.0f * 3.141592f);  // 사인 함수 적용
+
+        // 새로운 카메라 위치 설정
+        m_vAt.y += offsetY;
+
+        // 진동 타이머 감소
+        shakeTimer -= fTimeDelta;
+
+        shakeAmplitude -= 0.01f;
     }
 
-    static bool interval = true;
-    static int value = 100;
-    //if (fShakeTickTime >= 0.01f)
-    //{
-    //    fShakeTickTime = 0.f;
-
-    //    if (interval)
-    //    {
-    //        interval = false;
-    //        m_vIntervalPos.y = value;
-    //        
-    //    }
-    //    else
-    //    {
-    //        interval = true;
-    //        m_vIntervalPos.y = -value;
-    //        value /= 2;
-    //    }
-
-
-    //    //
-    //}
+    else
+    {
+        m_bShakeTrigger = false;
+        elapsedTime = 0.0f;
+        shakeAmplitude = 0.1f;
+        shakeTimer = shakeDuration;
+        m_vAt.y = m_fPrevShakeAtYPos;
+    }
 }
 
 void CDynamicCamera::GetPlayerInfo()

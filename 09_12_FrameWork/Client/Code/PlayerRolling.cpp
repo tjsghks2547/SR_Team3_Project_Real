@@ -6,10 +6,12 @@ PlayerRolling* PlayerRolling::m_instance = nullptr;
 
 void PlayerRolling::Enter()
 {
-    (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(PLAYERSTATE::PLY_ROLLING);
-
     if (!m_pStateController)
         SetComponent();
+
+    (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(PLAYERSTATE::PLY_ROLLING);
+
+
 
     m_fMoveSpeed = 150.f;
     (dynamic_cast<CPlayer*>(m_CGameObject))->SetMoveSpeed(m_fMoveSpeed);
@@ -19,7 +21,7 @@ void PlayerRolling::Enter()
 
 void PlayerRolling::Update(const _float& fTimeDelta)
 {
-    if(dynamic_cast<CPlayer*>(m_CGameObject)->GetAnimationComp()->IsAnimationEnd())
+    if (dynamic_cast<CPlayer*>(m_CGameObject)->GetAnimationComp()->IsAnimationEnd())
         m_pStateController->ChangeState(PlayerIdle::GetInstance(), m_CGameObject);
 
     Key_Input(fTimeDelta);

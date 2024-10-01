@@ -104,6 +104,8 @@ public:
 	virtual			void			LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual			void			Render_GameObject();
 
+	virtual			void			OnCollisionEnter(CGameObject* _pOther);
+	virtual			void			OnCollisionExit(CGameObject* _pOther);
 public:
 	// 애니메이션 관련 /////////////////////////////////////////////////////////
 	CAnimation* GetAnimationComp() { return m_pAnimationCom; }
@@ -119,8 +121,11 @@ public:
 	void			SetSwingTrigger(_bool bSwing) { m_bSwingTrigger = bSwing; }
 	_bool			GetPushTrigger() { return m_bPushTrigger; }
 	void			SetPushTrigger(_bool bPush) { m_bPushTrigger = bPush; }
-	CGameObject* GetCollideObj() { return m_CCollideObj; }
-	void			SetCollideObj(CGameObject* _obj) { m_CCollideObj = _obj; }
+	
+	CGameObject* GetInteractionBox() { return m_objInteractionBox; }
+	void			SetInteractionBox(CGameObject* _obj) { m_objInteractionBox = _obj; }
+	CGameObject* GetInteractingObj() { return m_objInteracting; }
+	void			SetInteractingObj(CGameObject* _obj) { m_objInteracting = _obj; }
 
 	_vec3			GetPlayerDirVector() { return m_vPlayerDir; }
 	_vec3			GetPlayerDirVector2()
@@ -143,6 +148,7 @@ public:
 		return returnValue;
 
 	}
+	bool			IsPlayerDiagonal() { return m_bIsDiagonal; }
 	void			SetPlayerDirection();
 	void			FixPlayerDir(int _fixDir)
 	{
@@ -151,6 +157,7 @@ public:
 		m_pAnimationCom->SetAnimDir(m_ePlayerState, m_iPlayerDir, false);
 	}
 	void			DisableDiagonal() { m_bIsDiagonal = false; }
+	_bool			GetPassAble() { return m_bPassAble; }
 	///////////////////////////////////////////////////////////////////////////
 
 	// 플레이어 능력치 관련 //////////////////////////////////////////////////////
@@ -211,11 +218,14 @@ private:
 
 	_bool m_bSwingTrigger;
 	_bool m_bPushTrigger;
-	CGameObject* m_CCollideObj;
+	CGameObject* m_objInteractionBox;  // 상호작용할 박스
+	CGameObject* m_objInteracting;     // 그 박스와 충돌 중인 오브젝트
 
+	_bool m_bPassAble;
 	///////////////////////////////////////////////////////
 	float m_fMoveSpeed;
 	_bool m_bInvincible;
+
 
 	//민지
 	CInvenUI*   m_pInven;

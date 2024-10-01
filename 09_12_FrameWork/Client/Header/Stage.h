@@ -42,6 +42,7 @@
 #include "Map.h"
 #include "Object.h"
 #include "TestCol.h"
+#include "TestCol2.h"
 
 //9월 27일 애니메이션 테스트
 #include "TestObject.h"

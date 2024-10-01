@@ -33,5 +33,4 @@ private:
 
 private:
     int m_iStateCount = 0;
-    CAnimation* m_CAnimComp = nullptr;
 };

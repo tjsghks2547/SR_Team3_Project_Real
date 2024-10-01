@@ -31,5 +31,4 @@ private:
     static PlayerSwing* m_instance;
 
 private:
-    CAnimation* m_CAnimComp = nullptr;
 };

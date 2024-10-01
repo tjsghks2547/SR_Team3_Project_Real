@@ -6,10 +6,10 @@ PlayerDash* PlayerDash::m_instance = nullptr;
 
 void PlayerDash::Enter()
 {
-    (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(PLAYERSTATE::PLY_DASH);
-
     if (!m_pStateController)
         SetComponent();
+
+    (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(PLAYERSTATE::PLY_DASH);
 
     m_fMoveSpeed = 100.f;
     (dynamic_cast<CPlayer*>(m_CGameObject))->SetMoveSpeed(m_fMoveSpeed);

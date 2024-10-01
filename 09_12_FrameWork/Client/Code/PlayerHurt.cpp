@@ -6,11 +6,11 @@ PlayerHurt* PlayerHurt::m_instance = nullptr;
 
 void PlayerHurt::Enter()
 {
-    (dynamic_cast<CPlayer*>(m_CGameObject))->DisableDiagonal();
-    (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(PLAYERSTATE::PLY_HURT);
-
     if (!m_pStateController)
         SetComponent();
+
+    (dynamic_cast<CPlayer*>(m_CGameObject))->DisableDiagonal();
+    (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(PLAYERSTATE::PLY_HURT);
 
     (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerCurHP(-1);
     (dynamic_cast<CPlayer*>(m_CGameObject))->SetInvincible();

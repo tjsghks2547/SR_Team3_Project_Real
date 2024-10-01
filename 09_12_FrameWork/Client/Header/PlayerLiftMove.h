@@ -32,7 +32,6 @@ private:
 	static PlayerLiftMove* m_instance;
 	float m_fMoveSpeed;
 
-	CAnimation* m_CAnimComp = nullptr;
 	CGameObject* colObj;
 
 private:

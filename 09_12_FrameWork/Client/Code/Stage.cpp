@@ -139,6 +139,7 @@ HRESULT CStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PlayerInteractionBox", pGameObject), E_FAIL);
 	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PLAYER, pGameObject);
+	pGameObject->SetObjectKey(L"PlayerInteractionBox");
 
 	CGameObject* PlayerObj = pLayer->Get_GameObject(L"Layer_GameLogic", L"Player");
 	CGameObject* InteractionObj = pLayer->Get_GameObject(L"Layer_GameLogic", L"PlayerInteractionBox");
@@ -166,6 +167,24 @@ HRESULT CStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 		dynamic_cast<CPlayer*>(PlayerObj)
 	);
 	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pGameObject);
+
+
+	pGameObject = CTestCol2::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"TestCol2", pGameObject), E_FAIL);
+	dynamic_cast<CTestCol2*>(pGameObject)->SetPlayer(
+		dynamic_cast<CPlayer*>(PlayerObj)
+	);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pGameObject);
+
+	pGameObject = CMonster::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster", pGameObject), E_FAIL);
+	dynamic_cast<CMonster*>(pGameObject)->SetPlayer(
+		dynamic_cast<CPlayer*>(PlayerObj)
+	);
+
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER, pGameObject);
 
 	CScene* pScene = CManagement::GetInstance()->GetCurScenePtr();
 

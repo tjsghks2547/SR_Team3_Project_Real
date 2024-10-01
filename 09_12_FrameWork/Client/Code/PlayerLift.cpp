@@ -9,7 +9,6 @@ void PlayerLift::Enter()
     if (!m_pStateController)
         SetComponent();
 
-    m_CAnimComp = dynamic_cast<CPlayer*>(m_CGameObject)->GetAnimationComp();
     timeElapsed = 0.f;
     switch (m_iStateCount)
     {
@@ -17,7 +16,7 @@ void PlayerLift::Enter()
         (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(
             PLAYERSTATE::PLY_LIFTSTART);
 
-        colObj = dynamic_cast<CPlayer*>(m_CGameObject)->GetCollideObj();
+        colObj = dynamic_cast<CPlayer*>(m_CGameObject)->GetInteractingObj();
         dynamic_cast<CTransform*>(
             colObj->Get_Component(ID_DYNAMIC, L"Com_Transform")
             )->Get_Info(INFO_POS, &vColPos);
@@ -28,7 +27,7 @@ void PlayerLift::Enter()
             PLAYERSTATE::PLY_LIFTIDLE);
         break;
     case 2:
-        m_CAnimComp->SetAnimationPlaying();
+        m_pAnimationCom->SetAnimationPlaying();
         dynamic_cast<CTransform*>(
             (dynamic_cast<CPlayer*>(m_CGameObject))->Get_Component(
                 ID_DYNAMIC, L"Com_Transform"))->Get_Info(INFO_POS, &vDownPos);
@@ -64,7 +63,7 @@ void PlayerLift::Update(const _float& fTimeDelta)
     switch (m_iStateCount)
     {
     case 0:
-        if (m_CAnimComp->IsAnimationEnd())
+        if (m_pAnimationCom->IsAnimationEnd())
         {
             // 무조건 ChangeState보다 먼저 할 것
             // 그래야 ChangeState()안에서 PlayerLift 다음 행동으로 진입함
@@ -107,7 +106,7 @@ void PlayerLift::Update(const _float& fTimeDelta)
 
         break;
     case 2:
-        if (m_CAnimComp->IsAnimationEnd())
+        if (m_pAnimationCom->IsAnimationEnd())
         {
             m_iStateCount = 0;
             m_pStateController->ChangeState(PlayerIdle::GetInstance(), m_CGameObject);
