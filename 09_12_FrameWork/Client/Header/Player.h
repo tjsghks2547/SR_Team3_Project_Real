@@ -14,14 +14,38 @@
 #include "Export_Utility.h"
 
 //¹ÎÁö
+#pragma region ¹ÎÁö
 #include "ExploreHat.h"
 #include "PartyHat.h"
+#include "Mohican.h"
+#include "EnkyHat.h"
+#include "AppleHat.h"
+#include "Penguin.h"
+#include "PoopHat.h"
+
 #include "SmallFruit.h"
 #include "MiddleFruit.h"
-#include "Mohican.h"
+#include "BigFruit.h"
+#include "SmallHerb.h"
+#include "MiddleHerb.h"
+#include "BigHerb.h"
+#include "SmallRoot.h"
+#include "MiddleRoot.h"
+#include "BigRoot.h"
+#include "CookSmallFish.h"
+#include "CookMiddleFish.h"
+#include "CookBigFish.h"
+
+#include "Branch.h"
+#include "Leaf.h"
+
+#include "ExpressTicket.h"
+#include "Net.h"
+
 #include "InvenUI.h"
-#include "QuestUI.h" //0928
+#include "QuestUI.h"
 #include "QuickSlot.h"
+#pragma endregion ¹ÎÁö
 
 BEGIN(Engine)
 

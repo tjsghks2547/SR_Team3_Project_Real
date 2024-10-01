@@ -2,10 +2,9 @@
 #include "GameObject.h"
 #include "Export_System.h"
 #include "Export_Utility.h"
-#include "InteractionButton.h"
 #include "Player.h"
-#include "QuestUI.h"
-#include "QuestAccept.h"
+#include "InteractionButton.h"
+#include "TextBox.h"
 
 BEGIN(Engine)
 
@@ -18,20 +17,18 @@ class CAnimator2;
 class CAnimation2;
 
 END
-class CTextBox;
 
-class CNPC : public Engine::CGameObject
+class CStoreNPC : public Engine::CGameObject
 {
 protected:
-	explicit CNPC(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual ~CNPC();
+	explicit CStoreNPC(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual ~CStoreNPC();
 public:
 	struct NPC_INFO
 	{
 		const _tchar* pName;
 		const _tchar* pContent; //대화 내용
 	};
-	enum MARKER { EXCLAMATION, GRAYQUEST, YELLOWQUEST, MARK_END };
 
 public:
 	virtual   HRESULT   Ready_GameObject();
@@ -52,17 +49,16 @@ protected:
 
 protected:
 	Engine::CRcTex* m_pBufferCom;
-	Engine::CTexture* m_pTextureCom; // 쓸라나?
+	Engine::CTexture* m_pTextureCom;
+	Engine::CTransform* m_pShopTransformCom;
+
 
 	Engine::CAnimator2* m_pAnimatorCom; //추가
 	Engine::CTransform* m_pTransformCom;
 	Engine::CCollider* m_pColliderCom;
 
-	Engine::CAnimator2* m_pMarkAnimatorCom;
-	Engine::CTransform* m_pMarkTransformCom;
-
 	NPC_INFO				m_tInfo;
-	CQuestUI::QUEST_INFO	m_tQuestInfo;
+
 	_bool					m_bConversation; // 대화 중
 
 	//구조체로 바꿀 생각이긴 한디.. 귀찬 ㅋㅋ-ㅂ-
@@ -74,13 +70,10 @@ protected:
 	CTextBox* m_pTextBox;
 	CPlayer* m_pPlayer;
 	CInvenUI* m_pInven;
-	CQuestUI* m_pQuestUI;
-	CQuestAccept* m_pQuestAcceptUI;
 
 protected:
 	virtual void Free();
 
-	IDirect3DTexture9* m_pTex[MARK_END];
-	IDirect3DTexture9* m_pNPCTex;
+	IDirect3DTexture9* m_pTex;
 };
 

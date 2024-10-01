@@ -2,7 +2,7 @@
 #include "ExpressMonkey.h"
 
 CExpressMonkey::CExpressMonkey(LPDIRECT3DDEVICE9 pGraphicDev)
-    :CNPC(pGraphicDev)
+    :CQuestNPC(pGraphicDev)
 {
 }
 
@@ -12,7 +12,7 @@ CExpressMonkey::~CExpressMonkey()
 
 HRESULT CExpressMonkey::Ready_GameObject()
 {
-    CNPC::Ready_GameObject();
+    CQuestNPC::Ready_GameObject();
 
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
@@ -41,12 +41,12 @@ HRESULT CExpressMonkey::Ready_GameObject()
 
 void CExpressMonkey::LateReady_GameObject()
 {
-    CNPC::LateReady_GameObject();
+    CQuestNPC::LateReady_GameObject();
 }
 
 _int CExpressMonkey::Update_GameObject(const _float& fTimeDelta)
 {
-    CNPC::Update_GameObject(fTimeDelta);
+    CQuestNPC::Update_GameObject(fTimeDelta);
 
     _int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 

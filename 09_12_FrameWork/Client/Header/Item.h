@@ -21,18 +21,23 @@ protected:
 public:
 
 	enum ITEMTYPE { EQUIP, CONSUM, OTHER, QUEST, TYPE_END };
-
-	enum EQUIPITEM { EXPLORE, PARTY, MOHICAN, EQUIP_END };
-	enum CONSUMITEM { SMALL_FRUIT, MIDDLE_FRUIT, BIG_FRUIT, CONSUM_END };
+#pragma 
+	enum EQUIPITEM { EXPLORE, PARTY, MOHICAN, ENKY, APPLE, POOP, PENGUIN, EQUIP_END };
+	enum CONSUMITEM {
+		SMALL_FRUIT, MIDDLE_FRUIT, BIG_FRUIT,
+		SMALL_ROOT, MIDDLE_ROOT, BIG_ROOT,
+		SMALL_HERB, MIDDLE_HERB, BIG_HERB,
+		COOK_SMALLFISH, COOK_MIDDLEFISH, COOK_BIGFISH, CONSUM_END
+	};
 	enum OTHERITEM { LEAF, BRANCH, OTHER_END };
-	enum QUESTITEM { NET, DRAWTOOL, EXTICKET,QUEST_END };
+	enum QUESTITEM { NET, DRAWTOOL, EXTICKET, QUEST_END };
 
 	struct ITEM_INFO
 	{
 		ITEMTYPE			eType;
 		_int				eItemEnum;
-		const _tchar*		pName;
-		const _tchar*		pInfo;
+		const _tchar* pName;
+		const _tchar* pInfo;
 		_int				iPrice;
 		_int				iItemCount;
 	};
@@ -77,7 +82,7 @@ protected:
 
 protected:
 	ITEM_INFO				m_tInfo;
-	CPlayer*				m_pPlayer;
+	CPlayer* m_pPlayer;
 
 public:
 	static CItem* Create(LPDIRECT3DDEVICE9 pGraphicDev);
