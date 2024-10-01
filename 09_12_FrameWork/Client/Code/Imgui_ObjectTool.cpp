@@ -452,6 +452,14 @@ void CImgui_ObjectTool::ShowObjectWindow()
 		};
 
 
+		if (ImGui::ImageButton("Cave_Wall", m_vecObjectTexture[31], imageSize))
+		{
+			m_sCurTextureData =  L"Cave_Wall";
+			m_sCurTextureKey =   L"Cave_Wall";
+			m_strCurObjectName = L"Cave_Wall";
+		};
+
+
 		//일단 오브젝트 생성해보기 
 		ImGui::End();
 
@@ -753,7 +761,7 @@ void CImgui_ObjectTool::Save()
 	ofn.nFilterIndex = 1;   // 기본 선택 파일 형식 (1 = Text Files)
 	ofn.lpstrFileTitle = NULL;
 	ofn.nMaxFileTitle = 0;
-	ofn.lpstrInitialDir = L"C:\\Users\\tjsgh\\Desktop\\9월24일최종본\\Client\\Map\\";  // 초기 디렉토리 (NULL이면 기본 디렉토리 사용)
+	ofn.lpstrInitialDir = L"C:\\Users\\tjsgh\\Desktop\\SR_Team_Project3_Real\\09_12_FrameWork\\Client\\Map";  // 초기 디렉토리 (NULL이면 기본 디렉토리 사용)
 	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_OVERWRITEPROMPT;
 
 	// 파일 저장 대화 상자 표시

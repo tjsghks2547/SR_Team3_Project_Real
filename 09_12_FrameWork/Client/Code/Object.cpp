@@ -221,6 +221,11 @@ void CObject::Render_GameObject()
 	}
 
 
+	if (m_strTextureKey == L"Cave_Wall")
+	{
+		m_pGraphicDev->SetTexture(0, m_vecTexture[31]);
+	}
+
 
 	/*Telephone2Pole
 			Bench
