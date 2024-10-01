@@ -7,6 +7,7 @@
 #include "DefaultUI.h"
 #include "InvenUI.h"
 #include "QuickSlot.h"
+#include "Object.h"
 
 
 //여기다 넣을 오브젝트들 다 include하기
