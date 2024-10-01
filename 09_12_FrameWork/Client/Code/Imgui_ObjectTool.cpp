@@ -428,6 +428,30 @@ void CImgui_ObjectTool::ShowObjectWindow()
 
 		};
 
+
+		if (ImGui::ImageButton("Stone", m_vecObjectTexture[28], imageSize))
+		{
+			m_sCurTextureData =  L"Stone";
+			m_sCurTextureKey =   L"Stone";
+			m_strCurObjectName = L"Stone";
+		};
+
+
+		if (ImGui::ImageButton("Sky_Color_Tree", m_vecObjectTexture[29], imageSize))
+		{
+			m_sCurTextureData =  L"Sky_Color_Tree";
+			m_sCurTextureKey =   L"Sky_Color_Tree";
+			m_strCurObjectName = L"Sky_Color_Tree";
+		};
+
+		if (ImGui::ImageButton("Cave_Entrance", m_vecObjectTexture[30], imageSize))
+		{
+			m_sCurTextureData =  L"Cave_Entrance";
+			m_sCurTextureKey =   L"Cave_Entrance";
+			m_strCurObjectName = L"Cave_Entrance";
+		};
+
+
 		//일단 오브젝트 생성해보기 
 		ImGui::End();
 
@@ -868,7 +892,7 @@ void CImgui_ObjectTool::Read()
 	ofn.nFilterIndex = 1;      // 기본 선택 파일 형식
 	ofn.lpstrFileTitle = NULL;
 	ofn.nMaxFileTitle = 0;
-	ofn.lpstrInitialDir = L"C:\\Users\\tjsgh\\Desktop\\9월24일최종본\\Client\\Map\\";  // 초기 디렉토리
+	ofn.lpstrInitialDir = L"C:\\Users\\tjsgh\\Desktop\\SR_Team_Project3_Real\\09_12_FrameWork\\Client\\Map";  // 초기 디렉토리
 	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_OVERWRITEPROMPT;
 
 	// 파일 열기 대화상자 표시
@@ -1057,17 +1081,34 @@ _vec3 CImgui_ObjectTool::PickingOnTerrain()
 	D3DXVec3TransformNormal(&vRayDir, &vRayDir, &matView);
 
 	// 월드 좌표에서 할거니깐 터레인의 월드좌표 점들을 가져와야함 
-	CMapTex* pTerrainBufferCom = dynamic_cast<CMapTex*>(Engine::Get_Component(ID_STATIC, L"Layer_Environment", L"Map", L"Com_Buffer"));
+	//CMapTex* pTerrainBufferCom = dynamic_cast<CMapTex*>(Engine::Get_Component(ID_STATIC, L"Layer_Environment", L"Map", L"Com_Buffer"));
+	//if (pTerrainBufferCom == nullptr)
+	//{
+	//	MSG_BOX("pTerrainBufferCom is nullptr");
+	//}
+	//
+	//CTransform* pTerrainTransCom = dynamic_cast<CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_Environment", L"Map", L"Com_Transform"));
+	//if (pTerrainBufferCom == nullptr)
+	//{
+	//	MSG_BOX("pTerrainTransCom is nullptr");
+	//}
+
+	CMapTex* pTerrainBufferCom = dynamic_cast<CMapTex*>(Engine::Get_Component(ID_STATIC, L"Layer_Environment", L"WorldHeartMap", L"Com_Buffer"));
 	if (pTerrainBufferCom == nullptr)
 	{
 		MSG_BOX("pTerrainBufferCom is nullptr");
 	}
 
-	CTransform* pTerrainTransCom = dynamic_cast<CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_Environment", L"Map", L"Com_Transform"));
+	CTransform* pTerrainTransCom = dynamic_cast<CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_Environment", L"WorldHeartMap", L"Com_Transform"));
 	if (pTerrainBufferCom == nullptr)
 	{
 		MSG_BOX("pTerrainTransCom is nullptr");
 	}
+
+
+	//WorldHeartMap;
+	//WorldHeartMap;
+	//Proto_WorldHeartMap
 
 
 	const _vec3* pTerrainTexPos = pTerrainBufferCom->Get_VtxPos(); // 여기도 문제가 생김( 다 0,0,0)을 가져오네

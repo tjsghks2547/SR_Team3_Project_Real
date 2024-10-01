@@ -113,8 +113,8 @@ HRESULT CMapEditor::Ready_Layer_Environment(const _tchar* pLayerTag)
 	pGameObject = CWorldHeartMap::Create(m_pGraphicDev);		
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);	
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"WorldHeartMap", pGameObject), E_FAIL);		
-	pGameObject->SetObjectKey(L"WorldHeartMap");		
-	pGameObject->SetTextureKey(L"WorldHeartMap");	
+	pGameObject->SetObjectKey(L"Map");		
+	pGameObject->SetTextureKey(L"Map");	
 
 	m_mapLayer.insert({ pLayerTag, pLayer });	
 		

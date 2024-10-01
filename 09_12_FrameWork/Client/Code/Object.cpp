@@ -205,6 +205,22 @@ void CObject::Render_GameObject()
 		m_pGraphicDev->SetTexture(0, m_vecTexture[27]);
 	}
 
+	if (m_strTextureKey == L"Stone")
+	{
+		m_pGraphicDev->SetTexture(0, m_vecTexture[28]);
+	}
+
+	if (m_strTextureKey == L"Sky_Color_Tree")
+	{
+		m_pGraphicDev->SetTexture(0, m_vecTexture[29]);
+	}
+
+	if (m_strTextureKey == L"Cave_Entrance")
+	{
+		m_pGraphicDev->SetTexture(0, m_vecTexture[30]);
+	}
+
+
 
 	/*Telephone2Pole
 			Bench
@@ -217,7 +233,7 @@ void CObject::Render_GameObject()
 
 	m_pBufferCom->Render_Buffer();
 
-	m_pBoundBox->Render_Buffer();
+	//m_pBoundBox->Render_Buffer();
 
 
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
@@ -242,10 +258,10 @@ HRESULT CObject::Add_Component()
 	
 	 
 	// 9월 23일 추가 선환 충돌관련 박스 
-	pComponent = m_pBoundBox = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	m_pBoundBox->SetGameObjectPtr(this);
-	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collider", pComponent });
+	//pComponent = m_pBoundBox = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
+	//NULL_CHECK_RETURN(pComponent, E_FAIL);
+	//m_pBoundBox->SetGameObjectPtr(this);
+	//m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collider", pComponent });
 
 	return S_OK;	
 
