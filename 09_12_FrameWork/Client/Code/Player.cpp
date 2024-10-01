@@ -273,6 +273,22 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
         NULL_CHECK_RETURN(pItem);
         m_pInven->Add_Item(pItem);
 
+        pItem = dynamic_cast<CAppleHat*>(CAppleHat::Create(m_pGraphicDev));
+        NULL_CHECK_RETURN(pItem);
+        m_pInven->Add_Item(pItem);
+
+        pItem = dynamic_cast<CEnkyHat*>(CEnkyHat::Create(m_pGraphicDev));
+        NULL_CHECK_RETURN(pItem);
+        m_pInven->Add_Item(pItem);
+
+        pItem = dynamic_cast<CPenguin*>(CPenguin::Create(m_pGraphicDev));
+        NULL_CHECK_RETURN(pItem);
+        m_pInven->Add_Item(pItem);
+
+        pItem = dynamic_cast<CPoopHat*>(CPoopHat::Create(m_pGraphicDev));
+        NULL_CHECK_RETURN(pItem);
+        m_pInven->Add_Item(pItem);
+
         pItem = dynamic_cast<CSmallFruit*>(CSmallFruit::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
         m_pInven->Add_Item(pItem);
@@ -280,36 +296,88 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
         pItem = dynamic_cast<CMiddleFruit*>(CMiddleFruit::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
         m_pInven->Add_Item(pItem);
+
+        pItem = dynamic_cast<CBigFruit*>(CBigFruit::Create(m_pGraphicDev));
+        NULL_CHECK_RETURN(pItem);
+        m_pInven->Add_Item(pItem);
+
+        pItem = dynamic_cast<CSmallHerb*>(CSmallHerb::Create(m_pGraphicDev));
+        NULL_CHECK_RETURN(pItem);
+        m_pInven->Add_Item(pItem);
+
+        pItem = dynamic_cast<CMiddleHerb*>(CMiddleHerb::Create(m_pGraphicDev));
+        NULL_CHECK_RETURN(pItem);
+        m_pInven->Add_Item(pItem);
+
+        pItem = dynamic_cast<CBigHerb*>(CBigHerb::Create(m_pGraphicDev));
+        NULL_CHECK_RETURN(pItem);
+        m_pInven->Add_Item(pItem);
+
+        pItem = dynamic_cast<CSmallRoot*>(CSmallRoot::Create(m_pGraphicDev));
+        NULL_CHECK_RETURN(pItem);
+        m_pInven->Add_Item(pItem);
+
+        pItem = dynamic_cast<CMiddleRoot*>(CMiddleRoot::Create(m_pGraphicDev));
+        NULL_CHECK_RETURN(pItem);
+        m_pInven->Add_Item(pItem);
+
+        pItem = dynamic_cast<CBigRoot*>(CBigRoot::Create(m_pGraphicDev));
+        NULL_CHECK_RETURN(pItem);
+        m_pInven->Add_Item(pItem);
+
+        pItem = dynamic_cast<CCookSmallFish*>(CCookSmallFish::Create(m_pGraphicDev));
+        NULL_CHECK_RETURN(pItem);
+        m_pInven->Add_Item(pItem);
+
+        pItem = dynamic_cast<CCookMiddleFish*>(CCookMiddleFish::Create(m_pGraphicDev));
+        NULL_CHECK_RETURN(pItem);
+        m_pInven->Add_Item(pItem);
+
+        pItem = dynamic_cast<CCookBigFish*>(CCookBigFish::Create(m_pGraphicDev));
+        NULL_CHECK_RETURN(pItem);
+        m_pInven->Add_Item(pItem);
+
+
+        pItem = dynamic_cast<CBranch*>(CBranch::Create(m_pGraphicDev));
+        NULL_CHECK_RETURN(pItem);
+        m_pInven->Add_Item(pItem);
+
+        pItem = dynamic_cast<CLeaf*>(CLeaf::Create(m_pGraphicDev));
+        NULL_CHECK_RETURN(pItem);
+        m_pInven->Add_Item(pItem);
+
+        pItem = dynamic_cast<CNet*>(CNet::Create(m_pGraphicDev));
+        NULL_CHECK_RETURN(pItem);
+        m_pInven->Add_Item(pItem);
+
+        pItem = dynamic_cast<CExpressTicket*>(CExpressTicket::Create(m_pGraphicDev));
+        NULL_CHECK_RETURN(pItem);
+        m_pInven->Add_Item(pItem);
+
     }
 
-    if (Engine::GetKeyDown(DIK_1))
-    {
-        m_pQuickSlot->Use_QuickItem(0);
-    }
-    else if (Engine::GetKeyDown(DIK_2))
-    {
-        m_pQuickSlot->Use_QuickItem(1);
-    }
-    else if (Engine::GetKeyDown(DIK_3))
-    {
-        m_pQuickSlot->Use_QuickItem(2);
-    }
-    else if (Engine::GetKeyDown(DIK_4))
-    {
-        m_pQuickSlot->Use_QuickItem(3);
-    }
+    //if (Engine::GetKeyDown(DIK_1))
+    //{
+    //    m_pQuickSlot->Use_QuickItem(0);
+    //}
+    //else if (Engine::GetKeyDown(DIK_2))
+    //{
+    //    m_pQuickSlot->Use_QuickItem(1);
+    //}
+    //else if (Engine::GetKeyDown(DIK_3))
+    //{
+    //    m_pQuickSlot->Use_QuickItem(2);
+    //}
+    //else if (Engine::GetKeyDown(DIK_4))
+    //{
+    //    m_pQuickSlot->Use_QuickItem(3);
+    //}
 
     //오 이것도 됨?굿굿
     for (int i = 0; i < 4; i++)
     {
         if (Engine::GetKeyDown(DIK_1 + i))
             m_pQuickSlot->Use_QuickItem(i);
-    }
-
-
-    if (Engine::GetKeyDown(DIK_K))
-    {
-        //0923 임시 대화상자
     }
 
     if (Engine::GetKeyDown(DIK_SPACE))
