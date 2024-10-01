@@ -7,6 +7,7 @@ class CTexture;
 class CRcTex;
 class CTransform;
 class CPipeBoardCom;
+class CCollider;
 
 END
 
@@ -36,6 +37,7 @@ private:
 	Engine::CTexture* m_pTextureCom;
 	Engine::CTransform* m_pTransformCom;
 	Engine::CPipeBoardCom* m_pPipeBoardCom;
+	Engine::CCollider* m_pBoundBox;
 
 public:
 	static CPipeBoard* Create(LPDIRECT3DDEVICE9 pGraphicDev);	

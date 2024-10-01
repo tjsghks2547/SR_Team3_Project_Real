@@ -17,7 +17,7 @@ HRESULT CTestCol::Ready_GameObject()
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
     m_pTransformCom->m_vScale = { 10.f, 10.f, 10.f };
 
-    SetObjectType(OBJ_TYPE::PUSH_ABLE);
+    SetObjectType(OBJ_TYPE::LIFT_ABLE);
 
     LoadTextureFromFile(m_pGraphicDev,
         "../Bin/Resource/Texture/puzzle/Sprite_FirePit.png",

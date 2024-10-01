@@ -47,14 +47,18 @@ public:
 //0915 Seonhwan
 protected:
 	wstring m_strKey; // 게임오브젝트가 자신이 어떤 명칭으로 저장되있는지 알기 위해서
-
+	TAG m_eTag;
 	//0920 Seonhwan
 	wstring m_strTextureKey; // 게임오브젝트의 텍스처 키 
+	_bool m_bIsActive;
 
 //0915 Seonhwan
 public:
 	void SetObjectKey(wstring _strKey) { m_strKey = _strKey; }
 	wstring GetObjectKey() { return m_strKey; }
+	TAG Get_Tag() { return m_eTag; }
+	void Set_Active(_bool _bIsActive) { m_bIsActive = _bIsActive; }
+	_bool Is_Active() { return m_bIsActive; }
 
 	//0920 Seonhwan
 	

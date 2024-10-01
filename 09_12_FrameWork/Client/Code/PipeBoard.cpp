@@ -16,7 +16,7 @@ CPipeBoard::~CPipeBoard()
 HRESULT CPipeBoard::Ready_GameObject()
 {
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 50.f, 50.f, 0.f };
+	m_pTransformCom->m_vScale = { 50.f, 50.f, 10.f };
 	m_pTransformCom->Rotation(ROT_X, 90.f * 3.14f / 180.f);	
 	m_pTransformCom->Set_Pos(-50.f, 0.02f, 50.f);
 	m_pPipeBoardCom->m_iCurPipeCount = 0;
@@ -193,6 +193,7 @@ void CPipeBoard::Render_GameObject()
 	m_pTextureCom->Set_Texture();
 	//m_pGraphicDev->SetTexture();
 	m_pBufferCom->Render_Buffer();
+	//m_pBoundBox->Render_Buffer();
 
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
@@ -216,6 +217,11 @@ HRESULT CPipeBoard::Add_Component()
 	pComponent = m_pPipeBoardCom = dynamic_cast<CPipeBoardCom*>(Engine::Clone_Proto(L"Proto_PipeBoard"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_PipeBoard", pComponent });
+
+	pComponent = m_pBoundBox = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	m_pBoundBox->SetGameObjectPtr(this);
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collider", pComponent });
 
 	return S_OK;
 }
@@ -415,6 +421,7 @@ CPipeBoard* CPipeBoard::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 		return nullptr;
 	}
 
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pPipeBoard);
 	return pPipeBoard;	
 }
 

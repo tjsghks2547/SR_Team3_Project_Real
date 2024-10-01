@@ -17,7 +17,7 @@ CMusicStatue::~CMusicStatue()
 HRESULT CMusicStatue::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 4.5f, 4.f, 0.f };
+	m_pTransformCom->m_vScale = { 4.5f, 4.f, 4.5f };
 	m_vecKeyOrder.push_back(0);
 	m_vecKeyOrder.push_back(1);
 	m_vecKeyOrder.push_back(2);
@@ -48,8 +48,14 @@ void CMusicStatue::Render_GameObject()
 
 	m_pTextureCom->Set_Texture();
 	m_pBufferCom->Render_Buffer();
+	//m_pBoundBox->Render_Buffer();
 
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+}
+
+void CMusicStatue::OnCollisionEnter(CGameObject* _pOther)
+{
+
 }
 
 void CMusicStatue::Play_Music()
@@ -112,6 +118,11 @@ HRESULT CMusicStatue::Add_Component()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 
+	pComponent = m_pBoundBox = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	m_pBoundBox->SetGameObjectPtr(this);
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collider", pComponent });
+
 	return S_OK;
 }
 
@@ -126,6 +137,7 @@ CMusicStatue* CMusicStatue::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 		return nullptr;
 	}
 
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pMusicStatue);
 	return pMusicStatue;
 }
 

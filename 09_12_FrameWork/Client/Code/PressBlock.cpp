@@ -15,9 +15,9 @@ CPressBlock::~CPressBlock()
 HRESULT CPressBlock::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 6.f, 6.f, 0.f };
-	m_pTransformCom->Rotation(ROT_X, 90.f * 3.14159265359f / 180.f);
-	m_pTransformCom->Set_Pos(0.f, 0.05f, 0.f);
+	m_pTexTransformCom->m_vScale = { 15.f, 15.f, 15.f };
+	m_pTexTransformCom->Rotation(ROT_X, 90.f * 3.14159265359f / 180.f);
+	m_pTransformCom->m_vScale = { 15.f, 15.f, 15.f };
 	m_iImageID = 0;
 	m_bIsPressed = false;
 	m_bIsCleared = false;
@@ -43,11 +43,6 @@ _int CPressBlock::Update_GameObject(const _float& fTimeDelta)
 {
 	Add_RenderGroup(RENDER_ALPHA, this);
 
-	//if (Engine::GetKeyUp(DIK_5))
-	//{
-	//	On_CollisionEnter();
-	//}
-
 	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
 	return iExit;
@@ -60,13 +55,18 @@ void CPressBlock::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CPressBlock::Render_GameObject()
 {
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTexTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	if (m_bIsCleared)
 		m_pGraphicDev->SetTexture(0, m_vecTexture[8]);
 	else
 		m_pGraphicDev->SetTexture(0, m_vecTexture[m_iImageID + (m_bIsPressed * 4)]);
 	m_pBufferCom->Render_Buffer();
+
+	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	//m_pBoundBox->Render_Buffer();
+
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 
@@ -82,14 +82,23 @@ HRESULT CPressBlock::Add_Component()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
 
+	pComponent = m_pTexTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_TexTransform", pComponent });
+
 	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 
+	pComponent = m_pBoundBox = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	m_pBoundBox->SetGameObjectPtr(this);
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collider", pComponent });
+
 	return S_OK;
 }
 
-void CPressBlock::On_CollisionEnter()
+void CPressBlock::OnCollisionEnter(CGameObject* _pOther)
 {
 	if (m_bIsCleared) {
 		m_iImageID = 8;
@@ -105,7 +114,7 @@ void CPressBlock::On_CollisionEnter()
 		static_cast<CCrystalPuzzle*>(m_pGroup)->Check_Matched();
 }
 
-void CPressBlock::On_CollisionExit()
+void CPressBlock::OnCollisionExit(CGameObject* _pOther)
 {
 	m_bIsPressed = false;
 }
@@ -121,6 +130,7 @@ CPressBlock* CPressBlock::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 		return nullptr;
 	}
 
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pPressBlock);
 	return pPressBlock;
 }
 

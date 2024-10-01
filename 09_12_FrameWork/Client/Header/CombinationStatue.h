@@ -6,6 +6,7 @@ BEGIN(Engine)
 class CTexture;
 class CRcTex;
 class CTransform;
+class CCollider;
 
 END
 
@@ -30,6 +31,7 @@ private:
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTexture* m_pTextureCom;
 	Engine::CTransform* m_pTransformCom;
+	Engine::CCollider* m_pBoundBox;
 
 private:
 	HRESULT    Add_Component();

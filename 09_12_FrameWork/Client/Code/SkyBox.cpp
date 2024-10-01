@@ -23,7 +23,13 @@ HRESULT CSkyBox::Ready_GameObject()
 _int CSkyBox::Update_GameObject(const _float& fTimeDelta)
 {
     Add_RenderGroup(RENDER_PRIORITY, this);
-    
+  
+
+    return Engine::CGameObject::Update_GameObject(fTimeDelta);
+}
+
+void CSkyBox::LateUpdate_GameObject(const _float& fTimeDelta)
+{
     Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
 
     _matrix matCamWorld;
@@ -31,13 +37,6 @@ _int CSkyBox::Update_GameObject(const _float& fTimeDelta)
     D3DXMatrixInverse(&matCamWorld, NULL, &matCamWorld);
 
     m_pTransformCom->Set_Pos(matCamWorld._41, matCamWorld._42 + 3.f, matCamWorld._43);
-
-    return Engine::CGameObject::Update_GameObject(fTimeDelta);
-}
-
-void CSkyBox::LateUpdate_GameObject(const _float& fTimeDelta)
-{
-    
 }
 
 void CSkyBox::Render_GameObject()

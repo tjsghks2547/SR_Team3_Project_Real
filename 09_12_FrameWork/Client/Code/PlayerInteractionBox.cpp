@@ -39,7 +39,7 @@ _int CPlayerInteractionBox::Update_GameObject(const _float& fTimeDelta)
         _vec3 pos;
         m_playerTransform->Get_Info(INFO_POS, &pos);
         pos.x += vPlayerDir.x * 15;
-        pos.y += vPlayerDir.z * 15;
+        pos.z += vPlayerDir.z * 15;
 
         m_pTransformCom->Set_Pos(pos);
     }

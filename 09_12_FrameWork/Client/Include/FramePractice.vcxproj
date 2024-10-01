@@ -149,10 +149,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\SR_TEAM3\09_12_FrameWork\Client\Header\Catapult.h" />
     <ClInclude Include="..\Header\BackGround.h" />
     <ClInclude Include="..\Header\BoardCursor.h" />
     <ClInclude Include="..\Header\BugStatue.h" />
     <ClInclude Include="..\Header\BugStatuePuzzle.h" />
+    <ClInclude Include="..\Header\ColorStone.h" />
     <ClInclude Include="..\Header\CombinationPuzzle.h" />
     <ClInclude Include="..\Header\CombinationStatue.h" />
     <ClInclude Include="..\Header\Crystal.h" />
@@ -162,6 +164,7 @@
     <ClInclude Include="..\Header\ExploreHat.h" />
     <ClInclude Include="..\Header\ExpressMonkey.h" />
     <ClInclude Include="..\Header\FirePit.h" />
+    <ClInclude Include="..\Header\FlowerGlow.h" />
     <ClInclude Include="..\Header\ImGuiManger.h" />
     <ClInclude Include="..\Header\Imgui_ObjectTool.h" />
     <ClInclude Include="..\Header\Imgui_Terrain.h" />
@@ -169,6 +172,7 @@
     <ClInclude Include="..\Header\InvenUI.h" />
     <ClInclude Include="..\Header\Item.h" />
     <ClInclude Include="..\Header\ItemSelector.h" />
+    <ClInclude Include="..\Header\LightFlower.h" />
     <ClInclude Include="..\Header\Loading.h" />
     <ClInclude Include="..\Header\Logo.h" />
     <ClInclude Include="..\Header\MainApp.h" />
@@ -186,6 +190,7 @@
     <ClInclude Include="..\Header\PartyHat.h" />
     <ClInclude Include="..\Header\Pipe.h" />
     <ClInclude Include="..\Header\PipeBoard.h" />
+    <ClInclude Include="..\Header\PlantOrb.h" />
     <ClInclude Include="..\Header\Player.h" />
     <ClInclude Include="..\Header\PlayerDance.h" />
     <ClInclude Include="..\Header\PlayerDash.h" />
@@ -206,6 +211,7 @@
     <ClInclude Include="..\Header\QuickSlot.h" />
     <ClInclude Include="..\Header\Ray.h" />
     <ClInclude Include="..\Header\Scale.h" />
+    <ClInclude Include="..\Header\ShootingPlant.h" />
     <ClInclude Include="..\Header\SkyBox.h" />
     <ClInclude Include="..\Header\SmallFruit.h" />
     <ClInclude Include="..\Header\Stage.h" />
@@ -242,10 +248,12 @@
     <ClInclude Include="Types.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\SR_TEAM3\09_12_FrameWork\Client\Code\Catapult.cpp" />
     <ClCompile Include="..\Code\BackGround.cpp" />
     <ClCompile Include="..\Code\BoardCursor.cpp" />
     <ClCompile Include="..\Code\BugStatue.cpp" />
     <ClCompile Include="..\Code\BugStatuePuzzle.cpp" />
+    <ClCompile Include="..\Code\ColorStone.cpp" />
     <ClCompile Include="..\Code\CombinationPuzzle.cpp" />
     <ClCompile Include="..\Code\CombinationStatue.cpp" />
     <ClCompile Include="..\Code\Crystal.cpp" />
@@ -254,12 +262,14 @@
     <ClCompile Include="..\Code\ExploreHat.cpp" />
     <ClCompile Include="..\Code\ExpressMonkey.cpp" />
     <ClCompile Include="..\Code\FirePit.cpp" />
+    <ClCompile Include="..\Code\FlowerGlow.cpp" />
     <ClCompile Include="..\Code\ImGuiManger.cpp" />
     <ClCompile Include="..\Code\Imgui_ObjectTool.cpp" />
     <ClCompile Include="..\Code\Imgui_Terrain.cpp" />
     <ClCompile Include="..\Code\InteractionButton.cpp" />
     <ClCompile Include="..\Code\InvenUI.cpp" />
     <ClCompile Include="..\Code\Item.cpp" />
+    <ClCompile Include="..\Code\LightFlower.cpp" />
     <ClCompile Include="..\Code\Loading.cpp" />
     <ClCompile Include="..\Code\Logo.cpp" />
     <ClCompile Include="..\Code\MainApp.cpp" />
@@ -277,6 +287,7 @@
     <ClCompile Include="..\Code\PartyHat.cpp" />
     <ClCompile Include="..\Code\Pipe.cpp" />
     <ClCompile Include="..\Code\PipeBoard.cpp" />
+    <ClCompile Include="..\Code\PlantOrb.cpp" />
     <ClCompile Include="..\Code\Player.cpp" />
     <ClCompile Include="..\Code\PlayerDance.cpp" />
     <ClCompile Include="..\Code\PlayerDash.cpp" />
@@ -297,6 +308,7 @@
     <ClCompile Include="..\Code\QuickSlot.cpp" />
     <ClCompile Include="..\Code\Ray.cpp" />
     <ClCompile Include="..\Code\Scale.cpp" />
+    <ClCompile Include="..\Code\ShootingPlant.cpp" />
     <ClCompile Include="..\Code\SkyBox.cpp" />
     <ClCompile Include="..\Code\SmallFruit.cpp" />
     <ClCompile Include="..\Code\Stage.cpp" />

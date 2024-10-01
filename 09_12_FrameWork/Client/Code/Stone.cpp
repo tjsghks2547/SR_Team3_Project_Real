@@ -14,8 +14,10 @@ CStone::~CStone()
 HRESULT CStone::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 3.f, 3.f, 0.f };
-
+	m_pTransformCom->m_vScale = { 15.f, 15.f, 15.f };	
+	m_eTag = OBJ_STONE;
+	m_eObjType = PUSH_ABLE;
+	m_bIsLaunched = false;
 	return S_OK;
 }
 
@@ -23,6 +25,24 @@ _int CStone::Update_GameObject(const _float& fTimeDelta)
 {
 	Add_RenderGroup(RENDER_ALPHA, this);
 	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
+	_vec3 position;
+	m_pTransformCom->Get_Info(INFO_POS, &position);
+
+	if (m_bIsLaunched) {
+		const float gravity = -9.8f;
+		// 속도 업데이트
+		m_vVelocity.y += gravity * fTimeDelta * 7.f;
+		// 위치 업데이트
+		position += m_vVelocity * fTimeDelta * 7.f;
+
+		if (position.y <= 15.0f) {
+			m_bIsLaunched = false;
+			m_pTransformCom->Set_Pos(position.x, 15.f, position.z);
+		}
+		else {
+			m_pTransformCom->Set_Pos(position.x, position.y, position.z);
+		}					
+	}
 
 	return iExit;
 }
@@ -37,9 +57,29 @@ void CStone::Render_GameObject()
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	m_pTextureCom->Set_Texture();
-	m_pBufferCom->Render_Buffer();
+	m_pBufferCom->Render_Buffer();	
+	m_pBoundBox->Render_Buffer();
 
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW); 
+	m_pGraphicDev->SetTexture(0, NULL); 
+}
+
+void CStone::OnCollision(CGameObject* _pOther)
+{
+}
+
+void CStone::OnCollisionEnter(CGameObject* _pOther)
+{
+}
+
+void CStone::OnCollisionExit(CGameObject* _pOther)	
+{
+}
+
+void CStone::Launch()
+{
+	m_bIsLaunched = true;
+	m_vVelocity = { 0, 25.0f, 20.0f };
 }
 
 HRESULT CStone::Add_Component()
@@ -58,21 +98,28 @@ HRESULT CStone::Add_Component()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 
+	pComponent = m_pBoundBox = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	m_pBoundBox->SetGameObjectPtr(this);
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collider", pComponent });
+
 	return S_OK;
 }
 
 CStone* CStone::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	CStone* pCrystal = new CStone(pGraphicDev);
+	CStone* pStone = new CStone(pGraphicDev);
 
-	if (FAILED(pCrystal->Ready_GameObject()))
+	if (FAILED(pStone->Ready_GameObject()))
 	{
-		Safe_Release(pCrystal);
+		Safe_Release(pStone);
 		MSG_BOX("pPipeBoard Create Failed");
 		return nullptr;
 	}
 
-	return pCrystal;
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pStone);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PUZZLE, pStone);
+	return pStone;
 }
 
 void CStone::Free()

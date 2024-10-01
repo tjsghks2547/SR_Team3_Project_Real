@@ -6,7 +6,7 @@ BEGIN(Engine)
 class CTexture;
 class CRcTex;
 class CTransform;
-class CPipeBoardCom;
+class CCollider;
 
 END
 
@@ -25,10 +25,11 @@ public:
 public:
 	void Set_ImageID(_int _iId) { m_iImageID = _iId; }
 	_int Get_ImageID() { return m_iImageID; }
-	void Init_Position(float _fX, float _fY, float _fZ);
+	void Init_Position(float _fX, float _fZ);
 	void Set_LeftPedestal(CGameObject* _pObj) { m_pLeftPedestal = _pObj; }
 	void Set_RightPedestal(CGameObject* _pObj) { m_pRightPedestal = _pObj; }	
 	void Match_Puzzle() override;
+	void Measure_Weight();
 
 private:
 	HRESULT    Add_Component();
@@ -37,6 +38,7 @@ private:
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTexture* m_pTextureCom;
 	Engine::CTransform* m_pTransformCom;
+	Engine::CCollider* m_pBoundBox;
 
 	Engine::CTexture* m_pLeftCompTextureCom;
 	Engine::CTransform* m_pLeftCompTransformCom;

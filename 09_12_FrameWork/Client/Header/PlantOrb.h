@@ -7,50 +7,48 @@ class CTexture;
 class CRcTex;
 class CTransform;
 class CCollider;
+class CPlantBulletCom;
 
 END
 
-class CPressBlock :public Engine::CGameObject
+class CPlantOrb :public Engine::CGameObject
 {
 private:
-	explicit CPressBlock(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual ~CPressBlock();
+	explicit CPlantOrb(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual ~CPlantOrb();
 
 public:
 	virtual   HRESULT   Ready_GameObject();
 	virtual   _int      Update_GameObject(const _float& fTimeDelta);
 	virtual   void	    LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual   void      Render_GameObject();
+	virtual void OnCollision(CGameObject* _pOther);
+	virtual void OnCollisionEnter(CGameObject* _pOther);
+	virtual void OnCollisionExit(CGameObject* _pOther);
+
+public:
+	void Set_ImageID(_int _iId) { m_iImageID = _iId; }
+	_int Get_ImageID() { return m_iImageID; }
+	void Set_Speed(_float _fSpeed) { m_fMoveSpeed = _fSpeed; }
 
 private:
 	HRESULT    Add_Component();
-
-public:
-	_bool Is_Clear() { return m_bIsCleared; }
-	_int Get_ImageID() { return m_iImageID; }
-	void Set_Clear(_int _bIsClear) { m_bIsCleared = _bIsClear; }
-	void Set_ImageID(_int _iID) { m_iImageID = _iID; }
-	void Set_Group(CGameObject* _pGroup) { m_pGroup = _pGroup; }
-		
-	virtual void OnCollisionEnter(CGameObject* _pOther);
-	virtual void OnCollisionExit(CGameObject* _pOther);
 
 private:
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTexture* m_pTextureCom;
 	Engine::CTransform* m_pTransformCom;
-	Engine::CTransform* m_pTexTransformCom;
+	Engine::CPlantBulletCom* m_pFlowerBullet;
 	Engine::CCollider* m_pBoundBox;
 
 public:
-	static CPressBlock* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CPlantOrb* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
-	CGameObject* m_pGroup;
 	vector<IDirect3DTexture9*> m_vecTexture;
 	_int m_iImageID;
-	_bool m_bIsPressed;
-	_bool m_bIsCleared;
+	_float m_fActiveTime;
+	_float m_fMoveSpeed;
 
 private:
 	bool LoadTextureFromFile(LPDIRECT3DDEVICE9 d3dDevice, const char* filePath, IDirect3DTexture9** outTexture)

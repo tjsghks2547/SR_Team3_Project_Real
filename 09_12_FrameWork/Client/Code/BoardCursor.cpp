@@ -32,7 +32,7 @@ _int CBoardCursor::Update_GameObject(const _float& fTimeDelta)
 	if (!m_bIsActive)
 		return iExit;
 
-	Add_RenderGroup(RENDER_ALPHA, this);
+	Add_RenderGroup(RENDER_NONALPHA, this);
 
 	//Engine::CTransform* pPlayerTransform = dynamic_cast<Engine::CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_GameLogic", L"Player", L"Com_Transform"));
 	//NULL_CHECK_RETURN(pPlayerTransform, -1);	
@@ -68,7 +68,7 @@ void CBoardCursor::Render_GameObject()
 
 HRESULT CBoardCursor::Add_Component()
 {
-	CComponent* pComponent = NULL;
+	CComponent* pComponent = NULL;	
 
 	pComponent = m_pBufferCom = dynamic_cast<CRcTex*>(Engine::Clone_Proto(L"Proto_RcTex"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);

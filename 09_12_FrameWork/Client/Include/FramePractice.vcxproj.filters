@@ -245,6 +245,24 @@
     <Filter Include="02. GameObject\07. Map\02.WorldHeartMap">
       <UniqueIdentifier>{553b5877-f473-4dad-9e6f-67c8b27e29c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\00. Common Object\04. ColorStone">
+      <UniqueIdentifier>{717795e3-909d-4bed-90f4-beb407bf2049}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\00. Common Object\05. Catapult">
+      <UniqueIdentifier>{78811740-6fc8-4ccb-822c-6b75d7feeb3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\00. Common Object\06. ShootingPlant">
+      <UniqueIdentifier>{4a82cd05-d40f-4f78-a5e2-6a101101381d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\00. Common Object\07. LightFlower">
+      <UniqueIdentifier>{ba4e4b20-ad8a-49e0-b3f6-fae58f9843ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\00. Common Object\06. ShootingPlant\PlantBullet">
+      <UniqueIdentifier>{366affaa-5892-435f-9665-eba2a774cc5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\00. Common Object\07. LightFlower\FlowerGlow">
+      <UniqueIdentifier>{34cdc09a-614f-4c29-b94d-d25293fc5256}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -526,12 +544,27 @@
     <ClInclude Include="WorldHeartMap.h">
       <Filter>02. GameObject\07. Map\02.WorldHeartMap</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\SR_TEAM3\09_12_FrameWork\Client\Header\Catapult.h">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\05. Catapult</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\LightFlower.h">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\07. LightFlower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ColorStone.h">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\04. ColorStone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\FlowerGlow.h">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\07. LightFlower\FlowerGlow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ShootingPlant.h">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\06. ShootingPlant</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PlantOrb.h">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\06. ShootingPlant\PlantBullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FramePractice.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="pch.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -797,6 +830,27 @@
     </ClCompile>
     <ClCompile Include="WorldHeartMap.cpp">
       <Filter>02. GameObject\07. Map\02.WorldHeartMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\SR_TEAM3\09_12_FrameWork\Client\Code\Catapult.cpp">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\05. Catapult</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\LightFlower.cpp">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\07. LightFlower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ColorStone.cpp">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\04. ColorStone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\FlowerGlow.cpp">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\07. LightFlower\FlowerGlow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ShootingPlant.cpp">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\06. ShootingPlant</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PlantOrb.cpp">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\06. ShootingPlant\PlantBullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

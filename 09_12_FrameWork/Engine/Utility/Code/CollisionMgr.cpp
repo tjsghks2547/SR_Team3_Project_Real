@@ -83,14 +83,13 @@ void CCollisionMgr::CollisionGroupUpdate(GROUP_TYPE _eLeft, GROUP_TYPE _eRight)
 	{
 
 		// 충돌체를 보유하지 않은 경우 
-		if (vecLeft[i]->Find_Component(ID_DYNAMIC, L"Com_Collider") == nullptr)
+		if (vecLeft[i]->Find_Component(ID_DYNAMIC, L"Com_Collider") == nullptr || vecLeft[i]->Is_Active() == false)
 			continue;
 
 		for (size_t j = 0; j < vecRight.size(); ++j)
 		{
 			// 충돌체가 없거나, 자기 자신과의 충돌인 경우 
-			if (nullptr == vecRight[j]->Find_Component(ID_DYNAMIC, L"Com_Collider")
-				|| vecLeft[i] == vecRight[j])
+			if (nullptr == vecRight[j]->Find_Component(ID_DYNAMIC, L"Com_Collider") || vecRight[j]->Is_Active() == false || vecLeft[i] == vecRight[j])
 			{
 				continue;
 			}
@@ -119,7 +118,7 @@ void CCollisionMgr::CollisionGroupUpdate(GROUP_TYPE _eLeft, GROUP_TYPE _eRight)
 				
 				if(iter->second)
 				{
-					// 지금도 충돌중인데 이전에도 충돌하고 있는 경우
+					// 지금도 충돌중인데 이전에도 충돌하고 있는 경우					
 					vecLeft[i]->OnCollision(vecRight[j]);
 					vecRight[j]->OnCollision(vecLeft[i]);
 				}

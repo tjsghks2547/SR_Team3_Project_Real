@@ -23,6 +23,8 @@ public:
 
 	void Set_ImageID(_int _iId) { m_iImageID = _iId; }
 	_int Get_ImageID() { return m_iImageID; }
+	void Init(_float _fX, _float _fZ, _int _iID);
+	void Active_Block();
 
 private:
 	Engine::CRcTex* m_pBufferCom;

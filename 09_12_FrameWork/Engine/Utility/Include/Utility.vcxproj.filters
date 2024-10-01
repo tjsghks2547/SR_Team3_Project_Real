@@ -115,6 +115,9 @@
     <Filter Include="04. Component\02. Texture\03. Calculator">
       <UniqueIdentifier>{d70971f5-fdb5-4002-98fb-07c720b3edca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Component\06. Puzzle\PlantBullet">
+      <UniqueIdentifier>{e8ac4954-af50-4830-b60c-e86d2ea8ae51}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Header\Management.h">
@@ -225,6 +228,9 @@
     <ClInclude Include="..\..\Header\Animation2.h">
       <Filter>04. Component\07. Animatior2\Animation2</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Header\PlantBulletCom.h">
+      <Filter>04. Component\06. Puzzle\PlantBullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\Management.cpp">
@@ -328,6 +334,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\Animation2.cpp">
       <Filter>04. Component\07. Animatior2\Animation2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PlantBulletCom.cpp">
+      <Filter>04. Component\06. Puzzle\PlantBullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

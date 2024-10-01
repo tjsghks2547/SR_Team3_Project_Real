@@ -33,9 +33,9 @@ HRESULT CPlayer::Ready_GameObject()
     //0913 임시 코드
     m_tPlayerHP.iCurHP = 5;
     m_tPlayerHP.iMaxHP = 6;
-
+    m_eTag = OBJ_PLAYER;
     m_pTransformCom->m_vScale = { 20.f,20.f,20.f };
-    m_pTransformCom->Set_Pos(200.f, 30.f, 500.f);
+    m_pTransformCom->Set_Pos(200.f, 20.1f, 500.f);
 
     m_pStateControlCom->ChangeState(PlayerIdle::GetInstance(), this);
     return S_OK;

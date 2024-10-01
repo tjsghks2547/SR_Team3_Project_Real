@@ -22,11 +22,15 @@ public:
 	virtual   void      Render_GameObject();
 
 public:
-	void Set_Active(_bool _bIsActive) { m_bIsActive = _bIsActive; }
-	_bool Is_Active() { return m_bIsActive; }
 	void Set_ImageID(_int _iId) { m_iImageID = _iId; }
 	_int Get_ImageID() { return m_iImageID; }
-
+	void Add_Pedestal(CGameObject* _pObj) { m_vecPedestal.push_back(_pObj); }
+	void Add_Stone(CGameObject* _pObj) { m_vecStone.push_back(_pObj); }
+	void Set_PedestalPos(float _fX, float _fZ);	
+	void Puzzle_Clear();
+	void Add_StoneBlock(CGameObject* _pObj) { m_vecStoneBlocks.push_back(_pObj); }
+	void Add_StoneBlockHole(CGameObject* _pObj) { m_vecStoneBlocksHoles.push_back(_pObj); }
+		 
 private:
 	HRESULT    Add_Component();
 
@@ -38,9 +42,12 @@ private:
 public:
 	static CWeightComparator* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
-private:
-	_bool m_bIsActive;
+private:	
 	vector<IDirect3DTexture9*> m_vecTexture;
+	vector<CGameObject*> m_vecPedestal;
+	vector<CGameObject*> m_vecStone;
+	vector<CGameObject*> m_vecStoneBlocks;
+	vector<CGameObject*> m_vecStoneBlocksHoles;
 	_int m_iImageID;
 
 private:

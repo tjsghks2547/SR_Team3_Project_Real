@@ -14,7 +14,7 @@ CStoneBlockHole::~CStoneBlockHole()
 HRESULT CStoneBlockHole::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 4.f, 4.f, 0.f };
+	m_pTransformCom->m_vScale = { 20.f, 20.f, 0.f };
 	m_iImageID = 0;
 	m_pTransformCom->Rotation(ROT_X, 90.f * 3.14159265359f / 180.f);
 	m_vecTexture.resize(2);
@@ -45,6 +45,17 @@ void CStoneBlockHole::Render_GameObject()
 	m_pBufferCom->Render_Buffer();
 
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+}
+
+void CStoneBlockHole::Init(_float _fX, _float _fZ, _int _iID)
+{
+	m_pTransformCom->Set_Pos(_fX, 0.05f, _fZ);
+	m_iImageID = _iID;
+}
+
+void CStoneBlockHole::Active_Block()
+{
+	m_iImageID = m_iImageID == 0 ? 1 : 0;
 }
 
 HRESULT CStoneBlockHole::Add_Component()

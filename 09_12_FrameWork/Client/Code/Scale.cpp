@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "Scale.h"
+#include "Stone.h"
+#include "StonePedestal.h"
 #include "Export_Utility.h"
 
 CScale::CScale(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -14,7 +16,7 @@ CScale::~CScale()
 HRESULT CScale::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 15.f, 15.f, 0.f };
+	m_pTransformCom->m_vScale = { 15.f, 15.f, 6.f };
 	m_pLeftCompTransformCom->m_vScale = { 7.f, 7.f, 0.f };
 	m_pRightCompTransformCom->m_vScale = { 7.f, 7.f, 0.f };
 	m_vecTexture.resize(3);
@@ -44,6 +46,10 @@ void CScale::Render_GameObject()
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	m_pGraphicDev->SetTexture(0, m_vecTexture[m_iImageID]);
 	m_pBufferCom->Render_Buffer();
+	//m_pBoundBox->Render_Buffer();
+
+	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	m_pGraphicDev->SetTexture(0, NULL);
 
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pLeftCompTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
@@ -54,17 +60,20 @@ void CScale::Render_GameObject()
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	m_pRightCompTextureCom->Set_Texture();
 	m_pBufferCom->Render_Buffer();
-
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 
-void CScale::Init_Position(float _fX, float _fY, float _fZ)
+void CScale::Init_Position(float _fX, float _fZ)
 {
-	m_pLeftCompTransformCom->Set_Pos(_fX - 15.f, _fY - 14.9f, _fZ - 9.f);
+	m_pLeftCompTransformCom->Set_Pos(_fX - 15.f, 0.05f, _fZ - 9.f);
 	m_pLeftCompTransformCom->Rotation(ROT_X, 90.f * 3.14159265359f / 180.f);
 
-	m_pRightCompTransformCom->Set_Pos(_fX + 15.f, _fY - 14.9f, _fZ - 9.f);
+	m_pRightCompTransformCom->Set_Pos(_fX + 15.f, 0.05f, _fZ - 9.f);
 	m_pRightCompTransformCom->Rotation(ROT_X, 90.f * 3.14159265359f / 180.f);
+
+	static_cast<Engine::CTransform*>(m_pLeftPedestal->Get_Component(ID_DYNAMIC, L"Com_TexTransform"))->Set_Pos(_fX - 15.f, 0.05f, _fZ - 9.f);
+	static_cast<Engine::CTransform*>(m_pLeftPedestal->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(_fX - 15.f, 3.f, _fZ - 9.f);
+	static_cast<Engine::CTransform*>(m_pRightPedestal->Get_Component(ID_DYNAMIC, L"Com_TexTransform"))->Set_Pos(_fX + 15.f, 0.05f, _fZ - 9.f);
+	static_cast<Engine::CTransform*>(m_pRightPedestal->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(_fX + 15.f, 3.f, _fZ - 9.f);
 }
 
 HRESULT CScale::Add_Component()
@@ -99,6 +108,11 @@ HRESULT CScale::Add_Component()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_RightCompTransform", pComponent });
 
+	pComponent = m_pBoundBox = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	m_pBoundBox->SetGameObjectPtr(this);
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collider", pComponent });
+
 	return S_OK;
 }
 
@@ -113,6 +127,7 @@ CScale* CScale::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 		return nullptr;
 	}
 
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pCrystal);
 	return pCrystal;
 }
 
@@ -123,4 +138,16 @@ void CScale::Free()
 
 void CScale::Match_Puzzle()
 {
+	Measure_Weight();
+}
+
+void CScale::Measure_Weight()
+{
+	int tempL = static_cast<CStone*>(static_cast<CStonePedestal*>(m_pLeftPedestal)->Get_Stone())->Get_StoneID();
+	int tempR = static_cast<CStone*>(static_cast<CStonePedestal*>(m_pRightPedestal)->Get_Stone())->Get_StoneID();
+
+	if (tempL == -1 || tempR == -1)
+		return;
+
+	m_iImageID = tempL > tempR ? 1 : 2;
 }

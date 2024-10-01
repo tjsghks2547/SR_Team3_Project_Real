@@ -6,6 +6,7 @@ BEGIN(Engine)
 class CTexture;
 class CRcTex;
 class CTransform;
+class CCollider;
 
 END
 
@@ -25,7 +26,7 @@ private:
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTexture* m_pTextureCom;
 	Engine::CTransform* m_pTransformCom;
-
+	Engine::CCollider* m_pBoundBox;
 private:
 	HRESULT    Add_Component();
 
@@ -33,12 +34,16 @@ public:
 	_bool Is_Move() { return m_bIsMove; }
 	_int Get_ImageID() { return m_iImageID; }	
 	void Set_ImageID(_int _iID) { m_iImageID = _iID; }	
+	void Init(_float _fX, _float _fZ, _bool _bIsUp, _int _iID);
+	void Active_Block();
 
 private:	
 	_bool m_bIsMove;
-	_vec3 m_fTargetPos;
-	vector<IDirect3DTexture9*> m_vecTexture;	
 	_int m_iImageID;
+	_bool m_bIsUp;
+	_vec3 m_fTargetPos;
+	CGameObject* m_pHole;
+	vector<IDirect3DTexture9*> m_vecTexture;
 
 public:
 	static CStoneBlock* Create(LPDIRECT3DDEVICE9 pGraphicDev);		

@@ -6,6 +6,7 @@ BEGIN(Engine)
 class CTexture;
 class CRcTex;
 class CTransform;
+class CCollider;
 
 END
 
@@ -20,6 +21,9 @@ public:
 	virtual   _int      Update_GameObject(const _float& fTimeDelta);
 	virtual   void	    LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual   void      Render_GameObject();
+	virtual void OnCollision(CGameObject* _pOther);
+	virtual void OnCollisionEnter(CGameObject* _pOther);
+	virtual void OnCollisionExit(CGameObject* _pOther);
 
 public:
 	void Play_Note();
@@ -28,6 +32,7 @@ private:
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTexture* m_pTextureCom;
 	Engine::CTransform* m_pTransformCom;
+	Engine::CCollider* m_pBoundBox;
 
 private:
 	HRESULT    Add_Component();
@@ -35,8 +40,7 @@ private:
 public:
 	static CNoteStatue* Create(LPDIRECT3DDEVICE9 pGraphicDev);	
 	void Set_NoteID(_int _iID) { m_iNoteID = _iID; }
-	void Set_Group(CGameObject* _pObj) { m_pGroup = _pObj; }
-	void Key_Input(const _float& fTimeDelta);
+	void Set_Group(CGameObject* _pObj) { m_pGroup = _pObj; }	
 
 private:
 	_int m_iNoteID;

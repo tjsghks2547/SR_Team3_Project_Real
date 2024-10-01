@@ -10,47 +10,42 @@ class CCollider;
 
 END
 
-class CPressBlock :public Engine::CGameObject
+class CCatapult :public Engine::CGameObject
 {
 private:
-	explicit CPressBlock(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual ~CPressBlock();
+	explicit CCatapult(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual ~CCatapult();
 
 public:
 	virtual   HRESULT   Ready_GameObject();
 	virtual   _int      Update_GameObject(const _float& fTimeDelta);
 	virtual   void	    LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual   void      Render_GameObject();
+	virtual void OnCollision(CGameObject* _pOther);
+	virtual void OnCollisionEnter(CGameObject* _pOther);
+	virtual void OnCollisionExit(CGameObject* _pOther);
+
+public:
+	void Init_Pos(_float _fX, _float fZ);
 
 private:
 	HRESULT    Add_Component();
 
-public:
-	_bool Is_Clear() { return m_bIsCleared; }
-	_int Get_ImageID() { return m_iImageID; }
-	void Set_Clear(_int _bIsClear) { m_bIsCleared = _bIsClear; }
-	void Set_ImageID(_int _iID) { m_iImageID = _iID; }
-	void Set_Group(CGameObject* _pGroup) { m_pGroup = _pGroup; }
-		
-	virtual void OnCollisionEnter(CGameObject* _pOther);
-	virtual void OnCollisionExit(CGameObject* _pOther);
-
 private:
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTexture* m_pTextureCom;
+	Engine::CTexture* m_pBucketTextureCom;
 	Engine::CTransform* m_pTransformCom;
 	Engine::CTransform* m_pTexTransformCom;
+	Engine::CTransform* m_pBucketTexTransformCom;
 	Engine::CCollider* m_pBoundBox;
 
 public:
-	static CPressBlock* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CCatapult* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
-	CGameObject* m_pGroup;
-	vector<IDirect3DTexture9*> m_vecTexture;
-	_int m_iImageID;
-	_bool m_bIsPressed;
-	_bool m_bIsCleared;
+	CGameObject* m_pReadyStone;
+
 
 private:
 	bool LoadTextureFromFile(LPDIRECT3DDEVICE9 d3dDevice, const char* filePath, IDirect3DTexture9** outTexture)

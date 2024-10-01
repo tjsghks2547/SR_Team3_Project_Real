@@ -14,7 +14,7 @@ CFirePit::~CFirePit()
 HRESULT CFirePit::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 3.f, 4.f, 0.f };
+	m_pTransformCom->m_vScale = { 3.f, 4.f, 3.f };
 	m_iImageID = 0;
 	m_vecTexture.resize(2);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_FirePlace.png", &m_vecTexture[0]);
@@ -41,6 +41,7 @@ void CFirePit::Render_GameObject()
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	m_pGraphicDev->SetTexture(0, m_vecTexture[m_iImageID]);
 	m_pBufferCom->Render_Buffer();
+	//m_pBoundBox->Render_Buffer();
 
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
@@ -57,21 +58,27 @@ HRESULT CFirePit::Add_Component()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 
+	pComponent = m_pBoundBox = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	m_pBoundBox->SetGameObjectPtr(this);
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collider", pComponent });
+
 	return S_OK;
 }
 
 CFirePit* CFirePit::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	CFirePit* pMusicStatue = new CFirePit(pGraphicDev);
+	CFirePit* pFirePit = new CFirePit(pGraphicDev);
 
-	if (FAILED(pMusicStatue->Ready_GameObject()))
+	if (FAILED(pFirePit->Ready_GameObject()))
 	{
-		Safe_Release(pMusicStatue);
+		Safe_Release(pFirePit);
 		MSG_BOX("pPipeBoard Create Failed");
 		return nullptr;
 	}
 
-	return pMusicStatue;
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pFirePit);
+	return pFirePit;
 }
 
 void CFirePit::Free()

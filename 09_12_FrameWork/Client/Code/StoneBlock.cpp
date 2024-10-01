@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "StoneBlock.h"
+#include "StoneBlockHole.h"
 #include "Export_Utility.h"
 
 CStoneBlock::CStoneBlock(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -14,7 +15,7 @@ CStoneBlock::~CStoneBlock()
 HRESULT CStoneBlock::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 3.f, 3.f, 0.f };	
+	m_pTransformCom->m_vScale = { 15.f, 20.f, 20.f };	
 	m_iImageID = 0;
 	m_vecTexture.resize(5);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_StoneBlock.png", &m_vecTexture[0]);
@@ -55,7 +56,7 @@ void CStoneBlock::Render_GameObject()
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	m_pGraphicDev->SetTexture(0, m_vecTexture[m_iImageID]);
 	m_pBufferCom->Render_Buffer();
-
+	//m_pBoundBox->Render_Buffer();	
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 
@@ -75,7 +76,34 @@ HRESULT CStoneBlock::Add_Component()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 	
+	pComponent = m_pBoundBox = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	m_pBoundBox->SetGameObjectPtr(this);
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collider", pComponent });
+
 	return S_OK;
+}
+
+void CStoneBlock::Init(_float _fX, _float _fZ, _bool _bIsUp, _int _iID)
+{
+	m_pTransformCom->Set_Pos(_fX, 20.f, _fZ);
+	m_iImageID = _iID;
+	if (!_bIsUp)
+		Active_Block();
+}
+
+void CStoneBlock::Active_Block()
+{
+	if (m_bIsUp == true) {
+		m_bIsMove = true;
+		m_bIsUp = false;
+		m_fTargetPos.y = 20.f;
+	}
+	else {
+		m_bIsMove = true;
+		m_bIsUp = true;
+		m_fTargetPos.y = -20.f;
+	}	
 }
 
 CStoneBlock* CStoneBlock::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -89,6 +117,7 @@ CStoneBlock* CStoneBlock::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 		return nullptr;
 	}
 
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pStoneBlock);
 	return pStoneBlock;
 }
 
