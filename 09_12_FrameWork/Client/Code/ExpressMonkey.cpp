@@ -2,7 +2,7 @@
 #include "ExpressMonkey.h"
 
 CExpressMonkey::CExpressMonkey(LPDIRECT3DDEVICE9 pGraphicDev)
-    :CQuestNPC(pGraphicDev)
+    :CQuestNPC(pGraphicDev), m_bEnter(false)
 {
 }
 
@@ -16,14 +16,11 @@ HRESULT CExpressMonkey::Ready_GameObject()
 
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
-    //D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/MonkeyIDLE2.png", &m_pNPCTex);
-    //m_pAnimatorCom->CreateAnimation(L"MonkeyIDLE", m_pNPCTex, _vec2(0.f, 0.f), _vec2(180.f, 200.f), _vec2(180.f, 0.f), 0.12f, 7);
+    D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/MonkeyCome.png", &m_pComeTex);
+    m_pAnimatorCom->CreateAnimation(L"MonkeyEnter", m_pComeTex, _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.12f, 7);
 
-    D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/MonkeyIDLE.png", &m_pNPCTex);
-    m_pAnimatorCom->CreateAnimation(L"MonkeyIDLE", m_pNPCTex, _vec2(0.f, 0.f), _vec2(136.5f, 145.f), _vec2(136.5f, 0.f), 0.12f, 14); 
-
-    //D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/M.png", &m_pNPCTex);
-    //m_pAnimatorCom->CreateAnimation(L"MonkeyIDLE", m_pNPCTex, _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.12f, 7, _vec2(2048.f, 256.f));
+    D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/Monkey.png", &m_pNPCTex);
+    m_pAnimatorCom->CreateAnimation(L"MonkeyIDLE", m_pNPCTex, _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.12f, 7);
 
     m_tInfo.pName = L"숭숭 익스프레스";
     m_tInfo.pContent = L"익스프레스 이용권이 없으면 태워줄 수 없어요. 이용권을 가지고 다시 말 걸어주세요.";
@@ -72,11 +69,19 @@ void CExpressMonkey::Render_GameObject()
 {
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
-    //m_pTextureCom->Set_Texture();
-    m_pGraphicDev->SetTexture(0, m_pNPCTex);
-    m_pAnimatorCom->Play(L"MonkeyIDLE", true);
-    m_pAnimatorCom->render();
+    if (!m_bEnter)
+    {
+        m_pGraphicDev->SetTexture(0, m_pNPCTex);
+        m_pAnimatorCom->Play(L"MonkeyIDLE", true);
+        m_pAnimatorCom->render();
+    }
 
+    if (m_bEnter)
+    {
+        m_pGraphicDev->SetTexture(0, m_pComeTex);
+        m_pAnimatorCom->Play(L"MonkeyEnter", true);
+        m_pAnimatorCom->render();
+    }
 
     //m_pBufferCom->Render_Buffer();
     m_pColliderCom->Render_Buffer();
@@ -110,6 +115,8 @@ void CExpressMonkey::Render_GameObject()
 
 void CExpressMonkey::OnCollision(CGameObject* _pOther)
 {
+    m_bEnter = true;
+
     // [S]버튼 출력.
     // [S]버튼 클릭 시 텍스트박스 출력 + 텍스트 출력
     if (Engine::GetKeyDown(DIK_S))
@@ -156,11 +163,14 @@ void CExpressMonkey::OnCollision(CGameObject* _pOther)
 
     if (!m_bConversation)
     {
+        m_bEnter = false;
         m_pInterButton->CallButton(true); // 대화중이 아닐 때 버튼 활성화
         // 대화하기[S]
     }
 
 }
+
+
 
 void CExpressMonkey::OnCollisionEnter(CGameObject* _pOther)
 {
@@ -193,8 +203,8 @@ HRESULT CExpressMonkey::Add_Component()
     pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
-    m_pTransformCom->m_vScale = { 20.f, 20.f, 20.f };
-    m_pTransformCom->Set_Pos(200.f, 50.f, 800.f);
+    m_pTransformCom->m_vScale = { 30.f, 30.f, 30.f };
+    m_pTransformCom->Set_Pos(200.f, 30.f, 800.f);
 
     pComponent = m_pColliderCom = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
