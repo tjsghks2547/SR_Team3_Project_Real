@@ -146,10 +146,10 @@ HRESULT CStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 		dynamic_cast<CPlayer*>(PlayerObj));
 
 	//0926
-	//pGameObject = CExpressMonkey::Create(m_pGraphicDev);
-	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_ExMonkey", pGameObject), E_FAIL);
-	//CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+	pGameObject = CExpressMonkey::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_ExMonkey", pGameObject), E_FAIL);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
 	
 	//1001
 	pGameObject = CSeaLion::Create(m_pGraphicDev);

@@ -356,24 +356,6 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 
     }
 
-    //if (Engine::GetKeyDown(DIK_1))
-    //{
-    //    m_pQuickSlot->Use_QuickItem(0);
-    //}
-    //else if (Engine::GetKeyDown(DIK_2))
-    //{
-    //    m_pQuickSlot->Use_QuickItem(1);
-    //}
-    //else if (Engine::GetKeyDown(DIK_3))
-    //{
-    //    m_pQuickSlot->Use_QuickItem(2);
-    //}
-    //else if (Engine::GetKeyDown(DIK_4))
-    //{
-    //    m_pQuickSlot->Use_QuickItem(3);
-    //}
-
-    //오 이것도 됨?굿굿
     for (int i = 0; i < 4; i++)
     {
         if (Engine::GetKeyDown(DIK_1 + i))
