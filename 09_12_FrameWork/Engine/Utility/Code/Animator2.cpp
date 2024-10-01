@@ -48,7 +48,7 @@ CAnimator2* CAnimator2::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	return pAnimator2;
 }
 
-void CAnimator2::CreateAnimation(const wstring& _strName, IDirect3DTexture9* _pTex, _vec2 _vLT, _vec2 _vSliceSize, _vec2 _vStep, float _fDuration, UINT _iFrameCount, _vec2 _ImgSize)
+void CAnimator2::CreateAnimation(const wstring& _strName, IDirect3DTexture9* _pTex, _vec2 _vLT, _vec2 _vSliceSize, _vec2 _vStep, float _fDuration, UINT _iFrameCount)
 {
 	CAnimation2* pAnim = FindAnimation(_strName);
 
@@ -61,7 +61,7 @@ void CAnimator2::CreateAnimation(const wstring& _strName, IDirect3DTexture9* _pT
 	pAnim->SetName(_strName);
 	pAnim->m_pAnimator = this;
 
-	pAnim->Create(_pTex, _vLT, _vSliceSize, _vStep, _fDuration, _iFrameCount, _ImgSize);
+	pAnim->Create(_pTex, _vLT, _vSliceSize, _vStep, _fDuration, _iFrameCount);
 
 	m_mapAnim.insert(make_pair(_strName, pAnim));
 

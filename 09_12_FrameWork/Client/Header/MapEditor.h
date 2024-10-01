@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "Map.h"
 #include "MapCamera.h"
+#include "WorldHeartMap.h"	
 
 class CMapEditor : public Engine::CScene
 {

@@ -62,8 +62,7 @@ public:
 		_vec2 _vSliceSize,
 		_vec2 _vStep,
 		float _fDuration,
-		UINT  _iFrameCount,
-		_vec2 _ImgSize);
+		UINT  _iFrameCount);
 
 	void update();
 	virtual  HRESULT  Ready_Buffer();

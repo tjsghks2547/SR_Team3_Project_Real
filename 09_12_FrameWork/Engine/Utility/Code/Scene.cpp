@@ -57,6 +57,7 @@ _int CScene::Update_Scene(const _float& fTimeDelta)
 		if (iResult & 0x80000000)
 			return iResult; 
 	}
+
 	CCollisionMgr::GetInstance()->update();
 
 	return iResult;

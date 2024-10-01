@@ -21,13 +21,13 @@ HRESULT CNPC::Ready_GameObject()
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
 	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/UI/ExclamMarkAnim.png", &m_pTex[EXCLAMATION]);
-	m_pMarkAnimatorCom->CreateAnimation(L"ExclamMarkAnim", m_pTex[EXCLAMATION], _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.12f, 7, _vec2(2048.f, 256.f));
+	m_pMarkAnimatorCom->CreateAnimation(L"ExclamMarkAnim", m_pTex[EXCLAMATION], _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.12f, 7);
 
 	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/UI/GrayQuestAnim.png", &m_pTex[GRAYQUEST]);
-	m_pMarkAnimatorCom->CreateAnimation(L"GrayQuestAnim", m_pTex[GRAYQUEST], _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.12f, 1, _vec2(512.f, 256.f));
+	m_pMarkAnimatorCom->CreateAnimation(L"GrayQuestAnim", m_pTex[GRAYQUEST], _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.12f, 1);
 
 	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/UI/YellowQuestAnim.png", &m_pTex[YELLOWQUEST]);
-	m_pMarkAnimatorCom->CreateAnimation(L"YellowQuestAnim", m_pTex[YELLOWQUEST], _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.12f, 7, _vec2(2048.f, 256.f));
+	m_pMarkAnimatorCom->CreateAnimation(L"YellowQuestAnim", m_pTex[YELLOWQUEST], _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.12f, 7);
 
 	//m_pMarkAnimatorCom[GRAYQUEST]->Play(L"GrayQuest", true);
 

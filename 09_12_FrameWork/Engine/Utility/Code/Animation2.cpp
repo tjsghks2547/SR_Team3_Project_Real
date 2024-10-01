@@ -62,6 +62,7 @@ void CAnimation2::update()
 			m_fAccTime = 0.f;
 			return;
 		}
+
 		m_fAccTime = m_fAccTime - m_vecFrm[m_iCurFrm].fDuration;
 	}
 
@@ -75,6 +76,8 @@ HRESULT CAnimation2::Ready_Buffer()
 
 void CAnimation2::Render_Buffer()
 {
+	if (m_bFinish)
+		return;
 
 	VTXTEX2* pVertex = nullptr;
 	m_pVB->Lock(0, 0, (void**)&pVertex, 0);
@@ -96,7 +99,7 @@ void CAnimation2::Render_Buffer()
 }
 
 
-HRESULT CAnimation2::Create(IDirect3DTexture9* _pTex, _vec2 _vLT, _vec2 _vSliceSize, _vec2 _vStep, float _fDuration, UINT _iFrameCount, _vec2 _ImgSize)
+HRESULT CAnimation2::Create(IDirect3DTexture9* _pTex, _vec2 _vLT, _vec2 _vSliceSize, _vec2 _vStep, float _fDuration, UINT _iFrameCount)
 {
 
 
@@ -150,26 +153,11 @@ HRESULT CAnimation2::Create(IDirect3DTexture9* _pTex, _vec2 _vLT, _vec2 _vSliceS
 
 	tAnimFrm frm = {};
 
-	float test_x = 0;
-	float test_y = 0;
-
-	if (textureWidth != _ImgSize.x)
-	{
-		test_x = textureWidth - _ImgSize.x;
-	}
-
-
-	if (textureHeight != _ImgSize.y)
-	{
-		test_y = textureHeight - _ImgSize.y;
-	}
-
-
-	for (UINT i = 0; i <= _iFrameCount; ++i)
+	for (UINT i = 0; i < _iFrameCount; ++i)
 	{
 
 		frm.fDuration = _fDuration;
-		frm.vSlice = { (_vSliceSize.x + test_x) / textureWidth, (_vSliceSize.y + test_y) / textureHeight };
+		frm.vSlice = { _vSliceSize.x  / textureWidth, _vSliceSize.y  / textureHeight };
 		frm.vLT = { _vLT.x / textureWidth + _vStep.x / textureWidth * (float)i,  _vLT.y / textureHeight + _vStep.y / textureHeight * (float)i };
 
 		m_vecFrm.push_back(frm);

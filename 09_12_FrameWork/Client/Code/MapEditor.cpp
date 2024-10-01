@@ -70,6 +70,8 @@ HRESULT CMapEditor::Ready_Prototype()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_TestMapTex", Engine::CStartMap::Create(m_pGraphicDev)), E_FAIL);	
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 1.f)), E_FAIL);	
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_RcTex", Engine::CRcTex::Create(m_pGraphicDev)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_WorldHeartMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 2.f)), E_FAIL);
+
 
 	//Texture
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_PlayerTex", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Player1.jpg", TEX_NORMAL)), E_FAIL);
@@ -77,6 +79,7 @@ HRESULT CMapEditor::Ready_Prototype()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_TerrainTexture", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Terrain/Terrain0.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_SkyBox", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/SkyBox/burger%d.dds", TEX_CUBE, 4)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_StartMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map/Tutorial_Map.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_WorldHeartMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map/WorldHeart.png", TEX_NORMAL)), E_FAIL);
 
 	return S_OK;
 }
@@ -99,12 +102,19 @@ HRESULT CMapEditor::Ready_Layer_Environment(const _tchar* pLayerTag)
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MapCamera", pGameObject), E_FAIL);
 
 
-	pGameObject = CMap::Create(m_pGraphicDev);	
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);	
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Map", pGameObject), E_FAIL);	
-	pGameObject->SetObjectKey(L"Map");	
-	pGameObject->SetTextureKey(L"Map");
+	// Ã¹¹øÂ° ¸Ê 
+	//pGameObject = CMap::Create(m_pGraphicDev);	
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);	
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Map", pGameObject), E_FAIL);	
+	//pGameObject->SetObjectKey(L"Map");	
+	//pGameObject->SetTextureKey(L"Map");
 
+
+	pGameObject = CWorldHeartMap::Create(m_pGraphicDev);		
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);	
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"WorldHeartMap", pGameObject), E_FAIL);		
+	pGameObject->SetObjectKey(L"WorldHeartMap");		
+	pGameObject->SetTextureKey(L"WorldHeartMap");	
 
 	m_mapLayer.insert({ pLayerTag, pLayer });	
 		

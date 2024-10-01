@@ -19,11 +19,11 @@ HRESULT CExpressMonkey::Ready_GameObject()
     //D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/MonkeyIDLE2.png", &m_pNPCTex);
     //m_pAnimatorCom->CreateAnimation(L"MonkeyIDLE", m_pNPCTex, _vec2(0.f, 0.f), _vec2(180.f, 200.f), _vec2(180.f, 0.f), 0.12f, 7);
 
-    //D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/MonkeyIDLE.png", &m_pNPCTex);
-    //m_pAnimatorCom->CreateAnimation(L"MonkeyIDLE", m_pNPCTex, _vec2(0.f, 0.f), _vec2(136.5f, 145.f), _vec2(136.5f, 0.f), 0.12f, 14,_vec2(2048.f,145.f)); 
+    D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/MonkeyIDLE.png", &m_pNPCTex);
+    m_pAnimatorCom->CreateAnimation(L"MonkeyIDLE", m_pNPCTex, _vec2(0.f, 0.f), _vec2(136.5f, 145.f), _vec2(136.5f, 0.f), 0.12f, 14); 
 
-    D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/Monkey.png", &m_pNPCTex);
-    m_pAnimatorCom->CreateAnimation(L"MonkeyIDLE", m_pNPCTex, _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.12f, 7, _vec2(2048.f, 256.f));
+    //D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/M.png", &m_pNPCTex);
+    //m_pAnimatorCom->CreateAnimation(L"MonkeyIDLE", m_pNPCTex, _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.12f, 7, _vec2(2048.f, 256.f));
 
     m_tInfo.pName = L"숭숭 익스프레스";
     m_tInfo.pContent = L"익스프레스 이용권이 없으면 태워줄 수 없어요. 이용권을 가지고 다시 말 걸어주세요.";

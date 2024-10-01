@@ -16,12 +16,12 @@ HRESULT CTestObject::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
-	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/Sprite_BabyOgu_Swing1.png", &m_pTex);	
+	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/Npc/MonkeyIDLE.png", &m_pTex);	
 
 	
-	m_pAnimatorCom->CreateAnimation(L"Test", m_pTex, _vec2(0.f, 0.f), _vec2(292.5f, 292.5f), _vec2(292.5f, 0.f), 0.2f, 6,_vec2(2048.f,2048.f));
+	m_pAnimatorCom->CreateAnimation(L"Test", m_pTex, _vec2(0.f, 0.f), _vec2(136.5f, 145.f), _vec2(136.5f, 0.f), 0.5f, 14);
 
-	m_pAnimatorCom->Play(L"Test", true);
+	m_pAnimatorCom->Play(L"Test", false);
 
 	m_pTransformCom->m_vScale = { 50.f,50.f,50.f };
 	m_pTransformCom->Set_Pos(200.f, 35.f, 700.f);
