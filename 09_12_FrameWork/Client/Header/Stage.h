@@ -10,6 +10,7 @@
 #include "InvenUI.h"
 #include "QuickSlot.h"
 #include "ExpressMonkey.h"
+#include "SeaLion.h"
 
 #include "Pipe.h"
 #include "PipeBoard.h"

@@ -169,15 +169,6 @@
     <Filter Include="02. GameObject\11. UI\01. InvenUI">
       <UniqueIdentifier>{346f8069-d9f4-488f-9088-15ac45f039e2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\10. Item\00. Equip">
-      <UniqueIdentifier>{c9998b2f-a203-421a-9732-dcd959fafd07}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\10. Item\01. Consum">
-      <UniqueIdentifier>{c15e7b63-5d79-43c8-b135-9f9aa5349077}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\10. Item\99. ItemSelector">
-      <UniqueIdentifier>{d0cc4468-d2a0-4047-922b-cc565ef445b9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\01. Entity\03. Terrain" />
     <Filter Include="02. GameObject\09. Puzzle\00. Common Object">
       <UniqueIdentifier>{9c246355-1a19-4509-bc00-a124a5a0223a}</UniqueIdentifier>
@@ -218,9 +209,6 @@
     <Filter Include="02. GameObject\12. NPC">
       <UniqueIdentifier>{64900277-82b0-48f5-8c62-7f452b165c08}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\12. NPC\00. ExpressMonkey">
-      <UniqueIdentifier>{0f348598-7cf2-4fff-bd3a-ab39ae656221}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\13.TestObject">
       <UniqueIdentifier>{e7db2bb3-c74f-4e00-86ff-ceaa635ae2f2}</UniqueIdentifier>
     </Filter>
@@ -244,6 +232,33 @@
     </Filter>
     <Filter Include="02. GameObject\07. Map\02.WorldHeartMap">
       <UniqueIdentifier>{553b5877-f473-4dad-9e6f-67c8b27e29c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\10. Item\00. EquipItem">
+      <UniqueIdentifier>{c9998b2f-a203-421a-9732-dcd959fafd07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\10. Item\01. ConsumItem">
+      <UniqueIdentifier>{c15e7b63-5d79-43c8-b135-9f9aa5349077}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\10. Item\03. QuestItem">
+      <UniqueIdentifier>{82ace099-4a7a-47d7-8b2b-1ed6634319dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\10. Item\02. OtherItem">
+      <UniqueIdentifier>{9b9fbf63-4d2a-45ed-ba26-c0118a9bba1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\10. Item\99. ItemSelector">
+      <UniqueIdentifier>{d0cc4468-d2a0-4047-922b-cc565ef445b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. NPC\00. QuestNPC">
+      <UniqueIdentifier>{6c1031b3-2783-49dd-9f98-16d5f74e8760}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. NPC\00. QuestNPC\00. ExpressMonkey">
+      <UniqueIdentifier>{0f348598-7cf2-4fff-bd3a-ab39ae656221}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. NPC\01. StoreNPC">
+      <UniqueIdentifier>{a7141daa-f849-413a-98fb-867d7f552692}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. NPC\01. StoreNPC\00. SeaLion">
+      <UniqueIdentifier>{564cf725-4e30-46c8-a4c2-3e37f8477f3e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -416,22 +431,22 @@
       <Filter>02. GameObject\10. Item</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\ExploreHat.h">
-      <Filter>02. GameObject\10. Item\00. Equip</Filter>
+      <Filter>02. GameObject\10. Item\00. EquipItem</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\ItemSelector.h">
       <Filter>02. GameObject\10. Item\99. ItemSelector</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Mohican.h">
-      <Filter>02. GameObject\10. Item\00. Equip</Filter>
+      <Filter>02. GameObject\10. Item\00. EquipItem</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\PartyHat.h">
-      <Filter>02. GameObject\10. Item\00. Equip</Filter>
+      <Filter>02. GameObject\10. Item\00. EquipItem</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\MiddleFruit.h">
-      <Filter>02. GameObject\10. Item\01. Consum</Filter>
+      <Filter>02. GameObject\10. Item\01. ConsumItem</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\SmallFruit.h">
-      <Filter>02. GameObject\10. Item\01. Consum</Filter>
+      <Filter>02. GameObject\10. Item\01. ConsumItem</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\QuickSlot.h">
       <Filter>02. GameObject\11. UI\00. DefaultUI</Filter>
@@ -463,11 +478,8 @@
     <ClInclude Include="..\Header\StonePedestal.h">
       <Filter>02. GameObject\09. Puzzle\00. Common Object\03. Stone Pedestal</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\NPC.h">
-      <Filter>02. GameObject\12. NPC</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\ExpressMonkey.h">
-      <Filter>02. GameObject\12. NPC\00. ExpressMonkey</Filter>
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\00. ExpressMonkey</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\TestObject.h">
       <Filter>02. GameObject\13.TestObject</Filter>
@@ -525,6 +537,69 @@
     </ClInclude>
     <ClInclude Include="WorldHeartMap.h">
       <Filter>02. GameObject\07. Map\02.WorldHeartMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\AppleHat.h">
+      <Filter>02. GameObject\10. Item\00. EquipItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\EnkyHat.h">
+      <Filter>02. GameObject\10. Item\00. EquipItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PoopHat.h">
+      <Filter>02. GameObject\10. Item\00. EquipItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Penguin.h">
+      <Filter>02. GameObject\10. Item\00. EquipItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\BigFruit.h">
+      <Filter>02. GameObject\10. Item\01. ConsumItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\BigHerb.h">
+      <Filter>02. GameObject\10. Item\01. ConsumItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\BigRoot.h">
+      <Filter>02. GameObject\10. Item\01. ConsumItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CookBigFish.h">
+      <Filter>02. GameObject\10. Item\01. ConsumItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CookMiddleFish.h">
+      <Filter>02. GameObject\10. Item\01. ConsumItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CookSmallFish.h">
+      <Filter>02. GameObject\10. Item\01. ConsumItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\MiddleHerb.h">
+      <Filter>02. GameObject\10. Item\01. ConsumItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\MiddleRoot.h">
+      <Filter>02. GameObject\10. Item\01. ConsumItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\SmallHerb.h">
+      <Filter>02. GameObject\10. Item\01. ConsumItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\SmallRoot.h">
+      <Filter>02. GameObject\10. Item\01. ConsumItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Branch.h">
+      <Filter>02. GameObject\10. Item\02. OtherItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ExpressTicket.h">
+      <Filter>02. GameObject\10. Item\03. QuestItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Leaf.h">
+      <Filter>02. GameObject\10. Item\02. OtherItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Net.h">
+      <Filter>02. GameObject\10. Item\03. QuestItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\QuestNPC.h">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\StoreNPC.h">
+      <Filter>02. GameObject\12. NPC\01. StoreNPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\SeaLion.h">
+      <Filter>02. GameObject\12. NPC\01. StoreNPC\00. SeaLion</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -685,7 +760,7 @@
       <Filter>02. GameObject\10. Item</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\ExploreHat.cpp">
-      <Filter>02. GameObject\10. Item\00. Equip</Filter>
+      <Filter>02. GameObject\10. Item\00. EquipItem</Filter>
     </ClCompile>
     <ClCompile Include="..\Header\ItemSelector.cpp">
       <Filter>02. GameObject\10. Item\99. ItemSelector</Filter>
@@ -694,16 +769,16 @@
       <Filter>02. GameObject\01. Entity\01. Player</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Mohican.cpp">
-      <Filter>02. GameObject\10. Item\00. Equip</Filter>
+      <Filter>02. GameObject\10. Item\00. EquipItem</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\PartyHat.cpp">
-      <Filter>02. GameObject\10. Item\00. Equip</Filter>
+      <Filter>02. GameObject\10. Item\00. EquipItem</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\MiddleFruit.cpp">
-      <Filter>02. GameObject\10. Item\01. Consum</Filter>
+      <Filter>02. GameObject\10. Item\01. ConsumItem</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\SmallFruit.cpp">
-      <Filter>02. GameObject\10. Item\01. Consum</Filter>
+      <Filter>02. GameObject\10. Item\01. ConsumItem</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\QuickSlot.cpp">
       <Filter>02. GameObject\11. UI\00. DefaultUI</Filter>
@@ -738,11 +813,8 @@
     <ClCompile Include="..\Code\StonePedestal.cpp">
       <Filter>02. GameObject\09. Puzzle\00. Common Object\03. Stone Pedestal</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\NPC.cpp">
-      <Filter>02. GameObject\12. NPC</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\ExpressMonkey.cpp">
-      <Filter>02. GameObject\12. NPC\00. ExpressMonkey</Filter>
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\00. ExpressMonkey</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\TestObject.cpp">
       <Filter>02. GameObject\13.TestObject</Filter>
@@ -797,6 +869,69 @@
     </ClCompile>
     <ClCompile Include="WorldHeartMap.cpp">
       <Filter>02. GameObject\07. Map\02.WorldHeartMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Desktop\봉작\09_12_FrameWork\Client\Code\AppleHat.cpp">
+      <Filter>02. GameObject\10. Item\00. EquipItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Desktop\봉작\09_12_FrameWork\Client\Code\EnkyHat.cpp">
+      <Filter>02. GameObject\10. Item\00. EquipItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Desktop\봉작\09_12_FrameWork\Client\Code\Penguin.cpp">
+      <Filter>02. GameObject\10. Item\00. EquipItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PoopHat.cpp">
+      <Filter>02. GameObject\10. Item\00. EquipItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Desktop\봉작\09_12_FrameWork\Client\Code\BigHerb.cpp">
+      <Filter>02. GameObject\10. Item\01. ConsumItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Desktop\봉작\09_12_FrameWork\Client\Code\BigRoot.cpp">
+      <Filter>02. GameObject\10. Item\01. ConsumItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Desktop\봉작\09_12_FrameWork\Client\Code\CookBigFish.cpp">
+      <Filter>02. GameObject\10. Item\01. ConsumItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Desktop\봉작\09_12_FrameWork\Client\Code\CookMiddleFish.cpp">
+      <Filter>02. GameObject\10. Item\01. ConsumItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Desktop\봉작\09_12_FrameWork\Client\Code\CookSmallFish.cpp">
+      <Filter>02. GameObject\10. Item\01. ConsumItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Desktop\봉작\09_12_FrameWork\Client\Code\MiddleHerb.cpp">
+      <Filter>02. GameObject\10. Item\01. ConsumItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Desktop\봉작\09_12_FrameWork\Client\Code\MiddleRoot.cpp">
+      <Filter>02. GameObject\10. Item\01. ConsumItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\BigFruit.cpp">
+      <Filter>02. GameObject\10. Item\01. ConsumItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Desktop\봉작\09_12_FrameWork\Client\Code\Branch.cpp">
+      <Filter>02. GameObject\10. Item\02. OtherItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ExpressTicket.cpp">
+      <Filter>02. GameObject\10. Item\03. QuestItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Leaf.cpp">
+      <Filter>02. GameObject\10. Item\02. OtherItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Net.cpp">
+      <Filter>02. GameObject\10. Item\03. QuestItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\QuestNPC.cpp">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\StoreNPC.cpp">
+      <Filter>02. GameObject\12. NPC\01. StoreNPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SeaLion.cpp">
+      <Filter>02. GameObject\12. NPC\01. StoreNPC\00. SeaLion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SmallRoot.cpp">
+      <Filter>02. GameObject\10. Item\01. ConsumItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SmallHerb.cpp">
+      <Filter>02. GameObject\10. Item\01. ConsumItem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

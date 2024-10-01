@@ -1,13 +1,13 @@
 #pragma once
-#include "QuestNPC.h"
-#include "TextBox.h"
+#include "StoreNPC.h"
+//#include "TextBox.h"
 #include "Export_Utility.h"
 
-class CExpressMonkey : public CQuestNPC
+class CSeaLion : public CStoreNPC
 {
 private:
-	explicit CExpressMonkey(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual	 ~CExpressMonkey();
+	explicit CSeaLion(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual	 ~CSeaLion();
 
 public:
 	virtual   HRESULT   Ready_GameObject();
@@ -24,9 +24,11 @@ private:
 	HRESULT    Add_Component();
 
 public:
-	static CExpressMonkey* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CSeaLion* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 	virtual void Free();
+
+	IDirect3DTexture9* m_pComeTex;
 };
 

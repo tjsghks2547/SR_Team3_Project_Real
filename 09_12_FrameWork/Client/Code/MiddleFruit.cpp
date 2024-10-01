@@ -52,7 +52,7 @@ void CMiddleFruit::Render_GameObject()
 	_vec2 vCountPos;
 
 	vCountPos.x = m_pTransformCom->m_vInfo[INFO_POS].x + (WINCX * 0.5f) + 34;
-	vCountPos.y = m_pTransformCom->m_vInfo[INFO_POS].y + (WINCY * 0.5f) - 45;
+	vCountPos.y = -(m_pTransformCom->m_vInfo[INFO_POS].y) + (WINCY * 0.5f) + 34;
 
 	wchar_t Division[32] = L"x";
 	wchar_t ItemCount[32];

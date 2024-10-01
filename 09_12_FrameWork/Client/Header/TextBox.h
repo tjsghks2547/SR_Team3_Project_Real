@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "Export_Utility.h"
 #include "Export_System.h"
-#include "NPC.h"
+#include "QuestNPC.h"
 
 BEGIN(Engine)
 
@@ -28,7 +28,7 @@ public:
 	void	  Key_Input(const _float& fTimeDelta);
 	void	  Render_Text();
 	void	  CallTextBox(_bool _Call) { m_bCall = _Call; }
-	void	  Set_Text(CNPC::NPC_INFO _pNPCInfo) { m_tCopyInfo = _pNPCInfo; }
+	void	  Set_Text(CQuestNPC::NPC_INFO _pNPCInfo) { m_tCopyInfo = _pNPCInfo; }
 private:
 	HRESULT    Add_Component();
 
@@ -43,7 +43,7 @@ private:
 	float	m_fElapsedTime;
 
 	//CNPC*				m_pCopyNPC;
-	CNPC::NPC_INFO		m_tCopyInfo;
+	CQuestNPC::NPC_INFO		m_tCopyInfo;
 public:
 	static CTextBox* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 

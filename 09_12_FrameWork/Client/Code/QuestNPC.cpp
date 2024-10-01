@@ -1,8 +1,8 @@
 #include "pch.h"
-#include "NPC.h"
+#include "QuestNPC.h"
 #include "TextBox.h"
 
-CNPC::CNPC(LPDIRECT3DDEVICE9 pGraphicDev)
+CQuestNPC::CQuestNPC(LPDIRECT3DDEVICE9 pGraphicDev)
 	:Engine::CGameObject(pGraphicDev)
 	, m_pInterButton(nullptr), m_pTextBox(nullptr), m_pQuestAcceptUI(nullptr)
 	//, m_pTex(nullptr)
@@ -12,11 +12,11 @@ CNPC::CNPC(LPDIRECT3DDEVICE9 pGraphicDev)
 	ZeroMemory(&m_pTex, sizeof(m_pTex));
 }
 
-CNPC::~CNPC()
+CQuestNPC::~CQuestNPC()
 {
 }
 
-HRESULT CNPC::Ready_GameObject()
+HRESULT CQuestNPC::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
@@ -37,7 +37,7 @@ HRESULT CNPC::Ready_GameObject()
 	return S_OK;
 }
 
-void CNPC::LateReady_GameObject()
+void CQuestNPC::LateReady_GameObject()
 {
 	m_pPlayer = dynamic_cast<CPlayer*>(Engine::Get_GameObject(L"Layer_GameLogic", L"Player"));
 	NULL_CHECK_RETURN(m_pPlayer);
@@ -65,7 +65,7 @@ void CNPC::LateReady_GameObject()
 	}
 }
 
-_int CNPC::Update_GameObject(const _float& fTimeDelta)
+_int CQuestNPC::Update_GameObject(const _float& fTimeDelta)
 {
 	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
@@ -76,18 +76,18 @@ _int CNPC::Update_GameObject(const _float& fTimeDelta)
 	return iExit;
 }
 
-void CNPC::LateUpdate_GameObject(const _float& fTimeDelta)
+void CQuestNPC::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
 	m_pQuestAcceptUI->LateUpdate_GameObject(fTimeDelta);
 }
 
-void CNPC::Render_GameObject()
+void CQuestNPC::Render_GameObject()
 {
 
 }
 
-HRESULT CNPC::Add_Component()
+HRESULT CQuestNPC::Add_Component()
 {
 	CComponent* pComponent = NULL;
 
@@ -111,7 +111,7 @@ HRESULT CNPC::Add_Component()
 
 
 
-void CNPC::Free()
+void CQuestNPC::Free()
 {
 	Engine::CGameObject::Free();
 }

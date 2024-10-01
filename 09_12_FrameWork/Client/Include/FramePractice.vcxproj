@@ -149,18 +149,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Header\AppleHat.h" />
     <ClInclude Include="..\Header\BackGround.h" />
+    <ClInclude Include="..\Header\BigFruit.h" />
+    <ClInclude Include="..\Header\BigHerb.h" />
+    <ClInclude Include="..\Header\BigRoot.h" />
     <ClInclude Include="..\Header\BoardCursor.h" />
+    <ClInclude Include="..\Header\Branch.h" />
     <ClInclude Include="..\Header\BugStatue.h" />
     <ClInclude Include="..\Header\BugStatuePuzzle.h" />
     <ClInclude Include="..\Header\CombinationPuzzle.h" />
     <ClInclude Include="..\Header\CombinationStatue.h" />
+    <ClInclude Include="..\Header\CookBigFish.h" />
+    <ClInclude Include="..\Header\CookMiddleFish.h" />
+    <ClInclude Include="..\Header\CookSmallFish.h" />
     <ClInclude Include="..\Header\Crystal.h" />
     <ClInclude Include="..\Header\CrystalPuzzle.h" />
     <ClInclude Include="..\Header\Define.h" />
     <ClInclude Include="..\Header\DynamicCamera.h" />
+    <ClInclude Include="..\Header\EnkyHat.h" />
     <ClInclude Include="..\Header\ExploreHat.h" />
     <ClInclude Include="..\Header\ExpressMonkey.h" />
+    <ClInclude Include="..\Header\ExpressTicket.h" />
     <ClInclude Include="..\Header\FirePit.h" />
     <ClInclude Include="..\Header\ImGuiManger.h" />
     <ClInclude Include="..\Header\Imgui_ObjectTool.h" />
@@ -169,6 +179,7 @@
     <ClInclude Include="..\Header\InvenUI.h" />
     <ClInclude Include="..\Header\Item.h" />
     <ClInclude Include="..\Header\ItemSelector.h" />
+    <ClInclude Include="..\Header\Leaf.h" />
     <ClInclude Include="..\Header\Loading.h" />
     <ClInclude Include="..\Header\Logo.h" />
     <ClInclude Include="..\Header\MainApp.h" />
@@ -176,14 +187,18 @@
     <ClInclude Include="..\Header\MapCamera.h" />
     <ClInclude Include="..\Header\MapEditor.h" />
     <ClInclude Include="..\Header\MiddleFruit.h" />
+    <ClInclude Include="..\Header\MiddleHerb.h" />
+    <ClInclude Include="..\Header\MiddleRoot.h" />
     <ClInclude Include="..\Header\Mohican.h" />
     <ClInclude Include="..\Header\MonkeyStatue.h" />
     <ClInclude Include="..\Header\Monster.h" />
     <ClInclude Include="..\Header\MusicStatue.h" />
+    <ClInclude Include="..\Header\Net.h" />
     <ClInclude Include="..\Header\NoteStatue.h" />
-    <ClInclude Include="..\Header\NPC.h" />
+    <ClInclude Include="..\Header\QuestNPC.h" />
     <ClInclude Include="..\Header\Object.h" />
     <ClInclude Include="..\Header\PartyHat.h" />
+    <ClInclude Include="..\Header\Penguin.h" />
     <ClInclude Include="..\Header\Pipe.h" />
     <ClInclude Include="..\Header\PipeBoard.h" />
     <ClInclude Include="..\Header\Player.h" />
@@ -199,6 +214,7 @@
     <ClInclude Include="..\Header\PlayerRolling.h" />
     <ClInclude Include="..\Header\PlayerSmash.h" />
     <ClInclude Include="..\Header\PlayerSwing.h" />
+    <ClInclude Include="..\Header\PoopHat.h" />
     <ClInclude Include="..\Header\PressBlock.h" />
     <ClInclude Include="..\Header\QuestAccept.h" />
     <ClInclude Include="..\Header\QuestCursor.h" />
@@ -206,8 +222,11 @@
     <ClInclude Include="..\Header\QuickSlot.h" />
     <ClInclude Include="..\Header\Ray.h" />
     <ClInclude Include="..\Header\Scale.h" />
+    <ClInclude Include="..\Header\SeaLion.h" />
     <ClInclude Include="..\Header\SkyBox.h" />
     <ClInclude Include="..\Header\SmallFruit.h" />
+    <ClInclude Include="..\Header\SmallHerb.h" />
+    <ClInclude Include="..\Header\SmallRoot.h" />
     <ClInclude Include="..\Header\Stage.h" />
     <ClInclude Include="..\Header\StartBackGround.h" />
     <ClInclude Include="..\Header\StartScene.h" />
@@ -216,6 +235,7 @@
     <ClInclude Include="..\Header\StoneBlock.h" />
     <ClInclude Include="..\Header\StoneBlockHole.h" />
     <ClInclude Include="..\Header\StonePedestal.h" />
+    <ClInclude Include="..\Header\StoreNPC.h" />
     <ClInclude Include="..\Header\Terrain.h" />
     <ClInclude Include="..\Header\TestCol.h" />
     <ClInclude Include="..\Header\TestMap.h" />
@@ -242,7 +262,19 @@
     <ClInclude Include="Types.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\Desktop\봉작\09_12_FrameWork\Client\Code\AppleHat.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\봉작\09_12_FrameWork\Client\Code\BigHerb.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\봉작\09_12_FrameWork\Client\Code\BigRoot.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\봉작\09_12_FrameWork\Client\Code\Branch.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\봉작\09_12_FrameWork\Client\Code\CookBigFish.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\봉작\09_12_FrameWork\Client\Code\CookMiddleFish.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\봉작\09_12_FrameWork\Client\Code\CookSmallFish.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\봉작\09_12_FrameWork\Client\Code\EnkyHat.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\봉작\09_12_FrameWork\Client\Code\MiddleHerb.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\봉작\09_12_FrameWork\Client\Code\MiddleRoot.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\봉작\09_12_FrameWork\Client\Code\Penguin.cpp" />
     <ClCompile Include="..\Code\BackGround.cpp" />
+    <ClCompile Include="..\Code\BigFruit.cpp" />
     <ClCompile Include="..\Code\BoardCursor.cpp" />
     <ClCompile Include="..\Code\BugStatue.cpp" />
     <ClCompile Include="..\Code\BugStatuePuzzle.cpp" />
@@ -253,6 +285,7 @@
     <ClCompile Include="..\Code\DynamicCamera.cpp" />
     <ClCompile Include="..\Code\ExploreHat.cpp" />
     <ClCompile Include="..\Code\ExpressMonkey.cpp" />
+    <ClCompile Include="..\Code\ExpressTicket.cpp" />
     <ClCompile Include="..\Code\FirePit.cpp" />
     <ClCompile Include="..\Code\ImGuiManger.cpp" />
     <ClCompile Include="..\Code\Imgui_ObjectTool.cpp" />
@@ -260,6 +293,7 @@
     <ClCompile Include="..\Code\InteractionButton.cpp" />
     <ClCompile Include="..\Code\InvenUI.cpp" />
     <ClCompile Include="..\Code\Item.cpp" />
+    <ClCompile Include="..\Code\Leaf.cpp" />
     <ClCompile Include="..\Code\Loading.cpp" />
     <ClCompile Include="..\Code\Logo.cpp" />
     <ClCompile Include="..\Code\MainApp.cpp" />
@@ -271,8 +305,9 @@
     <ClCompile Include="..\Code\MonkeyStatue.cpp" />
     <ClCompile Include="..\Code\Monster.cpp" />
     <ClCompile Include="..\Code\MusicStatue.cpp" />
+    <ClCompile Include="..\Code\Net.cpp" />
     <ClCompile Include="..\Code\NoteStatue.cpp" />
-    <ClCompile Include="..\Code\NPC.cpp" />
+    <ClCompile Include="..\Code\QuestNPC.cpp" />
     <ClCompile Include="..\Code\Object.cpp" />
     <ClCompile Include="..\Code\PartyHat.cpp" />
     <ClCompile Include="..\Code\Pipe.cpp" />
@@ -290,6 +325,7 @@
     <ClCompile Include="..\Code\PlayerRolling.cpp" />
     <ClCompile Include="..\Code\PlayerSmash.cpp" />
     <ClCompile Include="..\Code\PlayerSwing.cpp" />
+    <ClCompile Include="..\Code\PoopHat.cpp" />
     <ClCompile Include="..\Code\PressBlock.cpp" />
     <ClCompile Include="..\Code\QuestAccept.cpp" />
     <ClCompile Include="..\Code\QuestCursor.cpp" />
@@ -297,8 +333,11 @@
     <ClCompile Include="..\Code\QuickSlot.cpp" />
     <ClCompile Include="..\Code\Ray.cpp" />
     <ClCompile Include="..\Code\Scale.cpp" />
+    <ClCompile Include="..\Code\SeaLion.cpp" />
     <ClCompile Include="..\Code\SkyBox.cpp" />
     <ClCompile Include="..\Code\SmallFruit.cpp" />
+    <ClCompile Include="..\Code\SmallHerb.cpp" />
+    <ClCompile Include="..\Code\SmallRoot.cpp" />
     <ClCompile Include="..\Code\Stage.cpp" />
     <ClCompile Include="..\Code\StartBackGround.cpp" />
     <ClCompile Include="..\Code\StartScene.cpp" />
@@ -306,6 +345,7 @@
     <ClCompile Include="..\Code\StoneBlock.cpp" />
     <ClCompile Include="..\Code\StoneBlockHole.cpp" />
     <ClCompile Include="..\Code\StonePedestal.cpp" />
+    <ClCompile Include="..\Code\StoreNPC.cpp" />
     <ClCompile Include="..\Code\Terrain.cpp" />
     <ClCompile Include="..\Code\TestCol.cpp" />
     <ClCompile Include="..\Code\TestMap.cpp" />

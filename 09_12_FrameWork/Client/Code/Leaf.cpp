@@ -1,45 +1,42 @@
 #include "pch.h"
-#include "SmallFruit.h"
-#include "Player.h"
+#include "Leaf.h"
 
-CSmallFruit::CSmallFruit(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CItem(pGraphicDev)
+CLeaf::CLeaf(LPDIRECT3DDEVICE9 pGraphicDev)
+    :CItem(pGraphicDev)
 {
 }
 
-CSmallFruit::~CSmallFruit()
+CLeaf::~CLeaf()
 {
 }
 
-HRESULT CSmallFruit::Ready_GameObject()
+HRESULT CLeaf::Ready_GameObject()
 {
 	CItem::Ready_GameObject();
 
-	m_tInfo = { CONSUM,
-		SMALL_FRUIT,
-		L"°Ç°­ ¿­¸Å",
-		L"1µî±Þ ¿­¸Å. Ã¼·ÂÀÌ 1 È¸º¹µÈ´Ù.",
-		10, 1 };
+	m_tInfo = { OTHER,
+		LEAF,
+		L"³ª¹µÀÙ",
+		L"ÈçÇÑ ³ª¹µÀÙ.",
+		1, 1 };
 
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
 	return S_OK;
 }
 
-_int CSmallFruit::Update_GameObject(const _float& fTimeDelta)
+_int CLeaf::Update_GameObject(const _float& fTimeDelta)
 {
 	return CItem::Update_GameObject(fTimeDelta);
 }
 
-void CSmallFruit::LateUpdate_GameObject(const _float& fTimeDelta)
+void CLeaf::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CItem::LateUpdate_GameObject(fTimeDelta);
 }
 
-void CSmallFruit::Render_GameObject()
+void CLeaf::Render_GameObject()
 {
-	//const Engine::_matrix* matTemp = m_pTransformCom->Get_WorldMatrix();
-	//m_pGraphicDev->SetTransform(D3DTS_WORLD, matTemp);
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	m_pTextureCom->Set_Texture();
 	m_pBufferCom->Render_Buffer();
@@ -66,7 +63,7 @@ void CSmallFruit::Render_GameObject()
 
 }
 
-HRESULT CSmallFruit::Add_Component()
+HRESULT CLeaf::Add_Component()
 {
 	CComponent* pComponent = NULL;
 
@@ -76,19 +73,20 @@ HRESULT CSmallFruit::Add_Component()
 	m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
 	//SmallFruit
-	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_SmallFruit"));
+	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Leaf"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	m_mapComponent[ID_STATIC].insert({ L"Com_TextureSmallFruit", pComponent });
+	m_mapComponent[ID_STATIC].insert({ L"Com_TextureLeaf", pComponent });
 
 	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformSmallFruit", pComponent });
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformLeaf", pComponent });
 	m_pTransformCom->m_vScale = { 40.f, 40.f, 1.f };
 	m_pTransformCom->m_vInfo[INFO_POS] = { 0.f, 0.f, 0.1f };
-	//0925Quick
-	pComponent = m_pQuickTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformQuick", pComponent });
+	////0925Quick
+	//pComponent = m_pQuickTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
+	//NULL_CHECK_RETURN(pComponent, E_FAIL);
+	//m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformQuick", pComponent });
+
 
 	//CountRC
 	pComponent = m_pCountRCTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_CountRC"));
@@ -104,26 +102,14 @@ HRESULT CSmallFruit::Add_Component()
 	return S_OK;
 }
 
-//0924
-void CSmallFruit::Use_Item()
+CLeaf* CLeaf::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	m_pPlayer = dynamic_cast<CPlayer*>(Engine::Get_GameObject(L"Layer_GameLogic", L"Player"));
-	NULL_CHECK_RETURN(m_pPlayer);
-
-	if (m_pPlayer->GetPlayerHP().iMaxHP == m_pPlayer->GetPlayerHP().iCurHP)
-		return;
-	m_pPlayer->SetPlayerCurHP(1);
-	m_tInfo.iItemCount--;
-}
-
-CSmallFruit* CSmallFruit::Create(LPDIRECT3DDEVICE9 pGraphicDev)
-{
-	CSmallFruit* pItem = new CSmallFruit(pGraphicDev);
+	CLeaf* pItem = new CLeaf(pGraphicDev);
 
 	if (FAILED(pItem->Ready_GameObject()))
 	{
 		Safe_Release(pItem);
-		MSG_BOX("SmallFruit Create Failed");
+		MSG_BOX("Leaf Create Failed");
 		return nullptr;
 	}
 

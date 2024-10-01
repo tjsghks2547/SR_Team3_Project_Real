@@ -88,14 +88,36 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_ExploreHat", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/Explore.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_PartyHat", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/PartyHat.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Mohican", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/Mohican.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_AppleHat", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/AppleHat.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_EnkyHat", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/EnkyHat.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Penguin", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/Penguin.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_PoopHat", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/PoopHat.png", TEX_NORMAL)), E_FAIL);
+
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_SmallFruit", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/SmallFruit.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MiddleFruit", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/MiddleFruit.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_BigFruit", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/BigFruit.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_SmallHerb", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/SmallHerb.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MiddleHerb", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/MiddleHerb.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_BigHerb", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/BigHerb.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_SmallRoot", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/SmallRoot.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MiddleRoot", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/MiddleRoot.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_BigRoot", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/BigRoot.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_CookSmallFish", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/CookSmallFish.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_CookMiddleFish", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/CookMiddleFish.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_CookBigFish", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/CookBigFish.png", TEX_NORMAL)), E_FAIL);
+
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Branch", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/Branch.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Leaf", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/Leaf.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Net", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/Net.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Ticket", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/ExpressTicket.png", TEX_NORMAL)), E_FAIL);
+
+
 	//NPC
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_ExpressMonkey", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/ExpressMonkey.png", TEX_NORMAL)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_ExclamationMark", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/ExclamationMark.png", TEX_NORMAL)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_GrayQuest", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/GrayQuest.png", TEX_NORMAL)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_YellowQuest", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/YellowQuest.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_FishShop", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/FishShop.png", TEX_NORMAL)), E_FAIL);
+	//FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_ExpressMonkey", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/ExpressMonkey.png", TEX_NORMAL)), E_FAIL);
+	//FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_ExclamationMark", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/ExclamationMark.png", TEX_NORMAL)), E_FAIL);
+	//FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_GrayQuest", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/GrayQuest.png", TEX_NORMAL)), E_FAIL);
+	//FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_YellowQuest", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/YellowQuest.png", TEX_NORMAL)), E_FAIL);
 
 	//Puzzle
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_PipeBoardTex", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/puzzle/Sprite_MoonForest_MazePuzzleFloor2Line.png", TEX_NORMAL)), E_FAIL);
