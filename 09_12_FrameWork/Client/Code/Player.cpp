@@ -12,11 +12,14 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_vPlayerPrevPos()
     , m_bIsDiagonal(false)
     , m_bSwingTrigger(false)
-    , m_CCollideObj(nullptr)
+    , m_objInteractionBox(nullptr)
+    , m_objInteracting(nullptr)
     , m_fMoveSpeed(0.f)
+    , m_bInvincible(false)
+    , m_bPushTrigger(false)
+    , m_bPassAble(true)
     // UI 관련 초기화
     , m_iPlayerCoin(10), m_bInven(false), m_bQuest(false)
-    , m_bInvincible(false)
 
 {
     ZeroMemory(&m_tPlayerHP, sizeof(PLAYERHP));
@@ -105,6 +108,23 @@ void CPlayer::Render_GameObject()
 
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);  // 이거 설정안해주면 안됨 전역적으로 장치세팅이 저장되기 때문에
     m_pGraphicDev->SetTexture(0, NULL);  // 이거 설정안해주면 그대로 텍스처 나옴 이것도 마찬가지로 전역적으로 장치세팅이 되므로
+}
+
+void CPlayer::OnCollisionEnter(CGameObject* _pOther)
+{
+    if (_pOther->IncludingType(OBJ_TYPE::NOTPASS_ABLE))
+    {
+        m_bPassAble = false;
+    }
+}
+
+void CPlayer::OnCollisionExit(CGameObject* _pOther)
+{
+    if (_pOther->IncludingType(OBJ_TYPE::NOTPASS_ABLE))
+    {
+        m_bPassAble = true;
+    }
+
 }
 
 void CPlayer::SetPlayerDirection()

@@ -6,6 +6,9 @@ PlayerDance* PlayerDance::m_instance = nullptr;
 
 void PlayerDance::Enter()
 {
+    if (!m_pStateController)
+        SetComponent();
+
     (dynamic_cast<CPlayer*>(m_CGameObject))->FixPlayerDir(OBJDIR_FRONT);
     switch (m_iDanceType)
     {
@@ -13,7 +16,7 @@ void PlayerDance::Enter()
     case 0:
         (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(
             PLAYERSTATE::PLY_IDLEDANCE);
-
+        m_pAnimationCom->SetTextureScale(0.8f);
         break;
         // e키 눌러 체력 회복 하는 동작
     case 1:
@@ -25,8 +28,7 @@ void PlayerDance::Enter()
         break;
     }
     
-    if (!m_pStateController)
-        SetComponent();
+    
 }
 
 void PlayerDance::Update(const _float& fTimeDelta)
@@ -60,5 +62,12 @@ void PlayerDance::Update(const _float& fTimeDelta)
 
 void PlayerDance::Exit()
 {
+    switch (m_iDanceType)
+    {
+        // 가만히 서 있을 때 나오는 동작
+    case 0:
+        m_pAnimationCom->SetTextureScale(1.f);
+        break;
+    }
 }
 

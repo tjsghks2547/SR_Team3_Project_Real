@@ -34,7 +34,6 @@ private:
 	float m_fMoveSpeed;
 	float timeElapsed = 0.0f;
 
-	CAnimation* m_CAnimComp = nullptr;
 	CGameObject* colObj;
 	_vec3 vColPos;
 	_vec3 vDownPos;

@@ -22,7 +22,7 @@ HRESULT CPlayerInteractionBox::Ready_GameObject()
 
 void CPlayerInteractionBox::LateReady_GameObject()
 {
-    m_CPlayer->SetCollideObj(this);
+    m_CPlayer->SetInteractionBox(this);
     Engine::CGameObject::LateReady_GameObject();
 }
 
@@ -39,7 +39,7 @@ _int CPlayerInteractionBox::Update_GameObject(const _float& fTimeDelta)
         _vec3 pos;
         m_playerTransform->Get_Info(INFO_POS, &pos);
         pos.x += vPlayerDir.x * 15;
-        pos.y += vPlayerDir.z * 15;
+        pos.z += vPlayerDir.z * 15;
 
         m_pTransformCom->Set_Pos(pos);
     }
@@ -98,52 +98,32 @@ CPlayerInteractionBox* CPlayerInteractionBox::Create(LPDIRECT3DDEVICE9 pGraphicD
 
 void CPlayerInteractionBox::OnCollisionEnter(CGameObject* _pOther)
 {
+    if (m_CPlayer->GetPlayerState() == PLAYERSTATE::PLY_ROLLING ||
+        m_CPlayer->GetPlayerState() == PLAYERSTATE::PLY_ROLLINGDIAGONAL)
+        return;
+
+    m_CPlayer->SetInteractingObj(_pOther);
     switch (_pOther->GetObjectType())
     {
     case OBJ_TYPE::PUSH_ABLE:
-        m_CPlayer->SetCollideObj(_pOther);
-        m_CPlayer->SetPushTrigger(true);
-        dynamic_cast<CStateController*>(
-            m_CPlayer->Get_Component(ID_DYNAMIC, L"Com_State")
-            )->ChangeState(PlayerPush::GetInstance(), m_CPlayer);
+
+        if (!m_CPlayer->IsPlayerDiagonal())
+            m_CPlayer->SetPushTrigger(true);
+
         break;
     }
 }
 
 void CPlayerInteractionBox::OnCollision(CGameObject* _pOther)
 {
-    switch (_pOther->GetObjectType())
-    {
-    case OBJ_TYPE::LIFT_ABLE:
-
-        break;
-
-    case OBJ_TYPE::PUSH_ABLE:
-        if (m_CPlayer->GetPlayerState() == PLAYERSTATE::PLY_IDLE ||
-            m_CPlayer->GetPlayerState() == PLAYERSTATE::PLY_MOVE ||
-            m_CPlayer->GetPlayerState() == PLAYERSTATE::PLY_DASH)
-        {
-            CStateController* m_playerTransform =
-                dynamic_cast<CStateController*>(Engine::Get_Component(
-                    ID_DYNAMIC, L"Layer_GameLogic", L"Player", L"Com_State"));
-            //    m_CPlayer->SetPushTrigger(true);
-        }
-        break;
-
-    case OBJ_TYPE::DESTROY_ABLE:
-        break;
-    }
+   
 }
 
 void CPlayerInteractionBox::OnCollisionExit(CGameObject* _pOther)
 {
-    m_CPlayer->SetCollideObj(nullptr);
-    switch (_pOther->GetObjectType())
-    {
-    case OBJ_TYPE::PUSH_ABLE:
+    m_CPlayer->SetInteractingObj(nullptr);
+    if (_pOther->IncludingType(OBJ_TYPE::PUSH_ABLE))
         m_CPlayer->SetPushTrigger(false);
-        break;
-    }
 }
 
 void CPlayerInteractionBox::Free()

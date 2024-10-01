@@ -1,7 +1,6 @@
 #pragma once
 #include "GameObject.h"
 #include "Player.h"
-#include "PlayerInteractionBox.h"
 #include "Export_Utility.h"
 
 BEGIN(Engine)
@@ -12,17 +11,12 @@ class CCollider;
 
 END
 
-struct MONSTER_HP
-{
-	_int	iCurHP;
-	_int	iMaxHP;
-};
 
-class CMonster : public Engine::CGameObject
+class CTestCol2 : public Engine::CGameObject
 {
 private:
-	explicit CMonster(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual ~CMonster();
+	explicit CTestCol2(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual ~CTestCol2();
 
 public:
 
@@ -35,23 +29,6 @@ public:
 	virtual			void			OnCollision(CGameObject* _pOther);
 public:
 	void			SetPlayer(CPlayer* _Player) { m_CPlayer = _Player; }
-	void			KnockBack(const _float& fTimeDelta, _vec3 vKnockBackDir);
-
-	void			SetInvincible(_bool value = true) { m_bInvincible = value; }
-	bool			IsInvincible() { return m_bInvincible; }
-	void			DurationInvincible(const _float& fTimeDelta);
-
-	MONSTER_HP		GetMonsterHP() { return m_tMonsterHP; }
-	void			SetMonsterCurHP(_int _SetHP)
-	{
-		m_tMonsterHP.iCurHP += _SetHP;
-		if (m_tMonsterHP.iCurHP > m_tMonsterHP.iMaxHP)
-			m_tMonsterHP.iCurHP = m_tMonsterHP.iMaxHP;
-
-		if (m_tMonsterHP.iCurHP < 0)
-			m_tMonsterHP.iCurHP = 0;
-	}
-
 private:
 	HRESULT			Add_Component();
 
@@ -71,15 +48,9 @@ private:
 	Engine::CCollider* m_pBoundBox;
 	Engine::CTexture* m_pTexture;
 
-	MONSTER_HP m_tMonsterHP;
-
 	CPlayer* m_CPlayer;
-	_bool m_bKnockBackTrigger;
-	_vec3 m_vKnockBackDir;
-
-	_bool m_bInvincible;
 public:
-	static CMonster* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CTestCol2* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 	virtual void Free();

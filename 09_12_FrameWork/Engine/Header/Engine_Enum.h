@@ -37,7 +37,16 @@ namespace Engine
 
 
 	// 09.28 µ¿¿µ
-	enum OBJ_TYPE { PUSH_ABLE, LIFT_ABLE, DESTROY_ABLE, NONE, TYPE_END };
+	enum OBJ_TYPE
+	{
+		NOTPASS_ABLE = 1,
+		PUSH_ABLE = 2,
+		LIFT_ABLE = 4,
+		DESTROY_ABLE = 8,
+		TALK_ABLE = 16,
+		TYPE_NONE = 32,
+		TYPE_END
+	};
 
 	enum CONTROLKEY
 	{

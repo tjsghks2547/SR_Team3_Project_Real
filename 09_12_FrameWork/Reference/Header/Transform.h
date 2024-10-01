@@ -42,6 +42,7 @@ public:
 	void	Set_Pos(_float _fX, _float _fY, _float _fZ)
 	{
 		m_vInfo[INFO_POS] = { _fX, _fY, _fZ };
+		memcpy(&m_matWorld.m[INFO_POS], &m_vInfo[INFO_POS], sizeof(_vec3));
 	}
 	void	Set_Pos(_vec3 _vec)
 	{

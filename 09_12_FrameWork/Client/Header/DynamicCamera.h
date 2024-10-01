@@ -91,6 +91,16 @@ private:
 	bool m_bShakeTrigger;
 	float fShakeTickTime;
 	float m_fShakeDuration;
+	float m_fShakePower;
+	float m_fPrevShakeAtYPos;
+
+	float elapsedTime = 0.0f;
+	float shakeAmplitude = 0.1f;  // 흔들림의 세기 (높이의 범위)
+	float shakeFrequency = 20.0f;  // 흔들림의 빈도 (초당 진동 횟수)
+	float shakeDuration = 0.01f;   // 흔들림의 지속 시간
+
+	// 진동 효과를 적용할 시간
+	float shakeTimer = shakeDuration;
 
 public:
 	static  CDynamicCamera* Create(LPDIRECT3DDEVICE9 pGraphicDev

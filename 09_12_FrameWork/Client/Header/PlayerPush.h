@@ -31,6 +31,7 @@ private:
     static PlayerPush* m_instance;
     float m_fMoveSpeed;
     CGameObject* colObj;
+
 private:
     void Key_Input(const _float& fTimeDelta);
 };

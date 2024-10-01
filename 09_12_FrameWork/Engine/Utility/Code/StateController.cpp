@@ -1,5 +1,6 @@
 #include "StateController.h"
 #include "State.h"
+
 CStateController::CStateController()
 {
 }
@@ -14,7 +15,7 @@ CStateController::CStateController(const CStateController& rhs)
     :CComponent(rhs)
     , m_pState(nullptr)
 {
- 
+
     //m_pState = rhs.m_pState;
     //m_pState->AddRef();
 }
@@ -47,7 +48,7 @@ void CStateController::ChangeState(CState* _nextState, CGameObject* _ob)
 
     m_pState = _nextState;
 
-    if(!m_pState->m_CGameObject)
+    if (!m_pState->m_CGameObject)
         m_pState->m_CGameObject = _ob;
 
     m_pState->Enter();
@@ -57,7 +58,7 @@ void CStateController::ChangeState(CState* _nextState, CGameObject* _ob)
 CStateController* CStateController::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
     CStateController* pState = new CStateController(pGraphicDev);
-    
+
     if (FAILED(pState->Ready_State()))
     {
         Safe_Release(pState);

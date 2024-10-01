@@ -6,14 +6,12 @@ PlayerLiftMove* PlayerLiftMove::m_instance = nullptr;
 
 void PlayerLiftMove::Enter()
 {
-    (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(
-        PLAYERSTATE::PLY_LIFTMOVE);
-
-
     if (!m_pStateController)
         SetComponent();
 
-    m_CAnimComp = dynamic_cast<CPlayer*>(m_CGameObject)->GetAnimationComp();
+    (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(
+        PLAYERSTATE::PLY_LIFTMOVE);
+
     m_fMoveSpeed = 20.f;
     (dynamic_cast<CPlayer*>(m_CGameObject))->SetMoveSpeed(m_fMoveSpeed);
 }

@@ -14,6 +14,8 @@ HRESULT CExpressMonkey::Ready_GameObject()
 {
     CQuestNPC::Ready_GameObject();
 
+    SetObjectType(OBJ_TYPE::TALK_ABLE);
+
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
     D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/MonkeyCome.png", &m_pComeTex);
@@ -115,6 +117,9 @@ void CExpressMonkey::Render_GameObject()
 
 void CExpressMonkey::OnCollision(CGameObject* _pOther)
 {
+    if (_pOther->GetObjectKey() != L"PlayerInteractionBox")
+        return;
+
     m_bEnter = true;
 
     // [S]버튼 출력.

@@ -6,10 +6,10 @@ PlayerMove* PlayerMove::m_instance = nullptr;
 
 void PlayerMove::Enter()
 {
-    (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(PLAYERSTATE::PLY_MOVE);
-
     if (!m_pStateController)
         SetComponent();
+
+    dynamic_cast<CPlayer*>(m_CGameObject)->SetPlayerState(PLAYERSTATE::PLY_MOVE);
 
     m_fMoveSpeed = 50.f;
     (dynamic_cast<CPlayer*>(m_CGameObject))->SetMoveSpeed(m_fMoveSpeed);
@@ -40,6 +40,7 @@ void PlayerMove::Update(const _float& fTimeDelta)
     {
         m_pStateController->ChangeState(PlayerRolling::GetInstance(), m_CGameObject);
     }
+
     Key_Input(fTimeDelta);
 }
 
@@ -57,64 +58,137 @@ void PlayerMove::Key_Input(const _float& fTimeDelta)
 
     m_pTransformCom->Get_Info(INFO_LOOK, &vLook);
     m_pTransformCom->Get_Info(INFO_RIGHT, &vRight);
-    vPlayerDir = (dynamic_cast<CPlayer*>(m_CGameObject))->GetPlayerDirVector();
+    vPlayerDir = (dynamic_cast<CPlayer*>(m_CGameObject))->GetPlayerDirVector2();
+
+    m_colliderObj = dynamic_cast<CPlayer*>(m_CGameObject)->GetInteractingObj();
 
     if (Engine::GetKeyPress(CONTROL_KEY::PLY_UPKEY))
     {
-        /*if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPushTrigger() &&
-            vPlayerDir.x == 0 &&
-            vPlayerDir.z == 1)
+        if (m_colliderObj != nullptr)
         {
-            m_pStateController->ChangeState(PlayerPush::GetInstance(), m_CGameObject);
-            return;
-        }*/
+            if ((dynamic_cast<CPlayer*>(m_CGameObject))->IsPlayerDiagonal())
+            {
+                if (vPlayerDir.z > 0)
+                    return;
+            }
+
+            if (m_colliderObj->IncludingType(OBJ_TYPE::PUSH_ABLE))
+            {
+                m_pStateController->ChangeState(PlayerPush::GetInstance(), m_CGameObject);
+            }
+
+        }
+
+        else
+        {
+            m_fMoveSpeed = 50.f;
+        }
 
 
-        m_pTransformCom->Move_Pos(
-            D3DXVec3Normalize(&vLook, &vLook), fTimeDelta, m_fMoveSpeed);
+        _vec3 moveDir = (dynamic_cast<CPlayer*>(m_CGameObject))->GetPlayerDirVector2();
+
+        if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPassAble() || moveDir.z < 0)
+        {
+            (dynamic_cast<CPlayer*>(m_CGameObject))->SetMoveSpeed(m_fMoveSpeed);
+            m_pTransformCom->Move_Pos(
+                D3DXVec3Normalize(&vLook, &vLook), fTimeDelta, m_fMoveSpeed);
+        }
     }
-
 
     if (Engine::GetKeyPress(CONTROL_KEY::PLY_DOWNKEY))
     {
-        /*if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPushTrigger() &&
-            vPlayerDir.x == 0 &&
-            vPlayerDir.z == -1)
+        if (m_colliderObj != nullptr)
         {
-            m_pStateController->ChangeState(PlayerPush::GetInstance(), m_CGameObject);
-            return;
-        }*/
+            if ((dynamic_cast<CPlayer*>(m_CGameObject))->IsPlayerDiagonal())
+            {
+                if (vPlayerDir.z < 0)
+                    return;
+            }
 
-        m_pTransformCom->Move_Pos(D3DXVec3Normalize(
-            &vLook, &vLook), fTimeDelta, -m_fMoveSpeed);
+            if (m_colliderObj->IncludingType(OBJ_TYPE::PUSH_ABLE))
+            {
+                m_pStateController->ChangeState(PlayerPush::GetInstance(), m_CGameObject);
+            }
+
+        }
+
+        else
+        {
+            m_fMoveSpeed = 50.f;
+        }
+
+        _vec3 moveDir = (dynamic_cast<CPlayer*>(m_CGameObject))->GetPlayerDirVector2();
+
+        if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPassAble() || moveDir.z > 0)
+        {
+            (dynamic_cast<CPlayer*>(m_CGameObject))->SetMoveSpeed(m_fMoveSpeed);
+            m_pTransformCom->Move_Pos(D3DXVec3Normalize(
+                &vLook, &vLook), fTimeDelta, -m_fMoveSpeed);
+        }
     }
-
 
     if (Engine::GetKeyPress(CONTROL_KEY::PLY_LEFTKEY))
     {
-        /*if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPushTrigger() &&
-            vPlayerDir.x == -1 &&
-            vPlayerDir.z == 0)
+        if (m_colliderObj != nullptr)
         {
-            m_pStateController->ChangeState(PlayerPush::GetInstance(), m_CGameObject);
-            return;
-        }*/
+            if ((dynamic_cast<CPlayer*>(m_CGameObject))->IsPlayerDiagonal())
+            {
+                if (vPlayerDir.x < 0)
+                    return;
+            }
 
-        m_pTransformCom->Move_Pos(D3DXVec3Normalize(
-            &vRight, &vRight), fTimeDelta, -m_fMoveSpeed);
+            if (m_colliderObj->IncludingType(OBJ_TYPE::PUSH_ABLE))
+            {
+                m_pStateController->ChangeState(PlayerPush::GetInstance(), m_CGameObject);
+            }
+
+        }
+
+        else
+        {
+            m_fMoveSpeed = 50.f;
+        }
+
+
+        _vec3 moveDir = (dynamic_cast<CPlayer*>(m_CGameObject))->GetPlayerDirVector2();
+
+        if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPassAble() || moveDir.x > 0)
+        {
+            (dynamic_cast<CPlayer*>(m_CGameObject))->SetMoveSpeed(m_fMoveSpeed);
+            m_pTransformCom->Move_Pos(D3DXVec3Normalize(
+                &vRight, &vRight), fTimeDelta, -m_fMoveSpeed);
+        }
     }
-
 
     if (Engine::GetKeyPress(CONTROL_KEY::PLY_RIGHTKEY))
     {
-        /*if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPushTrigger() &&
-            vPlayerDir.x == 1 &&
-            vPlayerDir.z == 0)
+        if (m_colliderObj != nullptr)
         {
-            m_pStateController->ChangeState(PlayerPush::GetInstance(), m_CGameObject);
-            return;
-        }*/
-        m_pTransformCom->Move_Pos(D3DXVec3Normalize(
-            &vRight, &vRight), fTimeDelta, m_fMoveSpeed);
+            if ((dynamic_cast<CPlayer*>(m_CGameObject))->IsPlayerDiagonal())
+            {
+                if (vPlayerDir.x > 0)
+                    return;
+            }
+
+            if (m_colliderObj->GetObjectType() == OBJ_TYPE::PUSH_ABLE)
+            {
+                m_pStateController->ChangeState(PlayerPush::GetInstance(), m_CGameObject);
+            }
+
+        }
+
+        else
+        {
+            m_fMoveSpeed = 50.f;
+        }
+
+        _vec3 moveDir = (dynamic_cast<CPlayer*>(m_CGameObject))->GetPlayerDirVector2();
+
+        if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPassAble() || moveDir.x < 0)
+        {
+            (dynamic_cast<CPlayer*>(m_CGameObject))->SetMoveSpeed(m_fMoveSpeed);
+            m_pTransformCom->Move_Pos(D3DXVec3Normalize(
+                &vRight, &vRight), fTimeDelta, m_fMoveSpeed);
+        }
     }
 }

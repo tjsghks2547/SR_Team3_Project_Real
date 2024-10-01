@@ -238,6 +238,7 @@
     <ClInclude Include="..\Header\StoreNPC.h" />
     <ClInclude Include="..\Header\Terrain.h" />
     <ClInclude Include="..\Header\TestCol.h" />
+    <ClInclude Include="..\Header\TestCol2.h" />
     <ClInclude Include="..\Header\TestMap.h" />
     <ClInclude Include="..\Header\DefaultUI.h" />
     <ClInclude Include="..\Header\TestObject.h" />
@@ -348,6 +349,7 @@
     <ClCompile Include="..\Code\StoreNPC.cpp" />
     <ClCompile Include="..\Code\Terrain.cpp" />
     <ClCompile Include="..\Code\TestCol.cpp" />
+    <ClCompile Include="..\Code\TestCol2.cpp" />
     <ClCompile Include="..\Code\TestMap.cpp" />
     <ClCompile Include="..\Code\DefaultUI.cpp" />
     <ClCompile Include="..\Code\TestObject.cpp" />

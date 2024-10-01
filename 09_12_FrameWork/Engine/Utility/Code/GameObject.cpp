@@ -2,14 +2,15 @@
 
 CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDevice)
 	:m_pGraphicDev(pGraphicDevice)
-	,m_strKey(L"")
+	, m_strKey(L"")
+	, m_iObjType(0)
 {
 	m_pGraphicDev->AddRef();
 }
 
 CGameObject::CGameObject(const CGameObject& rhs)
 	:m_pGraphicDev(rhs.m_pGraphicDev)
-	,m_strKey(L"")
+	, m_strKey(L"")
 {
 	m_pGraphicDev->AddRef();
 }
@@ -53,7 +54,7 @@ void CGameObject::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	for (auto& pComponent : m_mapComponent[ID_DYNAMIC])
 		pComponent.second->LateUpdate_Component(fTimeDelta);
-	
+
 }
 
 void CGameObject::Compute_ViewZ(const _vec3* pPos)
@@ -84,7 +85,7 @@ CComponent* CGameObject::Find_Component(COMPONENTID eID, const _tchar* pComponen
 
 void CGameObject::Free()
 {
-	for (_uint i = 0 ; i < ID_END; ++i)
+	for (_uint i = 0; i < ID_END; ++i)
 	{
 		for_each(m_mapComponent[i].begin(), m_mapComponent[i].end(), CDeleteMap());
 		m_mapComponent[i].clear();
