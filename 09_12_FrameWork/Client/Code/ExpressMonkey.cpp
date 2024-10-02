@@ -4,10 +4,12 @@
 CExpressMonkey::CExpressMonkey(LPDIRECT3DDEVICE9 pGraphicDev)
     :CQuestNPC(pGraphicDev), m_bEnter(false)
 {
+
 }
 
 CExpressMonkey::~CExpressMonkey()
 {
+
 }
 
 HRESULT CExpressMonkey::Ready_GameObject()

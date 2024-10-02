@@ -38,7 +38,7 @@ _int CStage::Update_Scene(const _float& fTimeDelta)
 		NULL_CHECK_RETURN(pStage2, -1);
 
 		FAILED_CHECK_RETURN(Engine::Set_Scene(pStage2), E_FAIL);
-		pStage2->init(); // 맵툴에서 가져온 오브젝트들을 위해 사용 
+		//pStage2->init(); // 맵툴에서 가져온 오브젝트들을 위해 사용 
 
 		return 0;
 	}

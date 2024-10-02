@@ -2,6 +2,7 @@
 #include "Object.h"
 #include "Export_Utility.h"
 #include "ImGuiManger.h"
+#include "ResMgr.h"
 
 CObject::CObject(LPDIRECT3DDEVICE9 pGraphicDev)
 	:Engine::CGameObject(pGraphicDev)
@@ -16,22 +17,6 @@ HRESULT CObject::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
-	//여기서 텍스처 다 넣자 
-
-	m_vecTexture.resize(100);
-
-
-	for (int i = 0; i < m_vecTexture.size(); i++)
-	{
-		char filePath[256];
-		sprintf_s(filePath, "../Bin/Resource/Texture/Object/object%d.png", i);
-
-		HRESULT hr = LoadTextureFromFile(CGraphicDev::GetInstance()->Get_GraphicDev(), filePath, &m_vecTexture[i]);
-		if (FAILED(hr))
-		{
-			MSG_BOX("Object Texture load failed");
-		}
-	}
 	return S_OK;
 }
 
@@ -57,187 +42,250 @@ void CObject::Render_GameObject()
 	
 	if (m_strTextureKey == L"Wall")
 	{
-		//auto iter = find_if(m_mapTexture.begin(), m_mapTexture.end(),);
-		m_pGraphicDev->SetTexture(0, m_vecTexture[0]);
-
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[0]);
 	}
 
-	if (m_strTextureKey == L"Super")
+	else if (m_strTextureKey == L"Super")
 	{
-		//auto iter = find_if(m_mapTexture.begin(), m_mapTexture.end(),);
-		m_pGraphicDev->SetTexture(0, m_vecTexture[1]);
-
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[1]);
+	
 	}
-
-	if (m_strTextureKey == L"TelephonePole")
+	
+	else if (m_strTextureKey == L"TelephonePole")
 	{
-		//auto iter = find_if(m_mapTexture.begin(), m_mapTexture.end(),);
-		m_pGraphicDev->SetTexture(0, m_vecTexture[2]);
-
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[2]);
+	
 	}
-
-	if (m_strTextureKey == L"BusStation")
+	
+	else if (m_strTextureKey == L"BusStation")
 	{
-		//auto iter = find_if(m_mapTexture.begin(), m_mapTexture.end(),);
-		m_pGraphicDev->SetTexture(0, m_vecTexture[3]);
-
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[3]);
+	
 	}
-
-	if (m_strTextureKey == L"BreadStore")
+	
+	else if (m_strTextureKey == L"BreadStore")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[4]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[4]);
 	}
-
-	if (m_strTextureKey == L"Telephone2Pole")
+	
+	else if (m_strTextureKey == L"Telephone2Pole")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[5]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[5]);
 	}
-
-	if (m_strTextureKey == L"Bench")
+	
+	else if (m_strTextureKey == L"Bench")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[6]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[6]);
 	}
-
-	if (m_strTextureKey == L"Carpet")
+	
+	else if (m_strTextureKey == L"Carpet")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[7]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[7]);
 	}
-
-	if (m_strTextureKey == L"Ogu_House_Floor")
+	
+	else if (m_strTextureKey == L"Ogu_House_Floor")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[8]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[8]);
 	}
-
-	if (m_strTextureKey == L"Ogu_House_Table")
+	
+	else if(m_strTextureKey == L"Ogu_House_Table")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[9]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[9]);
 	}
-
-	if (m_strTextureKey == L"Flower_Pot")
+	
+	else if (m_strTextureKey == L"Flower_Pot")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[10]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[10]);
 	}
-
-	if (m_strTextureKey == L"Street_Lamp")
+	
+	else if (m_strTextureKey == L"Street_Lamp")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[11]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[11]);
 	}
-
-	if (m_strTextureKey == L"No_Flower_Pot")
+	
+	else if (m_strTextureKey == L"No_Flower_Pot")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[12]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[12]);
 	}
-
-
-	if (m_strTextureKey == L"One_Flower_Pot")
+	
+	
+	else if (m_strTextureKey == L"One_Flower_Pot")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[13]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[13]);
 	}
-
-	if (m_strTextureKey == L"One_No_Flower_Pot")
+	
+	else if (m_strTextureKey == L"One_No_Flower_Pot")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[14]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[14]);
 	}
-
-	if (m_strTextureKey == L"Forest_Tree")
+	
+	else if (m_strTextureKey == L"Forest_Tree")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[15]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[15]);
 	}
-
-	if (m_strTextureKey == L"Long_Wall")
+	
+	else if (m_strTextureKey == L"Long_Wall")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[16]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[16]);
 	}
-
-	if (m_strTextureKey == L"Background_Wall")
+	
+	else if (m_strTextureKey == L"Background_Wall")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[17]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[17]);
 	}
-
-	if (m_strTextureKey == L"Cart")
+	
+	else if (m_strTextureKey == L"Cart")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[18]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[18]);
 	}
-
-	if (m_strTextureKey == L"Tutorial_Store2")
+	
+	else if (m_strTextureKey == L"Tutorial_Store2")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[19]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[19]);
 	}
-
-	if (m_strTextureKey == L"One_Tree")
+	
+	else if (m_strTextureKey == L"One_Tree")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[20]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[20]);
 	}
-
-	if (m_strTextureKey == L"Background_Sky")
+	
+	else if (m_strTextureKey == L"Background_Sky")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[21]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[21]);
 	}
-
-	if (m_strTextureKey == L"Bucket")
+	
+	else if (m_strTextureKey == L"Bucket")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[22]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[22]);
 	}
-
-	if (m_strTextureKey == L"Trash_Can")
+	
+	else if (m_strTextureKey == L"Trash_Can")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[23]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[23]);
 	}
-
-	if (m_strTextureKey == L"bicycle")
+	
+	else if (m_strTextureKey == L"bicycle")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[24]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[24]);
 	}
-
-	if (m_strTextureKey == L"Mini_Chair")
+	
+	else if (m_strTextureKey == L"Mini_Chair")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[25]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[25]);
 	}
-
-
-	if (m_strTextureKey == L"Fence")
+	
+	
+	else if (m_strTextureKey == L"Fence")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[26]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[26]);
 	}
-
-	if (m_strTextureKey == L"Grass_collection")
+	
+	else if (m_strTextureKey == L"Grass_collection")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[27]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[27]);
 	}
-
-	if (m_strTextureKey == L"Stone")
+	
+	else if (m_strTextureKey == L"Stone")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[28]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[28]);
 	}
-
-	if (m_strTextureKey == L"Sky_Color_Tree")
+	
+	else if (m_strTextureKey == L"Sky_Color_Tree")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[29]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[29]);
 	}
-
-	if (m_strTextureKey == L"Cave_Entrance")
+	
+	else if (m_strTextureKey == L"Cave_Entrance")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[30]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[30]);
 	}
-
-
-	if (m_strTextureKey == L"Cave_Wall")
+	
+	
+	else if (m_strTextureKey == L"Cave_Wall")
 	{
-		m_pGraphicDev->SetTexture(0, m_vecTexture[31]);
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[31]);	
+	}
+
+	else if (m_strTextureKey == L"Moon_Tree_one")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[32]);
+	}
+
+	else if (m_strTextureKey == L"Moon_Tree_two")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[33]);
+	}
+
+	else if (m_strTextureKey == L"Mushroom")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[34]);
+	}
+
+	else if (m_strTextureKey == L"Tree_bottom")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[35]);
+	}
+
+	else if (m_strTextureKey == L"Bug_statue_one")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[36]);
 	}
 
 
-	/*Telephone2Pole
-			Bench
-			Carpet
-			Ogu_House_Floor
-			Ogu_House_Table*/
-	//Ogu_House_Table
+	else if (m_strTextureKey == L"Sign")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[37]);
+	}
+
+	else if (m_strTextureKey == L"Bug_statue_two")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[38]);
+	}
+
+	else if (m_strTextureKey == L"Moon_Forest_Entrance")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[39]);
+	}
 
 
+	else if (m_strTextureKey == L"Stone_statue")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[40]);
+	}
+
+	else if (m_strTextureKey == L"Moon_Grass")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[41]);
+	}
+
+
+	else if (m_strTextureKey == L"Bug_statue_three")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[42]);
+	}
+
+
+	else if (m_strTextureKey == L"Stone_statue_two")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[43]);
+	}
+
+
+	else if (m_strTextureKey == L"Moon_Flag")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[44]);
+	}
+
+
+	else if (m_strTextureKey == L"Moon_Wall")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[45]);
+		}
 
 	m_pBufferCom->Render_Buffer();
 
+
+	//맵툴 작성시 끄기 
 	//m_pBoundBox->Render_Buffer();
 
 
@@ -263,6 +311,7 @@ HRESULT CObject::Add_Component()
 	
 	 
 	// 9월 23일 추가 선환 충돌관련 박스 
+	// 맵툴 작성시 끄기 
 	//pComponent = m_pBoundBox = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
 	//NULL_CHECK_RETURN(pComponent, E_FAIL);
 	//m_pBoundBox->SetGameObjectPtr(this);

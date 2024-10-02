@@ -459,6 +459,111 @@ void CImgui_ObjectTool::ShowObjectWindow()
 			m_strCurObjectName = L"Cave_Wall";
 		};
 
+		if (ImGui::ImageButton("Moon_Tree_one", m_vecObjectTexture[32], imageSize))
+		{
+			m_sCurTextureData =  L"Moon_Tree_one";
+			m_sCurTextureKey =   L"Moon_Tree_one";
+			m_strCurObjectName = L"Moon_Tree_one";
+		};
+
+
+		if (ImGui::ImageButton("Moon_Tree_two", m_vecObjectTexture[33], imageSize))
+		{
+			m_sCurTextureData =  L"Moon_Tree_two";
+			m_sCurTextureKey =   L"Moon_Tree_two";
+			m_strCurObjectName = L"Moon_Tree_two";
+		};
+
+
+		if (ImGui::ImageButton("Mushroom", m_vecObjectTexture[34], imageSize))
+		{
+			m_sCurTextureData =  L"Mushroom";
+			m_sCurTextureKey =   L"Mushroom";
+			m_strCurObjectName = L"Mushroom";
+		};
+
+		if (ImGui::ImageButton("Tree_bottom", m_vecObjectTexture[35], imageSize))
+		{
+			m_sCurTextureData =  L"Tree_bottom";
+			m_sCurTextureKey =   L"Tree_bottom";
+			m_strCurObjectName = L"Tree_bottom";
+		};
+
+		if (ImGui::ImageButton("Bug_statue_one", m_vecObjectTexture[36], imageSize))
+		{
+			m_sCurTextureData =  L"Bug_statue_one";
+			m_sCurTextureKey =   L"Bug_statue_one";
+			m_strCurObjectName = L"Bug_statue_one";
+		};
+
+
+		if (ImGui::ImageButton("Sign", m_vecObjectTexture[37], imageSize))
+		{
+			m_sCurTextureData =  L"Sign";
+			m_sCurTextureKey =   L"Sign";
+			m_strCurObjectName = L"Sign";
+		};
+
+
+		if (ImGui::ImageButton("Bug_statue_two", m_vecObjectTexture[38], imageSize))
+		{
+			m_sCurTextureData =  L"Bug_statue_two";
+			m_sCurTextureKey =   L"Bug_statue_two";
+			m_strCurObjectName = L"Bug_statue_two";
+		};
+
+
+		if (ImGui::ImageButton("Moon_Forest_Entrance", m_vecObjectTexture[39], imageSize))
+		{
+			m_sCurTextureData =  L"Moon_Forest_Entrance";
+			m_sCurTextureKey =   L"Moon_Forest_Entrance";
+			m_strCurObjectName = L"Moon_Forest_Entrance";
+		};
+
+
+		if (ImGui::ImageButton("Stone_statue", m_vecObjectTexture[40], imageSize))
+		{
+			m_sCurTextureData =  L"Stone_statue";
+			m_sCurTextureKey =   L"Stone_statue";
+			m_strCurObjectName = L"Stone_statue";
+		};
+
+
+		if (ImGui::ImageButton("Moon_Grass", m_vecObjectTexture[41], imageSize))
+		{
+			m_sCurTextureData =  L"Moon_Grass";
+			m_sCurTextureKey =   L"Moon_Grass";
+			m_strCurObjectName = L"Moon_Grass";
+		};
+
+		if (ImGui::ImageButton("Bug_statue_three", m_vecObjectTexture[42], imageSize))
+		{
+			m_sCurTextureData =  L"Bug_statue_three";
+			m_sCurTextureKey =   L"Bug_statue_three";
+			m_strCurObjectName = L"Bug_statue_three";
+		};
+
+		if (ImGui::ImageButton("Stone_statue_two", m_vecObjectTexture[43], imageSize))
+		{
+			m_sCurTextureData =  L"Stone_statue_two";
+			m_sCurTextureKey =   L"Stone_statue_two";
+			m_strCurObjectName = L"Stone_statue_two";
+		};
+
+		if (ImGui::ImageButton("Moon_Flag", m_vecObjectTexture[44], imageSize))
+		{
+			m_sCurTextureData =  L"Moon_Flag";
+			m_sCurTextureKey =   L"Moon_Flag";
+			m_strCurObjectName = L"Moon_Flag";
+		};
+
+
+		if (ImGui::ImageButton("Moon_Wall", m_vecObjectTexture[45], imageSize))
+		{
+			m_sCurTextureData =  L"Moon_Wall";
+			m_sCurTextureKey =   L"Moon_Wall";
+			m_strCurObjectName = L"Moon_Wall";
+		};
 
 		//일단 오브젝트 생성해보기 
 		ImGui::End();
@@ -783,11 +888,17 @@ void CImgui_ObjectTool::Save()
 
 		// 여기서 오브젝트의 SetTextureKey와 object의 월드 매트릭스 값을 저장하면될듯 
 
+
 		map<const _tchar*, CLayer*>& pLayerMap = CManagement::GetInstance()->GetCurScenePtr()->GetLayerMapPtr();
 		
+		ObjectData SaveStruct;
+		ZeroMemory(&SaveStruct, sizeof(ObjectData));	
+
 		for (auto iter = pLayerMap.begin(); iter != pLayerMap.end(); ++iter)
 		{
 			const _tchar* layerKey = iter->first;
+
+			
 
 		
 			if (_tcscmp(layerKey, _T("Layer_GameLogic")) == 0)
@@ -800,89 +911,30 @@ void CImgui_ObjectTool::Save()
 				
 				for(auto iter2 = pMapObject.begin(); iter2 != pMapObject.end(); ++iter2)
 				{
-					wstring TextureInfo = iter2->second->GetObjectKey();
-					DWORD bytesToWrite = 100;
+
 					DWORD bytesWritten = 0;	
-					//
-					if (!WriteFile(hFile, TextureInfo.c_str(), bytesToWrite, &bytesWritten, NULL))
-					{
-						MSG_BOX("FAILED TO WRITE TO TextureKey TO FILE");	
-						CloseHandle(hFile);	
-					}
-
-					//Texture 키 
-					TextureInfo = iter2->second->GetTextureKey();
-					bytesToWrite = 100;
-					bytesWritten = 0;
-
-					if (!WriteFile(hFile, TextureInfo.c_str(), bytesToWrite, &bytesWritten, NULL))
-					{
-						MSG_BOX("FAILED TO WRITE TO TextureKey TO FILE");
-						CloseHandle(hFile);
-					}
-
+						
+					wcscpy_s(SaveStruct.objectName, iter2->second->GetObjectKey().c_str());	
+					wcscpy_s(SaveStruct.textureKey, iter2->second->GetTextureKey().c_str());
 					
 					
-					wstring ObjectName = iter2->second->GetObjectKey();
-					CTransform* pTransform =  dynamic_cast<CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_GameLogic", ObjectName.c_str(), L"Com_Transform"));
-					const D3DXMATRIX* WorldMatrix = pTransform->Get_WorldMatrix();	
-					D3DXMATRIX Test = *WorldMatrix;
-
-					bytesToWrite = sizeof(D3DXMATRIX);
-					bytesWritten = 0;	
-
-					if(!WriteFile(hFile, Test, bytesToWrite, &bytesWritten,NULL))
-					{
-						MSG_BOX("FAILED TO WRITE TO MATRIX TO FILE");
-						CloseHandle(hFile);
-					}
-
-					D3DXVECTOR3 vec3;
-					vec3 = { pTransform->Rotation_x,pTransform->Rotation_y,pTransform->Rotation_z };
-
-					bytesToWrite = sizeof(D3DXVECTOR3);
-					bytesWritten = 0;
-
-					if(!WriteFile(hFile,vec3,bytesToWrite, &bytesWritten,NULL))
-					{
-						MSG_BOX("FAILED TO WRITE TO ROTATION TO FILE");
-						CloseHandle(hFile);	
-					}
-
-
-					vec3 = { pTransform->Scale_x,pTransform->Scale_y,pTransform->Scale_z };	
-
-					bytesToWrite = sizeof(D3DXVECTOR3);	
-					bytesWritten = 0;	
-
-					if (!WriteFile(hFile, vec3, bytesToWrite, &bytesWritten, NULL))	
-					{
-						MSG_BOX("FAILED TO WRITE TO ROTATION TO FILE");	
-						CloseHandle(hFile);	
-					}
-
-					int a = 4;
+					CTransform* pTransform = dynamic_cast<CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_GameLogic", SaveStruct.objectName, L"Com_Transform"));
+					SaveStruct.worldMatrix = *(pTransform->Get_WorldMatrix());	
 					
+					SaveStruct.rotation = { pTransform->Rotation_x,pTransform->Rotation_y,pTransform->Rotation_z };
+					SaveStruct.scale = { pTransform->Scale_x,pTransform->Scale_y,pTransform->Scale_z };
 
-				
+
+					if (!WriteFile(hFile, &SaveStruct, sizeof(ObjectData), &bytesWritten, NULL))
+					{
+						MSG_BOX("쓰기 오류!");
+					}
 				}
 			}
 		}
-
 		MSG_BOX("SUCCESS");
-		 
 	}
-	else {
-		// 오류나 취소 시, 오류 코드를 확인
-		DWORD error = CommDlgExtendedError();
-		if (error != 0) {
-			MSG_BOX("Error");
-			//char errorMsg[100];
-			//sprintf(errorMsg, "Error code: %lu", error);
-			//MessageBox(g_hWnd, errorMsg, "Error", MB_OK | MB_ICONERROR);
-		}
 	}
-}
 
 void CImgui_ObjectTool::Read()
 {
@@ -915,127 +967,59 @@ void CImgui_ObjectTool::Read()
 
 			while (bytesRead > 0)
 			{
-				//wstring ObjectName = L"";
-				//WCHAR* buffer = new WCHAR[256];
-				WCHAR buffer[256] = { 0 };
-				bytesRead = 0;
-
-				//오브젝트키 (오브젝트 이름)
-				if (!ReadFile(hFile, buffer, 100, &bytesRead, NULL))
+				ObjectData* objData = new ObjectData;
+			
+				if(!ReadFile(hFile, objData, sizeof(ObjectData), &bytesRead, NULL))
 				{
-					MSG_BOX("FAILED TO READ TextrueKey");
-					CloseHandle(hFile);
+					MSG_BOX("읽기 오류");
+				};
+
+				if(bytesRead ==0)
+				{
+					break;
 				}
 
-				wstring* pObjectName = new wstring;
-				*pObjectName = buffer;
+				
+				int a = 4; 
 
-				if (bytesRead <= 0)	
-				{
-					break;	
-				}
-
-
-				//wstring TextureName = L"";
-				//WCHAR* buffer2 = new WCHAR[256];
-				WCHAR buffer2[256] = { 0 };
-				bytesRead = 0;
-
-				//텍스처키 (텍스처 이름)
-				if (!ReadFile(hFile, buffer2, 100, &bytesRead, NULL))
-				{
-					MSG_BOX("FAILED TO READ TextrueKey");
-					CloseHandle(hFile);
-				}
-
-				wstring* pTextureWstring = new wstring;
-				*pTextureWstring = buffer2;
+				Engine::CGameObject* pGameObject = nullptr;	
+				pGameObject = CObject::Create(CGraphicDev::GetInstance()->Get_GraphicDev());	
+				if (pGameObject == nullptr)	
+				{	
+					MSG_BOX("CObject nullptr Error");	
+				}	
+					
+				pGameObject->SetObjectKey(objData->objectName);	
+				pGameObject->SetTextureKey(objData->textureKey);	
 
 
-
-				int a = 4;
-
-
-				D3DXMATRIX worldmatrix;
-				bytesRead = 0;
-
-				if (!ReadFile(hFile, worldmatrix, sizeof(D3DXMATRIX), &bytesRead, NULL))
-				{
-					MSG_BOX("FAILED TO READ WORLDMAXTIRX");
-					CloseHandle(hFile);
-				}
-
-				D3DXVECTOR3 Rotation_vec3;
-				bytesRead = 0;
-
-				if (!ReadFile(hFile, Rotation_vec3, sizeof(D3DXVECTOR3), &bytesRead, NULL))
-				{
-					MSG_BOX("FAILED TO READ D3DXVECTOR3 INFO");
-					CloseHandle(hFile);
-				}
-
-				D3DXVECTOR3 Sclae_vec3;
-				bytesRead = 0;
-
-				if (!ReadFile(hFile, Sclae_vec3, sizeof(D3DXVECTOR3), &bytesRead, NULL))
-				{
-					MSG_BOX("FAILED TO READ D3DXVECTOR3 INFO");
-					CloseHandle(hFile);
-				}
+				map<const _tchar*, CLayer*>& pMapLayer = Engine::Get_CurScenePtr()->GetLayerMapPtr();
+				pMapLayer[L"Layer_GameLogic"]->Add_GameObject(objData->objectName, pGameObject);	
+				
+				m_vecObjectList.push_back(objData->objectName);	
+				
+				CTransform* pTransform = dynamic_cast<CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_GameLogic", objData->objectName, L"Com_Transform"));
+				
+				
+				pTransform->m_vScale = { objData->scale.x,objData->scale.y,objData->scale.z };
+				pTransform->Rotation(ROT_X, objData->rotation.x * 3.14f / 180.f);
+				pTransform->Rotation(ROT_Y, objData->rotation.y * 3.14f / 180.f);	
+				pTransform->Rotation(ROT_Z, objData->rotation.z * 3.14f / 180.f);	
+				pTransform->Set_Pos(objData->worldMatrix._41, objData->worldMatrix._42, objData->worldMatrix._43);
+				
+				
+				pTransform->Rotation_x = objData->rotation.x;
+				pTransform->Rotation_y = objData->rotation.y;
+				pTransform->Rotation_z = objData->rotation.z;
+				
+				
+				
+				pTransform->Scale_x = objData->scale.x;
+				pTransform->Scale_y = objData->scale.y;
+				pTransform->Scale_z = objData->scale.z;
 
 
-
-				if (bytesRead > 0)
-				{
-					Engine::CGameObject* pGameObject = nullptr;
-
-					pGameObject = CObject::Create(CGraphicDev::GetInstance()->Get_GraphicDev());
-					if (pGameObject == nullptr)
-					{
-						MSG_BOX("CObject nullptr Error");
-					}
-
-
-					pGameObject->SetObjectKey((*pObjectName).c_str());
-					pGameObject->SetTextureKey((*pTextureWstring).c_str());
-
-					//  지금 신이 변경이 안돼서 startScene을 가져와서 문제 발생 
-
-
-
-					map<const _tchar*, CLayer*>& pMapLayer = Engine::Get_CurScenePtr()->GetLayerMapPtr();
-					pMapLayer[L"Layer_GameLogic"]->Add_GameObject((*pObjectName).c_str(), pGameObject);
-
-					m_vecObjectList.push_back((*pObjectName).c_str());
-
-					// 왜 못찾는거지?;;; 아 시발 아직도 신이 안바뀐거였음  이거 찾는 기준이 현재신기준이였음.
-					CTransform* pTransform = dynamic_cast<CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_GameLogic", (*pObjectName).c_str(), L"Com_Transform"));
-					//pTransform->ForGetWorldMaxtrix() = worldmatrix;
-
-
-
-					////회전값만 이제 넣어주면 됨 ( 크기 -> 자전 -> 이동 ) 순서로  아 시발 병신같이 월드매트릭스를 넣어줫네;;
-					// 월드매트릭스에 넣기 전의 크기값을 넣어줘야하네 
-					pTransform->m_vScale = { Sclae_vec3.x,Sclae_vec3.y,Sclae_vec3.z };
-					pTransform->Rotation(ROT_X, Rotation_vec3.x * 3.14f / 180.f);
-					pTransform->Rotation(ROT_Y, Rotation_vec3.y * 3.14f / 180.f);
-					pTransform->Rotation(ROT_Z, Rotation_vec3.z * 3.14f / 180.f);
-					pTransform->Set_Pos(worldmatrix._41, worldmatrix._42, worldmatrix._43);
-
-
-					pTransform->Rotation_x = Rotation_vec3.x;
-					pTransform->Rotation_y = Rotation_vec3.y;
-					pTransform->Rotation_z = Rotation_vec3.z;
-
-
-
-					pTransform->Scale_x = Sclae_vec3.x;	
-					pTransform->Scale_y = Sclae_vec3.y;	
-					pTransform->Scale_z = Sclae_vec3.z;	
-
-					//pTransform->m_vAngle = vec3;
-					//D3DXMatrixRotationX(&matRot[ROT_X], m_vAngle.x);
-				}
+				
 			}
 			CloseHandle(hFile);
 
@@ -1088,26 +1072,14 @@ _vec3 CImgui_ObjectTool::PickingOnTerrain()
 	D3DXVec3TransformCoord(&vRayPos, &vRayPos, &matView); // 위치 관련 이동
 	D3DXVec3TransformNormal(&vRayDir, &vRayDir, &matView);
 
-	// 월드 좌표에서 할거니깐 터레인의 월드좌표 점들을 가져와야함 
-	//CMapTex* pTerrainBufferCom = dynamic_cast<CMapTex*>(Engine::Get_Component(ID_STATIC, L"Layer_Environment", L"Map", L"Com_Buffer"));
-	//if (pTerrainBufferCom == nullptr)
-	//{
-	//	MSG_BOX("pTerrainBufferCom is nullptr");
-	//}
-	//
-	//CTransform* pTerrainTransCom = dynamic_cast<CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_Environment", L"Map", L"Com_Transform"));
-	//if (pTerrainBufferCom == nullptr)
-	//{
-	//	MSG_BOX("pTerrainTransCom is nullptr");
-	//}
 
-	CMapTex* pTerrainBufferCom = dynamic_cast<CMapTex*>(Engine::Get_Component(ID_STATIC, L"Layer_Environment", L"WorldHeartMap", L"Com_Buffer"));
+	CMapTex* pTerrainBufferCom = dynamic_cast<CMapTex*>(Engine::Get_Component(ID_STATIC, L"Layer_Environment", L"MoonForestMap", L"Com_Buffer"));
 	if (pTerrainBufferCom == nullptr)
 	{
 		MSG_BOX("pTerrainBufferCom is nullptr");
 	}
 
-	CTransform* pTerrainTransCom = dynamic_cast<CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_Environment", L"WorldHeartMap", L"Com_Transform"));
+	CTransform* pTerrainTransCom = dynamic_cast<CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_Environment", L"MoonForestMap", L"Com_Transform"));
 	if (pTerrainBufferCom == nullptr)
 	{
 		MSG_BOX("pTerrainTransCom is nullptr");

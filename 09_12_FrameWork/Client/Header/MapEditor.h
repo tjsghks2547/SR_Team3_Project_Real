@@ -4,6 +4,7 @@
 #include "Map.h"
 #include "MapCamera.h"
 #include "WorldHeartMap.h"	
+#include "MoonForestMap.h"
 
 class CMapEditor : public Engine::CScene
 {

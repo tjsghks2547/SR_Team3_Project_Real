@@ -2,6 +2,9 @@
 #include "MapEditor.h"
 #include "Export_Utility.h"
 #include "ImGuiManger.h"
+#include "ResMgr.h"
+
+
 
 CMapEditor::CMapEditor(LPDIRECT3DDEVICE9 pGraphicDev)
 	:Engine::CScene(pGraphicDev)
@@ -71,6 +74,7 @@ HRESULT CMapEditor::Ready_Prototype()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 1.f)), E_FAIL);	
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_RcTex", Engine::CRcTex::Create(m_pGraphicDev)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_WorldHeartMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 2.f)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MoonForestMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 1.5f)), E_FAIL);
 
 
 	//Texture
@@ -80,6 +84,10 @@ HRESULT CMapEditor::Ready_Prototype()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_SkyBox", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/SkyBox/burger%d.dds", TEX_CUBE, 4)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_StartMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map/Tutorial_Map.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_WorldHeartMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map/WorldHeart.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MoonForestMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map/MoonForestMap.png", TEX_NORMAL)), E_FAIL);
+
+	CResMgr::GetInstance()->init();
+
 
 	return S_OK;
 }
@@ -110,10 +118,17 @@ HRESULT CMapEditor::Ready_Layer_Environment(const _tchar* pLayerTag)
 	//pGameObject->SetTextureKey(L"Map");
 
 
-	pGameObject = CWorldHeartMap::Create(m_pGraphicDev);		
+	//¼¼°è ½ÉÀå ¸Ê
+	//pGameObject = CWorldHeartMap::Create(m_pGraphicDev);		
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);	
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"WorldHeartMap", pGameObject), E_FAIL);		
+	//pGameObject->SetObjectKey(L"Map");		
+	//pGameObject->SetTextureKey(L"Map");	
+
+	pGameObject = CMoonForestMap::Create(m_pGraphicDev);	
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);	
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"WorldHeartMap", pGameObject), E_FAIL);		
-	pGameObject->SetObjectKey(L"Map");		
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MoonForestMap", pGameObject), E_FAIL);	
+	pGameObject->SetObjectKey(L"Map");	
 	pGameObject->SetTextureKey(L"Map");	
 
 	m_mapLayer.insert({ pLayerTag, pLayer });	

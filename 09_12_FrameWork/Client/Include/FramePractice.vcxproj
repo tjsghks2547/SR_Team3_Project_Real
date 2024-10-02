@@ -192,6 +192,8 @@
     <ClInclude Include="..\Header\Mohican.h" />
     <ClInclude Include="..\Header\MonkeyStatue.h" />
     <ClInclude Include="..\Header\Monster.h" />
+    <ClInclude Include="..\Header\MoonForestMap.h" />
+    <ClInclude Include="..\Header\MoonForestStage.h" />
     <ClInclude Include="..\Header\MusicStatue.h" />
     <ClInclude Include="..\Header\Net.h" />
     <ClInclude Include="..\Header\NoteStatue.h" />
@@ -221,6 +223,7 @@
     <ClInclude Include="..\Header\QuestUI.h" />
     <ClInclude Include="..\Header\QuickSlot.h" />
     <ClInclude Include="..\Header\Ray.h" />
+    <ClInclude Include="..\Header\ResMgr.h" />
     <ClInclude Include="..\Header\Scale.h" />
     <ClInclude Include="..\Header\SeaLion.h" />
     <ClInclude Include="..\Header\SkyBox.h" />
@@ -305,6 +308,8 @@
     <ClCompile Include="..\Code\Mohican.cpp" />
     <ClCompile Include="..\Code\MonkeyStatue.cpp" />
     <ClCompile Include="..\Code\Monster.cpp" />
+    <ClCompile Include="..\Code\MoonForestMap.cpp" />
+    <ClCompile Include="..\Code\MoonForestStage.cpp" />
     <ClCompile Include="..\Code\MusicStatue.cpp" />
     <ClCompile Include="..\Code\Net.cpp" />
     <ClCompile Include="..\Code\NoteStatue.cpp" />
@@ -334,6 +339,7 @@
     <ClCompile Include="..\Code\QuestUI.cpp" />
     <ClCompile Include="..\Code\QuickSlot.cpp" />
     <ClCompile Include="..\Code\Ray.cpp" />
+    <ClCompile Include="..\Code\ResMgr.cpp" />
     <ClCompile Include="..\Code\Scale.cpp" />
     <ClCompile Include="..\Code\SeaLion.cpp" />
     <ClCompile Include="..\Code\SkyBox.cpp" />

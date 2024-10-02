@@ -263,6 +263,15 @@
     <Filter Include="02. GameObject\11. UI\04. StoreUI">
       <UniqueIdentifier>{b4e2d467-5a41-4c9e-ab03-bf239e097ca8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04.ResMgr">
+      <UniqueIdentifier>{74332b0b-4fad-44c7-a07e-2c00fd2a121a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\05. MoonForestStage">
+      <UniqueIdentifier>{a2eeedee-a75a-4a32-b8cf-9d37504516bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\07. Map\03.MoonForestMap">
+      <UniqueIdentifier>{56db9390-b2f1-4470-adf5-cf6e91514d17}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -610,6 +619,15 @@
     <ClInclude Include="..\Header\StoreUI.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\ResMgr.h">
+      <Filter>04.ResMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\MoonForestStage.h">
+      <Filter>01. Scene\05. MoonForestStage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\MoonForestMap.h">
+      <Filter>02. GameObject\07. Map\03.MoonForestMap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FramePractice.cpp">
@@ -947,6 +965,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\StoreUI.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ResMgr.cpp">
+      <Filter>04.ResMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MoonForestStage.cpp">
+      <Filter>01. Scene\05. MoonForestStage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MoonForestMap.cpp">
+      <Filter>02. GameObject\07. Map\03.MoonForestMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
