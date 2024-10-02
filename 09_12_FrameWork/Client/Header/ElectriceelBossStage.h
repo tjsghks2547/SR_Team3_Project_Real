@@ -1,22 +1,23 @@
 #pragma once
+
 #include "Scene.h"
 #include "DynamicCamera.h"
 #include "Player.h"
-#include "MoonForestMap.h"
+#include "ElectriceelBossMap.h"
 
 #include "DefaultUI.h"
 #include "InvenUI.h"
 #include "QuickSlot.h"
 #include "Object.h"
+#include "ElectriceelBoss.h"
 
-#include "ElectriceelBossStage.h"
 
-class CMoonForestStage : public CScene
+
+class CElectriceelBossStage : public CScene
 {
-
 private:
-	explicit CMoonForestStage(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual ~CMoonForestStage();
+	explicit CElectriceelBossStage(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual ~CElectriceelBossStage();
 
 
 public:
@@ -34,11 +35,10 @@ private:
 
 
 public:
-	static CMoonForestStage* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CElectriceelBossStage* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 	virtual  void Free();
-
 
 };
 

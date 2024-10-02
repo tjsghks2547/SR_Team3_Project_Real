@@ -3,6 +3,8 @@
 #include "DynamicCamera.h"
 #include "Player.h"
 #include "WorldHeartMap.h"
+#include "JungleForestStage.h"
+
 
 #include "DefaultUI.h"
 #include "InvenUI.h"

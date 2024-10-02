@@ -266,11 +266,26 @@
     <Filter Include="04.ResMgr">
       <UniqueIdentifier>{74332b0b-4fad-44c7-a07e-2c00fd2a121a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Scene\05. MoonForestStage">
+    <Filter Include="02. GameObject\14.ElectriceelBoss">
+      <UniqueIdentifier>{10d4fa82-6e5f-4edc-b844-798a3499244f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\06. MoonForestStage">
       <UniqueIdentifier>{a2eeedee-a75a-4a32-b8cf-9d37504516bb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\07. Map\03.MoonForestMap">
+    <Filter Include="01. Scene\08. ElectriceelBossStage">
+      <UniqueIdentifier>{1fc6eec5-e151-4341-aba6-34ca36d28024}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\05. JungleForestStage">
+      <UniqueIdentifier>{c0a247d7-6e24-492f-905c-de5f1a5dc32a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\07. Map\04.MoonForestMap">
       <UniqueIdentifier>{56db9390-b2f1-4470-adf5-cf6e91514d17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\07. Map\05 ElectriceelBossMap">
+      <UniqueIdentifier>{e11729d7-9399-4955-9ca6-858acf873653}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\07. Map\03.JungleForestMap">
+      <UniqueIdentifier>{6021e17d-67bf-4647-9994-560ed2778a3a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -623,10 +638,25 @@
       <Filter>04.ResMgr</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\MoonForestStage.h">
-      <Filter>01. Scene\05. MoonForestStage</Filter>
+      <Filter>01. Scene\06. MoonForestStage</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\MoonForestMap.h">
-      <Filter>02. GameObject\07. Map\03.MoonForestMap</Filter>
+      <Filter>02. GameObject\07. Map\04.MoonForestMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ElectriceelBossStage.h">
+      <Filter>01. Scene\08. ElectriceelBossStage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ElectriceelBossMap.h">
+      <Filter>02. GameObject\07. Map\05 ElectriceelBossMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ElectriceelBoss.h">
+      <Filter>02. GameObject\14.ElectriceelBoss</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\JungleForestStage.h">
+      <Filter>01. Scene\05. JungleForestStage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\JungleForestMap.h">
+      <Filter>02. GameObject\07. Map\03.JungleForestMap</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -970,10 +1000,25 @@
       <Filter>04.ResMgr</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\MoonForestStage.cpp">
-      <Filter>01. Scene\05. MoonForestStage</Filter>
+      <Filter>01. Scene\06. MoonForestStage</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\MoonForestMap.cpp">
-      <Filter>02. GameObject\07. Map\03.MoonForestMap</Filter>
+      <Filter>02. GameObject\07. Map\04.MoonForestMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ElectriceelBossStage.cpp">
+      <Filter>01. Scene\08. ElectriceelBossStage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ElectriceelBossMap.cpp">
+      <Filter>02. GameObject\07. Map\05 ElectriceelBossMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ElectriceelBoss.cpp">
+      <Filter>02. GameObject\14.ElectriceelBoss</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\JungleForestStage.cpp">
+      <Filter>01. Scene\05. JungleForestStage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\JungleForestMap.cpp">
+      <Filter>02. GameObject\07. Map\03.JungleForestMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

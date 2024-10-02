@@ -2,21 +2,20 @@
 #include "Scene.h"
 #include "DynamicCamera.h"
 #include "Player.h"
-#include "MoonForestMap.h"
+#include "MoonForestStage.h"
 
 #include "DefaultUI.h"
 #include "InvenUI.h"
 #include "QuickSlot.h"
 #include "Object.h"
+#include "JungleForestMap.h"	
 
-#include "ElectriceelBossStage.h"
 
-class CMoonForestStage : public CScene
+class CJungleForestStage :public CScene
 {
-
 private:
-	explicit CMoonForestStage(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual ~CMoonForestStage();
+	explicit CJungleForestStage(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual ~CJungleForestStage();
 
 
 public:
@@ -34,7 +33,7 @@ private:
 
 
 public:
-	static CMoonForestStage* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CJungleForestStage* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 	virtual  void Free();

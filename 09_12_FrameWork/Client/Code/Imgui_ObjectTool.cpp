@@ -565,6 +565,65 @@ void CImgui_ObjectTool::ShowObjectWindow()
 			m_strCurObjectName = L"Moon_Wall";
 		};
 
+
+
+		if (ImGui::ImageButton("Moon_Wall", m_vecObjectTexture[45], imageSize))
+		{
+			m_sCurTextureData = L"Moon_Wall";
+			m_sCurTextureKey = L"Moon_Wall";
+			m_strCurObjectName = L"Moon_Wall";
+		};
+
+		if (ImGui::ImageButton("Wood_Wall", m_vecObjectTexture[46], imageSize))
+		{
+			m_sCurTextureData =  L"Wood_Wall";
+			m_sCurTextureKey =   L"Wood_Wall";
+			m_strCurObjectName = L"Wood_Wall";
+		};
+
+
+
+		if (ImGui::ImageButton("Wood_Door", m_vecObjectTexture[47], imageSize))
+		{
+			m_sCurTextureData =  L"Wood_Door";
+			m_sCurTextureKey =   L"Wood_Door";
+			m_strCurObjectName = L"Wood_Door";
+		};
+
+		if (ImGui::ImageButton("Monkey_Flag_one", m_vecObjectTexture[48], imageSize))
+		{
+			m_sCurTextureData =  L"Monkey_Flag_one";
+			m_sCurTextureKey =   L"Monkey_Flag_one";
+			m_strCurObjectName = L"Monkey_Flag_one";
+		};
+
+
+		if (ImGui::ImageButton("Monkey_Flag_two", m_vecObjectTexture[49], imageSize))
+		{
+			m_sCurTextureData =  L"Monkey_Flag_two";
+			m_sCurTextureKey =   L"Monkey_Flag_two";
+			m_strCurObjectName = L"Monkey_Flag_two";
+		};
+
+
+		if (ImGui::ImageButton("Monkey_Flag_three", m_vecObjectTexture[50], imageSize))
+		{
+			m_sCurTextureData =  L"Monkey_Flag_three";
+			m_sCurTextureKey =   L"Monkey_Flag_three";
+			m_strCurObjectName = L"Monkey_Flag_three";
+		};
+
+
+		if (ImGui::ImageButton("Monkey_Flag_Four", m_vecObjectTexture[51], imageSize))
+		{
+			m_sCurTextureData =  L"Monkey_Flag_Four";
+			m_sCurTextureKey =   L"Monkey_Flag_Four";
+			m_strCurObjectName = L"Monkey_Flag_Four";
+		};
+
+
+
+
 		//일단 오브젝트 생성해보기 
 		ImGui::End();
 

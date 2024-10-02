@@ -280,9 +280,47 @@ void CObject::Render_GameObject()
 	else if (m_strTextureKey == L"Moon_Wall")
 	{
 		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[45]);
-		}
+	}
+
+
+	else if (m_strTextureKey == L"Wood_Wall")	
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[46]);
+	}
+
+
+	else if (m_strTextureKey == L"Wood_Door")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[47]);
+	}
+
+	else if (m_strTextureKey == L"Monkey_Flag_one")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[48]);
+	}
+
+	else if (m_strTextureKey == L"Monkey_Flag_two")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[49]);
+	}
+
+	else if (m_strTextureKey == L"Monkey_Flag_three")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[50]);
+	}
+
+	else if (m_strTextureKey == L"Monkey_Flag_Four")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[51]);
+	}
+
+
 
 	m_pBufferCom->Render_Buffer();
+
+
+
+
 
 
 	//맵툴 작성시 끄기 

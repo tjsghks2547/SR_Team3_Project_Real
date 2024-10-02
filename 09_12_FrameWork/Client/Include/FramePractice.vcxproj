@@ -167,6 +167,9 @@
     <ClInclude Include="..\Header\CrystalPuzzle.h" />
     <ClInclude Include="..\Header\Define.h" />
     <ClInclude Include="..\Header\DynamicCamera.h" />
+    <ClInclude Include="..\Header\ElectriceelBoss.h" />
+    <ClInclude Include="..\Header\ElectriceelBossMap.h" />
+    <ClInclude Include="..\Header\ElectriceelBossStage.h" />
     <ClInclude Include="..\Header\EnkyHat.h" />
     <ClInclude Include="..\Header\ExploreHat.h" />
     <ClInclude Include="..\Header\ExpressMonkey.h" />
@@ -179,6 +182,8 @@
     <ClInclude Include="..\Header\InvenUI.h" />
     <ClInclude Include="..\Header\Item.h" />
     <ClInclude Include="..\Header\ItemSelector.h" />
+    <ClInclude Include="..\Header\JungleForestMap.h" />
+    <ClInclude Include="..\Header\JungleForestStage.h" />
     <ClInclude Include="..\Header\Leaf.h" />
     <ClInclude Include="..\Header\Loading.h" />
     <ClInclude Include="..\Header\Logo.h" />
@@ -284,6 +289,9 @@
     <ClCompile Include="..\Code\Crystal.cpp" />
     <ClCompile Include="..\Code\CrystalPuzzle.cpp" />
     <ClCompile Include="..\Code\DynamicCamera.cpp" />
+    <ClCompile Include="..\Code\ElectriceelBoss.cpp" />
+    <ClCompile Include="..\Code\ElectriceelBossMap.cpp" />
+    <ClCompile Include="..\Code\ElectriceelBossStage.cpp" />
     <ClCompile Include="..\Code\EnkyHat.cpp" />
     <ClCompile Include="..\Code\ExploreHat.cpp" />
     <ClCompile Include="..\Code\ExpressMonkey.cpp" />
@@ -295,6 +303,8 @@
     <ClCompile Include="..\Code\InteractionButton.cpp" />
     <ClCompile Include="..\Code\InvenUI.cpp" />
     <ClCompile Include="..\Code\Item.cpp" />
+    <ClCompile Include="..\Code\JungleForestMap.cpp" />
+    <ClCompile Include="..\Code\JungleForestStage.cpp" />
     <ClCompile Include="..\Code\Leaf.cpp" />
     <ClCompile Include="..\Code\Loading.cpp" />
     <ClCompile Include="..\Code\Logo.cpp" />

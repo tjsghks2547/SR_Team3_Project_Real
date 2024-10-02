@@ -53,6 +53,8 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 1.f)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_WorldHeartMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 2.0f)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MoonForestMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 1.5f)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_ElectriceelBossMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 1.0f)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_JungleMonkeyTownMapTex", Engine::CMapTex::Create(m_pGraphicDev, 2000, 2000, 1.0f)), E_FAIL);
 
 
 	lstrcpy(m_szLoading, L"Texture Loading................");
@@ -65,6 +67,8 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_StartMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map/Tutorial_Map.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_WorldHeartMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map/WorldHeart.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MoonForestMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map/MoonForestMap.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_ElectriceelBossMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map/ElectriceelBossMap.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_JungleMonkeyTownMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map/JungleMonkeyTownMap.png", TEX_NORMAL)), E_FAIL);
 
 	//UI
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_HPFrame", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/HeartHPFrame_UI2.png", TEX_NORMAL)), E_FAIL);

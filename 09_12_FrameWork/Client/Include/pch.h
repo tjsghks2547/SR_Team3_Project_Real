@@ -35,6 +35,9 @@
 #include <d3dx9math.h>	
 #include <D3dx9shape.h>	
 
+#include <random>
+#include <chrono>
+
 #ifdef _DEBUG
 
 #define _CRTDBG_MAP_ALLOC

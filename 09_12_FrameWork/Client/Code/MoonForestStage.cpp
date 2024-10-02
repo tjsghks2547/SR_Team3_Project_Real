@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "MoonForestStage.h"
-#include "Export_Utility.h" 
+#include "Export_Utility.h"
 
 CMoonForestStage::CMoonForestStage(LPDIRECT3DDEVICE9 pGraphicDev)
     :Engine::CScene(pGraphicDev)
@@ -30,6 +30,16 @@ _int CMoonForestStage::Update_Scene(const _float& fTimeDelta)
     _int  iExit = Engine::CScene::Update_Scene(fTimeDelta);
 
 
+    if (GetAsyncKeyState('B') & 0x8000)
+    {
+        Engine::CScene* pStage3 = CElectriceelBossStage::Create(m_pGraphicDev);
+        NULL_CHECK_RETURN(pStage3, -1);
+
+        FAILED_CHECK_RETURN(Engine::Set_Scene(pStage3), E_FAIL);
+        //pStage3->init(); // 맵툴에서 가져온 오브젝트들을 위해 사용   
+
+        return 0;
+    }
 
     return iExit;
 }
@@ -196,8 +206,6 @@ HRESULT CMoonForestStage::Ready_Layer_UI(const _tchar* pLayerTag)
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Quest_UI", pGameObject), E_FAIL);
     m_mapLayer.insert({ pLayerTag, pLayer });
-    return S_OK;
-
 
     return S_OK;
 }
