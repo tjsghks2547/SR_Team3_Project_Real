@@ -47,6 +47,7 @@ private:
 	_int		m_iCurIdx;
 	_int		m_iPrevIdx;
 
+	CItem* m_pItem;
 	CItem::ITEM_INFO	m_tCopyInfo;
 	_bool				m_bWaitQuickNum;
 public:

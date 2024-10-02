@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "../Header/InvenUI.h"
+#include "InvenUI.h"
 
 #include "Player.h"
 #include "ItemSelector.h"
@@ -22,6 +22,7 @@ HRESULT CInvenUI::Ready_GameObject()
     // 인벤토리 간격
     m_InvenInterval = { 145.7f, 137.f };
     m_iItemFilter = CItem::EQUIP;
+    m_fViewZ = 0.9f;
 
     return S_OK;
 
@@ -73,8 +74,7 @@ void CInvenUI::LateUpdate_GameObject(const _float& fTimeDelta)
 {
     Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
 
-    // 나중애 z비교 함수 만들기....;
-    m_fViewZ = 0.9f;
+
 }
 
 void CInvenUI::Render_GameObject()
@@ -257,8 +257,8 @@ HRESULT CInvenUI::Add_Component()
     pComponent = m_pTransformCom[EQUIP] = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformEquipIcon", pComponent });
-    m_pTransformCom[EQUIP]->m_vInfo[INFO_POS] = { -470.f, 157.f, 0.2f };
-    m_pTransformCom[EQUIP]->m_vScale = { 38.f, 38.f, 1.f };
+    m_pTransformCom[EQUIP]->m_vInfo[INFO_POS] = { -470.f, 165.f, 0.2f };
+    m_pTransformCom[EQUIP]->m_vScale = { 50.f, 50.f, 1.f };
 
     //InvenIcon-Consum
     pComponent = m_pTextureCom[CONSUM] = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_ConsumIcon"));
@@ -268,8 +268,8 @@ HRESULT CInvenUI::Add_Component()
     pComponent = m_pTransformCom[CONSUM] = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformConsumIcon", pComponent });
-    m_pTransformCom[CONSUM]->m_vInfo[INFO_POS] = { -390.f, 160.f, 0.2f };
-    m_pTransformCom[CONSUM]->m_vScale = { 40.f, 40.f, 1.f };
+    m_pTransformCom[CONSUM]->m_vInfo[INFO_POS] = { -405.f, 165.f, 0.2f };
+    m_pTransformCom[CONSUM]->m_vScale = { 50.f, 50.f, 1.f };
 
     //InvenIcon-Other
     pComponent = m_pTextureCom[OTHER] = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_OtherIcon"));
@@ -279,10 +279,10 @@ HRESULT CInvenUI::Add_Component()
     pComponent = m_pTransformCom[OTHER] = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformOtherIcon", pComponent });
-    m_pTransformCom[OTHER]->m_vInfo[INFO_POS] = { -310.f, 161.f, 0.2f };
-    m_pTransformCom[OTHER]->m_vScale = { 40.f, 40.f, 1.f };
+    m_pTransformCom[OTHER]->m_vInfo[INFO_POS] = { -340.f, 165.f, 0.2f };
+    m_pTransformCom[OTHER]->m_vScale = { 50.f, 50.f, 1.f };
 
-    //InvenIcon-Other
+    //InvenIcon-Quest
     pComponent = m_pTextureCom[QUEST] = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_QuestIcon"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_TextureQuestIcon", pComponent });
@@ -290,8 +290,8 @@ HRESULT CInvenUI::Add_Component()
     pComponent = m_pTransformCom[QUEST] = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformQuestIcon", pComponent });
-    m_pTransformCom[QUEST]->m_vInfo[INFO_POS] = { -230.f, 162.f, 0.2f };
-    m_pTransformCom[QUEST]->m_vScale = { 40.f, 40.f, 1.f };
+    m_pTransformCom[QUEST]->m_vInfo[INFO_POS] = { -275.f, 165.f, 0.2f };
+    m_pTransformCom[QUEST]->m_vScale = { 50.f, 50.f, 1.f };
 
     //ICONBUTTON
     pComponent = m_pTextureCom[ICONBUTTON] = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_IconButton"));
@@ -301,26 +301,15 @@ HRESULT CInvenUI::Add_Component()
     pComponent = m_pTransformCom[ICONBUTTON] = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformIconButton", pComponent });
-    m_pTransformCom[ICONBUTTON]->m_vInfo[INFO_POS] = { -351.f, 162.f, 0.2f };
-    m_pTransformCom[ICONBUTTON]->m_vScale = { 190.f, 16.f, 1.f };
+    m_pTransformCom[ICONBUTTON]->m_vInfo[INFO_POS] = { -373.f, 158.f, 0.2f };
+    m_pTransformCom[ICONBUTTON]->m_vScale = { 160.f, 13.f, 1.f };
 
     return S_OK;
 }
 
 void CInvenUI::Key_Input(const _float& fTimeDelta)
 {
-    if (Engine::GetKeyDown(DIK_UP))
-    {
-    }
-    if (Engine::GetKeyDown(DIK_DOWN))
-    {
-    }
-    if (Engine::GetKeyDown(DIK_LEFT))
-    {
-    }
-    if (Engine::GetKeyDown(DIK_RIGHT))
-    {
-    }
+
     if (Engine::GetKeyDown(DIK_E))
     {
         if (m_iItemFilter < 3)

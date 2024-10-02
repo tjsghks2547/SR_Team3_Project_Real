@@ -260,6 +260,9 @@
     <Filter Include="02. GameObject\12. NPC\01. StoreNPC\00. SeaLion">
       <UniqueIdentifier>{564cf725-4e30-46c8-a4c2-3e37f8477f3e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\11. UI\04. StoreUI">
+      <UniqueIdentifier>{b4e2d467-5a41-4c9e-ab03-bf239e097ca8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -604,6 +607,9 @@
     <ClInclude Include="..\Header\TestCol2.h">
       <Filter>02. GameObject\01. Entity\01. Player</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\StoreUI.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FramePractice.cpp">
@@ -938,6 +944,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\TestCol2.cpp">
       <Filter>02. GameObject\01. Entity\01. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\StoreUI.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

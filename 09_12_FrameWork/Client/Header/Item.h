@@ -68,7 +68,8 @@ public:
 	virtual   void      Render_GameObject();
 
 	virtual   void      Use_Item() {}
-	void		Render_QuickItem();
+	void				Render_QuickItem();
+	void				Render_ItemView();
 
 protected:
 	HRESULT    Add_Component();
@@ -79,6 +80,9 @@ protected:
 	Engine::CTransform* m_pTransformCom;
 
 	Engine::CTransform* m_pQuickTransformCom;
+
+	Engine::CTransform* m_pViewTransformCom;
+
 
 protected:
 	ITEM_INFO				m_tInfo;
