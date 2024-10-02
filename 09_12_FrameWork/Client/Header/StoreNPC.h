@@ -5,6 +5,8 @@
 #include "Player.h"
 #include "InteractionButton.h"
 #include "TextBox.h"
+#include "QuestNPC.h"
+#include "StoreUI.h"
 
 BEGIN(Engine)
 
@@ -23,12 +25,6 @@ class CStoreNPC : public Engine::CGameObject
 protected:
 	explicit CStoreNPC(LPDIRECT3DDEVICE9 pGraphicDev);
 	virtual ~CStoreNPC();
-public:
-	struct NPC_INFO
-	{
-		const _tchar* pName;
-		const _tchar* pContent; //대화 내용
-	};
 
 public:
 	virtual   HRESULT   Ready_GameObject();
@@ -42,7 +38,7 @@ public:
 	virtual   void		OnCollisionExit(CGameObject* _pOther) {}
 
 public:
-	NPC_INFO	Get_Info() { return m_tInfo; }
+	CQuestNPC::NPC_INFO	Get_Info() { return m_tInfo; }
 
 protected:
 	HRESULT    Add_Component();
@@ -57,20 +53,19 @@ protected:
 	Engine::CTransform* m_pTransformCom;
 	Engine::CCollider* m_pColliderCom;
 
-	NPC_INFO				m_tInfo;
+	CQuestNPC::NPC_INFO				m_tInfo;
 
 	_bool					m_bConversation; // 대화 중
-
-	//구조체로 바꿀 생각이긴 한디.. 귀찬 ㅋㅋ-ㅂ-
-	_bool					m_bQuestAccept; // 퀘스트 수락여부
-	_bool					m_bQuestSucess; // 클리어 가능 상태
-	_bool					m_bQuestClear; // 클리어 여부
+	_bool					m_bStoreOn;
 
 	CInteractionButton* m_pInterButton;
 	CTextBox* m_pTextBox;
 	CPlayer* m_pPlayer;
-	CInvenUI* m_pInven;
+	CStoreUI* m_pStoreUI;
 
+	//CInvenUI* m_pInven;
+
+	vector<CItem*>  m_ItemArray;
 protected:
 	virtual void Free();
 

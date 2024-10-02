@@ -4,7 +4,7 @@
 CStoreNPC::CStoreNPC(LPDIRECT3DDEVICE9 pGraphicDev)
 	:Engine::CGameObject(pGraphicDev)
 	, m_pInterButton(nullptr), m_pTextBox(nullptr)
-	, m_bConversation(false)
+	, m_bConversation(false), m_bStoreOn(false)
 	, m_pTex(nullptr)
 {
 }
@@ -23,8 +23,8 @@ void CStoreNPC::LateReady_GameObject()
 	m_pPlayer = dynamic_cast<CPlayer*>(Engine::Get_GameObject(L"Layer_GameLogic", L"Player"));
 	NULL_CHECK_RETURN(m_pPlayer);
 
-	m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
-	NULL_CHECK_RETURN(m_pInven);
+	//m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
+	//NULL_CHECK_RETURN(m_pInven);
 
 
 	if (!m_pInterButton) //Interaction
@@ -35,6 +35,7 @@ void CStoreNPC::LateReady_GameObject()
 	if (!m_pTextBox)
 	{
 		m_pTextBox = CTextBox::Create(m_pGraphicDev);
+		NULL_CHECK_RETURN(m_pInterButton);
 	}
 }
 

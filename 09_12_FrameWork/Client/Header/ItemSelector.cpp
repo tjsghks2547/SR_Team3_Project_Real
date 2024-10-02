@@ -34,7 +34,7 @@ _int CItemSelector::Update_GameObject(const _float& fTimeDelta)
 	NULL_CHECK_RETURN(m_pInven, 0);
 
 	m_pQuickSlot = dynamic_cast<CQuickSlot*>(Engine::Get_GameObject(L"Layer_UI", L"QuickSlot_UI"));
-	NULL_CHECK_RETURN(m_pQuickSlot,0);
+	NULL_CHECK_RETURN(m_pQuickSlot, 0);
 
 	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
@@ -60,6 +60,8 @@ void CItemSelector::Render_GameObject()
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	m_pTextureCom->Set_Texture();
 	m_pBufferCom->Render_Buffer();
+
+	m_pItem->Render_ItemView(); //Ãß°¡
 
 	_vec2 ItemNamePos(930.f, 442.f);
 	Engine::Render_Font(L"Font_Ogu24", m_tCopyInfo.pName, &ItemNamePos, D3DXCOLOR(0.999f, 0.98f, 0.9f, 0.7f));
@@ -232,6 +234,7 @@ void CItemSelector::Update_ItemInfo()
 	m_pTransformCom->m_vInfo[INFO_POS] = vPos;
 
 	m_tCopyInfo = m_pInven->Get_ItemInfo(iFilter, m_iCurIdx);
+	m_pItem = m_pInven->Get_Item(iFilter, m_iCurIdx);
 }
 
 CItemSelector* CItemSelector::Create(LPDIRECT3DDEVICE9 pGraphicDev)
