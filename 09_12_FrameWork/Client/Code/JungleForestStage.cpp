@@ -56,7 +56,7 @@ void CJungleForestStage::init()
     Engine::CLayer* pLayer = CLayer::Create();
     
     DWORD bytesRead = 1;
-    HANDLE hFile = CreateFile(L"../Map/junglestageReal.txt", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+    HANDLE hFile = CreateFile(L"../Map/junglestageReal3.txt", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
     if (hFile != INVALID_HANDLE_VALUE)
     {
         if (hFile != INVALID_HANDLE_VALUE) {
@@ -109,13 +109,11 @@ void CJungleForestStage::init()
                 pTransform->Rotation_x = objData->rotation.x;
                 pTransform->Rotation_y = objData->rotation.y;
                 pTransform->Rotation_z = objData->rotation.z;
-    
-    
+   
     
                 pTransform->Scale_x = objData->scale.x;
                 pTransform->Scale_y = objData->scale.y;
                 pTransform->Scale_z = objData->scale.z;
-    
     
     
             }
