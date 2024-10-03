@@ -22,9 +22,11 @@ CMapTex::CMapTex(const CMapTex& rhs)
 
 CMapTex::~CMapTex()
 {
+
+ 
 }
 
-HRESULT CMapTex::Ready_Buffer(const _ulong& dwCntX, const _ulong& dwCntZ, const _ulong& dwVtxItv)
+HRESULT CMapTex::Ready_Buffer(const _ulong& dwCntX, const _ulong& dwCntZ, const float& dwVtxItvX ,const float& dwVtxItvY)
 {
     m_dwVtxCnt = dwCntX * dwCntZ; // dwCntX는 가로 행의 점의 개수, dwCntZ는 세로 열의 점의 개수, dwVtxIty는 점과 점 사이 간격
     m_dwTriCnt = (dwCntX - 1) * (dwCntZ - 1) * 2;
@@ -55,7 +57,7 @@ HRESULT CMapTex::Ready_Buffer(const _ulong& dwCntX, const _ulong& dwCntZ, const 
         {
             dwIndex = i * dwCntX + j;
 
-            m_pVertex[dwIndex].vPosition = _vec3(_float(j) * dwVtxItv, 0, _float(i) * dwVtxItv);
+            m_pVertex[dwIndex].vPosition = _vec3(_float(j) * dwVtxItvX, 0, _float(i) * dwVtxItvY);
             m_pVertex[dwIndex].vTexUV = _vec2((_float(j) / (dwCntX - 1)),
                 (_float(i) / (dwCntZ - 1)));
 
@@ -108,11 +110,11 @@ void CMapTex::Render_Buffer()
     CVIBuffer::Render_Buffer();
 }
 
-CMapTex* CMapTex::Create(LPDIRECT3DDEVICE9 pGraphicDev, const _ulong& dwCntX, const _ulong& dwCntZ, const _ulong& dwVtxItv)
+CMapTex* CMapTex::Create(LPDIRECT3DDEVICE9 pGraphicDev, const _ulong& dwCntX, const _ulong& dwCntZ, const float& dwVtxItvX, const float& dwVtxItvY)
 {
     CMapTex* pInstance = new CMapTex(pGraphicDev);
 
-    if (FAILED(pInstance->Ready_Buffer(dwCntX, dwCntZ, dwVtxItv)))
+    if (FAILED(pInstance->Ready_Buffer(dwCntX, dwCntZ, dwVtxItvX,dwVtxItvY)))             
     {
         Safe_Release(pInstance);
         MSG_BOX("TerrainTex Create Failed");

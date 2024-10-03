@@ -14,7 +14,7 @@ private:
 	virtual ~CMapTex();
 
 public:
-	HRESULT Ready_Buffer(const _ulong& dwCntX, const _ulong& dwCntZ, const _ulong& dwVtxItv);
+	HRESULT Ready_Buffer(const _ulong& dwCntX, const _ulong& dwCntZ, const float& dwVtxItv, const float& dwVtxItY);
 	virtual void Render_Buffer();
 	const _vec3* Get_VtxPos() const { return m_pPos; }	
 	_vec3 Get_TestVtxPos() { return m_Vec3; }	
@@ -25,7 +25,7 @@ public:
 
 
 public:
-	static  CMapTex* Create(LPDIRECT3DDEVICE9 pGraphicDev, const _ulong& dwCntX, const _ulong& dwCntZ, const _ulong& dwVtxItv);
+	static  CMapTex* Create(LPDIRECT3DDEVICE9 pGraphicDev, const _ulong& dwCntX, const _ulong& dwCntZ, const float& dwVtxItvX, const float& dwVtxItvY);
 	virtual CComponent* Clone();
 
 

@@ -314,6 +314,26 @@ void CObject::Render_GameObject()
 		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[51]);
 	}
 
+	else if (m_strTextureKey == L"Rock")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[52]);
+	}
+
+	else if (m_strTextureKey == L"Tree_Collection")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[53]);
+	}
+
+	else if (m_strTextureKey == L"Big_Tree")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[54]);
+	}
+
+	else if (m_strTextureKey == L"Big_desk")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[55]);
+	}
+
 
 
 	m_pBufferCom->Render_Buffer();

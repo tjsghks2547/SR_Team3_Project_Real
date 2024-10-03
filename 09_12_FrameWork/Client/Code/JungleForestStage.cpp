@@ -53,75 +53,75 @@ void CJungleForestStage::Render_Scene()
 
 void CJungleForestStage::init()
 {
-    //Engine::CLayer* pLayer = CLayer::Create();
-    //
-    //DWORD bytesRead = 1;
-    //HANDLE hFile = CreateFile(L"../Map/MoonForestMap.txt", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-    //if (hFile != INVALID_HANDLE_VALUE)
-    //{
-    //    if (hFile != INVALID_HANDLE_VALUE) {
-    //
-    //        Engine::CLayer* pLayer = CLayer::Create();
-    //
-    //        DWORD bytesRead = 1;
-    //
-    //        while (bytesRead > 0)
-    //        {
-    //            ObjectData* objData = new ObjectData;
-    //
-    //            if (!ReadFile(hFile, objData, sizeof(ObjectData), &bytesRead, NULL))
-    //            {
-    //                MSG_BOX("읽기 오류");
-    //            };
-    //
-    //            if (bytesRead == 0)
-    //            {
-    //                break;
-    //            }
-    //
-    //
-    //            int a = 4;
-    //
-    //            Engine::CGameObject* pGameObject = nullptr;
-    //            pGameObject = CObject::Create(CGraphicDev::GetInstance()->Get_GraphicDev());
-    //            if (pGameObject == nullptr)
-    //            {
-    //                MSG_BOX("CObject nullptr Error");
-    //            }
-    //
-    //            pGameObject->SetObjectKey(objData->objectName);
-    //            pGameObject->SetTextureKey(objData->textureKey);
-    //
-    //
-    //            map<const _tchar*, CLayer*>& pMapLayer = Engine::Get_CurScenePtr()->GetLayerMapPtr();
-    //            pMapLayer[L"Layer_GameLogic"]->Add_GameObject(objData->objectName, pGameObject);
-    //
-    //            CTransform* pTransform = dynamic_cast<CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_GameLogic", objData->objectName, L"Com_Transform"));
-    //
-    //
-    //            pTransform->m_vScale = { objData->scale.x,objData->scale.y,objData->scale.z };
-    //            pTransform->Rotation(ROT_X, objData->rotation.x * 3.14f / 180.f);
-    //            pTransform->Rotation(ROT_Y, objData->rotation.y * 3.14f / 180.f);
-    //            pTransform->Rotation(ROT_Z, objData->rotation.z * 3.14f / 180.f);
-    //            pTransform->Set_Pos(objData->worldMatrix._41, objData->worldMatrix._42, objData->worldMatrix._43);
-    //
-    //
-    //            pTransform->Rotation_x = objData->rotation.x;
-    //            pTransform->Rotation_y = objData->rotation.y;
-    //            pTransform->Rotation_z = objData->rotation.z;
-    //
-    //
-    //
-    //            pTransform->Scale_x = objData->scale.x;
-    //            pTransform->Scale_y = objData->scale.y;
-    //            pTransform->Scale_z = objData->scale.z;
-    //
-    //
-    //
-    //        }
-    //        CloseHandle(hFile);
-    //    }
-    //}
+    Engine::CLayer* pLayer = CLayer::Create();
+    
+    DWORD bytesRead = 1;
+    HANDLE hFile = CreateFile(L"../Map/junglestageReal.txt", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+    if (hFile != INVALID_HANDLE_VALUE)
+    {
+        if (hFile != INVALID_HANDLE_VALUE) {
+    
+            Engine::CLayer* pLayer = CLayer::Create();
+    
+            DWORD bytesRead = 1;
+    
+            while (bytesRead > 0)
+            {
+                ObjectData* objData = new ObjectData;
+    
+                if (!ReadFile(hFile, objData, sizeof(ObjectData), &bytesRead, NULL))
+                {
+                    MSG_BOX("읽기 오류");
+                };
+    
+                if (bytesRead == 0)
+                {
+                    break;
+                }
+    
+    
+                int a = 4;
+    
+                Engine::CGameObject* pGameObject = nullptr;
+                pGameObject = CObject::Create(CGraphicDev::GetInstance()->Get_GraphicDev());
+                if (pGameObject == nullptr)
+                {
+                    MSG_BOX("CObject nullptr Error");
+                }
+    
+                pGameObject->SetObjectKey(objData->objectName);
+                pGameObject->SetTextureKey(objData->textureKey);
+    
+    
+                map<const _tchar*, CLayer*>& pMapLayer = Engine::Get_CurScenePtr()->GetLayerMapPtr();
+                pMapLayer[L"Layer_GameLogic"]->Add_GameObject(objData->objectName, pGameObject);
+    
+                CTransform* pTransform = dynamic_cast<CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_GameLogic", objData->objectName, L"Com_Transform"));
+    
+    
+                pTransform->m_vScale = { objData->scale.x,objData->scale.y,objData->scale.z };
+                pTransform->Rotation(ROT_X, objData->rotation.x * 3.14f / 180.f);
+                pTransform->Rotation(ROT_Y, objData->rotation.y * 3.14f / 180.f);
+                pTransform->Rotation(ROT_Z, objData->rotation.z * 3.14f / 180.f);
+                pTransform->Set_Pos(objData->worldMatrix._41, objData->worldMatrix._42, objData->worldMatrix._43);
+    
+    
+                pTransform->Rotation_x = objData->rotation.x;
+                pTransform->Rotation_y = objData->rotation.y;
+                pTransform->Rotation_z = objData->rotation.z;
+    
+    
+    
+                pTransform->Scale_x = objData->scale.x;
+                pTransform->Scale_y = objData->scale.y;
+                pTransform->Scale_z = objData->scale.z;
+    
+    
+    
+            }
+            CloseHandle(hFile);
+        }
+    }
 }
 
 HRESULT CJungleForestStage::Ready_LightInfo()

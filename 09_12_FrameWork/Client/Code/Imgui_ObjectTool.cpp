@@ -622,6 +622,36 @@ void CImgui_ObjectTool::ShowObjectWindow()
 		};
 
 
+		if (ImGui::ImageButton("Rock", m_vecObjectTexture[52], imageSize))
+		{
+			m_sCurTextureData =  L"Rock";
+			m_sCurTextureKey =   L"Rock";
+			m_strCurObjectName = L"Rock";
+		};
+
+
+
+		if (ImGui::ImageButton("Tree_Collection", m_vecObjectTexture[53], imageSize))
+		{
+			m_sCurTextureData =  L"Tree_Collection";
+			m_sCurTextureKey =   L"Tree_Collection";
+			m_strCurObjectName = L"Tree_Collection";
+		};
+
+
+		if (ImGui::ImageButton("Big_Tree", m_vecObjectTexture[54], imageSize))
+		{
+			m_sCurTextureData =  L"Big_Tree";
+			m_sCurTextureKey =   L"Big_Tree";
+			m_strCurObjectName = L"Big_Tree";
+		};
+
+		if (ImGui::ImageButton("Big_desk", m_vecObjectTexture[55], imageSize))
+		{
+			m_sCurTextureData =  L"Big_desk";
+			m_sCurTextureKey =   L"Big_desk";
+			m_strCurObjectName = L"Big_desk";
+		};
 
 
 		//일단 오브젝트 생성해보기 
