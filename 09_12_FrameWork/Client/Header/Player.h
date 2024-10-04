@@ -60,8 +60,6 @@ class CTransform;
 class CCamera;
 class CCalculator;
 class CStateController;
-
-//0923 선환 충돌 테스트
 class CCollider;
 
 END
@@ -202,6 +200,13 @@ public:
 	CCamera* GetCamera() { return m_pCamera; }
 	void			SetCamera(CCamera* _camera) { m_pCamera = _camera; }
 	CItem* hat;
+
+
+	//조명 예시 
+	HRESULT			SetUp_Material();
+
+
+
 private:
 	HRESULT			Add_Component();
 	void			Key_Input(const _float& fTimeDelta);

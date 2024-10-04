@@ -1,64 +1,74 @@
 #include "pch.h"
-#include "MoonForestStage.h"
-#include "Export_Utility.h"
+#include "MoonTempleStage.h"
 
-CMoonForestStage::CMoonForestStage(LPDIRECT3DDEVICE9 pGraphicDev)
+CMoonTempleStage::CMoonTempleStage(LPDIRECT3DDEVICE9 pGraphicDev)
     :Engine::CScene(pGraphicDev)
 {
 
 }
 
-CMoonForestStage::~CMoonForestStage()
+CMoonTempleStage::~CMoonTempleStage()
 {
 }
 
-HRESULT CMoonForestStage::Ready_Scene()
+HRESULT CMoonTempleStage::Ready_Scene()
 {
-
     FAILED_CHECK_RETURN(Ready_Layer_Environmnet(L"Layer_Environment"), E_FAIL);
     FAILED_CHECK_RETURN(Ready_Layer_GameLogic(L"Layer_GameLogic"), E_FAIL);
     FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
 
+    //D3DLIGHT9		tLightInfo; 
+    //ZeroMemory(&tLightInfo, sizeof(D3DLIGHT9)); 
+    //
+    //tLightInfo.Type = D3DLIGHT_DIRECTIONAL; 
+    //
+    //tLightInfo.Diffuse = { 1.f, 1.f, 1.f, 1.f };    
+    //tLightInfo.Specular = { 1.f, 1.f, 1.f, 1.f };   
+    //tLightInfo.Ambient = { 0.5f, 0.5f, 0.5f, 0.2f };    
+    //tLightInfo.Direction = { 1.f, -1.f, 1.f };
+    //    
+    //m_pGraphicDev->SetLight(0, &tLightInfo);    
+    //m_pGraphicDev->LightEnable(0, TRUE);
 
-    m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
+    //m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
 
     return S_OK;
 }
 
-_int CMoonForestStage::Update_Scene(const _float& fTimeDelta)
+_int CMoonTempleStage::Update_Scene(const _float& fTimeDelta)
 {
     _int  iExit = Engine::CScene::Update_Scene(fTimeDelta);
 
 
-    if (GetAsyncKeyState('B') & 0x8000)
+    if (GetAsyncKeyState('M') & 0x8000)
     {
-        Engine::CScene* pStage3 = CMoonTempleStage::Create(m_pGraphicDev);
+        Engine::CScene* pStage3 = CElectriceelBossStage::Create(m_pGraphicDev);
         NULL_CHECK_RETURN(pStage3, -1);
-
+    
         FAILED_CHECK_RETURN(Engine::Set_Scene(pStage3), E_FAIL);
         //pStage3->init(); // 맵툴에서 가져온 오브젝트들을 위해 사용   
-
+    
         return 0;
     }
 
     return iExit;
 }
 
-void CMoonForestStage::LateUpdate_Scene(const _float& fTimeDelta)
+void CMoonTempleStage::LateUpdate_Scene(const _float& fTimeDelta)
 {
     Engine::CScene::LateUpdate_Scene(fTimeDelta);
 }
 
-void CMoonForestStage::Render_Scene()
+void CMoonTempleStage::Render_Scene()
 {
 }
 
-void CMoonForestStage::init()
+void CMoonTempleStage::init()
 {
     Engine::CLayer* pLayer = CLayer::Create();
     
     DWORD bytesRead = 1;
-    HANDLE hFile = CreateFile(L"../Map/MoonForestMap.txt", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+    HANDLE hFile = CreateFile(L"../Map/MoonTempleReal3.txt", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
     if (hFile != INVALID_HANDLE_VALUE)
     {
         if (hFile != INVALID_HANDLE_VALUE) {
@@ -124,14 +134,15 @@ void CMoonForestStage::init()
             CloseHandle(hFile);
         }
     }
+
 }
 
-HRESULT CMoonForestStage::Ready_LightInfo()
+HRESULT CMoonTempleStage::Ready_LightInfo()
 {
     return S_OK;
 }
 
-HRESULT CMoonForestStage::Ready_Layer_Environmnet(const _tchar* pLayerTag)
+HRESULT CMoonTempleStage::Ready_Layer_Environmnet(const _tchar* pLayerTag)
 {
     Engine::CLayer* pLayer = CLayer::Create();
     NULL_CHECK_RETURN(pLayer, E_FAIL);
@@ -157,17 +168,17 @@ HRESULT CMoonForestStage::Ready_Layer_Environmnet(const _tchar* pLayerTag)
     return S_OK;
 }
 
-HRESULT CMoonForestStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
+HRESULT CMoonTempleStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 {
     Engine::CLayer* pLayer = CLayer::Create();
     NULL_CHECK_RETURN(pLayer, E_FAIL);
 
     Engine::CGameObject* pGameObject = nullptr;
 
-    //여기 수정해야하고
-    pGameObject = CMoonForestMap::Create(m_pGraphicDev);    
-    NULL_CHECK_RETURN(pGameObject, E_FAIL);
-    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MoonForestMap", pGameObject), E_FAIL);
+  
+    pGameObject = CMoonTempleMap::Create(m_pGraphicDev);    
+    NULL_CHECK_RETURN(pGameObject, E_FAIL); 
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MoonForestMap", pGameObject), E_FAIL); 
 
 
     pGameObject = CPlayer::Create(m_pGraphicDev);
@@ -181,7 +192,7 @@ HRESULT CMoonForestStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
     return S_OK;
 }
 
-HRESULT CMoonForestStage::Ready_Layer_UI(const _tchar* pLayerTag)
+HRESULT CMoonTempleStage::Ready_Layer_UI(const _tchar* pLayerTag)
 {
     Engine::CLayer* pLayer = CLayer::Create();
     NULL_CHECK_RETURN(pLayer, E_FAIL);
@@ -200,17 +211,17 @@ HRESULT CMoonForestStage::Ready_Layer_UI(const _tchar* pLayerTag)
     pGameObject = CQuickSlot::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"QuickSlot_UI", pGameObject), E_FAIL);
-    
+
 
     pGameObject = CQuestUI::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Quest_UI", pGameObject), E_FAIL);
-  
+
 
     pGameObject = CPowerUI::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Power_UI", pGameObject), E_FAIL);
-  
+
 
     pGameObject = CSpeedUI::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
@@ -220,14 +231,14 @@ HRESULT CMoonForestStage::Ready_Layer_UI(const _tchar* pLayerTag)
     return S_OK;
 }
 
-CMoonForestStage* CMoonForestStage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CMoonTempleStage* CMoonTempleStage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-    CMoonForestStage* pMoonForestStage = new CMoonForestStage(pGraphicDev); 
+    CMoonTempleStage* pMoonTempleStage = new CMoonTempleStage(pGraphicDev);
 
-    return pMoonForestStage;
+    return pMoonTempleStage;
 }
 
-void CMoonForestStage::Free()
+void CMoonTempleStage::Free()
 {
     Engine::CScene::Free();
 }

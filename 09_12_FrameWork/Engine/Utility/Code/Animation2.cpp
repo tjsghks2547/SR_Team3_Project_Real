@@ -153,7 +153,7 @@ HRESULT CAnimation2::Create(IDirect3DTexture9* _pTex, _vec2 _vLT, _vec2 _vSliceS
 
 	tAnimFrm frm = {};
 
-	for (UINT i = 0; i < _iFrameCount; ++i)
+	for (UINT i = 0; i <= _iFrameCount; ++i)
 	{
 
 		frm.fDuration = _fDuration;

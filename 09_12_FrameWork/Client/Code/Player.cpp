@@ -46,6 +46,17 @@ HRESULT CPlayer::Ready_GameObject()
     m_pTransformCom->Set_Pos(200.f, 30.f, 500.f);
 
     m_pStateControlCom->ChangeState(PlayerIdle::GetInstance(), this);
+
+  
+    D3DLIGHT9		tLightInfo; 
+    ZeroMemory(&tLightInfo, sizeof(D3DLIGHT9)); 
+
+ 
+
+    //m_pGraphicDev->SetLight(0, &tLightInfo);    
+    //m_pGraphicDev->LightEnable(0, TRUE);    
+
+
     return S_OK;
 }
 
@@ -89,6 +100,7 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
     }
 
 
+
     Key_Input(fTimeDelta);
 
     Add_RenderGroup(RENDER_ALPHA, this);
@@ -111,9 +123,45 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CPlayer::Render_GameObject()
 {
+    //m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+  
 
+    //조명작업
+    //D3DLIGHT9 tLightInfo;
+    //ZeroMemory(&tLightInfo, sizeof(D3DLIGHT9)); // 구조체 초기화
+    //
+    //tLightInfo.Type = D3DLIGHT_POINT; // 점 조명 타입 설정
+    //
+    //// 조명 색상 설정
+    //tLightInfo.Diffuse = { 1.f, 1.f, 1.f, 0.5f }; // 확산 색상 (흰색)
+    //tLightInfo.Specular = { 1.f, 1.f, 1.f, 1.f }; // 반사 색상 (흰색)
+    //tLightInfo.Ambient = { 1.0f, 1.0f, 1.0f, 0.5f }; // 주위 색상 (어두운 회색)
+    //
+    //
+    //_vec3 vPos;
+    //m_pTransformCom->Get_Info(INFO_POS, &vPos);
+    //
+    //// 조명 위치 설정
+    //tLightInfo.Position = { vPos.x, vPos.y, vPos.z }; // 조명 위치 (x, y, z)
+    //
+    //
+    //
+    //
+    //// 조명 범위 및 감쇠 설정
+    //tLightInfo.Range = 100.0f; // 조명이 도달할 수 있는 최대 거리
+    //tLightInfo.Falloff = 1.0f; // 감쇠 비율
+    //tLightInfo.Attenuation0 = 1.0f; // 고정 감쇠 계수
+    //tLightInfo.Attenuation1 = 0.005f; // 거리 감쇠 계수
+    //tLightInfo.Attenuation2 = 0.f; // 거리 제곱 감쇠 계수
+    //
+    //// 조명 정보 설정
+    //m_pGraphicDev->SetLight(0, &tLightInfo); // 조명 인덱스 0에 조명 정보 설정  
+    //m_pGraphicDev->LightEnable(0, TRUE); // 조명 인덱스 0의 조명 활성화    
+    //
+    //테스트
+   
 
     if (m_bIsDiagonal)
         m_pTextureCom->Set_Texture(m_ePlayerState + 1);
@@ -122,13 +170,18 @@ void CPlayer::Render_GameObject()
 
     //Print_PlayerState();
 
-    m_pAnimationCom->Render_Buffer();
-    //hat->Render_GameObject();
+    //FAILED_CHECK_RETURN(SetUp_Material(), );
 
+    m_pAnimationCom->Render_Buffer();   
+    //hat->Render_GameObject();
+    
     //9월 25일 충돌관련
     if (!m_bInvincible)
         m_pBoundBox->Render_Buffer();
 
+    
+
+    //m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);  // 이거 설정안해주면 안됨 전역적으로 장치세팅이 저장되기 때문에
     m_pGraphicDev->SetTexture(0, NULL);  // 이거 설정안해주면 그대로 텍스처 나옴 이것도 마찬가지로 전역적으로 장치세팅이 되므로
 }
@@ -220,6 +273,24 @@ void CPlayer::DurationInvincible(const _float& fTimeDelta)
     }
 }
 
+HRESULT CPlayer::SetUp_Material()
+{
+    D3DMATERIAL9 tMtrl; // 재질 구조체
+    ZeroMemory(&tMtrl, sizeof(D3DMATERIAL9)); // 구조체 초기화
+
+    // 재질 색상 설정
+    tMtrl.Diffuse = { 1.f, 1.f, 1.f, 1.f }; // 확산 색상 (빨간색)
+    tMtrl.Specular = { 1.f, 1.f, 1.f, 1.f }; // 반사 색상 (흰색)
+    tMtrl.Ambient = { 1.f, 1.f, 1.f, 1.f }; // 주위 색상 (어두운 회색)
+    tMtrl.Emissive = { 1.f, 1.f, 1.f, 1.f }; // 방출 색상 (검은색)
+    tMtrl.Power = 0.f; // 반사 강도 설정
+
+    // 재질 적용
+    m_pGraphicDev->SetMaterial(&tMtrl); // 재질 설정
+
+    return S_OK;    
+}
+
 HRESULT CPlayer::Add_Component()
 {
     CComponent* pComponent = NULL;
@@ -239,10 +310,6 @@ HRESULT CPlayer::Add_Component()
     pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
-
-    /*pComponent = m_pCCalculatorCom = dynamic_cast<CCalculator*>(Engine::Clone_Proto(L"Proto_Calculator"));
-    NULL_CHECK_RETURN(pComponent, E_FAIL);
-    m_mapComponent[ID_DYNAMIC].insert({ L"Com_Calculator", pComponent });*/
 
     pComponent = m_pStateControlCom = dynamic_cast<CStateController*>(Engine::Clone_Proto(L"Proto_State"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
