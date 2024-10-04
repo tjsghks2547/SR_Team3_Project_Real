@@ -52,7 +52,7 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_TestMapTex", Engine::CStartMap::Create(m_pGraphicDev)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 1.f,1.f)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_WorldHeartMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 2.0f,2.0f)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MoonForestMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 1.5f,1.5f)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MoonForestMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 1.0f,1.0f)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_ElectriceelBossMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 1.0f,1.0f)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_JungleMonkeyTownMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 1.5f,2.0f)), E_FAIL);
 
