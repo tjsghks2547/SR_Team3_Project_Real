@@ -66,26 +66,8 @@ class CCollider;
 
 END
 
-<<<<<<< HEAD
-=======
 class CBuffUI;//1003
 
-
-// Engine_Enum에서 작동 안 하길래 여기에 작성
-enum CONTROL_KEY
-{
-	PLY_LEFTKEY = DIK_LEFT,
-	PLY_RIGHTKEY = DIK_RIGHT,
-	PLY_UPKEY = DIK_UP,
-	PLY_DOWNKEY = DIK_DOWN,
-	PLY_DASHKEY = DIK_LSHIFT,
-	PLY_SWINGKEY = DIK_A,
-	PLY_LIFTKEY = DIK_S,
-	PLY_ROLLKEY = DIK_D,
-	PLY_DANCEKEY = DIK_Q,
-	PLY_SMASHKEY = DIK_E,
-};
->>>>>>> origin/main
 struct PLAYERINFO
 {
 	_int iCurrHP;
@@ -253,16 +235,11 @@ private:
 	_vec3						m_vColPlayerPos;
 	_vec3						m_vColliderPos;
 
-<<<<<<< HEAD
 	_bool						m_bPassAble;
 	float						m_fMoveSpeed;
 	_bool						m_bInvincible;
-=======
-	_bool m_bPassAble;
-	///////////////////////////////////////////////////////
-	float m_fMoveSpeed;
-	_bool m_bInvincible;
->>>>>>> origin/main
+
+
 
 	//민지
 	CBuffUI*	m_BuffArray[2];

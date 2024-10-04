@@ -146,7 +146,6 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_StonePushable", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/puzzle/Sprite_StonePushable.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_StonePedestal", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/puzzle/Sprite_StonePushableElectricityFrame.png", TEX_NORMAL)), E_FAIL);
 
-<<<<<<< HEAD
 	//MONSTER
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MonsterTrashBig",
 		Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Monster/Sprite_MonsterTrashBig.png", TEX_NORMAL)), E_FAIL);
@@ -157,14 +156,14 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MonsterTrashSlime",
 		Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Monster/Sprite_MonsterTrashSlime.png", TEX_NORMAL)), E_FAIL);
 
-=======
+
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_CatapultBase", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/puzzle/Sprite_Catapult_Base.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_CatapultBucket", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/puzzle/Sprite_Catapult_Bucket.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_LightFlower", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/puzzle/Sprite_LightFlower.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Shadow", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/puzzle/Shadow.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Catapult_Indicator", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/puzzle/Sprite_AttackTargetSingle.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_BreakableStone", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/puzzle/Sprite_StoneBreakable.png", TEX_NORMAL)), E_FAIL);
->>>>>>> origin/main
+
 
 	CResMgr::GetInstance()->init();
 	//TEST ≥Ù¿Ã ∏  

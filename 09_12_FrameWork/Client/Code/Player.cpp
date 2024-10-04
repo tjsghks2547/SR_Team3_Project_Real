@@ -1,12 +1,8 @@
 #include "pch.h"
 #include "Player.h"
 #include "Define.h"
-<<<<<<< HEAD
 #include "Monster.h"
-=======
 #include "InvenUI.h"//1003
-
->>>>>>> origin/main
 #include "Export_System.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -80,9 +76,7 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
     m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
     NULL_CHECK_RETURN(m_pInven, 0);
 
-<<<<<<< HEAD
-    //m_pTransformCom->Get_Info(INFO_POS, &m_vPlayerPrevPos);
-=======
+
     if (m_BuffArray[0]->Get_BuffTime() < m_BuffArray[1]->Get_BuffTime())
     {
         m_BuffArray[0]->Set_YPos(90.f);
@@ -94,8 +88,6 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
         m_BuffArray[0]->Set_YPos(175.f);
     }
 
-    m_pTransformCom->Get_Info(INFO_POS, &m_vPlayerPrevPos);
->>>>>>> origin/main
 
     Key_Input(fTimeDelta);
 
