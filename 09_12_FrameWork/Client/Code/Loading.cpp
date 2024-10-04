@@ -140,6 +140,16 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_StonePushable", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/puzzle/Sprite_StonePushable.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_StonePedestal", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/puzzle/Sprite_StonePushableElectricityFrame.png", TEX_NORMAL)), E_FAIL);
 
+	//MONSTER
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MonsterTrashBig",
+		Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Monster/Sprite_MonsterTrashBig.png", TEX_NORMAL)), E_FAIL);
+
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MonsterTrashFast",
+		Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Monster/Sprite_MonsterTrashFast.png", TEX_NORMAL)), E_FAIL);
+
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MonsterTrashSlime",
+		Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Monster/Sprite_MonsterTrashSlime.png", TEX_NORMAL)), E_FAIL);
+
 
 	CResMgr::GetInstance()->init();
 	//TEST ≥Ù¿Ã ∏  

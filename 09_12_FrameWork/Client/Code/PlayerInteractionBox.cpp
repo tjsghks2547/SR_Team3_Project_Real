@@ -15,7 +15,7 @@ CPlayerInteractionBox::~CPlayerInteractionBox()
 HRESULT CPlayerInteractionBox::Ready_GameObject()
 {
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-    m_pTransformCom->m_vScale = { 10.f,10.f,10.f };
+    m_pTransformCom->m_vScale = { 5.f, 5.f, 5.f };
 
     return S_OK;
 }
@@ -39,7 +39,7 @@ _int CPlayerInteractionBox::Update_GameObject(const _float& fTimeDelta)
         _vec3 pos;
         m_playerTransform->Get_Info(INFO_POS, &pos);
         pos.x += vPlayerDir.x * 15;
-        pos.z += vPlayerDir.z * 15;
+        pos.z -= vPlayerDir.z * 15;
 
         m_pTransformCom->Set_Pos(pos);
     }
@@ -116,7 +116,7 @@ void CPlayerInteractionBox::OnCollisionEnter(CGameObject* _pOther)
 
 void CPlayerInteractionBox::OnCollision(CGameObject* _pOther)
 {
-   
+
 }
 
 void CPlayerInteractionBox::OnCollisionExit(CGameObject* _pOther)

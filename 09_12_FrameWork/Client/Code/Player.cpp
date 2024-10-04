@@ -1,16 +1,18 @@
 #include "pch.h"
 #include "Player.h"
 #include "Define.h"
+#include "Monster.h"
 #include "Export_System.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
     :Engine::CGameObject(pGraphicDev)
     , m_pCamera(nullptr)
     , m_ePlayerState(PLAYERSTATE::PLY_END)
-    , m_iPlayerDir(OBJ_DIRECTION::OBJDIR_FRONT)
-    , m_vPlayerCurrPos()
-    , m_vPlayerPrevPos()
+    //, m_iPlayerDir(OBJ_DIRECTION::OBJDIR_FRONT)
+    //, m_vPlayerCurrPos()
+    //, m_vPlayerPrevPos()
     , m_bIsDiagonal(false)
+    , m_bFixPlayerDir(false)
     , m_bSwingTrigger(false)
     , m_objInteractionBox(nullptr)
     , m_objInteracting(nullptr)
@@ -18,6 +20,8 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_bInvincible(false)
     , m_bPushTrigger(false)
     , m_bPassAble(true)
+    , m_vColPlayerPos(0.f, 0.f, 0.f)
+    , m_vColliderPos(0.f, 0.f, 0.f)
     // UI 관련 초기화
     , m_iPlayerCoin(10), m_bInven(false), m_bQuest(false)
 
@@ -65,7 +69,7 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
     m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
     NULL_CHECK_RETURN(m_pInven, 0);
 
-    m_pTransformCom->Get_Info(INFO_POS, &m_vPlayerPrevPos);
+    //m_pTransformCom->Get_Info(INFO_POS, &m_vPlayerPrevPos);
 
     Key_Input(fTimeDelta);
 
@@ -76,7 +80,7 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 
 void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-    m_pTransformCom->Get_Info(INFO_POS, &m_vPlayerCurrPos);
+    //m_pTransformCom->Get_Info(INFO_POS, &m_vPlayerCurrPos);
     //hat->Set_ItemPos(m_vPlayerCurrPos);
     SetPlayerDirection();
 
@@ -104,7 +108,8 @@ void CPlayer::Render_GameObject()
     //hat->Render_GameObject();
 
     //9월 25일 충돌관련
-    m_pBoundBox->Render_Buffer();
+    if (!m_bInvincible)
+        m_pBoundBox->Render_Buffer();
 
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);  // 이거 설정안해주면 안됨 전역적으로 장치세팅이 저장되기 때문에
     m_pGraphicDev->SetTexture(0, NULL);  // 이거 설정안해주면 그대로 텍스처 나옴 이것도 마찬가지로 전역적으로 장치세팅이 되므로
@@ -115,6 +120,19 @@ void CPlayer::OnCollisionEnter(CGameObject* _pOther)
     if (_pOther->IncludingType(OBJ_TYPE::NOTPASS_ABLE))
     {
         m_bPassAble = false;
+        m_pTransformCom->Get_Info(INFO_POS, &m_vColPlayerPos);
+        dynamic_cast<CTransform*>(
+            _pOther->Get_Component(ID_DYNAMIC, L"Com_Transform")
+            )->Get_Info(INFO_POS, &m_vColliderPos);
+    }
+
+    if (_pOther->IncludingType(OBJ_TYPE::HURT_ABLE))
+    {
+        if (m_bInvincible || !dynamic_cast<CMonster*>(_pOther)->GetActivation())
+            return;
+
+        m_pStateControlCom->ChangeState(PlayerHurt::GetInstance(), this);
+        //SetPlayerCurHP(-1);
     }
 }
 
@@ -123,88 +141,50 @@ void CPlayer::OnCollisionExit(CGameObject* _pOther)
     if (_pOther->IncludingType(OBJ_TYPE::NOTPASS_ABLE))
     {
         m_bPassAble = true;
-    }
+        m_vColPlayerPos.x = 0.f;
+        m_vColPlayerPos.y = 0.f;
+        m_vColPlayerPos.z = 0.f;
 
+        m_vColliderPos.x = 0.f;
+        m_vColliderPos.y = 0.f;
+        m_vColliderPos.z = 0.f;
+    }
 }
 
 void CPlayer::SetPlayerDirection()
 {
-    int num = 0;
-    m_vPlayerDir = m_vPlayerCurrPos - m_vPlayerPrevPos;
-    D3DXVec3Normalize(&m_vPlayerDir, &m_vPlayerDir);
+    if (m_bFixPlayerDir)
+        return;
 
-    if (m_vPlayerDir.x > 0)
+    _vec3 num;
+    num.x = 0; num.y = 0; num.z = 0;
+
+    if (Engine::GetKeyPress(CONTROLKEY::PLY_UPKEY))
     {
-        if (m_vPlayerDir.z > 0)
-        {
-            num = OBJ_DIRECTION::OBJDIR_RIGHT | OBJ_DIRECTION::OBJDIR_BACK;
-            m_bIsDiagonal = true;
-        }
-
-
-        else if (m_vPlayerDir.z == 0)
-        {
-            num = OBJ_DIRECTION::OBJDIR_RIGHT;
-            m_bIsDiagonal = false;
-        }
-
-
-        else if (m_vPlayerDir.z < 0)
-        {
-            num = OBJ_DIRECTION::OBJDIR_RIGHT | OBJ_DIRECTION::OBJDIR_FRONT;
-            m_bIsDiagonal = true;
-        }
-
+        num.z -= OBJ_DIRECTION::OBJDIR_FRONT;
     }
 
-    else if (m_vPlayerDir.x == 0)
+    if (Engine::GetKeyPress(CONTROLKEY::PLY_DOWNKEY))
     {
-        if (m_vPlayerDir.z > 0)
-        {
-            m_bIsDiagonal = false;
-            num = OBJ_DIRECTION::OBJDIR_BACK;
-        }
-
-        else if (m_vPlayerDir.z == 0)
-            num = m_iPlayerDir; //-> 해당방향 그대로 유지
-
-        else if (m_vPlayerDir.z < 0)
-        {
-            m_bIsDiagonal = false;
-            num = OBJ_DIRECTION::OBJDIR_FRONT;
-        }
-
+        num.z += OBJ_DIRECTION::OBJDIR_FRONT;
     }
 
-    else if (m_vPlayerDir.x < 0)
+    if (Engine::GetKeyPress(CONTROLKEY::PLY_LEFTKEY))
     {
-        if (m_vPlayerDir.z > 0)
-        {
-            num = OBJ_DIRECTION::OBJDIR_LEFT | OBJ_DIRECTION::OBJDIR_BACK;
-            m_bIsDiagonal = true;
-        }
+        num.x -= OBJ_DIRECTION::OBJDIR_FRONT;
+    }
 
-
-        else if (m_vPlayerDir.z == 0)
-        {
-            num = OBJ_DIRECTION::OBJDIR_LEFT;
-            m_bIsDiagonal = false;
-        }
-
-        else if (m_vPlayerDir.z < 0)
-        {
-            num = OBJ_DIRECTION::OBJDIR_LEFT | OBJ_DIRECTION::OBJDIR_FRONT;
-            m_bIsDiagonal = true;
-        }
+    if (Engine::GetKeyPress(CONTROLKEY::PLY_RIGHTKEY))
+    {
+        num.x += OBJ_DIRECTION::OBJDIR_FRONT;
     }
 
     ////////////////////////////////////////////////////////////////////////
-    if (num == m_iPlayerDir)
+    if (num == m_vPlayerDir)
         return;
-
     // 방향이 이전과 다르면 애니메이션 갱신
-    m_iPlayerDir = num;
-    m_pAnimationCom->SetAnimDir(m_ePlayerState, m_iPlayerDir, m_bIsDiagonal);
+    m_vPlayerDir = num;
+    m_pAnimationCom->SetAnimDir(m_ePlayerState, m_vPlayerDir, m_bIsDiagonal);
 }
 
 
@@ -242,9 +222,9 @@ HRESULT CPlayer::Add_Component()
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 
-    pComponent = m_pCCalculatorCom = dynamic_cast<CCalculator*>(Engine::Clone_Proto(L"Proto_Calculator"));
+    /*pComponent = m_pCCalculatorCom = dynamic_cast<CCalculator*>(Engine::Clone_Proto(L"Proto_Calculator"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
-    m_mapComponent[ID_DYNAMIC].insert({ L"Com_Calculator", pComponent });
+    m_mapComponent[ID_DYNAMIC].insert({ L"Com_Calculator", pComponent });*/
 
     pComponent = m_pStateControlCom = dynamic_cast<CStateController*>(Engine::Clone_Proto(L"Proto_State"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
@@ -386,21 +366,21 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
         m_bInvincible ^= TRUE;
 }
 
-_vec3 CPlayer::Piking_OnTerrain()
-{
-    CTerrainTex* pTerrainBufferCom = dynamic_cast<CTerrainTex*>(Engine::Get_Component(ID_STATIC, L"Layer_GameLogic", L"Terrain", L"Com_Buffer"));
-    NULL_CHECK_RETURN(pTerrainBufferCom, _vec3());
+//_vec3 CPlayer::Piking_OnTerrain()
+//{
+//    CTerrainTex* pTerrainBufferCom = dynamic_cast<CTerrainTex*>(Engine::Get_Component(ID_STATIC, L"Layer_GameLogic", L"Terrain", L"Com_Buffer"));
+//    NULL_CHECK_RETURN(pTerrainBufferCom, _vec3());
+//
+//    CTransform* pTerrainTransCom = dynamic_cast<CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_GameLogic", L"Terrain", L"Com_Transform"));
+//    NULL_CHECK_RETURN(pTerrainTransCom, _vec3());
+//
+//    return m_pCCalculatorCom->Picking_OnTerrian(g_hWnd, pTerrainBufferCom, pTerrainTransCom);
+//}
 
-    CTransform* pTerrainTransCom = dynamic_cast<CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_GameLogic", L"Terrain", L"Com_Transform"));
-    NULL_CHECK_RETURN(pTerrainTransCom, _vec3());
-
-    return m_pCCalculatorCom->Picking_OnTerrian(g_hWnd, pTerrainBufferCom, pTerrainTransCom);
-}
-
-void CPlayer::Print_PlayerState()
-{
-
-}
+//void CPlayer::Print_PlayerState()
+//{
+//
+//}
 
 CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {

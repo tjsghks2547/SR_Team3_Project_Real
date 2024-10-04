@@ -197,6 +197,8 @@
     <ClInclude Include="..\Header\Mohican.h" />
     <ClInclude Include="..\Header\MonkeyStatue.h" />
     <ClInclude Include="..\Header\Monster.h" />
+    <ClInclude Include="..\Header\MonsterHPUI.h" />
+    <ClInclude Include="..\Header\MonsterSlimeFast.h" />
     <ClInclude Include="..\Header\MoonForestMap.h" />
     <ClInclude Include="..\Header\MoonForestStage.h" />
     <ClInclude Include="..\Header\MusicStatue.h" />
@@ -318,6 +320,8 @@
     <ClCompile Include="..\Code\Mohican.cpp" />
     <ClCompile Include="..\Code\MonkeyStatue.cpp" />
     <ClCompile Include="..\Code\Monster.cpp" />
+    <ClCompile Include="..\Code\MonsterHPUI.cpp" />
+    <ClCompile Include="..\Code\MonsterSlimeFast.cpp" />
     <ClCompile Include="..\Code\MoonForestMap.cpp" />
     <ClCompile Include="..\Code\MoonForestStage.cpp" />
     <ClCompile Include="..\Code\MusicStatue.cpp" />

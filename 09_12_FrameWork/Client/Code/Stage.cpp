@@ -186,6 +186,16 @@ HRESULT CStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 
 	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER, pGameObject);
 
+	// 1003 동영 일반몬스터
+	pGameObject = CMonsterSlimeFast::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonsterSlimeFast", pGameObject), E_FAIL);
+	dynamic_cast<CMonster*>(pGameObject)->SetPlayer(
+		dynamic_cast<CPlayer*>(PlayerObj));
+	dynamic_cast<CMonster*>(pGameObject)->GetLayer(pLayer);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER, pGameObject);
+
+
 	CScene* pScene = CManagement::GetInstance()->GetCurScenePtr();
 
 
@@ -195,16 +205,6 @@ HRESULT CStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 	pGameObject = CTestObject::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Test_Object", pGameObject), E_FAIL);
-
-	//pGameObject = CMonster::Create(m_pGraphicDev);
-	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster", pGameObject), E_FAIL);
-
-	
-
-	//pGameObject = CSkyBox::Create(m_pGraphicDev);
-	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SkyBox", pGameObject), E_FAIL);
 
 #pragma region Pipe Game
 	pGameObject = CPipeBoard::Create(m_pGraphicDev);

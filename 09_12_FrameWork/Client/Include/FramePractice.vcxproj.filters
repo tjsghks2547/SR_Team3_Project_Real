@@ -287,6 +287,9 @@
     <Filter Include="02. GameObject\07. Map\03.JungleForestMap">
       <UniqueIdentifier>{6021e17d-67bf-4647-9994-560ed2778a3a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\11. UI\05. MonsterHPUI">
+      <UniqueIdentifier>{5f02926f-426d-4043-9c08-65b149e58dc1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -658,6 +661,12 @@
     <ClInclude Include="..\Header\JungleForestMap.h">
       <Filter>02. GameObject\07. Map\03.JungleForestMap</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\MonsterHPUI.h">
+      <Filter>02. GameObject\11. UI\05. MonsterHPUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\MonsterSlimeFast.h">
+      <Filter>02. GameObject\01. Entity\02. Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FramePractice.cpp">
@@ -1019,6 +1028,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\JungleForestMap.cpp">
       <Filter>02. GameObject\07. Map\03.JungleForestMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MonsterHPUI.cpp">
+      <Filter>02. GameObject\11. UI\05. MonsterHPUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MonsterSlimeFast.cpp">
+      <Filter>02. GameObject\01. Entity\02. Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

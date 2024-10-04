@@ -39,12 +39,14 @@ namespace Engine
 	// 09.28 동영
 	enum OBJ_TYPE
 	{
-		NOTPASS_ABLE = 1,
-		PUSH_ABLE = 2,
-		LIFT_ABLE = 4,
-		DESTROY_ABLE = 8,
-		TALK_ABLE = 16,
-		TYPE_NONE = 32,
+		NOTPASS_ABLE = 1, // 오구가 해당 옵션을 가진 오브젝트를 통과할 수 없습니다.
+		PUSH_ABLE = 2,    // 오구가 해당 옵션을 가진 오브젝트를 밀 수 있습니다.
+		LIFT_ABLE = 4,    // 오구가 해당 옵션을 가진 오브젝트를 들 수 있습니다.
+		DESTROY_ABLE = 8, // 오구가 해당 옵션을 가진 오브젝트를 없앨 수 있습니다.
+		TALK_ABLE = 16,   // 오구가 해당 옵션을 가진 오브젝트와 대화를 할 수 있습니다.
+		HURT_ABLE = 32,   // 오구가 해당 옵션을 가진 오브젝트한테 피해를 받을 수 있습니다.
+		PICK_ABLE = 64,   // 오구가 해당 옵션을 가진 오브젝트를 습득할 수 있습니다.
+		TYPE_NONE = 128,
 		TYPE_END
 	};
 
