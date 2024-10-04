@@ -3,13 +3,25 @@
 #include "DynamicCamera.h"
 #include "Player.h"
 #include "MoonForestStage.h"
+#include "PlayerInteractionBox.h"
 
 #include "DefaultUI.h"
 #include "InvenUI.h"
 #include "QuickSlot.h"
 #include "Object.h"
-#include "JungleForestMap.h"	
+#include "JungleForestMap.h"
 
+#include "CrystalPuzzle.h"
+#include "Crystal.h"
+#include "PressBlock.h"
+#include "MonkeyStatue.h"
+#include "StoneBlock.h"
+#include "Stone.h"
+#include "StoneHole.h"
+#include "BreakableStone.h"
+#include "Scale.h"
+#include "WeightComparator.h"
+#include "Catapult.h"
 
 class CJungleForestStage :public CScene
 {

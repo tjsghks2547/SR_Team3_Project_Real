@@ -1,6 +1,9 @@
 #include "pch.h"
 #include "SmallRoot.h"
 #include "Player.h"
+#include "ItemUI.h"
+
+_bool CSmallRoot::g_Acquired(false);
 
 CSmallRoot::CSmallRoot(LPDIRECT3DDEVICE9 pGraphicDev)
     :CItem(pGraphicDev)
@@ -26,6 +29,11 @@ HRESULT CSmallRoot::Ready_GameObject()
 	return S_OK;
 }
 
+void CSmallRoot::LateReady_GameObject()
+{
+	CItem::LateReady_GameObject();
+}
+
 _int CSmallRoot::Update_GameObject(const _float& fTimeDelta)
 {
 	return CItem::Update_GameObject(fTimeDelta);
@@ -38,30 +46,43 @@ void CSmallRoot::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CSmallRoot::Render_GameObject()
 {
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	m_pTextureCom->Set_Texture();
-	m_pBufferCom->Render_Buffer();
+	if (m_tInfo.bOnField)
+	{
+		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+		m_pTextureCom->Set_Texture();
+		m_pBufferCom->Render_Buffer();
+		m_pColliderCom->Render_Buffer();
 
-	m_pCountRCTransformCom->m_vInfo[INFO_POS].x = m_pTransformCom->m_vInfo[INFO_POS].x + 46;
-	m_pCountRCTransformCom->m_vInfo[INFO_POS].y = m_pTransformCom->m_vInfo[INFO_POS].y - 44;
+		return;
+	}
+	else if (m_pInven->Get_CurFilter() == m_tInfo.eType
+		&& m_pPlayer->GetPlayerInven()
+		&& !m_tInfo.bOnField)
+	{
+		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+		m_pTextureCom->Set_Texture();
+		m_pBufferCom->Render_Buffer();
 
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pCountRCTransformCom->Get_WorldMatrix());
-	m_pCountRCTextureCom->Set_Texture();
-	m_pBufferCom->Render_Buffer();
+		m_pCountRCTransformCom->m_vInfo[INFO_POS].x = m_pTransformCom->m_vInfo[INFO_POS].x + 46;
+		m_pCountRCTransformCom->m_vInfo[INFO_POS].y = m_pTransformCom->m_vInfo[INFO_POS].y - 44;
 
-	_vec2 vCountPos;
+		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pCountRCTransformCom->Get_WorldMatrix());
+		m_pCountRCTextureCom->Set_Texture();
+		m_pBufferCom->Render_Buffer();
 
-	vCountPos.x = m_pTransformCom->m_vInfo[INFO_POS].x + (WINCX * 0.5f) + 34;
-	vCountPos.y = -(m_pTransformCom->m_vInfo[INFO_POS].y) + (WINCY * 0.5f) + 34;
+		_vec2 vCountPos;
 
-	wchar_t Division[32] = L"x";
-	wchar_t ItemCount[32];
+		vCountPos.x = m_pTransformCom->m_vInfo[INFO_POS].x + (WINCX * 0.5f) + 34;
+		vCountPos.y = -(m_pTransformCom->m_vInfo[INFO_POS].y) + (WINCY * 0.5f) + 34;
 
-	swprintf(ItemCount, 32, L"%d", m_tInfo.iItemCount);
+		wchar_t Division[32] = L"x";
+		wchar_t ItemCount[32];
 
-	wcscat_s(Division, 32, ItemCount);   // "x + 개수"
-	Engine::Render_Font(L"Font_OguBold24", Division, &vCountPos, D3DXCOLOR(0.1f, 0.1f, 0.1f, 1.f));
+		swprintf(ItemCount, 32, L"%d", m_tInfo.iItemCount);
 
+		wcscat_s(Division, 32, ItemCount);   // "x + 개수"
+		Engine::Render_Font(L"Font_OguBold24", Division, &vCountPos, D3DXCOLOR(0.1f, 0.1f, 0.1f, 1.f));
+	}
 }
 
 void CSmallRoot::Use_Item()
@@ -69,8 +90,30 @@ void CSmallRoot::Use_Item()
 	m_pPlayer = dynamic_cast<CPlayer*>(Engine::Get_GameObject(L"Layer_GameLogic", L"Player"));
 	NULL_CHECK_RETURN(m_pPlayer);
 
-	//m_pPlayer->SetPlayerPowerSC(5); 5초 동안 공격력 상승
+	m_pPlayer->SetPowerTime(5); //5초 동안 공격력 상승
 	m_tInfo.iItemCount--;
+}
+
+void CSmallRoot::OnCollision(CGameObject* _pOther)
+{
+	if (CBranch::g_Acquired == true)
+	{
+		m_pInven->Add_Item(dynamic_cast<CItem*>(this));
+		//아이템 획득 이펙트 발생
+		return;
+	}
+
+	m_pPickUpButton->CallButton(true);
+
+	if (GetKeyDown(DIK_A)) //줍기
+	{
+		CBranch::g_Acquired = true;
+		m_pItemUI->CallItemUI(true);
+		m_pItemUI->Set_Texture(m_pTextureCom);
+		m_pItemUI->Set_Text(m_tInfo);
+		m_pInven->Add_Item(dynamic_cast<CItem*>(this));
+	}
+
 }
 
 HRESULT CSmallRoot::Add_Component()
@@ -89,7 +132,7 @@ HRESULT CSmallRoot::Add_Component()
 
 	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformSmallRoot", pComponent });
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 	m_pTransformCom->m_vScale = { 55.f, 55.f, 1.f };
 	m_pTransformCom->m_vInfo[INFO_POS] = { 0.f, 0.f, 0.1f };
 	//0925Quick

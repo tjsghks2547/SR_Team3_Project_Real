@@ -11,6 +11,9 @@
 #include "QuickSlot.h"
 #include "ExpressMonkey.h"
 #include "SeaLion.h"
+#include "Sheep.h"
+#include "Pig.h"
+#include "Cow.h"
 
 #include "Pipe.h"
 #include "PipeBoard.h"
@@ -32,6 +35,13 @@
 #include "WeightComparator.h"
 #include "Stone.h"
 #include "StonePedestal.h"
+#include "Catapult.h"
+#include "LightFlower.h"
+#include "FlowerGlow.h"
+#include "ColorStone.h"
+#include "ShootingPlant.h"
+#include "StoneHole.h"
+#include "BreakableStone.h"
 
 
 #include "Terrain.h"

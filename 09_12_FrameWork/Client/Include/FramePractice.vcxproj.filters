@@ -287,6 +287,54 @@
     <Filter Include="02. GameObject\07. Map\03.JungleForestMap">
       <UniqueIdentifier>{6021e17d-67bf-4647-9994-560ed2778a3a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\11. UI\05. BuffUI">
+      <UniqueIdentifier>{674113ab-d04b-4277-92ca-04c88ff8e6b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\11. UI\06. ItemUI">
+      <UniqueIdentifier>{1fb07c72-918c-4ff8-9223-641debf3ddfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\11. UI\99. ButtonUI">
+      <UniqueIdentifier>{0cc54081-d60a-49d5-b57b-def40c3c80e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\11. UI\99. ButtonUI\ItemBttn">
+      <UniqueIdentifier>{8971a290-2b0c-4183-bb4a-0ebb01ff2248}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\11. UI\99. ButtonUI\TextBttn">
+      <UniqueIdentifier>{fb693b24-6adc-4161-8c01-dd60a0d8a7ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. NPC\00. QuestNPC\01. Sheep">
+      <UniqueIdentifier>{6927c7e3-40d3-41e0-82a2-cad96cad149e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. NPC\00. QuestNPC\02. Pig">
+      <UniqueIdentifier>{9f240988-934e-45c7-a968-2f6df1d089df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. NPC\00. QuestNPC\03. Cow">
+      <UniqueIdentifier>{b9825aab-836a-442b-8243-6a4735a9919b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\00. Common Object\04. Color Stone">
+      <UniqueIdentifier>{b59a2047-1335-4da6-adba-448fef4b3100}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\00. Common Object\05. Stone Hole">
+      <UniqueIdentifier>{1f471900-96f0-45a1-b1a3-548e85fed252}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\00. Common Object\06. Breakable Stone">
+      <UniqueIdentifier>{0b914ef6-17c7-4121-aa72-7b3324da7901}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\Catapult">
+      <UniqueIdentifier>{60e08e87-0273-4202-8d36-0d44ff2589b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\Shooting Plant">
+      <UniqueIdentifier>{618043cf-3634-40df-8afa-9e3c02c70285}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\Light Flower">
+      <UniqueIdentifier>{5b94fae5-455e-42bc-8578-3cbc5a709339}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\Light Flower\FlowerGlow">
+      <UniqueIdentifier>{4c5dcad4-d362-442d-8e27-b32ea8fe5d28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\Shooting Plant\Plant Orb">
+      <UniqueIdentifier>{84b002b8-9a81-47a0-b620-426643eb08c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -529,9 +577,6 @@
     <ClInclude Include="..\Header\TestCol.h">
       <Filter>02. GameObject\01. Entity\01. Player</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\InteractionButton.h">
-      <Filter>02. GameObject\11. UI\02. TextBoxUI</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\TextBox.h">
       <Filter>02. GameObject\11. UI\02. TextBoxUI</Filter>
     </ClInclude>
@@ -631,9 +676,6 @@
     <ClInclude Include="..\Header\TestCol2.h">
       <Filter>02. GameObject\01. Entity\01. Player</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\StoreUI.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\ResMgr.h">
       <Filter>04.ResMgr</Filter>
     </ClInclude>
@@ -657,6 +699,60 @@
     </ClInclude>
     <ClInclude Include="..\Header\JungleForestMap.h">
       <Filter>02. GameObject\07. Map\03.JungleForestMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\InteractionButton.h">
+      <Filter>02. GameObject\11. UI\99. ButtonUI\TextBttn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\StoreUI.h">
+      <Filter>02. GameObject\11. UI\04. StoreUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\BuffUI.h">
+      <Filter>02. GameObject\11. UI\05. BuffUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\SpeedUI.h">
+      <Filter>02. GameObject\11. UI\05. BuffUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PowerUI.h">
+      <Filter>02. GameObject\11. UI\05. BuffUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ItemUI.h">
+      <Filter>02. GameObject\11. UI\06. ItemUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PickUpButton.h">
+      <Filter>02. GameObject\11. UI\99. ButtonUI\ItemBttn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Pig.h">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\02. Pig</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Cow.h">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\03. Cow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Sheep.h">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\01. Sheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\StoneHole.h">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\05. Stone Hole</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\BreakableStone.h">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\06. Breakable Stone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ColorStone.h">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\04. Color Stone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\FlowerGlow.h">
+      <Filter>02. GameObject\09. Puzzle\Light Flower\FlowerGlow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\LightFlower.h">
+      <Filter>02. GameObject\09. Puzzle\Light Flower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ShootingPlant.h">
+      <Filter>02. GameObject\09. Puzzle\Shooting Plant</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PlantOrb.h">
+      <Filter>02. GameObject\09. Puzzle\Shooting Plant\Plant Orb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Catapult.h">
+      <Filter>02. GameObject\09. Puzzle\Catapult</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -891,9 +987,6 @@
     <ClCompile Include="..\Code\TestCol.cpp">
       <Filter>02. GameObject\01. Entity\01. Player</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\InteractionButton.cpp">
-      <Filter>02. GameObject\11. UI\02. TextBoxUI</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\TextBox.cpp">
       <Filter>02. GameObject\11. UI\02. TextBoxUI</Filter>
     </ClCompile>
@@ -993,9 +1086,6 @@
     <ClCompile Include="..\Code\TestCol2.cpp">
       <Filter>02. GameObject\01. Entity\01. Player</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\StoreUI.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\ResMgr.cpp">
       <Filter>04.ResMgr</Filter>
     </ClCompile>
@@ -1019,6 +1109,60 @@
     </ClCompile>
     <ClCompile Include="..\Code\JungleForestMap.cpp">
       <Filter>02. GameObject\07. Map\03.JungleForestMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\InteractionButton.cpp">
+      <Filter>02. GameObject\11. UI\99. ButtonUI\TextBttn</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\StoreUI.cpp">
+      <Filter>02. GameObject\11. UI\04. StoreUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\BuffUI.cpp">
+      <Filter>02. GameObject\11. UI\05. BuffUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PowerUI.cpp">
+      <Filter>02. GameObject\11. UI\05. BuffUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SpeedUI.cpp">
+      <Filter>02. GameObject\11. UI\05. BuffUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ItemUI.cpp">
+      <Filter>02. GameObject\11. UI\06. ItemUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PickUpButton.cpp">
+      <Filter>02. GameObject\11. UI\99. ButtonUI\ItemBttn</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Sheep.cpp">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\01. Sheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Pig.cpp">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\02. Pig</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Cow.cpp">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\03. Cow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\StoneHole.cpp">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\05. Stone Hole</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\BreakableStone.cpp">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\06. Breakable Stone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ColorStone.cpp">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\04. Color Stone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\FlowerGlow.cpp">
+      <Filter>02. GameObject\09. Puzzle\Light Flower\FlowerGlow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\LightFlower.cpp">
+      <Filter>02. GameObject\09. Puzzle\Light Flower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ShootingPlant.cpp">
+      <Filter>02. GameObject\09. Puzzle\Shooting Plant</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PlantOrb.cpp">
+      <Filter>02. GameObject\09. Puzzle\Shooting Plant\Plant Orb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Catapult.cpp">
+      <Filter>02. GameObject\09. Puzzle\Catapult</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

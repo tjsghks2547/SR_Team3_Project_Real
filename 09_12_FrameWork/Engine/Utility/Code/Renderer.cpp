@@ -118,6 +118,23 @@ void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)
 
 }
 
+void CRenderer::Render_Trancelucent(LPDIRECT3DDEVICE9& pGraphicDev)
+{
+	pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
+	pGraphicDev->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+	pGraphicDev->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TFACTOR);
+	pGraphicDev->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_TEXTURE);
+	pGraphicDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	pGraphicDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+
+
+	for (auto& pGameObject : m_RenderGroup[RENDER_TRANSLUCNET])
+		pGameObject->Render_GameObject();
+
+	pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+}
+
 void CRenderer::Free()
 {
 	Clear_RenderGroup();

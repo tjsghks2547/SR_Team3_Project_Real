@@ -4,9 +4,11 @@
 #include "Player.h"
 #include "ItemSelector.h"
 
+vector<CItem*>	CInvenUI::m_ItemList[CItem::TYPE_END];
+
+
 CInvenUI::CInvenUI(LPDIRECT3DDEVICE9 pGraphicDev)
     :Engine::CGameObject(pGraphicDev)
-    //, m_bCursorCreate(false)
     , m_pItemSelector(nullptr)
 {
 }
@@ -46,7 +48,6 @@ _int CInvenUI::Update_GameObject(const _float& fTimeDelta)
 
     if (m_pPlayer->GetPlayerInven())
     {
-
         Engine::Add_RenderGroup(RENDER_UI, this);
         Key_Input(fTimeDelta);
 
@@ -54,16 +55,12 @@ _int CInvenUI::Update_GameObject(const _float& fTimeDelta)
         {
             if (pItem == nullptr)
                 continue;
-
             pItem->Update_GameObject(fTimeDelta);
-            pItem->LateUpdate_GameObject(fTimeDelta);
-
         }
 
         if (m_pItemSelector)
         {
             m_pItemSelector->Update_GameObject(fTimeDelta);
-            m_pItemSelector->LateUpdate_GameObject(fTimeDelta);
         }
     }
 
@@ -74,7 +71,16 @@ void CInvenUI::LateUpdate_GameObject(const _float& fTimeDelta)
 {
     Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
 
-
+    for (auto& pItem : m_ItemList[m_iItemFilter])
+    {
+        if (pItem == nullptr)
+            continue;
+        pItem->LateUpdate_GameObject(fTimeDelta);
+    }
+    if (m_pItemSelector)
+    {
+        m_pItemSelector->LateUpdate_GameObject(fTimeDelta);
+    }
 }
 
 void CInvenUI::Render_GameObject()
@@ -155,7 +161,10 @@ void CInvenUI::Use_Efficacy(_int _iFilter, _int _iIdx)
 
 void CInvenUI::Add_Item(CItem* _Item)
 {
-    CItem::ITEMTYPE eType = _Item->Get_ItemInfo().eType; // 아이템종류
+    _Item->Set_ItemDrop(false);
+    _Item->Set_ItemScale(_vec3{ 55.f, 55.f, 0.1f });
+
+    CItem::ITEMTYPE eType = _Item->Get_ItemInfo().eType; // 아이템 종류
     if (m_ItemList[eType].size() > 14) // 인벤 사이즈가 15이상이라면 리턴
         return;
 

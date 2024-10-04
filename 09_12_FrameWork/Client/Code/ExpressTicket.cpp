@@ -1,5 +1,9 @@
 #include "pch.h"
 #include "ExpressTicket.h"
+#include "Player.h"
+#include "ItemUI.h"
+
+_bool CExpressTicket::g_Acquired(false);
 
 CExpressTicket::CExpressTicket(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CItem(pGraphicDev)
@@ -25,6 +29,11 @@ HRESULT CExpressTicket::Ready_GameObject()
 	return S_OK;
 }
 
+void CExpressTicket::LateReady_GameObject()
+{
+	CItem::LateReady_GameObject();
+}
+
 _int CExpressTicket::Update_GameObject(const _float& fTimeDelta)
 {
 	return CItem::Update_GameObject(fTimeDelta);
@@ -37,9 +46,44 @@ void CExpressTicket::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CExpressTicket::Render_GameObject()
 {
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	m_pTextureCom->Set_Texture();
-	m_pBufferCom->Render_Buffer();
+	if (m_tInfo.bOnField)
+	{
+		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+		m_pTextureCom->Set_Texture();
+		m_pBufferCom->Render_Buffer();
+		m_pColliderCom->Render_Buffer();
+
+		return;
+	}
+	else if (m_pInven->Get_CurFilter() == m_tInfo.eType
+		&& m_pPlayer->GetPlayerInven()
+		&& !m_tInfo.bOnField)
+	{
+		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+		m_pTextureCom->Set_Texture();
+		m_pBufferCom->Render_Buffer();
+	}
+}
+
+void CExpressTicket::OnCollision(CGameObject* _pOther)
+{
+	if (CExpressTicket::g_Acquired == true)
+	{
+		m_pInven->Add_Item(dynamic_cast<CItem*>(this));
+		//¾ÆÀÌÅÛ È¹µæ ÀÌÆåÆ® ¹ß»ý
+		return;
+	}
+
+	m_pPickUpButton->CallButton(true);
+
+	if (GetKeyDown(DIK_A)) //ÁÝ±â
+	{
+		CExpressTicket::g_Acquired = true;
+		m_pItemUI->CallItemUI(true);
+		m_pItemUI->Set_Texture(m_pTextureCom);
+		m_pItemUI->Set_Text(m_tInfo);
+		m_pInven->Add_Item(dynamic_cast<CItem*>(this));
+	}
 
 }
 
@@ -52,15 +96,14 @@ HRESULT CExpressTicket::Add_Component()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
-	//SmallFruit
 	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Ticket"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_STATIC].insert({ L"Com_TextureTicket", pComponent });
 
 	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformNet", pComponent });
-	m_pTransformCom->m_vScale = { 52.f, 52.f, 1.f };
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
+	m_pTransformCom->m_vScale = { 55.f, 55.f, 1.f };
 	m_pTransformCom->m_vInfo[INFO_POS] = { 0.f, 0.f, 0.1f };
 
 	return S_OK;

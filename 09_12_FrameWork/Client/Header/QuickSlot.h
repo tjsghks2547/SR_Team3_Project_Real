@@ -1,7 +1,6 @@
 #pragma once
 #include "GameObject.h"
 #include "Export_Utility.h"
-#include "Item.h"
 
 BEGIN(Engine)
 
@@ -10,6 +9,7 @@ class CTexture;
 class CTransform;
 
 END
+class CItem;
 
 class CQuickSlot : public Engine::CGameObject
 {
@@ -43,7 +43,7 @@ private:
 	Engine::CTexture* m_pTextureCom;
 	Engine::CTransform* m_pTransformCom;
 
-	CItem* m_pQuickSlot[4]; //퀵슬롯 배열! 키 1 2 3 4
+	CItem* m_pQuickSlot[4];  //퀵슬롯 배열! 키 1 2 3 4
 	_vec3	m_vFirstItemPos; //인덱스 0의 아이템 위치
 	float	m_QuickInterval; //아이템 간격(y값 필요없어서 float)
 

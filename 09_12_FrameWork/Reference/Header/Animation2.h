@@ -46,6 +46,7 @@ public:
 		m_fAccTime = 0.f;
 	}
 
+
 	int GetCurrentFrm() { return m_iCurFrm; }
 	tAnimFrm& GetFrame(int _iIdx) { return m_vecFrm[_iIdx]; }
 	UINT GetMaxFrame() { return (UINT)m_vecFrm.size(); }
@@ -53,6 +54,7 @@ public:
 
 private:
 	void SetName(const wstring& _strName) { m_strName = _strName; }
+
 
 public:
 	HRESULT Create(IDirect3DTexture9* _pTex,

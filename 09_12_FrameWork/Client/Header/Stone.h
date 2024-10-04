@@ -6,6 +6,7 @@ BEGIN(Engine)
 class CTexture;
 class CRcTex;
 class CTransform;
+class CCollider;
 
 END
 
@@ -22,10 +23,11 @@ public:
 	virtual   void      Render_GameObject();
 
 public:
-	void Set_Active(_bool _bIsActive) { m_bIsActive = _bIsActive; }
-	_bool Is_Active() { return m_bIsActive; }
-	void Set_ImageID(_int _iId) { m_iImageID = _iId; }
-	_int Get_ImageID() { return m_iImageID; }
+	void Disable_Collider();
+	void Set_StoneID(_int _iId) { m_iStoneID = _iId; }
+	_int Get_StoneID() { return m_iStoneID; }
+	_bool Is_Launched() { return m_bIsLaunched; }
+	//void Set_Pushable(OBJ_TYPE _eType) { m_eObjType = _eType; }
 
 private:
 	HRESULT    Add_Component();
@@ -34,14 +36,19 @@ private:
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTexture* m_pTextureCom;
 	Engine::CTransform* m_pTransformCom;
+	Engine::CTexture* m_pShadowTextureCom;
+	Engine::CTransform* m_pShadowTransformCom;
+	Engine::CCollider* m_pBoundBox;
 
 public:
 	static CStone* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	void Launch();
 
 private:
-	_bool m_bIsActive;
+	_bool m_bIsLaunched;	
 	vector<IDirect3DTexture9*> m_vecTexture;
-	_int m_iImageID;
+	_int m_iStoneID;
+	_vec3 m_vVelocity;	
 
 private:
 	bool LoadTextureFromFile(LPDIRECT3DDEVICE9 d3dDevice, const char* filePath, IDirect3DTexture9** outTexture)

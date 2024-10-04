@@ -26,6 +26,11 @@ HRESULT CCookBigFish::Ready_GameObject()
 	return S_OK;
 }
 
+void CCookBigFish::LateReady_GameObject()
+{
+	CItem::LateReady_GameObject();
+}
+
 _int CCookBigFish::Update_GameObject(const _float& fTimeDelta)
 {
 	return CItem::Update_GameObject(fTimeDelta);
@@ -90,7 +95,7 @@ HRESULT CCookBigFish::Add_Component()
 
 	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformCookBigFish", pComponent });
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 	m_pTransformCom->m_vScale = { 55.f, 55.f, 1.f };
 	m_pTransformCom->m_vInfo[INFO_POS] = { 0.f, 0.f, 0.1f };
 	//0925Quick

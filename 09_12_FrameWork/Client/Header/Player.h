@@ -15,6 +15,9 @@
 
 //민지
 #pragma region 민지
+#include "PowerUI.h"
+#include "SpeedUI.h"
+
 #include "ExploreHat.h"
 #include "PartyHat.h"
 #include "Mohican.h"
@@ -42,10 +45,12 @@
 #include "ExpressTicket.h"
 #include "Net.h"
 
-#include "InvenUI.h"
 #include "QuestUI.h"
 #include "QuickSlot.h"
+#include "InvenUI.h"
+
 #pragma endregion 민지
+
 
 BEGIN(Engine)
 
@@ -60,6 +65,10 @@ class CStateController;
 class CCollider;
 
 END
+
+class CBuffUI;//1003
+
+
 // Engine_Enum에서 작동 안 하길래 여기에 작성
 enum CONTROL_KEY
 {
@@ -182,6 +191,11 @@ public:
 	{
 		m_tPlayerHP.iMaxHP = _SetHP;
 	}
+	//1003
+	void			SetPowerTime(_int _SetTime) { m_BuffArray[0]->Set_BuffTime(_SetTime); }
+	void			SetSpeedTime(_int _SetTime) { m_BuffArray[1]->Set_BuffTime(_SetTime); }
+
+
 	void			SetInvincible(_bool value = true) { m_bInvincible = value; }
 	bool			IsInvincible() { return m_bInvincible; }
 	void			DurationInvincible(const _float& fTimeDelta);
@@ -226,10 +240,11 @@ private:
 	float m_fMoveSpeed;
 	_bool m_bInvincible;
 
-
 	//민지
-	CInvenUI*   m_pInven;
-	CQuestUI*   m_pQuestUI;//0928
+	CBuffUI*	m_BuffArray[2];
+
+	CInvenUI*	m_pInven;
+	CQuestUI*	m_pQuestUI;
 	CQuickSlot* m_pQuickSlot;
 
 	_int		m_iPlayerCoin;

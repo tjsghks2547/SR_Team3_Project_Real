@@ -17,18 +17,15 @@ private:
 	virtual ~CScale();
 
 public:
-	virtual   HRESULT   Ready_GameObject();
+	virtual   HRESULT   Ready_GameObject();	
 	virtual   _int      Update_GameObject(const _float& fTimeDelta);
 	virtual   void	    LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual   void      Render_GameObject();
 
-public:
+public:	
 	void Set_ImageID(_int _iId) { m_iImageID = _iId; }
 	_int Get_ImageID() { return m_iImageID; }
-	void Init_Position(float _fX, float _fY, float _fZ);
-	void Set_LeftPedestal(CGameObject* _pObj) { m_pLeftPedestal = _pObj; }
-	void Set_RightPedestal(CGameObject* _pObj) { m_pRightPedestal = _pObj; }	
-	void Match_Puzzle() override;
+	void Init_Position(float _fX, float _fZ);
 
 private:
 	HRESULT    Add_Component();
@@ -48,7 +45,7 @@ public:
 	static CScale* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:	
-	vector<IDirect3DTexture9*> m_vecTexture;
+	vector<IDirect3DTexture9*> m_vecTexture;	
 	CGameObject* m_pLeftPedestal;
 	CGameObject* m_pRightPedestal;
 	_int m_iImageID;
@@ -62,4 +59,7 @@ private:
 
 private:
 	virtual void Free();
+
+	// CPuzzleObject을(를) 통해 상속됨
+	void Match_Puzzle() override;
 };

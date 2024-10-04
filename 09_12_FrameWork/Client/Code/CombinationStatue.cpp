@@ -4,7 +4,7 @@
 #include "Export_Utility.h"
 
 CCombinationStatue::CCombinationStatue(LPDIRECT3DDEVICE9 pGraphicDev)
-	: Engine::CGameObject(pGraphicDev)
+	: Engine::CGameObject(pGraphicDev), m_iImageID(0)
 {
 }
 
@@ -15,8 +15,7 @@ CCombinationStatue::~CCombinationStatue()
 HRESULT CCombinationStatue::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 3.f, 4.f, 0.f };
-	m_iImageID = 0;
+	m_pTransformCom->m_vScale = { 16.f, 18.f, 16.f };
 	m_vecTexture.resize(3);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_MonkeyStatue_Ear.png", &m_vecTexture[0]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_MonkeyStatue_Eye.png", &m_vecTexture[1]);
@@ -84,7 +83,8 @@ CCombinationStatue* CCombinationStatue::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 		MSG_BOX("pPipeBoard Create Failed");
 		return nullptr;
 	}
-
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pCombinationStatue);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PUZZLE, pCombinationStatue);
 	return pCombinationStatue;
 }
 

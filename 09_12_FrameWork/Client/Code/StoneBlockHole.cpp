@@ -3,7 +3,7 @@
 #include "Export_Utility.h"
 
 CStoneBlockHole::CStoneBlockHole(LPDIRECT3DDEVICE9 pGraphicDev)
-	: Engine::CGameObject(pGraphicDev), m_pStoneBlock(nullptr)
+	: Engine::CGameObject(pGraphicDev), m_pStoneBlock(nullptr), m_fDuration(2)
 {
 }
 
@@ -14,7 +14,7 @@ CStoneBlockHole::~CStoneBlockHole()
 HRESULT CStoneBlockHole::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 4.f, 4.f, 0.f };
+	m_pTransformCom->m_vScale = { 20.f, 20.f, 0.f };
 	m_iImageID = 0;
 	m_pTransformCom->Rotation(ROT_X, 90.f * 3.14159265359f / 180.f);
 	m_vecTexture.resize(2);
@@ -28,6 +28,12 @@ _int CStoneBlockHole::Update_GameObject(const _float& fTimeDelta)
 {
 	Add_RenderGroup(RENDER_ALPHA, this);
 	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
+
+	if (m_fDuration < 0.5f) {
+		m_fDuration += fTimeDelta;
+		if (m_fDuration > 0.5f)
+			m_iImageID = 1;
+	}
 
 	return iExit;
 }
@@ -76,7 +82,8 @@ CStoneBlockHole* CStoneBlockHole::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 		MSG_BOX("pPipeBoard Create Failed");
 		return nullptr;
 	}
-
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pStoneBlockHole);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PUZZLE, pStoneBlockHole);
 	return pStoneBlockHole;
 }
 

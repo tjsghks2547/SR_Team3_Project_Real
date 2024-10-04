@@ -6,7 +6,6 @@ BEGIN(Engine)
 
 class CRcTex;
 class CTexture;
-class CTriCol;
 class CTransform;
 
 END
@@ -35,9 +34,7 @@ private:
 	Engine::CTexture* m_pTextureCom;
 	Engine::CTransform* m_pTransformCom;
 
-
 	_bool	m_bCall;
-	//_int	m_iCurStrIndex;
 
 	CQuestUI::QUEST_INFO		m_tCopyInfo;
 public:

@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Scale.h"
+#include "StonePedestal.h"
 #include "Export_Utility.h"
 
 CScale::CScale(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -14,9 +15,9 @@ CScale::~CScale()
 HRESULT CScale::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 15.f, 15.f, 0.f };
-	m_pLeftCompTransformCom->m_vScale = { 7.f, 7.f, 0.f };
-	m_pRightCompTransformCom->m_vScale = { 7.f, 7.f, 0.f };
+	m_pTransformCom->m_vScale = { 80.f, 60.f, 0.f };
+	m_pLeftCompTransformCom->m_vScale = { 25.f, 25.f, 15.f };
+	m_pRightCompTransformCom->m_vScale = { 25.f, 25.f, 15.f };
 	m_vecTexture.resize(3);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Scale_Balanced.png", &m_vecTexture[0]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Scale_Left_Anim05.png", &m_vecTexture[1]);
@@ -30,11 +31,17 @@ _int CScale::Update_GameObject(const _float& fTimeDelta)
 	Add_RenderGroup(RENDER_ALPHA, this);	
 	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
+	m_pLeftPedestal->Update_GameObject(fTimeDelta);
+	m_pRightPedestal->Update_GameObject(fTimeDelta);
+
 	return iExit;
 }
 
 void CScale::LateUpdate_GameObject(const _float& fTimeDelta)
 {
+	m_pLeftPedestal->LateUpdate_GameObject(fTimeDelta);
+	m_pRightPedestal->LateUpdate_GameObject(fTimeDelta);
+
 	Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
@@ -55,16 +62,31 @@ void CScale::Render_GameObject()
 	m_pRightCompTextureCom->Set_Texture();
 	m_pBufferCom->Render_Buffer();
 
+	m_pLeftPedestal->Render_GameObject();
+	m_pRightPedestal->Render_GameObject();
+
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 
-void CScale::Init_Position(float _fX, float _fY, float _fZ)
+void CScale::Init_Position(float _fX, float _fZ)
 {
-	m_pLeftCompTransformCom->Set_Pos(_fX - 15.f, _fY - 14.9f, _fZ - 9.f);
+	m_pTransformCom->Set_Pos(_fX, 60.f, _fZ);
+
+	m_pLeftCompTransformCom->Set_Pos(_fX - 60.f, 0.1f, _fZ - 40.f);
 	m_pLeftCompTransformCom->Rotation(ROT_X, 90.f * 3.14159265359f / 180.f);
 
-	m_pRightCompTransformCom->Set_Pos(_fX + 15.f, _fY - 14.9f, _fZ - 9.f);
+	m_pRightCompTransformCom->Set_Pos(_fX + 60.f, 0.1f, _fZ - 40.f);
 	m_pRightCompTransformCom->Rotation(ROT_X, 90.f * 3.14159265359f / 180.f);
+	
+	CGameObject* pGameObject = CStonePedestal::Create(m_pGraphicDev);
+	static_cast<CStonePedestal*>(pGameObject)->Init(_fX - 60.f, _fZ - 40.f);
+	static_cast<CStonePedestal*>(pGameObject)->Set_Group(this);
+	m_pLeftPedestal = pGameObject;
+
+	pGameObject = CStonePedestal::Create(m_pGraphicDev);
+	static_cast<CStonePedestal*>(pGameObject)->Init(_fX + 60.f, _fZ - 40.f);
+	static_cast<CStonePedestal*>(pGameObject)->Set_Group(this);
+	m_pRightPedestal = pGameObject;
 }
 
 HRESULT CScale::Add_Component()
@@ -122,5 +144,14 @@ void CScale::Free()
 }
 
 void CScale::Match_Puzzle()
-{
+{	
+	int iTemp = static_cast<CStonePedestal*>(m_pLeftPedestal)->Get_StoneID();
+	int iSour = static_cast<CStonePedestal*>(m_pRightPedestal)->Get_StoneID();
+
+	if (iTemp == -1 || iSour == -1) {
+		m_iImageID = 0;
+		return;
+	}		
+
+	m_iImageID = iTemp > iSour ? 1 : 2;
 }
