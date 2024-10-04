@@ -69,10 +69,9 @@ private:
 	//_bool				m_bCursorCreate;
 
 private:
-	// 0913 임시 추가 코드
 	CPlayer* m_pPlayer;
 
-	vector<CItem*>	m_ItemList[CItem::TYPE_END];
+	static vector<CItem*>	m_ItemList[CItem::TYPE_END];
 
 	_vec3			m_vInvenPos[CItem::TYPE_END]; // 인벤 칸 위치
 	_vec2			m_InvenInterval; // 간격

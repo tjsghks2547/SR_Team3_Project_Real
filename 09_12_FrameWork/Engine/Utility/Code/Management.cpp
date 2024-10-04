@@ -28,7 +28,6 @@ CComponent* CManagement::Get_Component(COMPONENTID eID, const _tchar* pLayerTag,
 
 CGameObject* CManagement::Get_GameObject(const _tchar* pLayeTag, const _tchar* pObjTag)
 {
-
 	NULL_CHECK_RETURN(m_pScene, nullptr);
 
 	return m_pScene->Get_GameObject(pLayeTag, pObjTag);

@@ -61,7 +61,7 @@ void CCrystalPuzzle::Check_Matched()
 	}
 
 	for (auto& iter : m_vecCrystals) {
-		static_cast<CCrystal*>(iter)->Set_Active(false);
+		iter->Set_Active(false);
 	}		
 	for (auto& iter : m_vecPressBlocks) {
 		static_cast<CPressBlock*>(iter)->Set_Clear(true);

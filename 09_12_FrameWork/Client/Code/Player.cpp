@@ -1,7 +1,12 @@
 #include "pch.h"
 #include "Player.h"
 #include "Define.h"
+<<<<<<< HEAD
 #include "Monster.h"
+=======
+#include "InvenUI.h"//1003
+
+>>>>>>> origin/main
 #include "Export_System.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -37,10 +42,10 @@ HRESULT CPlayer::Ready_GameObject()
 {
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
-    //0913 임시 코드
+    //민지 임시 코드
     m_tPlayerHP.iCurHP = 5;
     m_tPlayerHP.iMaxHP = 6;
-
+    m_eTag = TAG_PLAYER;
     m_pTransformCom->m_vScale = { 20.f,20.f,20.f };
     m_pTransformCom->Set_Pos(200.f, 30.f, 500.f);
 
@@ -61,6 +66,12 @@ void CPlayer::LateReady_GameObject()
     m_pQuickSlot = dynamic_cast<CQuickSlot*>(Engine::Get_GameObject(L"Layer_UI", L"QuickSlot_UI"));
     NULL_CHECK_RETURN(m_pInven);
 
+    m_BuffArray[0] = dynamic_cast<CPowerUI*>(Engine::Get_GameObject(L"Layer_UI", L"Power_UI"));
+    NULL_CHECK_RETURN(m_BuffArray[0]);
+
+    m_BuffArray[1] = dynamic_cast<CSpeedUI*>(Engine::Get_GameObject(L"Layer_UI", L"Speed_UI"));
+    NULL_CHECK_RETURN(m_BuffArray[1]);
+
     //hat = dynamic_cast<CExploreHat*>(CExploreHat::Create(m_pGraphicDev));
 }
 
@@ -69,7 +80,22 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
     m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
     NULL_CHECK_RETURN(m_pInven, 0);
 
+<<<<<<< HEAD
     //m_pTransformCom->Get_Info(INFO_POS, &m_vPlayerPrevPos);
+=======
+    if (m_BuffArray[0]->Get_BuffTime() < m_BuffArray[1]->Get_BuffTime())
+    {
+        m_BuffArray[0]->Set_YPos(90.f);
+        m_BuffArray[1]->Set_YPos(175.f);
+    }
+    else
+    {
+        m_BuffArray[1]->Set_YPos(90.f);
+        m_BuffArray[0]->Set_YPos(175.f);
+    }
+
+    m_pTransformCom->Get_Info(INFO_POS, &m_vPlayerPrevPos);
+>>>>>>> origin/main
 
     Key_Input(fTimeDelta);
 
@@ -263,95 +289,118 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
     {
         CItem* pItem = dynamic_cast<CExploreHat*>(CExploreHat::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
+        pItem->LateReady_GameObject();
         m_pInven->Add_Item(pItem);
 
         pItem = dynamic_cast<CPartyHat*>(CPartyHat::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
+        pItem->LateReady_GameObject();
         m_pInven->Add_Item(pItem);
 
         pItem = dynamic_cast<CMohican*>(CMohican::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
+        pItem->LateReady_GameObject();
         m_pInven->Add_Item(pItem);
 
         pItem = dynamic_cast<CAppleHat*>(CAppleHat::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
+        pItem->LateReady_GameObject();
         m_pInven->Add_Item(pItem);
 
         pItem = dynamic_cast<CEnkyHat*>(CEnkyHat::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
+        pItem->LateReady_GameObject();
         m_pInven->Add_Item(pItem);
 
         pItem = dynamic_cast<CPenguin*>(CPenguin::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
+        pItem->LateReady_GameObject();
         m_pInven->Add_Item(pItem);
 
         pItem = dynamic_cast<CPoopHat*>(CPoopHat::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
+        pItem->LateReady_GameObject();
         m_pInven->Add_Item(pItem);
 
         pItem = dynamic_cast<CSmallFruit*>(CSmallFruit::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
+        pItem->LateReady_GameObject();
         m_pInven->Add_Item(pItem);
 
         pItem = dynamic_cast<CMiddleFruit*>(CMiddleFruit::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
+        pItem->LateReady_GameObject();
         m_pInven->Add_Item(pItem);
 
         pItem = dynamic_cast<CBigFruit*>(CBigFruit::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
+        pItem->LateReady_GameObject();
         m_pInven->Add_Item(pItem);
 
         pItem = dynamic_cast<CSmallHerb*>(CSmallHerb::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
+        pItem->LateReady_GameObject();
         m_pInven->Add_Item(pItem);
 
         pItem = dynamic_cast<CMiddleHerb*>(CMiddleHerb::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
+        pItem->LateReady_GameObject();
         m_pInven->Add_Item(pItem);
 
         pItem = dynamic_cast<CBigHerb*>(CBigHerb::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
+        pItem->LateReady_GameObject();
         m_pInven->Add_Item(pItem);
 
         pItem = dynamic_cast<CSmallRoot*>(CSmallRoot::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
+        pItem->LateReady_GameObject();
         m_pInven->Add_Item(pItem);
 
         pItem = dynamic_cast<CMiddleRoot*>(CMiddleRoot::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
+        pItem->LateReady_GameObject();
         m_pInven->Add_Item(pItem);
 
         pItem = dynamic_cast<CBigRoot*>(CBigRoot::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
+        pItem->LateReady_GameObject();
         m_pInven->Add_Item(pItem);
 
         pItem = dynamic_cast<CCookSmallFish*>(CCookSmallFish::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
+        pItem->LateReady_GameObject();
         m_pInven->Add_Item(pItem);
 
         pItem = dynamic_cast<CCookMiddleFish*>(CCookMiddleFish::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
+        pItem->LateReady_GameObject();
         m_pInven->Add_Item(pItem);
 
         pItem = dynamic_cast<CCookBigFish*>(CCookBigFish::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
+        pItem->LateReady_GameObject();
         m_pInven->Add_Item(pItem);
 
 
         pItem = dynamic_cast<CBranch*>(CBranch::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
+        pItem->LateReady_GameObject();
         m_pInven->Add_Item(pItem);
 
         pItem = dynamic_cast<CLeaf*>(CLeaf::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
+        pItem->LateReady_GameObject();
         m_pInven->Add_Item(pItem);
 
         pItem = dynamic_cast<CNet*>(CNet::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
+        pItem->LateReady_GameObject();
         m_pInven->Add_Item(pItem);
 
         pItem = dynamic_cast<CExpressTicket*>(CExpressTicket::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(pItem);
+        pItem->LateReady_GameObject();
         m_pInven->Add_Item(pItem);
 
     }

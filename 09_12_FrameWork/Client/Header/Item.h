@@ -2,16 +2,20 @@
 #include "GameObject.h"
 #include "Export_Utility.h"
 #include "Export_System.h"
-//#include "Player.h"
+#include "PickUpButton.h"
 
 BEGIN(Engine)
 
 class CRcTex;
 class CTexture;
 class CTransform;
+class CTriCol;
+class CCollider;
 
 END
-class CPlayer;
+class CInvenUI;
+class CItemUI;
+
 class CItem : public Engine::CGameObject
 {
 protected:
@@ -40,6 +44,7 @@ public:
 		const _tchar* pInfo;
 		_int				iPrice;
 		_int				iItemCount;
+		_bool				bOnField;
 	};
 
 public:
@@ -50,6 +55,7 @@ public:
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
 		return vPos;
 	}
+
 	void		Set_ItemPos(_vec3 _ItemPos)
 	{
 		m_pTransformCom->m_vInfo[INFO_POS] = _ItemPos;
@@ -60,9 +66,12 @@ public:
 		m_pQuickTransformCom->m_vScale = { 27.f, 27.f, 0.1f };
 	}
 	void		Set_ItemCount(_int _AddItemCount) { m_tInfo.iItemCount += _AddItemCount; }
+	void		Set_ItemDrop(_bool _bDrop) { m_tInfo.bOnField = _bDrop; }
+	void		Set_ItemScale(_vec3 _vScale) { m_pTransformCom->m_vScale = _vScale; }
 
 public:
 	virtual   HRESULT   Ready_GameObject();
+	virtual	  void		LateReady_GameObject();
 	virtual   _int      Update_GameObject(const _float& fTimeDelta);
 	virtual   void      LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual   void      Render_GameObject();
@@ -71,6 +80,12 @@ public:
 	void				Render_QuickItem();
 	void				Render_ItemView();
 
+	// 필드 드랍 아이템
+	void				Set_DropItem(_vec3 _ItemPos);
+	virtual   void		OnCollisionEnter(CGameObject* _pOther) {}
+	virtual   void		OnCollision(CGameObject* _pOther) {}
+	virtual   void		OnCollisionExit(CGameObject* _pOther) { m_pPickUpButton->CallButton(false); }
+
 protected:
 	HRESULT    Add_Component();
 
@@ -78,16 +93,21 @@ protected:
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTexture* m_pTextureCom;
 	Engine::CTransform* m_pTransformCom;
+	Engine::CCollider* m_pColliderCom;
 
+	// 퀵슬롯
 	Engine::CTransform* m_pQuickTransformCom;
-
+	// 아이템 상세 뷰
 	Engine::CTransform* m_pViewTransformCom;
 
 
 protected:
 	ITEM_INFO				m_tInfo;
 	CPlayer* m_pPlayer;
+	CInvenUI* m_pInven;
+	CItemUI* m_pItemUI;
 
+	CPickUpButton* m_pPickUpButton;
 public:
 	static CItem* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 

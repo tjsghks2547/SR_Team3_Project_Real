@@ -38,6 +38,7 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_State", Engine::CStateController::Create(m_pGraphicDev)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_PipeBoard", Engine::CPipeBoardCom::Create(m_pGraphicDev)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Pipe", Engine::CPipeCom::Create(m_pGraphicDev)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_PlantOrbCom", Engine::CPlantOrbCom::Create(m_pGraphicDev)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Collider", Engine::CCollider::Create(m_pGraphicDev)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Animator", Engine::CAnimator2::Create(m_pGraphicDev)), E_FAIL);	
 
@@ -52,7 +53,7 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_TestMapTex", Engine::CStartMap::Create(m_pGraphicDev)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 1.f,1.f)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_WorldHeartMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 2.0f,2.0f)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MoonForestMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 1.5f,1.5f)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MoonForestMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 1.0f,1.0f)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_ElectriceelBossMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 1.0f,1.0f)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_JungleMonkeyTownMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 1.5f,2.0f)), E_FAIL);
 
@@ -92,6 +93,11 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_QuestUI", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/Quest_UI.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_QuestCursor", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/QuestCursor.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_QuestAcceptUI", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/QuestAcceptUI.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_StoreUI", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/StoreUI.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_PowerUI", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/PowerUI.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_SpeedUI", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/SpeedUI.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_PickUpButton", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/PickUpButton.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_AcquiredItemUI", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/AcquiredItemUI.png", TEX_NORMAL)), E_FAIL);
 	//Item
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_ExploreHat", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/Explore.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_PartyHat", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/PartyHat.png", TEX_NORMAL)), E_FAIL);
@@ -140,6 +146,7 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_StonePushable", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/puzzle/Sprite_StonePushable.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_StonePedestal", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/puzzle/Sprite_StonePushableElectricityFrame.png", TEX_NORMAL)), E_FAIL);
 
+<<<<<<< HEAD
 	//MONSTER
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MonsterTrashBig",
 		Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Monster/Sprite_MonsterTrashBig.png", TEX_NORMAL)), E_FAIL);
@@ -150,6 +157,14 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MonsterTrashSlime",
 		Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Monster/Sprite_MonsterTrashSlime.png", TEX_NORMAL)), E_FAIL);
 
+=======
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_CatapultBase", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/puzzle/Sprite_Catapult_Base.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_CatapultBucket", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/puzzle/Sprite_Catapult_Bucket.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_LightFlower", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/puzzle/Sprite_LightFlower.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Shadow", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/puzzle/Shadow.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Catapult_Indicator", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/puzzle/Sprite_AttackTargetSingle.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_BreakableStone", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/puzzle/Sprite_StoneBreakable.png", TEX_NORMAL)), E_FAIL);
+>>>>>>> origin/main
 
 	CResMgr::GetInstance()->init();
 	//TEST ≥Ù¿Ã ∏  

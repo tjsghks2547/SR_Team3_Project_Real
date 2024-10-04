@@ -1,10 +1,13 @@
 #include "pch.h"
 #include "Item.h"
 #include "Player.h" //0924
+#include "InvenUI.h"
+#include "ItemUI.h"
 
 CItem::CItem(LPDIRECT3DDEVICE9 pGraphicDev)
     :Engine::CGameObject(pGraphicDev)
 {
+    m_tInfo.bOnField = false;
 }
 
 CItem::~CItem()
@@ -18,14 +21,36 @@ HRESULT CItem::Ready_GameObject()
     return S_OK;
 }
 
+void CItem::LateReady_GameObject()
+{
+    m_pPlayer = dynamic_cast<CPlayer*>(Engine::Get_GameObject(L"Layer_GameLogic", L"Player"));
+    NULL_CHECK_RETURN(m_pPlayer);
+
+    m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
+    NULL_CHECK_RETURN(m_pInven);
+
+    m_pPickUpButton = dynamic_cast<CPickUpButton*>(CPickUpButton::Create(m_pGraphicDev));
+    NULL_CHECK_RETURN(m_pPickUpButton);
+
+    m_pItemUI = dynamic_cast<CItemUI*>(CItemUI::Create(m_pGraphicDev));
+    NULL_CHECK_RETURN(m_pItemUI);
+}
+
 _int CItem::Update_GameObject(const _float& fTimeDelta)
 {
-    //m_pPlayer = dynamic_cast<CPlayer*>(Engine::Get_GameObject(L"Layer_GameLogic", L"Player"));
-    //NULL_CHECK_RETURN(m_pPlayer, 0);
-
     _int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
-    Engine::Add_RenderGroup(RENDER_UI, this);
+    m_pPickUpButton->Update_GameObject(fTimeDelta);
+    m_pItemUI->Update_GameObject(fTimeDelta);
+
+    if (!m_tInfo.bOnField)
+    {
+        Engine::Add_RenderGroup(RENDER_UI, this);
+    }
+    else if (m_tInfo.bOnField)
+    {
+        Engine::Add_RenderGroup(RENDER_ALPHA, this);
+    }
 
     return iExit;
 }
@@ -70,6 +95,13 @@ void CItem::Render_ItemView()
     m_pBufferCom->Render_Buffer();
 }
 
+void CItem::Set_DropItem(_vec3 _ItemPos)
+{
+    m_tInfo.bOnField = true;
+    m_pTransformCom->m_vScale = { 15.f, 15.f, 20.f };
+    Set_ItemPos(_ItemPos);
+}
+
 HRESULT CItem::Add_Component()
 {
     CComponent* pComponent = NULL;
@@ -79,6 +111,11 @@ HRESULT CItem::Add_Component()
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformItemView", pComponent });
     m_pViewTransformCom->m_vScale = { 100.f, 100.f, 1.f };
     m_pViewTransformCom->m_vInfo[INFO_POS] = { 430.f, 100.f, 0.1f };
+
+    pComponent = m_pColliderCom = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
+    NULL_CHECK_RETURN(pComponent, E_FAIL);
+    m_pColliderCom->SetGameObjectPtr(this);
+    m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collider", pComponent });
 
     return S_OK;
 }

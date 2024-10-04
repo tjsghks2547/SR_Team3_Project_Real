@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "QuickSlot.h"
+#include "Item.h"
 
 CQuickSlot::CQuickSlot(LPDIRECT3DDEVICE9 pGraphicDev)
     :Engine::CGameObject(pGraphicDev)

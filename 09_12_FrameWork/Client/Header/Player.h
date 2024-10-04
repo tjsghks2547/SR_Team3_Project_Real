@@ -15,6 +15,9 @@
 
 //민지
 #pragma region 민지
+#include "PowerUI.h"
+#include "SpeedUI.h"
+
 #include "ExploreHat.h"
 #include "PartyHat.h"
 #include "Mohican.h"
@@ -42,10 +45,12 @@
 #include "ExpressTicket.h"
 #include "Net.h"
 
-#include "InvenUI.h"
 #include "QuestUI.h"
 #include "QuickSlot.h"
+#include "InvenUI.h"
+
 #pragma endregion 민지
+
 
 BEGIN(Engine)
 
@@ -61,6 +66,26 @@ class CCollider;
 
 END
 
+<<<<<<< HEAD
+=======
+class CBuffUI;//1003
+
+
+// Engine_Enum에서 작동 안 하길래 여기에 작성
+enum CONTROL_KEY
+{
+	PLY_LEFTKEY = DIK_LEFT,
+	PLY_RIGHTKEY = DIK_RIGHT,
+	PLY_UPKEY = DIK_UP,
+	PLY_DOWNKEY = DIK_DOWN,
+	PLY_DASHKEY = DIK_LSHIFT,
+	PLY_SWINGKEY = DIK_A,
+	PLY_LIFTKEY = DIK_S,
+	PLY_ROLLKEY = DIK_D,
+	PLY_DANCEKEY = DIK_Q,
+	PLY_SMASHKEY = DIK_E,
+};
+>>>>>>> origin/main
 struct PLAYERINFO
 {
 	_int iCurrHP;
@@ -180,6 +205,11 @@ public:
 	{
 		m_tPlayerHP.iMaxHP = _SetHP;
 	}
+	//1003
+	void			SetPowerTime(_int _SetTime) { m_BuffArray[0]->Set_BuffTime(_SetTime); }
+	void			SetSpeedTime(_int _SetTime) { m_BuffArray[1]->Set_BuffTime(_SetTime); }
+
+
 	void			SetInvincible(_bool value = true) { m_bInvincible = value; }
 	bool			IsInvincible() { return m_bInvincible; }
 	void			DurationInvincible(const _float& fTimeDelta);
@@ -223,13 +253,22 @@ private:
 	_vec3						m_vColPlayerPos;
 	_vec3						m_vColliderPos;
 
+<<<<<<< HEAD
 	_bool						m_bPassAble;
 	float						m_fMoveSpeed;
 	_bool						m_bInvincible;
+=======
+	_bool m_bPassAble;
+	///////////////////////////////////////////////////////
+	float m_fMoveSpeed;
+	_bool m_bInvincible;
+>>>>>>> origin/main
 
 	//민지
-	CInvenUI*   m_pInven;
-	CQuestUI*   m_pQuestUI;//0928
+	CBuffUI*	m_BuffArray[2];
+
+	CInvenUI*	m_pInven;
+	CQuestUI*	m_pQuestUI;
 	CQuickSlot* m_pQuickSlot;
 
 	_int		m_iPlayerCoin;

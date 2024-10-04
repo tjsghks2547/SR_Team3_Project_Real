@@ -129,43 +129,44 @@ HRESULT CItemSelector::Add_Component()
 
 void CItemSelector::Key_Input(const _float& fTimeDelta)
 {
-
-	//0925
-	if (Engine::GetKeyDown(DIK_SPACE) && !m_bWaitQuickNum)
-	{
-		m_pQuickSlot->Set_Time();
-		m_bWaitQuickNum = true;
-	}
-
-	//숫자 키 입력 대기
-	if (m_bWaitQuickNum)
-	{
-		if (Engine::GetKeyDown(DIK_1))
-		{
-			m_pQuickSlot->Add_QuickSlotItem(0, m_pInven->Get_Item(m_pInven->Get_CurFilter(), m_iCurIdx));
-			m_bWaitQuickNum = false;  // 퀵슬롯 설정 대기 상태 종료
-		}
-		else if (Engine::GetKeyDown(DIK_2))
-		{
-			m_pQuickSlot->Add_QuickSlotItem(1, m_pInven->Get_Item(m_pInven->Get_CurFilter(), m_iCurIdx));
-			m_bWaitQuickNum = false;
-		}
-		else if (Engine::GetKeyDown(DIK_3))
-		{
-			m_pQuickSlot->Add_QuickSlotItem(2, m_pInven->Get_Item(m_pInven->Get_CurFilter(), m_iCurIdx));
-			m_bWaitQuickNum = false;
-		}
-		else if (Engine::GetKeyDown(DIK_4))
-		{
-			m_pQuickSlot->Add_QuickSlotItem(3, m_pInven->Get_Item(m_pInven->Get_CurFilter(), m_iCurIdx));
-			m_bWaitQuickNum = false;
-		}
-		return;	//퀵슬롯 설정중엔 숫자 제외 키인풋 받지 않음
-	}
-
 	//방향키, 인덱스 이동.
 	m_iPrevIdx = m_iCurIdx;
 	_int iFilter = m_pInven->Get_CurFilter();
+
+	if (iFilter != (int)CItem::OTHER || iFilter != (int)CItem::QUEST)
+	{
+		if (Engine::GetKeyDown(DIK_SPACE) && !m_bWaitQuickNum)
+		{
+			m_pQuickSlot->Set_Time();
+			m_bWaitQuickNum = true;
+		}
+
+		//숫자 키 입력 대기
+		if (m_bWaitQuickNum)
+		{
+			if (Engine::GetKeyDown(DIK_1))
+			{
+				m_pQuickSlot->Add_QuickSlotItem(0, m_pInven->Get_Item(m_pInven->Get_CurFilter(), m_iCurIdx));
+				m_bWaitQuickNum = false;  // 퀵슬롯 설정 대기 상태 종료
+			}
+			else if (Engine::GetKeyDown(DIK_2))
+			{
+				m_pQuickSlot->Add_QuickSlotItem(1, m_pInven->Get_Item(m_pInven->Get_CurFilter(), m_iCurIdx));
+				m_bWaitQuickNum = false;
+			}
+			else if (Engine::GetKeyDown(DIK_3))
+			{
+				m_pQuickSlot->Add_QuickSlotItem(2, m_pInven->Get_Item(m_pInven->Get_CurFilter(), m_iCurIdx));
+				m_bWaitQuickNum = false;
+			}
+			else if (Engine::GetKeyDown(DIK_4))
+			{
+				m_pQuickSlot->Add_QuickSlotItem(3, m_pInven->Get_Item(m_pInven->Get_CurFilter(), m_iCurIdx));
+				m_bWaitQuickNum = false;
+			}
+			return;	//퀵슬롯 설정중엔 숫자 제외 키인풋 받지 않음
+		}
+	}
 
 	if (Engine::GetKeyDown(DIK_DOWN))
 	{
@@ -198,6 +199,7 @@ void CItemSelector::Key_Input(const _float& fTimeDelta)
 	}
 	if (Engine::GetKeyDown(DIK_I))
 	{
+		//m_pInven->SetFilter((int)CItem::EQUIP);
 		m_iCurIdx = -5;
 	}
 
