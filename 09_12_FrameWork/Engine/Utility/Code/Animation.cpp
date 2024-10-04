@@ -104,6 +104,9 @@ _int CAnimation::Update_Component(const _float& fTimeDelta)
 	if (m_bAniamtionPause)
 		return 0;
 
+	if (fTimeDelta > 10.f)
+		return 0;
+
 	m_fAccTime -= fTimeDelta;
 
 	if (m_fAccTime <= 0.f)

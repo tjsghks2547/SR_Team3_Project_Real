@@ -51,7 +51,6 @@ private:
 	void  ResetZoom(const _float& fTimeDelta);
 
 	void  ShakeMoveTrigger(const _float& fTimeDelta);
-	void  GetPlayerInfo();
 
 private:
 
@@ -59,13 +58,14 @@ private:
 	// 0923 동영 : 카메라 모드에 따른 화면 출력을 위한 변수
 	CAMERASTATE m_eCameraState;
 
-	CPlayer* m_Player;
+	CGameObject* m_Player;
 	CTransform* m_playerTransform;
 	_vec3 m_vPlayerPos; // 플레이어의 좌표
 
 	_vec3 m_vIntervalPos; // 플레이어 좌표에서 이만큼 떨어진 곳에 카메라를 배치시킵니다.
 	_vec3 m_vOriginInterval; // 평소의 IntervalPos 값
 	float m_fMoveToPlayerSpeed;
+	float m_fDistance;
 
 	// Zoom
 	// 외부에서 ZoomTo()함수에 의해 true가 돼, 업데이트에서 줌인/아웃이 진행

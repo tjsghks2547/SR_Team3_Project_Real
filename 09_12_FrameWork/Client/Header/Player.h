@@ -68,21 +68,6 @@ END
 
 class CBuffUI;//1003
 
-
-// Engine_Enum에서 작동 안 하길래 여기에 작성
-enum CONTROL_KEY
-{
-	PLY_LEFTKEY = DIK_LEFT,
-	PLY_RIGHTKEY = DIK_RIGHT,
-	PLY_UPKEY = DIK_UP,
-	PLY_DOWNKEY = DIK_DOWN,
-	PLY_DASHKEY = DIK_LSHIFT,
-	PLY_SWINGKEY = DIK_A,
-	PLY_LIFTKEY = DIK_S,
-	PLY_ROLLKEY = DIK_D,
-	PLY_DANCEKEY = DIK_Q,
-	PLY_SMASHKEY = DIK_E,
-};
 struct PLAYERINFO
 {
 	_int iCurrHP;
@@ -119,6 +104,7 @@ public:
 	// 애니메이션 관련 /////////////////////////////////////////////////////////
 	CAnimation* GetAnimationComp() { return m_pAnimationCom; }
 
+	// 플레이어 현재 행동을 리턴합니다.
 	PLAYERSTATE		GetPlayerState() { return m_ePlayerState; }
 	void			SetPlayerState(PLAYERSTATE _ePlayerState)
 	{
@@ -126,47 +112,57 @@ public:
 		m_pAnimationCom->SetAnimFrame(m_ePlayerState, m_bIsDiagonal);
 	}
 
+	// 공격중인지 판단합니다.
 	_bool			GetSwingTrigger() { return m_bSwingTrigger; }
 	void			SetSwingTrigger(_bool bSwing) { m_bSwingTrigger = bSwing; }
+	// 밀 수 있는지 판단합니다.
 	_bool			GetPushTrigger() { return m_bPushTrigger; }
 	void			SetPushTrigger(_bool bPush) { m_bPushTrigger = bPush; }
-	
+
+	// 인터렉션박스와 인터렉션박스와 충돌중인 오브젝트를 가져오거나 리턴합니다.
 	CGameObject* GetInteractionBox() { return m_objInteractionBox; }
 	void			SetInteractionBox(CGameObject* _obj) { m_objInteractionBox = _obj; }
 	CGameObject* GetInteractingObj() { return m_objInteracting; }
 	void			SetInteractingObj(CGameObject* _obj) { m_objInteracting = _obj; }
 
+	// 플레이어가 지금 이동중인 방향을 리턴합니다.
 	_vec3			GetPlayerDirVector() { return m_vPlayerDir; }
+	// 플레이어에서 인터렉션박스로 향하는 방향을 리턴합니다.
 	_vec3			GetPlayerDirVector2()
 	{
-		_vec3 returnValue = _vec3(0.f, 0.f, 0.f);
-		if (m_iPlayerDir & OBJDIR_LEFT)
-			returnValue.x = -1;
-		else if (m_iPlayerDir & OBJDIR_RIGHT)
-			returnValue.x = 1;
-		else
-			returnValue.x = 0;
+		CTransform* BoxTransform = dynamic_cast<CTransform*>(
+			m_objInteractionBox->Get_Component(ID_DYNAMIC, L"Com_Transform"));
 
-		if (m_iPlayerDir & OBJDIR_BACK)
-			returnValue.z = 1;
-		else if (m_iPlayerDir & OBJDIR_FRONT)
-			returnValue.z = -1;
-		else
-			returnValue.z = 0;
+		_vec3 vBoxPos;
+		BoxTransform->Get_Info(INFO_POS, &vBoxPos);
 
-		return returnValue;
+		_vec3 vPlayerPos;
+		m_pTransformCom->Get_Info(INFO_POS, &vPlayerPos);
+
+		_vec3 returnPos = vBoxPos - vPlayerPos;
+		D3DXVec3Normalize(&returnPos, &returnPos);
+		return returnPos;
 
 	}
+	// 플레이어가 대각선 방향에 위치에 있는지 판단합니다.
 	bool			IsPlayerDiagonal() { return m_bIsDiagonal; }
+	// 키 입력으로 캐릭터의 방향을 조정합니다.
 	void			SetPlayerDirection();
+	// 해당 방향으로 플레이어를 고정 시킵니다.
 	void			FixPlayerDir(int _fixDir)
 	{
-		m_iPlayerDir = _fixDir;
+		m_vPlayerDir.x = 0; m_vPlayerDir.z = 1;
 		DisableDiagonal();
-		m_pAnimationCom->SetAnimDir(m_ePlayerState, m_iPlayerDir, false);
+		m_pAnimationCom->SetAnimDir(m_ePlayerState, m_vPlayerDir, m_bIsDiagonal);
 	}
+	// 현재 방향으로 플레이어를 고정 시킵니다.
+	void			FixCurPlayerDir(_bool _value) { m_bFixPlayerDir = _value; }
+	// 무조건 플레이어 방향을 대각선이 아닌 방향으로 바꿉니다.
 	void			DisableDiagonal() { m_bIsDiagonal = false; }
+	// 물체랑 부딪혀도 통과할 수 있는지 판단합니다. 리턴값이 false 플레이어가 움직이지 않습니다.
 	_bool			GetPassAble() { return m_bPassAble; }
+	///////////////////////////////////////////////////////////////////////////
+
 	///////////////////////////////////////////////////////////////////////////
 
 	// 플레이어 능력치 관련 //////////////////////////////////////////////////////
@@ -199,6 +195,9 @@ public:
 	void			SetInvincible(_bool value = true) { m_bInvincible = value; }
 	bool			IsInvincible() { return m_bInvincible; }
 	void			DurationInvincible(const _float& fTimeDelta);
+	// 충돌 관련
+	_vec3			GetColliderPos() { return m_vColliderPos; }
+	_vec3			GetColPlayerPos() { return m_vColPlayerPos; }
 	////////////////////////////////////////////////////////////////////////////
 	CCamera* GetCamera() { return m_pCamera; }
 	void			SetCamera(CCamera* _camera) { m_pCamera = _camera; }
@@ -215,30 +214,32 @@ private:
 	Engine::CTexture* m_pTextureCom;
 	Engine::CAnimation* m_pAnimationCom;
 	Engine::CCamera* m_pCamera;
-	Engine::CCalculator* m_pCCalculatorCom;
+	//Engine::CCalculator*		m_pCCalculatorCom;
 	Engine::CStateController* m_pStateControlCom;
-
-	//바운드 박스 테스트 
 	Engine::CCollider* m_pBoundBox;
 
-	PLAYERSTATE m_ePlayerState;
-	//OBJ_DIRECTION m_ePlayerDir;
-	int	  m_iPlayerDir;
-	bool m_bIsDiagonal;
+	PLAYERSTATE					m_ePlayerState;
+	//int							m_iPlayerDir;
+	bool						m_bIsDiagonal;
 
 	// 현재 프레임 - 이전 프레임 하여 플레이어가 이동한 방향을 알아냄
-	_vec3 m_vPlayerCurrPos, m_vPlayerPrevPos;
-	_vec3 m_vPlayerDir;
+	//_vec3						m_vPlayerCurrPos;
+	//_vec3						m_vPlayerPrevPos;
+	_vec3						m_vPlayerDir;
+	_bool						m_bFixPlayerDir;
 
-	_bool m_bSwingTrigger;
-	_bool m_bPushTrigger;
+	_bool						m_bSwingTrigger;
+	_bool						m_bPushTrigger;
 	CGameObject* m_objInteractionBox;  // 상호작용할 박스
 	CGameObject* m_objInteracting;     // 그 박스와 충돌 중인 오브젝트
+	_vec3						m_vColPlayerPos;
+	_vec3						m_vColliderPos;
 
-	_bool m_bPassAble;
-	///////////////////////////////////////////////////////
-	float m_fMoveSpeed;
-	_bool m_bInvincible;
+	_bool						m_bPassAble;
+	float						m_fMoveSpeed;
+	_bool						m_bInvincible;
+
+
 
 	//민지
 	CBuffUI*	m_BuffArray[2];
