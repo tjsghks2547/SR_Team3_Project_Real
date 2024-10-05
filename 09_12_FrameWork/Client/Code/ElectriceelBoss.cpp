@@ -22,10 +22,10 @@ HRESULT CElectriceelBoss::Ready_GameObject()
     m_vecTexture.resize(10);
 
 
-    //12½Ã,1½Ã,3½Ã,9½Ã ¹æÇâ ÅØ½ºÃ³
+    //12ì‹œ,1ì‹œ,3ì‹œ,9ì‹œ ë°©í–¥ í…ìŠ¤ì²˜
     D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/ElectriceelBoss/Sprite_HarborElectricEel_InOut1.png", &m_vecTexture[0]);
     D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/ElectriceelBoss/Sprite_HarborElectricEel_InOut2.png", &m_vecTexture[1]);
-    //11½Ã ÅØ½ºÃ³
+    //11ì‹œ í…ìŠ¤ì²˜
 
     m_pAnimatorCom->CreateAnimation(L"InOut12", m_vecTexture[0], _vec2(0.f, 0.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.2f, 5);
     m_pAnimatorCom->CreateAnimation(L"InOut1",  m_vecTexture[0], _vec2(0.f, 512.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.2f, 5);
@@ -34,6 +34,25 @@ HRESULT CElectriceelBoss::Ready_GameObject()
     m_pAnimatorCom->CreateAnimation(L"InOut11", m_vecTexture[1], _vec2(0.f, 0.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.2f, 5);
     
 
+    m_pAnimatorCom->CreateAnimation(L"IN_12", m_vecTexture[0], _vec2(2560.f, 0.f), _vec2(512.f, 512.f), _vec2(-512.f, 0.f), 0.2f, 5);
+    m_pAnimatorCom->CreateAnimation(L"IN_1", m_vecTexture[0], _vec2(2560.f, 512.f), _vec2(512.f, 512.f), _vec2(-512.f, 0.f), 0.2f, 5);
+    m_pAnimatorCom->CreateAnimation(L"IN_3", m_vecTexture[0], _vec2(2560.f, 1024.f), _vec2(512.f, 512.f), _vec2(-512.f, 0.f), 0.2f, 5);
+    m_pAnimatorCom->CreateAnimation(L"IN_9", m_vecTexture[0], _vec2(2560.f, 1536.f), _vec2(512.f, 512.f), _vec2(-512.f, 0.f), 0.2f, 5);
+    m_pAnimatorCom->CreateAnimation(L"IN_11", m_vecTexture[1], _vec2(2560.f, 0.f), _vec2(512.f, 512.f), _vec2(-512.f, 0.f), 0.2f, 5);
+
+
+    m_pAnimatorCom->CreateAnimation(L"IDLE_12", m_vecTexture[2], _vec2(0.f, 0.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
+    m_pAnimatorCom->CreateAnimation(L"IDLE_1",  m_vecTexture[2], _vec2(0.f, 512.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
+    m_pAnimatorCom->CreateAnimation(L"IDLE_3",  m_vecTexture[2], _vec2(0.f, 1024.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
+    m_pAnimatorCom->CreateAnimation(L"IDLE_9",  m_vecTexture[2], _vec2(0.f, 1536.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
+    m_pAnimatorCom->CreateAnimation(L"IDLE_11", m_vecTexture[3], _vec2(0.f, 0.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
+
+
+    m_pAnimatorCom->CreateAnimation(L"PROJECT_SHOT_12", m_vecTexture[4], _vec2(0.f, 0.f),   _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
+    m_pAnimatorCom->CreateAnimation(L"PROJECT_SHOT_1",  m_vecTexture[4], _vec2(0.f, 512.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
+    m_pAnimatorCom->CreateAnimation(L"PROJECT_SHOT_3",  m_vecTexture[4], _vec2(0.f, 1024.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
+    m_pAnimatorCom->CreateAnimation(L"PROJECT_SHOT_9",  m_vecTexture[4], _vec2(0.f, 1536.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
+    //m_pAnimatorCom->CreateAnimation(L"PROJECT_SHOT_11", m_vecTexture[5], _vec2(0.f ,)
 
 
     //m_pAnimatorCom->Play(L"InOut1", true);
@@ -87,32 +106,31 @@ void CElectriceelBoss::update_move()
 {
     if (m_eCurState == Electriceel_STATE::IN_OUT_9)
     {
-        m_pTransformCom->Set_Pos(200.f, 30.f, 500.f);
-       
+
+        m_pTransformCom->Set_Pos(200.f, 60.f, 500.f);
+
     }
 
     else if (m_eCurState == Electriceel_STATE::IN_OUT_11)
     {
         m_pTransformCom->Set_Pos(350.f, 30.f, 650.f);
-       
     }
 
     else if (m_eCurState == Electriceel_STATE::IN_OUT_12)
     {
-        m_pTransformCom->Set_Pos(500.f, 30.f, 700.f);
-        
+
+        m_pTransformCom->Set_Pos(500.f, 80.f, 700.f);
+
     }
 
     else if (m_eCurState == Electriceel_STATE::IN_OUT_1)
     {
         m_pTransformCom->Set_Pos(650.f, 30.f, 650.f);
-
     }
 
     else if (m_eCurState == Electriceel_STATE::IN_OUT_3)
     {
         m_pTransformCom->Set_Pos(700.f, 30.f, 500.f);
-
     }
 
 
@@ -195,7 +213,7 @@ void CElectriceelBoss::Render_GameObject()
     m_pAnimatorCom->render();
 
 
-    //¸ÊÅø ÀÛ¼º½Ã ²ô±â 
+    //ë§µíˆ´ ìž‘ì„±ì‹œ ë„ê¸° 
     m_pBoundBox->Render_Buffer();   
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
