@@ -17,7 +17,6 @@ void PlayerRolling::Enter()
     (dynamic_cast<CPlayer*>(m_CGameObject))->SetMoveSpeed(m_fMoveSpeed);
 
     (dynamic_cast<CPlayer*>(m_CGameObject))->SetInvincible();
-    (dynamic_cast<CPlayer*>(m_CGameObject))->FixCurPlayerDir(true);
 }
 
 void PlayerRolling::Update(const _float& fTimeDelta)
@@ -30,7 +29,7 @@ void PlayerRolling::Update(const _float& fTimeDelta)
 
 void PlayerRolling::Exit()
 {
-    (dynamic_cast<CPlayer*>(m_CGameObject))->FixCurPlayerDir(false);
+
 }
 
 void PlayerRolling::Key_Input(const _float& fTimeDelta)

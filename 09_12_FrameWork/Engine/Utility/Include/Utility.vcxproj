@@ -177,7 +177,6 @@ call CopyUtility.bat</Command>
     <ClInclude Include="..\..\Header\MapTex.h" />
     <ClInclude Include="..\..\Header\PipeBoardCom.h" />
     <ClInclude Include="..\..\Header\PipeCom.h" />
-    <ClInclude Include="..\..\Header\PlantOrbCom.h" />
     <ClInclude Include="..\..\Header\PureVesselTex.h" />
     <ClInclude Include="..\..\Header\PuzzleObject.h" />
     <ClInclude Include="..\..\Header\RcCol.h" />
@@ -215,7 +214,6 @@ call CopyUtility.bat</Command>
     <ClCompile Include="..\Code\MapTex.cpp" />
     <ClCompile Include="..\Code\PipeBoardCom.cpp" />
     <ClCompile Include="..\Code\PipeCom.cpp" />
-    <ClCompile Include="..\Code\PlantOrbCom.cpp" />
     <ClCompile Include="..\Code\PureVesselTex.cpp" />
     <ClCompile Include="..\Code\PuzzleObject.cpp" />
     <ClCompile Include="..\Code\RcCol.cpp" />

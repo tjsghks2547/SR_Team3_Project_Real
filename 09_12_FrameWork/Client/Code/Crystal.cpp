@@ -3,7 +3,7 @@
 #include "Export_Utility.h"
 
 CCrystal::CCrystal(LPDIRECT3DDEVICE9 pGraphicDev)
-	: Engine::CGameObject(pGraphicDev), m_iImageID(1)
+	: Engine::CGameObject(pGraphicDev), m_iImageID(1), m_bIsActive(true)
 {
 }
 
@@ -14,8 +14,7 @@ CCrystal::~CCrystal()
 HRESULT CCrystal::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 18.f, 18.f, 0.f };
-	SetObjectType(OBJ_TYPE::NOTPASS_ABLE);
+	m_pTransformCom->m_vScale = { 6.f, 6.f, 0.f };
 	m_vecTexture.resize(4);	
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_CrystalPuzzle_Gray.png", &m_vecTexture[0]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_CrystalPuzzle_Yellow.png", &m_vecTexture[1]);
@@ -86,8 +85,7 @@ CCrystal* CCrystal::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 		MSG_BOX("pPipeBoard Create Failed");
 		return nullptr;
 	}
-	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pCrystal);
-	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PUZZLE, pCrystal);
+
 	return pCrystal;
 }
 

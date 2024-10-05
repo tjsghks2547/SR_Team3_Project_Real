@@ -22,8 +22,10 @@ public:
 	virtual   void      Render_GameObject();
 
 public:
-	void Init(_float _fX, _float _fZ);
-	void Puzzle_Clear();
+	void Set_Active(_bool _bIsActive) { m_bIsActive = _bIsActive; }
+	_bool Is_Active() { return m_bIsActive; }
+	void Set_ImageID(_int _iId) { m_iImageID = _iId; }
+	_int Get_ImageID() { return m_iImageID; }
 
 private:
 	HRESULT    Add_Component();
@@ -36,11 +38,10 @@ private:
 public:
 	static CWeightComparator* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
-private:	
-	_int m_iImageID;
+private:
+	_bool m_bIsActive;
 	vector<IDirect3DTexture9*> m_vecTexture;
-	vector<CGameObject*> m_vecPedestals;
-	vector<CGameObject*> m_vecStones;
+	_int m_iImageID;
 
 private:
 	bool LoadTextureFromFile(LPDIRECT3DDEVICE9 d3dDevice, const char* filePath, IDirect3DTexture9** outTexture)

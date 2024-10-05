@@ -5,8 +5,8 @@
 CElectriceelBoss::CElectriceelBoss(LPDIRECT3DDEVICE9 pGraphicDev)
     :Engine::CGameObject(pGraphicDev)
     ,m_pComeTex(nullptr)
-    ,m_eCurState(Electriceel_STATE::OUT_12)   
-    ,m_ePreState(Electriceel_STATE::OUT_12)
+    ,m_eCurState(Electriceel_STATE::IN_OUT_9)   
+    ,m_ePreState(Electriceel_STATE::IN_OUT_9)
 {
 
 }
@@ -22,55 +22,25 @@ HRESULT CElectriceelBoss::Ready_GameObject()
     m_vecTexture.resize(10);
 
 
-    //12시,1시,3시,9시 방향  InOut 텍스처
+    //12시,1시,3시,9시 방향 텍스처
     D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/ElectriceelBoss/Sprite_HarborElectricEel_InOut1.png", &m_vecTexture[0]);
-    //11시 InOut 텍스처
     D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/ElectriceelBoss/Sprite_HarborElectricEel_InOut2.png", &m_vecTexture[1]);
-  
-    //12시,1시,3시,9시 Idle 텍스처
-    D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/ElectriceelBoss/Sprite_HarborElectricEel_Idle1.png", &m_vecTexture[2]);
-    //11시 Idle 텍스처
-    D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/ElectriceelBoss/Sprite_HarborElectricEel_Idle2.png", &m_vecTexture[3]);
+    //11시 텍스처
 
-
-    //12시,1시,3시,9시 투사체발사 텍스처 
-    D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/ElectriceelBoss/Sprite_HarborElectricEel_ProjectileShoot.png", &m_vecTexture[4]);
-    //11시 투사체발사 텍스처 및 Recover 텍스처
-    D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/ElectriceelBoss/Sprite_HarborElectricEel_ProjectileShoot_Recover.png", &m_vecTexture[5]);
-
-
-    m_pAnimatorCom->CreateAnimation(L"OUT_12", m_vecTexture[0], _vec2(0.f, 0.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.2f, 5); 
-    m_pAnimatorCom->CreateAnimation(L"OUT_1",  m_vecTexture[0], _vec2(0.f, 512.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.2f, 5);
-    m_pAnimatorCom->CreateAnimation(L"OUT_3",  m_vecTexture[0], _vec2(0.f, 1024.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.2f, 5);
-    m_pAnimatorCom->CreateAnimation(L"OUT_9",  m_vecTexture[0], _vec2(0.f, 1536.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.2f, 5);
-    m_pAnimatorCom->CreateAnimation(L"OUT_11", m_vecTexture[1], _vec2(0.f, 0.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.2f, 5);
+    m_pAnimatorCom->CreateAnimation(L"InOut12", m_vecTexture[0], _vec2(0.f, 0.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.2f, 5);
+    m_pAnimatorCom->CreateAnimation(L"InOut1",  m_vecTexture[0], _vec2(0.f, 512.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.2f, 5);
+    m_pAnimatorCom->CreateAnimation(L"InOut3",  m_vecTexture[0], _vec2(0.f, 1024.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.2f, 5);
+    m_pAnimatorCom->CreateAnimation(L"InOut9",  m_vecTexture[0], _vec2(0.f, 1536.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.2f, 5);
+    m_pAnimatorCom->CreateAnimation(L"InOut11", m_vecTexture[1], _vec2(0.f, 0.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.2f, 5);
     
-    m_pAnimatorCom->CreateAnimation(L"IN_12", m_vecTexture[0], _vec2(2560.f, 0.f), _vec2(512.f, 512.f), _vec2(-512.f, 0.f), 0.2f, 5);
-    m_pAnimatorCom->CreateAnimation(L"IN_1", m_vecTexture[0], _vec2(2560.f, 512.f), _vec2(512.f, 512.f), _vec2(-512.f, 0.f), 0.2f, 5);
-    m_pAnimatorCom->CreateAnimation(L"IN_3", m_vecTexture[0], _vec2(2560.f, 1024.f), _vec2(512.f, 512.f), _vec2(-512.f, 0.f), 0.2f, 5);
-    m_pAnimatorCom->CreateAnimation(L"IN_9", m_vecTexture[0], _vec2(2560.f, 1536.f), _vec2(512.f, 512.f), _vec2(-512.f, 0.f), 0.2f, 5);
-    m_pAnimatorCom->CreateAnimation(L"IN_11", m_vecTexture[1], _vec2(2560.f, 0.f), _vec2(512.f, 512.f), _vec2(-512.f, 0.f), 0.2f, 5);
-
-
-    m_pAnimatorCom->CreateAnimation(L"IDLE_12", m_vecTexture[2], _vec2(0.f, 0.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
-    m_pAnimatorCom->CreateAnimation(L"IDLE_1",  m_vecTexture[2], _vec2(0.f, 512.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
-    m_pAnimatorCom->CreateAnimation(L"IDLE_3",  m_vecTexture[2], _vec2(0.f, 1024.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
-    m_pAnimatorCom->CreateAnimation(L"IDLE_9",  m_vecTexture[2], _vec2(0.f, 1536.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
-    m_pAnimatorCom->CreateAnimation(L"IDLE_11", m_vecTexture[3], _vec2(0.f, 0.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
-
-
-    m_pAnimatorCom->CreateAnimation(L"PROJECT_SHOT_12", m_vecTexture[4], _vec2(0.f, 0.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
-
-
-
 
 
 
     //m_pAnimatorCom->Play(L"InOut1", true);
 
     dwtime = GetTickCount64();  
-    m_pTransformCom->Set_Pos(200.f, 60.f, 500.f);
-    m_pTransformCom->m_vScale = { 75.f, 100.f, 20.f };
+    m_pTransformCom->Set_Pos(200.f, 30.f, 500.f);
+    m_pTransformCom->m_vScale = { 50.f, 50.f, 20.f };
 
     return S_OK;
 }
@@ -83,18 +53,18 @@ _int CElectriceelBoss::Update_GameObject(const _float& fTimeDelta)
 
     Electriceel_STATE patterns[] =
     {
-        //Electriceel_STATE::OUT_9,
-        //Electriceel_STATE::OUT_11,   
-        Electriceel_STATE::OUT_12,
-        //Electriceel_STATE::OUT_1,
-        //Electriceel_STATE::OUT_3,
+        Electriceel_STATE::IN_OUT_9,
+        Electriceel_STATE::IN_OUT_11,   
+        Electriceel_STATE::IN_OUT_12,
+        Electriceel_STATE::IN_OUT_1,
+        Electriceel_STATE::IN_OUT_3,
     };
 
     std::random_device rd;  
     std::mt19937 gen(rd()); 
-    //std::uniform_int_distribution<> dis(0, 4);
-    std::uniform_int_distribution<> dis(0, 0);
-    if (dwtime + 3500 < GetTickCount64())
+    std::uniform_int_distribution<> dis(0, 4);
+
+    if (dwtime + 1750 < GetTickCount64())
     {
         int randomIndex = dis(gen);     
         m_eCurState = patterns[randomIndex];    
@@ -115,33 +85,31 @@ _int CElectriceelBoss::Update_GameObject(const _float& fTimeDelta)
 
 void CElectriceelBoss::update_move()
 {
-    if (m_eCurState == Electriceel_STATE::OUT_9)
+    if (m_eCurState == Electriceel_STATE::IN_OUT_9)
     {
-        m_pTransformCom->Set_Pos(200.f, 60.f, 500.f);
-
-        
+        m_pTransformCom->Set_Pos(200.f, 30.f, 500.f);
        
     }
 
-    else if (m_eCurState == Electriceel_STATE::OUT_11)
+    else if (m_eCurState == Electriceel_STATE::IN_OUT_11)
     {
         m_pTransformCom->Set_Pos(350.f, 30.f, 650.f);
        
     }
 
-    else if (m_eCurState == Electriceel_STATE::OUT_12)
+    else if (m_eCurState == Electriceel_STATE::IN_OUT_12)
     {
-        m_pTransformCom->Set_Pos(500.f, 80.f, 700.f);
+        m_pTransformCom->Set_Pos(500.f, 30.f, 700.f);
         
     }
 
-    else if (m_eCurState == Electriceel_STATE::OUT_1)
+    else if (m_eCurState == Electriceel_STATE::IN_OUT_1)
     {
         m_pTransformCom->Set_Pos(650.f, 30.f, 650.f);
 
     }
 
-    else if (m_eCurState == Electriceel_STATE::OUT_3)
+    else if (m_eCurState == Electriceel_STATE::IN_OUT_3)
     {
         m_pTransformCom->Set_Pos(700.f, 30.f, 500.f);
 
@@ -161,49 +129,30 @@ void CElectriceelBoss::update_sound()
 
 void CElectriceelBoss::update_animation()
 {
-    if(m_eCurState == Electriceel_STATE::OUT_12)    
+    switch (m_eCurState)
     {
-        m_pAnimatorCom->Play(L"OUT_12", false);
-        if (m_pAnimatorCom->GetAnimation()->IsFinish())
-        {
-            m_pAnimatorCom->SetAnimationFrame(L"OUT_12", 0);
-            m_eCurState = Electriceel_STATE::IDLE_12;
-        }
+    case Electriceel_STATE::IN_OUT_9:
+        m_pAnimatorCom->Play(L"InOut9", true);
+        break;
+    case Electriceel_STATE::IN_OUT_11: 
+        m_pAnimatorCom->Play(L"InOut11", true);
+        break;
+    case Electriceel_STATE::IN_OUT_12:
+        m_pAnimatorCom->Play(L"InOut12", true);
+        break;
+    case Electriceel_STATE::IN_OUT_1:
+        m_pAnimatorCom->Play(L"InOut1", true);
+        break;
+    case Electriceel_STATE::IN_OUT_3:
+        m_pAnimatorCom->Play(L"InOut3", true);
+        break;
+    case Electriceel_STATE::IDLE:
+        break;
+    case Electriceel_STATE::ATTACK:
+        break;
+    default:
+        break;
     }
-
-    if(m_eCurState == Electriceel_STATE::IDLE_12)
-    {
-        m_pAnimatorCom->Play(L"IDLE_12", false);    
-        if (m_pAnimatorCom->GetAnimation()->IsFinish()) 
-        {
-            m_pAnimatorCom->SetAnimationFrame(L"IDLE_12", 0);   
-            m_eCurState = Electriceel_STATE::PROJECT_SHOT_12;    
-        }
-    }
-        
-    if (m_eCurState == Electriceel_STATE::PROJECT_SHOT_12)  
-    {   
-        m_pAnimatorCom->Play(L"PROJECT_SHOT_12", false);    
-        if (m_pAnimatorCom->GetAnimation()->IsFinish()) 
-        {
-            m_pAnimatorCom->SetAnimationFrame(L"PROJECT_SHOT_12", 0);   
-            m_eCurState = Electriceel_STATE::IN_12; 
-        }
-    }
-
-
-    if(m_eCurState == Electriceel_STATE::IN_12)
-    {
-        m_pAnimatorCom->Play(L"IN_12", false);
-        if (m_pAnimatorCom->GetAnimation()->IsFinish())
-        {
-            m_pAnimatorCom->SetAnimationFrame(L"IN_12", 0);
-            m_eCurState = Electriceel_STATE::OUT_12;   
-        }
-    }
-    
-    
-
 }
 
 void CElectriceelBoss::LateUpdate_GameObject(const _float& fTimeDelta)
@@ -219,46 +168,24 @@ void CElectriceelBoss::Render_GameObject()
 
     switch (m_eCurState)    
     {
-    case Electriceel_STATE::OUT_9:
+    case Electriceel_STATE::IN_OUT_9:
         m_pGraphicDev->SetTexture(0, m_vecTexture[0]);
-
         break;
-    case Electriceel_STATE::OUT_11:
+    case Electriceel_STATE::IN_OUT_11:
         m_pGraphicDev->SetTexture(0, m_vecTexture[1]);
         break;
-    case Electriceel_STATE::OUT_12:
+    case Electriceel_STATE::IN_OUT_12:
         m_pGraphicDev->SetTexture(0, m_vecTexture[0]);
         break;
-    case Electriceel_STATE::OUT_1:
+    case Electriceel_STATE::IN_OUT_1:
         m_pGraphicDev->SetTexture(0, m_vecTexture[0]);
         break;
-    case Electriceel_STATE::OUT_3:
+    case Electriceel_STATE::IN_OUT_3:
         m_pGraphicDev->SetTexture(0, m_vecTexture[0]);
         break;
-    case Electriceel_STATE::IDLE_12:
-        m_pGraphicDev->SetTexture(0, m_vecTexture[2]);
-        break;
-    case Electriceel_STATE::IDLE_1:
-        m_pGraphicDev->SetTexture(0, m_vecTexture[2]);
-        break;
-    case Electriceel_STATE::IDLE_3: 
-        m_pGraphicDev->SetTexture(0, m_vecTexture[2]);  
-        break;
-    case Electriceel_STATE::IDLE_9:
-        m_pGraphicDev->SetTexture(0, m_vecTexture[2]);  
-        break;
-    case Electriceel_STATE::IDLE_11:
-        m_pGraphicDev->SetTexture(0, m_vecTexture[3]);
-        break;
+    case Electriceel_STATE::IDLE:
 
-    case Electriceel_STATE::IN_12:
-        m_pGraphicDev->SetTexture(0, m_vecTexture[0]);
         break;
-        
-    case Electriceel_STATE::PROJECT_SHOT_12:
-        m_pGraphicDev->SetTexture(0, m_vecTexture[4]);
-        break;
-
     case Electriceel_STATE::ATTACK:
         break;
     default:

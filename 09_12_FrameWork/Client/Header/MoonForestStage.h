@@ -10,7 +10,6 @@
 #include "Object.h"
 
 #include "ElectriceelBossStage.h"
-#include "MoonTempleStage.h"
 
 class CMoonForestStage : public CScene
 {

@@ -35,13 +35,6 @@
 #include "WeightComparator.h"
 #include "Stone.h"
 #include "StonePedestal.h"
-#include "Catapult.h"
-#include "LightFlower.h"
-#include "FlowerGlow.h"
-#include "ColorStone.h"
-#include "ShootingPlant.h"
-#include "StoneHole.h"
-#include "BreakableStone.h"
 
 
 #include "Terrain.h"
@@ -53,7 +46,6 @@
 #include "Object.h"
 #include "TestCol.h"
 #include "TestCol2.h"
-#include "MonsterSlimeFast.h"
 
 //9월 27일 애니메이션 테스트
 #include "TestObject.h"

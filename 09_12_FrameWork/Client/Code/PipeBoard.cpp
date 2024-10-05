@@ -415,8 +415,6 @@ CPipeBoard* CPipeBoard::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 		return nullptr;
 	}
 
-	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pPipeBoard);
-	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PUZZLE, pPipeBoard);
 	return pPipeBoard;	
 }
 
