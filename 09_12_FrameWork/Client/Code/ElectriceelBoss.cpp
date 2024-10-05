@@ -59,8 +59,11 @@ HRESULT CElectriceelBoss::Ready_GameObject()
     m_pAnimatorCom->CreateAnimation(L"IDLE_11", m_vecTexture[3], _vec2(0.f, 0.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
 
 
-    m_pAnimatorCom->CreateAnimation(L"PROJECT_SHOT_12", m_vecTexture[4], _vec2(0.f, 0.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
-
+    m_pAnimatorCom->CreateAnimation(L"PROJECT_SHOT_12", m_vecTexture[4], _vec2(0.f, 0.f),   _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
+    m_pAnimatorCom->CreateAnimation(L"PROJECT_SHOT_1",  m_vecTexture[4], _vec2(0.f, 512.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
+    m_pAnimatorCom->CreateAnimation(L"PROJECT_SHOT_3",  m_vecTexture[4], _vec2(0.f, 1024.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
+    m_pAnimatorCom->CreateAnimation(L"PROJECT_SHOT_9",  m_vecTexture[4], _vec2(0.f, 1536.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
+    //m_pAnimatorCom->CreateAnimation(L"PROJECT_SHOT_11", m_vecTexture[5], _vec2(0.f ,)
 
 
 
@@ -118,33 +121,26 @@ void CElectriceelBoss::update_move()
     if (m_eCurState == Electriceel_STATE::OUT_9)
     {
         m_pTransformCom->Set_Pos(200.f, 60.f, 500.f);
-
-        
-       
     }
 
     else if (m_eCurState == Electriceel_STATE::OUT_11)
     {
         m_pTransformCom->Set_Pos(350.f, 30.f, 650.f);
-       
     }
 
     else if (m_eCurState == Electriceel_STATE::OUT_12)
     {
         m_pTransformCom->Set_Pos(500.f, 80.f, 700.f);
-        
     }
 
     else if (m_eCurState == Electriceel_STATE::OUT_1)
     {
         m_pTransformCom->Set_Pos(650.f, 30.f, 650.f);
-
     }
 
     else if (m_eCurState == Electriceel_STATE::OUT_3)
     {
         m_pTransformCom->Set_Pos(700.f, 30.f, 500.f);
-
     }
 
 
