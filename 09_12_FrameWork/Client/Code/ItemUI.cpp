@@ -4,6 +4,7 @@
 CItemUI::CItemUI(LPDIRECT3DDEVICE9 pGraphicDev)
     :Engine::CGameObject(pGraphicDev)
     , m_bCall(false)
+    , m_pPlayer(nullptr)
 {
 }
 
@@ -20,6 +21,7 @@ HRESULT CItemUI::Ready_GameObject()
 
 _int CItemUI::Update_GameObject(const _float& fTimeDelta)
 {
+
     _int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
     if (m_bCall && m_pTextureCom)
@@ -59,6 +61,8 @@ void CItemUI::Key_Input(const _float& fTimeDelta)
         if (Engine::GetKeyDown(DIK_S))
         {
             //대화내용 리셋
+            Engine::Get_Layer(L"Layer_GameLogic")->SetGameState(GAMESTATE_NONE);
+            //dynamic_cast<CPlayer*>(_pOther)->ChangeIdleState();
             ZeroMemory(&m_tCopyInfo, 0, sizeof(m_tCopyInfo));
             m_bCall = false; // 대화창 부르지않음
             m_pTextureCom = nullptr;

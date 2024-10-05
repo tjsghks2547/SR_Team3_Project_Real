@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "EnkyHat.h"
+#include "Player.h"
 
 CEnkyHat::CEnkyHat(LPDIRECT3DDEVICE9 pGraphicDev)
     :CItem(pGraphicDev)
@@ -45,6 +46,13 @@ void CEnkyHat::Render_GameObject()
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	m_pTextureCom->Set_Texture();
 	m_pBufferCom->Render_Buffer();
+}
+
+void CEnkyHat::Use_Item()
+{
+	
+	m_pEquipHat = m_pPlayer->GetEquipHat();
+	m_pEquipHat->SetHatTexture(m_pTextureCom);
 }
 
 HRESULT CEnkyHat::Add_Component()

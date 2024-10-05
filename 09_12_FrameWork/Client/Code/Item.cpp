@@ -34,6 +34,7 @@ void CItem::LateReady_GameObject()
 
     m_pItemUI = dynamic_cast<CItemUI*>(CItemUI::Create(m_pGraphicDev));
     NULL_CHECK_RETURN(m_pItemUI);
+
 }
 
 _int CItem::Update_GameObject(const _float& fTimeDelta)

@@ -1,4 +1,5 @@
 #pragma once
+#include "EquipHat.h"
 #include "Item.h"
 
 class CPartyHat : public CItem
@@ -14,6 +15,11 @@ public:
 	virtual   _int      Update_GameObject(const _float& fTimeDelta);
 	virtual   void      LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual   void      Render_GameObject();
+
+	virtual	   void	    Use_Item();
+
+private:
+	CEquipHat* m_pEquipHat;
 
 private:
 	HRESULT    Add_Component();

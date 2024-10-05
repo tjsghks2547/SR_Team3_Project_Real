@@ -26,10 +26,13 @@ public:
 	void		LateUpdate_Layer(const _float& fTimeDelta);
 	void		Render_Layer();
 
-
+	GAME_STATE	GetGameState() { return m_eGameState; }
+	void		SetGameState(GAME_STATE _eGamestate) { m_eGameState = _eGamestate; }
 private:
 	map<const _tchar*, CGameObject*>  m_mapObejct;
 
+public:
+	GAME_STATE m_eGameState;
 public:
 	static CLayer* Create();
 

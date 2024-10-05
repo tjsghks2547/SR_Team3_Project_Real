@@ -332,11 +332,11 @@
     <ClCompile Include="..\Code\Animation2.cpp">
       <Filter>04. Component\07. Animatior2\Animation2</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\GameObject.cpp">
-      <Filter>03. GameObject\Puzzle Object</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\PlantOrbCom.cpp">
       <Filter>04. Component\06. Puzzle\Plant Orb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\GameObject.cpp">
+      <Filter>03. GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,6 @@
 #include "GameObject.h"
 
+
 CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDevice)
 	:m_pGraphicDev(pGraphicDevice)
 	, m_strKey(L"")
@@ -21,7 +22,6 @@ CGameObject::~CGameObject()
 
 CComponent* CGameObject::Get_Component(COMPONENTID eID, const _tchar* pComponentTag)
 {
-
 	CComponent* pComponent = Find_Component(eID, pComponentTag);
 	NULL_CHECK_RETURN(pComponent, nullptr);
 

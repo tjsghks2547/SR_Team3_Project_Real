@@ -13,7 +13,7 @@ protected:
 public:
 	CComponent* Get_Component(COMPONENTID eID, const _tchar* pLayeTag, const _tchar* pObjTag, const _tchar* pComponentTag);
 	CGameObject* Get_GameObject(const _tchar* pLayeTag, const _tchar* pObjTag);
-
+	CLayer* Get_Layer(const _tchar* pLayerTag);
 
 public:
 	virtual  HRESULT Ready_Scene();

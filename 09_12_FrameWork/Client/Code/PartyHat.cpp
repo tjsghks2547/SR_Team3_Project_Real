@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "PartyHat.h"
+#include "Player.h"
 
 CPartyHat::CPartyHat(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CItem(pGraphicDev)
@@ -49,6 +50,12 @@ void CPartyHat::Render_GameObject()
 
 	m_pTextureCom->Set_Texture();
 	m_pBufferCom->Render_Buffer();
+}
+
+void CPartyHat::Use_Item()
+{
+	m_pEquipHat = m_pPlayer->GetEquipHat();
+	m_pEquipHat->SetHatTexture(m_pTextureCom);
 }
 
 HRESULT CPartyHat::Add_Component()

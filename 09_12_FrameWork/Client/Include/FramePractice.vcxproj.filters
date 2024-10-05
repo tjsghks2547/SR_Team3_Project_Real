@@ -76,9 +76,6 @@
     <Filter Include="02. GameObject\01. Entity\01. Player\State">
       <UniqueIdentifier>{a42c768b-ce43-4301-9e73-eb6ba9227dbd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\03. Terrain">
-      <UniqueIdentifier>{04e535d0-ebd6-4f3f-b0c5-71e12c38c66f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\04. DynamicCamera">
       <UniqueIdentifier>{a8d78f72-dda9-40ad-82df-1fcf68dd8f47}</UniqueIdentifier>
     </Filter>
@@ -169,7 +166,6 @@
     <Filter Include="02. GameObject\11. UI\01. InvenUI">
       <UniqueIdentifier>{346f8069-d9f4-488f-9088-15ac45f039e2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\01. Entity\03. Terrain" />
     <Filter Include="02. GameObject\09. Puzzle\00. Common Object">
       <UniqueIdentifier>{9c246355-1a19-4509-bc00-a124a5a0223a}</UniqueIdentifier>
     </Filter>
@@ -344,6 +340,10 @@
     <Filter Include="01. Scene\07. MoonTempleStage">
       <UniqueIdentifier>{80a70c4f-ba82-4581-b30e-1d6cfbe7a57a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\03. Terrain" />
+    <Filter Include="02. GameObject\15. EquipHat">
+      <UniqueIdentifier>{262a8c01-95e5-4011-b117-31122d515f42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -383,7 +383,7 @@
       <Filter>01. Scene\02. Loading</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Terrain.h">
-      <Filter>02. GameObject\01. Entity\03. Terrain</Filter>
+      <Filter>02. GameObject\03. Terrain</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\DynamicCamera.h">
       <Filter>02. GameObject\04. DynamicCamera</Filter>
@@ -775,6 +775,12 @@
     <ClInclude Include="..\Header\MoonTempleMap.h">
       <Filter>02. GameObject\07. Map\05.MoonTempleMap</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\PlayerPickUp.h">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\EquipHat.h">
+      <Filter>02. GameObject\15. EquipHat</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FramePractice.cpp">
@@ -799,7 +805,7 @@
       <Filter>01. Scene\02. Loading</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Terrain.cpp">
-      <Filter>02. GameObject\01. Entity\03. Terrain</Filter>
+      <Filter>02. GameObject\03. Terrain</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\DynamicCamera.cpp">
       <Filter>02. GameObject\04. DynamicCamera</Filter>
@@ -1196,6 +1202,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\MoonTempleMap.cpp">
       <Filter>02. GameObject\07. Map\05.MoonTempleMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PlayerPickUp.cpp">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\EquipHat.cpp">
+      <Filter>02. GameObject\15. EquipHat</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

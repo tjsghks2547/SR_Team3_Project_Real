@@ -90,26 +90,46 @@ _int CMonsterSlimeFast::Update_GameObject(const _float& fTimeDelta)
 {
     if (!m_activation)
         return 0;
-    Add_RenderGroup(RENDER_ALPHA, this);
 
-    if (m_tMonsterHP.iCurHP == 0)
+    if (Get_Layer(L"Layer_GameLogic")->GetGameState() == GAMESTATE_NONE)
     {
-        m_activation = false;
-        return 0;
+        if (m_tMonsterHP.iCurHP == 0)
+        {
+            m_activation = false;
+            CGameObject* pGameObject = CBranch::Create(m_pGraphicDev);
+            NULL_CHECK_RETURN(pGameObject, E_FAIL);
+            
+            _vec3 dropPos;
+            dynamic_cast<CTransform*>(Get_Component(ID_DYNAMIC, L"Com_Transform")
+                )->Get_Info(INFO_POS, &dropPos);
+
+            dynamic_cast<CBranch*>(pGameObject)->Set_DropItem(dropPos);
+            FAILED_CHECK_RETURN(
+                Get_Layer(L"Layer_GameLogic")->Add_GameObject(L"Item_Branch", pGameObject), 0);
+            CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pGameObject);
+            
+            dynamic_cast<CBranch*>(pGameObject)->LateReady_GameObject();
+            return 0;
+        }
+
+        DurationInvincible(fTimeDelta);
+        MoveToPlayer(fTimeDelta);
+        Engine::CGameObject::Update_GameObject(fTimeDelta);
     }
 
-    DurationInvincible(fTimeDelta);
-    MoveToPlayer(fTimeDelta);
-    return Engine::CGameObject::Update_GameObject(fTimeDelta);
+    Add_RenderGroup(RENDER_ALPHA, this);
+    return 0;
 }
 
 void CMonsterSlimeFast::LateUpdate_GameObject(const _float& fTimeDelta)
 {
     if (!m_activation)
         return;
-
-    KnockBack(fTimeDelta, m_vKnockBackDir);
-    Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
+    if (Get_Layer(L"Layer_GameLogic")->GetGameState() == GAMESTATE_NONE)
+    {
+        KnockBack(fTimeDelta, m_vKnockBackDir);
+        Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
+    }
 }
 
 void CMonsterSlimeFast::Render_GameObject()

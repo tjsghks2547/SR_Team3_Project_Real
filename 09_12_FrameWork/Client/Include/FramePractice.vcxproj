@@ -176,6 +176,7 @@
     <ClInclude Include="..\Header\ElectriceelBossMap.h" />
     <ClInclude Include="..\Header\ElectriceelBossStage.h" />
     <ClInclude Include="..\Header\EnkyHat.h" />
+    <ClInclude Include="..\Header\EquipHat.h" />
     <ClInclude Include="..\Header\ExploreHat.h" />
     <ClInclude Include="..\Header\ExpressMonkey.h" />
     <ClInclude Include="..\Header\ExpressTicket.h" />
@@ -217,6 +218,7 @@
     <ClInclude Include="..\Header\PickUpButton.h" />
     <ClInclude Include="..\Header\Pig.h" />
     <ClInclude Include="..\Header\PlantOrb.h" />
+    <ClInclude Include="..\Header\PlayerPickUp.h" />
     <ClInclude Include="..\Header\PowerUI.h" />
     <ClInclude Include="..\Header\QuestNPC.h" />
     <ClInclude Include="..\Header\Object.h" />
@@ -318,6 +320,7 @@
     <ClCompile Include="..\Code\ElectriceelBossMap.cpp" />
     <ClCompile Include="..\Code\ElectriceelBossStage.cpp" />
     <ClCompile Include="..\Code\EnkyHat.cpp" />
+    <ClCompile Include="..\Code\EquipHat.cpp" />
     <ClCompile Include="..\Code\ExploreHat.cpp" />
     <ClCompile Include="..\Code\ExpressMonkey.cpp" />
     <ClCompile Include="..\Code\ExpressTicket.cpp" />
@@ -359,6 +362,7 @@
     <ClCompile Include="..\Code\PickUpButton.cpp" />
     <ClCompile Include="..\Code\Pig.cpp" />
     <ClCompile Include="..\Code\PlantOrb.cpp" />
+    <ClCompile Include="..\Code\PlayerPickUp.cpp" />
     <ClCompile Include="..\Code\PowerUI.cpp" />
     <ClCompile Include="..\Code\QuestNPC.cpp" />
     <ClCompile Include="..\Code\Object.cpp" />

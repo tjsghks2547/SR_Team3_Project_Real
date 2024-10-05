@@ -25,6 +25,11 @@ inline CScene* Get_CurScenePtr()
 	return CManagement::GetInstance()->GetCurScenePtr();
 }
 
+inline CLayer* Get_Layer(const _tchar* pLayerTag)
+{
+	return CManagement::GetInstance()->Get_Layer(pLayerTag);
+}
+
 inline HRESULT Set_Scene(CScene* pScene)
 {
 	return CManagement::GetInstance()->Set_Scene(pScene);

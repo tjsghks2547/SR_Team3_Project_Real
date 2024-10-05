@@ -18,6 +18,9 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_objInteractionBox(nullptr)
     , m_objInteracting(nullptr)
     , m_fMoveSpeed(0.f)
+    , m_fItemMoveSpeed(0.f)
+    , m_iAttackPower(0)
+    , m_iItemAttackPower(0)
     , m_bInvincible(false)
     , m_bPushTrigger(false)
     , m_bPassAble(true)
@@ -79,46 +82,54 @@ void CPlayer::LateReady_GameObject()
     m_BuffArray[1] = dynamic_cast<CSpeedUI*>(Engine::Get_GameObject(L"Layer_UI", L"Speed_UI"));
     NULL_CHECK_RETURN(m_BuffArray[1]);
 
-    //hat = dynamic_cast<CExploreHat*>(CExploreHat::Create(m_pGraphicDev));
+    m_equipHat = CEquipHat::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(m_equipHat, );
+    FAILED_CHECK_RETURN(Get_Layer(L"Layer_GameLogic")->Add_GameObject(L"EquipHat", m_equipHat), );
+    m_equipHat->LateReady_GameObject();
+
 }
 
 _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 {
-    m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
-    NULL_CHECK_RETURN(m_pInven, 0);
-
-
-    if (m_BuffArray[0]->Get_BuffTime() < m_BuffArray[1]->Get_BuffTime())
+    if (Get_Layer(L"Layer_GameLogic")->GetGameState() == GAMESTATE_NONE  ||
+        GetPlayerState() == PLAYERSTATE::PLY_DANCE)
     {
-        m_BuffArray[0]->Set_YPos(90.f);
-        m_BuffArray[1]->Set_YPos(175.f);
-    }
-    else
-    {
-        m_BuffArray[1]->Set_YPos(90.f);
-        m_BuffArray[0]->Set_YPos(175.f);
-    }
+        m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
+        NULL_CHECK_RETURN(m_pInven, 0);
 
 
+        if (m_BuffArray[0]->Get_BuffTime() < m_BuffArray[1]->Get_BuffTime())
+        {
+            m_BuffArray[0]->Set_YPos(90.f);
+            m_BuffArray[1]->Set_YPos(175.f);
+        }
+        else
+        {
+            m_BuffArray[1]->Set_YPos(90.f);
+            m_BuffArray[0]->Set_YPos(175.f);
+        }
+        Engine::CGameObject::Update_GameObject(fTimeDelta);
+    }
 
     Key_Input(fTimeDelta);
-
     Add_RenderGroup(RENDER_ALPHA, this);
-
-    return Engine::CGameObject::Update_GameObject(fTimeDelta);
+    
+    return 0;
 }
 
 void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-    //m_pTransformCom->Get_Info(INFO_POS, &m_vPlayerCurrPos);
-    //hat->Set_ItemPos(m_vPlayerCurrPos);
-    SetPlayerDirection();
+    if (Get_Layer(L"Layer_GameLogic")->GetGameState() == GAMESTATE_NONE ||
+        GetPlayerState() == PLAYERSTATE::PLY_DANCE)
+    {
+        SetPlayerDirection();
 
-    m_pAnimationCom->Update_Component(fTimeDelta);
+        m_pAnimationCom->Update_Component(fTimeDelta);
 
-    //DurationInvincible(fTimeDelta);
-    Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
+        //DurationInvincible(fTimeDelta);
 
+        Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
+    }
 }
 
 void CPlayer::Render_GameObject()
@@ -173,7 +184,7 @@ void CPlayer::Render_GameObject()
     //FAILED_CHECK_RETURN(SetUp_Material(), );
 
     m_pAnimationCom->Render_Buffer();   
-    //hat->Render_GameObject();
+    m_equipHat->Render_GameObject();
     
     //9월 25일 충돌관련
     if (!m_bInvincible)
@@ -258,6 +269,10 @@ void CPlayer::SetPlayerDirection()
     m_pAnimationCom->SetAnimDir(m_ePlayerState, m_vPlayerDir, m_bIsDiagonal);
 }
 
+void CPlayer::ChangePickUpState()
+{
+    m_pStateControlCom->ChangeState(PlayerPickUp::GetInstance(), this);
+}
 
 void CPlayer::DurationInvincible(const _float& fTimeDelta)
 {
@@ -326,20 +341,25 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
     //0922
     if (Engine::GetKeyDown(DIK_I))
     {
-        m_bInven = m_bInven ? false : true;
-        if (m_bQuest)
-            m_bQuest = false;
+        m_bInven ^= TRUE;
+        m_bQuest = false;
     }
 
-    if (Engine::GetKeyDown(DIK_O))
+    if (Engine::GetKeyDown(DIK_Q))
     {
-        m_bQuest = m_bQuest ? false : true;
-        if (m_bInven)
-            m_bInven = false;
+        m_bQuest ^= TRUE;
+        m_bInven = false;
     }
 
     if (m_bInven || m_bQuest)
+    {
+        Engine::Get_Layer(L"Layer_GameLogic")->SetGameState(GAMESTATE_UIOPEN);
         return;
+    }
+    else
+    {
+        Engine::Get_Layer(L"Layer_GameLogic")->SetGameState(GAMESTATE_NONE);
+    }
     // 이 아래 추가 하삼 코드!!
 
 
@@ -473,22 +493,6 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
     if (Engine::GetKeyDown(DIK_SPACE))
         m_bInvincible ^= TRUE;
 }
-
-//_vec3 CPlayer::Piking_OnTerrain()
-//{
-//    CTerrainTex* pTerrainBufferCom = dynamic_cast<CTerrainTex*>(Engine::Get_Component(ID_STATIC, L"Layer_GameLogic", L"Terrain", L"Com_Buffer"));
-//    NULL_CHECK_RETURN(pTerrainBufferCom, _vec3());
-//
-//    CTransform* pTerrainTransCom = dynamic_cast<CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_GameLogic", L"Terrain", L"Com_Transform"));
-//    NULL_CHECK_RETURN(pTerrainTransCom, _vec3());
-//
-//    return m_pCCalculatorCom->Picking_OnTerrian(g_hWnd, pTerrainBufferCom, pTerrainTransCom);
-//}
-
-//void CPlayer::Print_PlayerState()
-//{
-//
-//}
 
 CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {

@@ -36,6 +36,14 @@ void CBranch::LateReady_GameObject()
 
 _int CBranch::Update_GameObject(const _float& fTimeDelta)
 {
+	if (m_pPlayer->GetPlayerState() == PLAYERSTATE::PLY_DANCE &&
+		m_pPlayer->GetAnimationComp()->IsAnimationEnd())
+	{
+		m_pItemUI->CallItemUI(true);
+		m_pItemUI->Set_Texture(m_pTextureCom);
+		m_pItemUI->Set_Text(m_tInfo);
+	}
+
 	return CItem::Update_GameObject(fTimeDelta);
 }
 
@@ -99,22 +107,34 @@ void CBranch::OnCollisionEnter(CGameObject* _pOther)
 
 void CBranch::OnCollision(CGameObject* _pOther)
 {
+	if (_pOther->GetObjectKey() != L"Player")
+		return;
 
-	if (CBranch::g_Acquired == false)
+	if (CBranch::g_Acquired)
+		return;
+
+	m_pPickUpButton->CallButton(true);
+
+	if (GetKeyDown(DIK_A)) //줍기
+	{
+		CBranch::g_Acquired = true;
+
+		// 1005 동영
+		// 줍기 -> 플레이어, 오브젝트 멈춤 + 플레이어 애니메이션 실행 -> 애니메이션이 끝나면 UI 출력 
+		Engine::Get_Layer(L"Layer_GameLogic")->SetGameState(GAMESTATE_EXPLAINATION);
+		dynamic_cast<CPlayer*>(_pOther)->ChangePickUpState();
+		//m_pItemUI->CallItemUI(true);
+		//m_pItemUI->Set_Texture(m_pTextureCom);
+		//m_pItemUI->Set_Text(m_tInfo);
+		m_pInven->Add_Item(dynamic_cast<CItem*>(this));
+		m_pColliderCom = nullptr;
+	}
+
+	/*if (CBranch::g_Acquired == false)
 	{
 
-		m_pPickUpButton->CallButton(true);
-
-		if (GetKeyDown(DIK_A)) //줍기
-		{
-			CBranch::g_Acquired = true;
-			m_pItemUI->CallItemUI(true);
-			m_pItemUI->Set_Texture(m_pTextureCom);
-			m_pItemUI->Set_Text(m_tInfo);
-			m_pInven->Add_Item(dynamic_cast<CItem*>(this));
-			m_pColliderCom = nullptr;
-		}
-	}
+		
+	}*/
 }
 
 

@@ -100,6 +100,7 @@ void CBigHerb::OnCollision(CGameObject* _pOther)
 	if (GetKeyDown(DIK_A)) //ащ╠Б
 	{
 		CBranch::g_Acquired = true;
+		
 		m_pItemUI->CallItemUI(true);
 		m_pItemUI->Set_Texture(m_pTextureCom);
 		m_pItemUI->Set_Text(m_tInfo);
