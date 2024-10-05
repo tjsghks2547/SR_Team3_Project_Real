@@ -22,37 +22,30 @@ public:
 	virtual   void      Render_GameObject();
 
 private:
-	Engine::CRcTex* m_pBufferCom;	
-	Engine::CTransform* m_pTransformCom;	
-	Engine::CTransform* m_pHoleTransformCom;
+	Engine::CRcTex* m_pBufferCom;
+	Engine::CTexture* m_pTextureCom;
+	Engine::CTransform* m_pTransformCom;
 
 private:
 	HRESULT    Add_Component();
 
 public:
-	void Init(_float _fX, _float _fZ, _bool _bIsUp);
 	_bool Is_Move() { return m_bIsMove; }
 	_int Get_ImageID() { return m_iImageID; }	
 	void Set_ImageID(_int _iID) { m_iImageID = _iID; }	
 
 private:	
 	_bool m_bIsMove;
-	_bool m_bIsUp;
 	_vec3 m_fTargetPos;
-	_float m_fMoveTime;
-	_int m_iImageID, m_iHoleImageID;	
-	vector<IDirect3DTexture9*> m_vecTexture;
-	vector<IDirect3DTexture9*> m_vecHoleTexture;
+	vector<IDirect3DTexture9*> m_vecTexture;	
+	_int m_iImageID;
 
 public:
 	static CStoneBlock* Create(LPDIRECT3DDEVICE9 pGraphicDev);		
-	void Move_StoneBlock()
+	void Move_StoneBlock(_bool _bIsUp, _vec3 _fTargetPos)
 	{
 		m_bIsMove = true;
-		m_bIsUp = m_bIsUp == true ? false : true;
-		m_fTargetPos = m_bIsUp == true ? _vec3{ 0.f, 18.f, 0.f } : _vec3{ 0.f, -18.f, 0.f };
-		m_iHoleImageID = 0;
-		m_fMoveTime = 0;
+		m_fTargetPos = _fTargetPos;
 	};
 
 

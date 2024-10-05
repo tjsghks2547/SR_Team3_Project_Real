@@ -5,14 +5,12 @@
 #include "WorldHeartMap.h"
 #include "JungleForestStage.h"
 
+
 #include "DefaultUI.h"
 #include "InvenUI.h"
 #include "QuickSlot.h"
 #include "Object.h"
 
-#include "CrystalPuzzle.h"
-#include "Crystal.h"
-#include "PressBlock.h"
 
 //여기다 넣을 오브젝트들 다 include하기
 

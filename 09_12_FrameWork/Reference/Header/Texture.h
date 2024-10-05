@@ -17,10 +17,22 @@ public:
 	HRESULT		Ready_Texture(const _tchar* pPath, TEXTUREID eType, const int& iCnt);
 	HRESULT		Ready_Texture(const list<_tchar*> pPathList);
 	void		Set_Texture(const _uint& iIndex = 0);
-	vector<IDirect3DBaseTexture9*> Get_Texture() { return m_vecTexture; }
 
+	const _tchar* GetNowPath()
+	{
+		wchar_t* lastBackslash = wcsrchr(m_szNowPath, L'/');
+
+		if (lastBackslash)
+		{
+			wchar_t* remainingString = lastBackslash + 1;
+			return remainingString;
+		}
+		return L"";
+	}
 private:
 	vector<IDirect3DBaseTexture9*>		 m_vecTexture;
+	vector<_tchar*>						 m_vecPath;
+	_tchar* m_szNowPath;
 
 public:
 	static  CTexture* Create(LPDIRECT3DDEVICE9 pGraphicDev, const _tchar* pPath, TEXTUREID eType, const _uint& iCnt = 1);

@@ -12,23 +12,25 @@ void PlayerLift::Enter()
     timeElapsed = 0.f;
     switch (m_iStateCount)
     {
-    case 0: // 오브젝트를 들 때
+    case 0:
         (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(
             PLAYERSTATE::PLY_LIFTSTART);
 
         colObj = dynamic_cast<CPlayer*>(m_CGameObject)->GetInteractingObj();
-        colObjTransform = dynamic_cast<CTransform*>(
-            colObj->Get_Component(ID_DYNAMIC, L"Com_Transform"));
-        colObjTransform->Get_Info(INFO_POS, &vColPos);
+        dynamic_cast<CTransform*>(
+            colObj->Get_Component(ID_DYNAMIC, L"Com_Transform")
+            )->Get_Info(INFO_POS, &vColPos);
 
         break;
-    case 1: // 오브젝트를 들고 있을 때
+    case 1:
         (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(
             PLAYERSTATE::PLY_LIFTIDLE);
         break;
-    case 2: // 오브젝트를 내릴 때
+    case 2:
         m_pAnimationCom->SetAnimationPlaying();
-        m_pTransformCom->Get_Info(INFO_POS, &vDownPos);
+        dynamic_cast<CTransform*>(
+            (dynamic_cast<CPlayer*>(m_CGameObject))->Get_Component(
+                ID_DYNAMIC, L"Com_Transform"))->Get_Info(INFO_POS, &vDownPos);
 
         _vec3  vPlayerDir = (dynamic_cast<CPlayer*>(m_CGameObject))->GetPlayerDirVector2();
 
@@ -44,9 +46,6 @@ void PlayerLift::Enter()
                 vDownPos.x -= 30;
         }
 
-        // colObj = dynamic_cast<CPlayer*>(m_CGameObject)->GetInteractingObj();
-        colObjTransform = dynamic_cast<CTransform*>(
-            colObj->Get_Component(ID_DYNAMIC, L"Com_Transform"));
         (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(
             PLAYERSTATE::PLY_LIFTEND);
         break;
@@ -57,6 +56,7 @@ void PlayerLift::Enter()
 
 void PlayerLift::Update(const _float& fTimeDelta)
 {
+    _vec3 vCurObjPos;
     _vec3 vPlayerHeadPos;
     _vec3 currentPosition;
 
@@ -72,27 +72,31 @@ void PlayerLift::Update(const _float& fTimeDelta)
             return;
         }
 
-        m_pTransformCom->Get_Info(INFO_POS, &vPlayerHeadPos);
+        dynamic_cast<CTransform*>(
+            dynamic_cast<CPlayer*>(m_CGameObject)->Get_Component(
+                ID_DYNAMIC, L"Com_Transform"))->Get_Info(INFO_POS, &vPlayerHeadPos);
         vPlayerHeadPos.y += 20;
 
         currentPosition = vColPos;
         MoveAlongBezierCurve(fTimeDelta, currentPosition, vColPos, vPlayerHeadPos);
 
-        colObjTransform->Set_Pos(currentPosition);
+        dynamic_cast<CTransform*>(
+            colObj->Get_Component(ID_DYNAMIC, L"Com_Transform")
+            )->Set_Pos(currentPosition);
 
         break;
     case 1:
-        if (Engine::GetKeyPress(CONTROLKEY::PLY_UPKEY) ||
-            Engine::GetKeyPress(CONTROLKEY::PLY_DOWNKEY) ||
-            Engine::GetKeyPress(CONTROLKEY::PLY_LEFTKEY) ||
-            Engine::GetKeyPress(CONTROLKEY::PLY_RIGHTKEY))
+        if (Engine::GetKeyPress(CONTROL_KEY::PLY_UPKEY) ||
+            Engine::GetKeyPress(CONTROL_KEY::PLY_DOWNKEY) ||
+            Engine::GetKeyPress(CONTROL_KEY::PLY_LEFTKEY) ||
+            Engine::GetKeyPress(CONTROL_KEY::PLY_RIGHTKEY))
         {
             PlayerLiftMove::GetInstance()->SetColObj(colObj);
             m_pStateController->ChangeState(PlayerLiftMove::GetInstance(), m_CGameObject);
 
         }
 
-        if (Engine::GetKeyDown(CONTROLKEY::PLY_LIFTKEY))
+        if (Engine::GetKeyDown(CONTROL_KEY::PLY_LIFTKEY))
         {
             m_iStateCount++;
             m_pStateController->ChangeState(PlayerLift::GetInstance(), m_CGameObject);
@@ -110,26 +114,73 @@ void PlayerLift::Update(const _float& fTimeDelta)
         }
 
 
-        m_pTransformCom->Get_Info(INFO_POS, &vPlayerHeadPos);
+
+        dynamic_cast<CTransform*>(
+            dynamic_cast<CPlayer*>(m_CGameObject)->Get_Component(
+                ID_DYNAMIC, L"Com_Transform"))->Get_Info(INFO_POS, &vPlayerHeadPos);
         vPlayerHeadPos.y += 20;
 
         currentPosition = vPlayerHeadPos;
         MoveAlongBezierCurve(fTimeDelta, currentPosition, vPlayerHeadPos, vDownPos, false);
 
-        colObjTransform->Set_Pos(currentPosition);
+        dynamic_cast<CTransform*>(
+            colObj->Get_Component(ID_DYNAMIC, L"Com_Transform")
+            )->Set_Pos(currentPosition);
 
         break;
     }
 
 }
 
+
 void PlayerLift::Exit()
 {
 }
 
-void PlayerLift::MoveAlongBezierCurve(float fTimeDelta, _vec3& currentPosition,
-    const _vec3& A, const _vec3& B, _bool isLift)
+void PlayerLift::Key_Input(const _float& fTimeDelta)
 {
+
+    _vec3  vLook;
+    _vec3  vRight;
+
+    m_pTransformCom->Get_Info(INFO_LOOK, &vLook);
+    m_pTransformCom->Get_Info(INFO_RIGHT, &vRight);
+
+
+    if (Engine::GetKeyPress(DIK_UP))
+    {
+        m_pTransformCom->Move_Pos(
+            D3DXVec3Normalize(&vLook, &vLook), fTimeDelta, m_fMoveSpeed);
+
+    }
+
+
+    if (Engine::GetKeyPress(DIK_DOWN))
+    {
+        m_pTransformCom->Move_Pos(D3DXVec3Normalize(
+            &vLook, &vLook), fTimeDelta, -m_fMoveSpeed);
+    }
+
+
+    if (Engine::GetKeyPress(DIK_LEFT))
+    {
+        m_pTransformCom->Move_Pos(D3DXVec3Normalize(
+            &vRight, &vRight), fTimeDelta, -m_fMoveSpeed);
+    }
+
+
+    if (Engine::GetKeyPress(DIK_RIGHT))
+    {
+        m_pTransformCom->Move_Pos(D3DXVec3Normalize(
+            &vRight, &vRight), fTimeDelta, m_fMoveSpeed);
+    }
+}
+
+void PlayerLift::MoveAlongBezierCurve(
+    float fTimeDelta, _vec3& currentPosition, const _vec3& A, const _vec3& B,
+    _bool isLift)
+{
+    //float timeElapsed = 0.0f;
     const float duration = 1.0f;
 
     timeElapsed += fTimeDelta;

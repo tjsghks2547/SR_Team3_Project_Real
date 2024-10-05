@@ -29,7 +29,6 @@ void CItemSelector::LateReady_GameObject()
 
 _int CItemSelector::Update_GameObject(const _float& fTimeDelta)
 {
-	//레이트 레디 필요
 	m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
 	NULL_CHECK_RETURN(m_pInven, 0);
 
@@ -104,10 +103,9 @@ HRESULT CItemSelector::Add_Component()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
-	//언젠가 애니메이션쓰지않을가.하고.다이나믺.
 	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_InvenCursor"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	m_mapComponent[ID_DYNAMIC].insert({ L"Com_TextureCursor", pComponent });
+	m_mapComponent[ID_STATIC].insert({ L"Com_TextureCursor", pComponent });
 
 	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);

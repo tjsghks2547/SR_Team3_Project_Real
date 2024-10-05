@@ -17,7 +17,7 @@ CMusicStatue::~CMusicStatue()
 HRESULT CMusicStatue::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 17.f, 16.f, 0.f };
+	m_pTransformCom->m_vScale = { 4.5f, 4.f, 0.f };
 	m_vecKeyOrder.push_back(0);
 	m_vecKeyOrder.push_back(1);
 	m_vecKeyOrder.push_back(2);
@@ -89,7 +89,7 @@ void CMusicStatue::Clear_Puzzle()
 	for (int i = 0; i < m_vecStoneBlocks.size(); ++i)
 	{
 		static_cast<CStoneBlock*>(m_vecStoneBlocks[i])->Set_ImageID(4);
-		static_cast<CStoneBlock*>(m_vecStoneBlocks[i])->Move_StoneBlock();		
+		static_cast<CStoneBlock*>(m_vecStoneBlocks[i])->Move_StoneBlock(true, _vec3{ 0.f, -3.f, 0.f });		
 		static_cast<CStoneBlockHole*>(m_vecStoneBlocksHoles[i])->Set_ImageID(1);
 	}
 

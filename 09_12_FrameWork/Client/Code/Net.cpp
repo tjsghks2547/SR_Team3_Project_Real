@@ -67,6 +67,23 @@ void CNet::Render_GameObject()
 
 void CNet::OnCollision(CGameObject* _pOther)
 {
+	if (CNet::g_Acquired == true)
+	{
+		m_pInven->Add_Item(dynamic_cast<CItem*>(this));
+		//¾ÆÀÌÅÛ È¹µæ ÀÌÆåÆ® ¹ß»ý
+		return;
+	}
+
+	m_pPickUpButton->CallButton(true);
+
+	if (GetKeyDown(DIK_A)) //ÁÝ±â
+	{
+		CNet::g_Acquired = true;
+		m_pItemUI->CallItemUI(true);
+		m_pItemUI->Set_Texture(m_pTextureCom);
+		m_pItemUI->Set_Text(m_tInfo);
+		m_pInven->Add_Item(dynamic_cast<CItem*>(this));
+	}
 }
 
 HRESULT CNet::Add_Component()

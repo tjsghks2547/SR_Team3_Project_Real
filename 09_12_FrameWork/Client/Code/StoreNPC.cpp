@@ -20,11 +20,11 @@ HRESULT CStoreNPC::Ready_GameObject()
 
 void CStoreNPC::LateReady_GameObject()
 {
-	m_pPlayer = dynamic_cast<CPlayer*>(Engine::Get_GameObject(L"Layer_GameLogic", L"Player"));
-	NULL_CHECK_RETURN(m_pPlayer);
+	//m_pPlayer = dynamic_cast<CPlayer*>(Engine::Get_GameObject(L"Layer_GameLogic", L"Player"));
+	//NULL_CHECK_RETURN(m_pPlayer);
 
-	//m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
-	//NULL_CHECK_RETURN(m_pInven);
+	m_pStoreUI = dynamic_cast<CStoreUI*>(Engine::Get_GameObject(L"Layer_UI", L"Store_UI"));
+	NULL_CHECK_RETURN(m_pStoreUI);
 
 
 	if (!m_pInterButton) //Interaction

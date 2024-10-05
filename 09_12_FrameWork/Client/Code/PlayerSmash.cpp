@@ -13,8 +13,6 @@ void PlayerSmash::Enter()
 
     m_pAnimationCom->SetTextureScale(1.5f);
     m_iStateCount = 0;
-
-    (dynamic_cast<CPlayer*>(m_CGameObject))->FixCurPlayerDir(true);
 }
 
 void PlayerSmash::Update(const _float& fTimeDelta)
@@ -24,7 +22,7 @@ void PlayerSmash::Update(const _float& fTimeDelta)
         m_iStateCount++;
         m_pAnimationCom->SetAnimationPause(true);
     }
-    if (Engine::GetKeyUp(CONTROLKEY::PLY_SMASHKEY))
+    if (Engine::GetKeyUp(CONTROL_KEY::PLY_SMASHKEY))
     {
         if (m_iStateCount == 0)
             m_pStateController->ChangeState(PlayerIdle::GetInstance(), m_CGameObject);
@@ -48,5 +46,4 @@ void PlayerSmash::Update(const _float& fTimeDelta)
 void PlayerSmash::Exit()
 {
     m_pAnimationCom->SetTextureScale(1.f);
-    (dynamic_cast<CPlayer*>(m_CGameObject))->FixCurPlayerDir(false);
 }

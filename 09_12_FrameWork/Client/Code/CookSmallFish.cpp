@@ -1,6 +1,10 @@
 #include "pch.h"
 #include "CookSmallFish.h"
 #include "Player.h"
+#include "ItemUI.h"
+#include "StoreUI.h"
+
+_bool CCookSmallFish::g_Acquired(false);
 
 CCookSmallFish::CCookSmallFish(LPDIRECT3DDEVICE9 pGraphicDev)
     :CItem(pGraphicDev)
@@ -18,7 +22,7 @@ HRESULT CCookSmallFish::Ready_GameObject()
 	m_tInfo = { CONSUM,
 		COOK_SMALLFISH,
 		L"생선 구이",
-		L"생선을 구웠다. 체력이 2만큼 공격력은 5초간 상승한다.",
+		L"생선을 구웠다. 이동속도와 공격력이 5초간 상승한다.",
 		100, 1 };
 
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
@@ -43,30 +47,93 @@ void CCookSmallFish::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CCookSmallFish::Render_GameObject()
 {
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	m_pTextureCom->Set_Texture();
-	m_pBufferCom->Render_Buffer();
+	if (m_tInfo.bOnField)
+	{
+		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+		m_pTextureCom->Set_Texture();
+		m_pBufferCom->Render_Buffer();
+		m_pColliderCom->Render_Buffer();
 
-	m_pCountRCTransformCom->m_vInfo[INFO_POS].x = m_pTransformCom->m_vInfo[INFO_POS].x + 46;
-	m_pCountRCTransformCom->m_vInfo[INFO_POS].y = m_pTransformCom->m_vInfo[INFO_POS].y - 44;
+		return;
+	}
+	else if (m_pPlayer->GetVisitingStore())
+	{
+		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+		m_pTextureCom->Set_Texture();
+		m_pBufferCom->Render_Buffer();
 
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pCountRCTransformCom->Get_WorldMatrix());
-	m_pCountRCTextureCom->Set_Texture();
-	m_pBufferCom->Render_Buffer();
+		m_pCountRCTransformCom->m_vInfo[INFO_POS].x = m_pTransformCom->m_vInfo[INFO_POS].x + 36;
+		m_pCountRCTransformCom->m_vInfo[INFO_POS].y = m_pTransformCom->m_vInfo[INFO_POS].y - 44;
+		m_pCountRCTransformCom->m_vScale = { 40.f, 17.f, 1.f };
 
-	_vec2 vCountPos;
+		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pCountRCTransformCom->Get_WorldMatrix());
+		m_pPriceTextureCom->Set_Texture();
+		m_pBufferCom->Render_Buffer();
 
-	vCountPos.x = m_pTransformCom->m_vInfo[INFO_POS].x + (WINCX * 0.5f) + 34;
-	vCountPos.y = -(m_pTransformCom->m_vInfo[INFO_POS].y) + (WINCY * 0.5f) + 34;
+		_vec2 vCountPos;
 
-	wchar_t Division[32] = L"x";
-	wchar_t ItemCount[32];
+		vCountPos.x = m_pTransformCom->m_vInfo[INFO_POS].x + (WINCX * 0.5f) + 28;
+		vCountPos.y = -(m_pTransformCom->m_vInfo[INFO_POS].y) + (WINCY * 0.5f) + 34;
 
-	swprintf(ItemCount, 32, L"%d", m_tInfo.iItemCount);
+		wchar_t ItemCount[32];
 
-	wcscat_s(Division, 32, ItemCount);   // "x + 개수"
-	Engine::Render_Font(L"Font_OguBold24", Division, &vCountPos, D3DXCOLOR(0.1f, 0.1f, 0.1f, 1.f));
+		swprintf(ItemCount, 32, L"%d", m_tInfo.iPrice);
 
+		Engine::Render_Font(L"Font_OguBold24", ItemCount, &vCountPos, D3DXCOLOR(0.1f, 0.1f, 0.1f, 1.f));
+
+	}
+	else if (m_pInven->Get_CurFilter() == m_tInfo.eType
+		&& m_pPlayer->GetPlayerInven()
+		&& !m_tInfo.bOnField)
+	{
+		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+		m_pTextureCom->Set_Texture();
+		m_pBufferCom->Render_Buffer();
+
+		m_pCountRCTransformCom->m_vInfo[INFO_POS].x = m_pTransformCom->m_vInfo[INFO_POS].x + 46;
+		m_pCountRCTransformCom->m_vInfo[INFO_POS].y = m_pTransformCom->m_vInfo[INFO_POS].y - 44;
+		m_pCountRCTransformCom->m_vScale = { 20.f, 17.f, 1.f };
+
+		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pCountRCTransformCom->Get_WorldMatrix());
+		m_pCountRCTextureCom->Set_Texture();
+		m_pBufferCom->Render_Buffer();
+
+		_vec2 vCountPos;
+
+		vCountPos.x = m_pTransformCom->m_vInfo[INFO_POS].x + (WINCX * 0.5f) + 34;
+		vCountPos.y = -(m_pTransformCom->m_vInfo[INFO_POS].y) + (WINCY * 0.5f) + 34;
+
+		wchar_t Division[32] = L"x";
+		wchar_t ItemCount[32];
+
+		swprintf(ItemCount, 32, L"%d", m_tInfo.iItemCount);
+
+		wcscat_s(Division, 32, ItemCount);   // "x + 개수"
+		Engine::Render_Font(L"Font_OguBold24", Division, &vCountPos, D3DXCOLOR(0.1f, 0.1f, 0.1f, 1.f));
+	}
+
+
+}
+
+void CCookSmallFish::OnCollision(CGameObject* _pOther)
+{
+	if (CCookSmallFish::g_Acquired == true)
+	{
+		m_pInven->Add_Item(dynamic_cast<CItem*>(this));
+		//아이템 획득 이펙트 발생
+		return;
+	}
+
+	m_pPickUpButton->CallButton(true);
+
+	if (GetKeyDown(DIK_A)) //줍기
+	{
+		CCookSmallFish::g_Acquired = true;
+		m_pItemUI->CallItemUI(true);
+		m_pItemUI->Set_Texture(m_pTextureCom);
+		m_pItemUI->Set_Text(m_tInfo);
+		m_pInven->Add_Item(dynamic_cast<CItem*>(this));
+	}
 }
 
 void CCookSmallFish::Use_Item()
@@ -74,8 +141,8 @@ void CCookSmallFish::Use_Item()
 	m_pPlayer = dynamic_cast<CPlayer*>(Engine::Get_GameObject(L"Layer_GameLogic", L"Player"));
 	NULL_CHECK_RETURN(m_pPlayer);
 
-	//m_pPlayer->SetPlayerSpeed(20); 
-	//m_pPlayer->SetPlayerPower(20); 
+	m_pPlayer->SetSpeedTime(5); 
+	m_pPlayer->SetPowerTime(5); 
 	m_tInfo.iItemCount--;
 }
 
@@ -112,7 +179,6 @@ HRESULT CCookSmallFish::Add_Component()
 	pComponent = m_pCountRCTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformCountRC", pComponent });
-	m_pCountRCTransformCom->m_vScale = { 20.f, 17.f, 1.f };
 	m_pCountRCTransformCom->m_vInfo[INFO_POS] = { 0.f, 0.f, 0.1f };
 
 	return S_OK;

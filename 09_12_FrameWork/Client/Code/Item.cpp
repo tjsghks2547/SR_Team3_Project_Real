@@ -3,9 +3,11 @@
 #include "Player.h" //0924
 #include "InvenUI.h"
 #include "ItemUI.h"
+#include "StoreUI.h"
 
 CItem::CItem(LPDIRECT3DDEVICE9 pGraphicDev)
     :Engine::CGameObject(pGraphicDev)
+    , m_pPickUpButton(nullptr), m_pItemUI(nullptr)
 {
     m_tInfo.bOnField = false;
 }
@@ -23,26 +25,61 @@ HRESULT CItem::Ready_GameObject()
 
 void CItem::LateReady_GameObject()
 {
-    m_pPlayer = dynamic_cast<CPlayer*>(Engine::Get_GameObject(L"Layer_GameLogic", L"Player"));
-    NULL_CHECK_RETURN(m_pPlayer);
-
-    m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
-    NULL_CHECK_RETURN(m_pInven);
-
     m_pPickUpButton = dynamic_cast<CPickUpButton*>(CPickUpButton::Create(m_pGraphicDev));
     NULL_CHECK_RETURN(m_pPickUpButton);
 
     m_pItemUI = dynamic_cast<CItemUI*>(CItemUI::Create(m_pGraphicDev));
     NULL_CHECK_RETURN(m_pItemUI);
+
+    m_pStoreUI = dynamic_cast<CStoreUI*>(Engine::Get_GameObject(L"Layer_UI", L"Store_UI"));
+    NULL_CHECK_RETURN(m_pStoreUI);
+
+    m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
+    NULL_CHECK_RETURN(m_pInven);
+
+    m_pPlayer = dynamic_cast<CPlayer*>(Engine::Get_GameObject(L"Layer_GameLogic", L"Player"));
+    NULL_CHECK_RETURN(m_pPlayer);
 }
 
 _int CItem::Update_GameObject(const _float& fTimeDelta)
 {
+    if (!m_pPickUpButton)
+    {
+        m_pPickUpButton = dynamic_cast<CPickUpButton*>(CPickUpButton::Create(m_pGraphicDev));
+        NULL_CHECK_RETURN(m_pPickUpButton,0);
+    }
+    if (!m_pItemUI)
+    {
+        m_pItemUI = dynamic_cast<CItemUI*>(CItemUI::Create(m_pGraphicDev));
+        NULL_CHECK_RETURN(m_pItemUI,0);
+    }
+    if (!m_pPlayer)
+    {
+        m_pPlayer = dynamic_cast<CPlayer*>(Engine::Get_GameObject(L"Layer_GameLogic", L"Player"));
+        NULL_CHECK_RETURN(m_pPlayer,0);
+    }
+    if (!m_pInven)
+    {
+        m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
+        NULL_CHECK_RETURN(m_pInven,0);
+    }
+    if (!m_pStoreUI)
+    {
+        m_pStoreUI = dynamic_cast<CStoreUI*>(Engine::Get_GameObject(L"Layer_UI", L"Store_UI"));
+        NULL_CHECK_RETURN(m_pStoreUI,0);
+    }
+
     _int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
-    m_pPickUpButton->Update_GameObject(fTimeDelta);
-    m_pItemUI->Update_GameObject(fTimeDelta);
-
+    if (m_pPickUpButton)
+    {
+        // ¶³±¼ÀÏ¾ø´Â¾ÖµéÀº °Á null
+        m_pPickUpButton->Update_GameObject(fTimeDelta);
+    }
+    if (m_pPickUpButton)
+    {
+        m_pItemUI->Update_GameObject(fTimeDelta); // ½ºÅä¾î¿¡¼­ ÃÖÃÊ È¹µæ ¾µÀÏ¾øÀÜ..
+    }
     if (!m_tInfo.bOnField)
     {
         Engine::Add_RenderGroup(RENDER_UI, this);
@@ -111,6 +148,10 @@ HRESULT CItem::Add_Component()
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformItemView", pComponent });
     m_pViewTransformCom->m_vScale = { 100.f, 100.f, 1.f };
     m_pViewTransformCom->m_vInfo[INFO_POS] = { 430.f, 100.f, 0.1f };
+
+    pComponent = m_pPriceTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_PriceUI"));
+    NULL_CHECK_RETURN(pComponent, E_FAIL);
+    m_mapComponent[ID_STATIC].insert({ L"Com_TexturePriceUI", pComponent });
 
     pComponent = m_pColliderCom = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
