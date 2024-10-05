@@ -13,6 +13,8 @@ public:
 	virtual   void      LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual   void      Render_GameObject();
 
+	virtual	  void		OnCollision(CGameObject* _pOther);
+
 	virtual	   void	    Use_Item();
 
 private:
@@ -23,5 +25,7 @@ private:
 
 public:
 	static CCookBigFish* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static _bool		g_Acquired;
 };
+
 

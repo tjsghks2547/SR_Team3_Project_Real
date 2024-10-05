@@ -10,16 +10,16 @@ void PlayerDance::Enter()
         SetComponent();
 
     (dynamic_cast<CPlayer*>(m_CGameObject))->FixPlayerDir(OBJDIR_FRONT);
-
     switch (m_iDanceType)
     {
-    case 0: // 가만히 서 있을 때 나오는 동작
+        // 가만히 서 있을 때 나오는 동작
+    case 0:
         (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(
             PLAYERSTATE::PLY_IDLEDANCE);
         m_pAnimationCom->SetTextureScale(0.8f);
         break;
-
-    case 1: // e키 눌러 체력 회복 하는 동작
+        // e키 눌러 체력 회복 하는 동작
+    case 1:
         (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(
             PLAYERSTATE::PLY_DANCE);
 
@@ -27,8 +27,8 @@ void PlayerDance::Enter()
         m_iPlayerMaxHP = (dynamic_cast<CPlayer*>(m_CGameObject))->GetPlayerHP().iMaxHP;
         break;
     }
-
-    (dynamic_cast<CPlayer*>(m_CGameObject))->FixCurPlayerDir(true);
+    
+    
 }
 
 void PlayerDance::Update(const _float& fTimeDelta)
@@ -36,12 +36,12 @@ void PlayerDance::Update(const _float& fTimeDelta)
     switch (m_iDanceType)
     {
     case 0:
-        if (Engine::GetAnyActionKeyDown())
+        if(Engine::GetAnyActionKeyDown())
             m_pStateController->ChangeState(PlayerIdle::GetInstance(), m_CGameObject);
         break;
 
     case 1:
-        if (Engine::GetKeyDown(CONTROLKEY::PLY_DANCEKEY))
+        if (Engine::GetKeyDown(CONTROL_KEY::PLY_DANCEKEY))
             m_pStateController->ChangeState(PlayerIdle::GetInstance(), m_CGameObject);
 
         m_fTickTime += fTimeDelta;
@@ -69,7 +69,5 @@ void PlayerDance::Exit()
         m_pAnimationCom->SetTextureScale(1.f);
         break;
     }
-
-    (dynamic_cast<CPlayer*>(m_CGameObject))->FixCurPlayerDir(false);
 }
 

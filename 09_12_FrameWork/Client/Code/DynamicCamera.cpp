@@ -63,18 +63,18 @@ void CDynamicCamera::LateReady_GameObject()
 {
     m_Player = dynamic_cast<CPlayer*>(Engine::Get_GameObject(
         L"Layer_GameLogic", L"Player"));
-    dynamic_cast<CPlayer*>(m_Player)->SetCamera(this);
+    m_Player->SetCamera(this);
 
     m_playerTransform = dynamic_cast<CTransform*>(Engine::Get_Component(
         ID_DYNAMIC, L"Layer_GameLogic", L"Player", L"Com_Transform"));
     NULL_CHECK_RETURN(m_playerTransform, );
 
     m_vIntervalPos.x = 0;
-    m_vIntervalPos.y = 160;
-    m_vIntervalPos.z = -160;
+    m_vIntervalPos.y = 100;
+    m_vIntervalPos.z = -100;
     m_vOriginInterval = m_vIntervalPos;
 
-    m_playerTransform->Get_Info(INFO_POS, &m_vPlayerPos);
+    GetPlayerInfo();
     m_vEye = m_vPlayerPos;
     m_vEye.y += m_vIntervalPos.y;
     m_vEye.z += m_vIntervalPos.z;
@@ -88,14 +88,14 @@ void CDynamicCamera::LateReady_GameObject()
 
 _int CDynamicCamera::Update_GameObject(const _float& fTimeDelta)
 {
+    m_fMoveToPlayerSpeed = m_Player->GetMoveSpeed();
     _int iExit = CCamera::Update_GameObject(fTimeDelta);
-
-    m_playerTransform->Get_Info(INFO_POS, &m_vPlayerPos);
-
-
 
 
     Key_Input(fTimeDelta);
+
+
+
 
     Add_RenderGroup(RENDER_UI, this);
     return iExit;
@@ -104,20 +104,18 @@ _int CDynamicCamera::Update_GameObject(const _float& fTimeDelta)
 void CDynamicCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 {
     D3DXMatrixInverse(&m_matCameraWorld, 0, &m_matView);
-    m_Player = dynamic_cast<CPlayer*>(Engine::Get_GameObject(
-        L"Layer_GameLogic", L"Player"));
-    m_fMoveToPlayerSpeed = dynamic_cast<CPlayer*>(m_Player)->GetMoveSpeed();
-    /*ResetZoom(fTimeDelta);
+
+    ResetZoom(fTimeDelta);
 
     if (m_bZoomTrigger)
-        ZoomToTrigger(fTimeDelta);*/
+        ZoomToTrigger(fTimeDelta);
 
     if (m_bShakeTrigger)
         ShakeMoveTrigger(fTimeDelta);
 
     if (m_eCameraState == CAMERASTATE::PLAYER)
     {
-        m_playerTransform->Get_Info(INFO_POS, &m_vPlayerPos);
+        GetPlayerInfo();
         MoveToPlayer(fTimeDelta);
     }
 
@@ -132,18 +130,6 @@ void CDynamicCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CDynamicCamera::Render_GameObject()
 {
-    return;
-    _vec2 vCountPos(100, 50);
-    wchar_t str[32] = L"";
-    swprintf(str, 32, L"%f", m_fDistance);
-
-    Engine::Render_Font(L"Font_OguBold24", str, &vCountPos, D3DXCOLOR(0.1f, 0.1f, 0.1f, 1.f));
-
-    vCountPos.y = 70;
-    swprintf(str, 32, L"%f", m_fMoveToPlayerSpeed);
-
-    Engine::Render_Font(L"Font_OguBold24", str, &vCountPos, D3DXCOLOR(0.1f, 0.1f, 0.1f, 1.f));
-
 }
 
 CDynamicCamera* CDynamicCamera::Create(LPDIRECT3DDEVICE9 pGraphicDev
@@ -310,20 +296,13 @@ void CDynamicCamera::MoveToPlayer(const _float& fTimeDelta)
     vTargetPos.z += m_vIntervalPos.z;
 
     _vec3 vDir = vTargetPos - m_vEye;
-    m_fDistance = D3DXVec3Length(&vDir);
-
-    if (m_fDistance < 0.1f)
-        return;
-
-    m_fMoveToPlayerSpeed += m_fDistance * 5;
+    if (abs(vDir.x) < 0.01f * m_fMoveToPlayerSpeed) vDir.x = 0;
+    if (abs(vDir.y) < 0.01f * m_fMoveToPlayerSpeed) vDir.y = 0;
+    if (abs(vDir.z) < 0.01f * m_fMoveToPlayerSpeed) vDir.z = 0;
     _vec3 vMoveDir = *D3DXVec3Normalize(&vDir, &vDir) * fTimeDelta * m_fMoveToPlayerSpeed;
-    m_fDistance = D3DXVec3Length(&vMoveDir);
-    if (m_fDistance < 0.9f)
-        return;
 
     m_vEye += vMoveDir;
     m_vAt += vMoveDir;
-
 }
 
 void CDynamicCamera::ZoomTo(_float fRatio, _float fDuration)
@@ -361,7 +340,7 @@ void CDynamicCamera::ZoomToTrigger(const _float& fTimeDelta)
 
 void CDynamicCamera::ResetZoom(const _float& fTimeDelta)
 {
-    /*if (m_fZoomRatio == 100)
+    if (m_fZoomRatio == 100)
         return;
 
     if (m_Player->GetPlayerState() == PLAYERSTATE::PLY_DASH ||
@@ -373,7 +352,7 @@ void CDynamicCamera::ResetZoom(const _float& fTimeDelta)
     {
         ZoomTo(100.f, 2.f);
         m_fZoomInTimer = 0.f;
-    }*/
+    }
 }
 
 void CDynamicCamera::ShakeMove(_float fDuration)
@@ -410,4 +389,9 @@ void CDynamicCamera::ShakeMoveTrigger(const _float& fTimeDelta)
         shakeTimer = shakeDuration;
         m_vAt.y = m_fPrevShakeAtYPos;
     }
+}
+
+void CDynamicCamera::GetPlayerInfo()
+{
+    m_playerTransform->Get_Info(INFO_POS, &m_vPlayerPos);
 }

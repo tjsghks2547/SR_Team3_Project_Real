@@ -13,7 +13,7 @@ namespace Engine
 
 	enum TEXTUREID { TEX_NORMAL, TEX_CUBE, TEX_END };
 
-	enum RENDERID { RENDER_PRIORITY, RENDER_NONALPHA, RENDER_ALPHA, RENDER_UI, RENDER_TRANSLUCNET, RENDER_END };
+	enum RENDERID { RENDER_PRIORITY, RENDER_NONALPHA, RENDER_ALPHA, RENDER_UI, RENDER_END };
 
 	enum MOUSEKEYSTATE { DIM_LB, DIM_RB, DIM_MB, DIM_END };
 	enum MOUSEMOVESTATE {	DIMS_X, DIMS_Y, DIMS_Z, DIMS_END };
@@ -29,12 +29,11 @@ namespace Engine
 		MAXCHANNEL
 	};
 
-	enum TAG { TAG_PLAYER, TAG_ENEMY, TAG_STONE, TAG_OBJECT, TAG_NONE };
 	//0927 봉민지
 	enum TEXTRANGE { TEXT_DEFAULT, TEXT_CENTER, TEXTRANGE_END };
 
 	// 09.24 김선환
-	enum GROUP_TYPE { PLAYER, MONSTER, OBJECT, NPC, PUZZLE, GROUP_END = 32 };
+	enum GROUP_TYPE { PLAYER, MONSTER, OBJECT, NPC, GROUP_END = 32 };
 
 	enum GAME_STATE
 	{
@@ -47,14 +46,12 @@ namespace Engine
 	// 09.28 동영
 	enum OBJ_TYPE
 	{
-		NOTPASS_ABLE = 1, // 오구가 해당 옵션을 가진 오브젝트를 통과할 수 없습니다.
-		PUSH_ABLE = 2,    // 오구가 해당 옵션을 가진 오브젝트를 밀 수 있습니다.
-		LIFT_ABLE = 4,    // 오구가 해당 옵션을 가진 오브젝트를 들 수 있습니다.
-		DESTROY_ABLE = 8, // 오구가 해당 옵션을 가진 오브젝트를 없앨 수 있습니다.
-		TALK_ABLE = 16,   // 오구가 해당 옵션을 가진 오브젝트와 대화를 할 수 있습니다.
-		HURT_ABLE = 32,   // 오구가 해당 옵션을 가진 오브젝트한테 피해를 받을 수 있습니다.
-		PICK_ABLE = 64,   // 오구가 해당 옵션을 가진 오브젝트를 습득할 수 있습니다.
-		TYPE_NONE = 128,
+		NOTPASS_ABLE = 1,
+		PUSH_ABLE = 2,
+		LIFT_ABLE = 4,
+		DESTROY_ABLE = 8,
+		TALK_ABLE = 16,
+		TYPE_NONE = 32,
 		TYPE_END
 	};
 

@@ -26,20 +26,6 @@ HRESULT CMapEditor::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_GameLogic(L"Layer_GameLogic"), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
 
-	D3DLIGHT9		tLightInfo;
-	ZeroMemory(&tLightInfo, sizeof(D3DLIGHT9));
-
-	tLightInfo.Type = D3DLIGHT_DIRECTIONAL;
-
-	tLightInfo.Diffuse = { 1.f, 1.f, 1.f, 1.f };
-	tLightInfo.Specular = { 1.f, 1.f, 1.f, 1.f };
-	tLightInfo.Ambient = { 1.f, 1.f, 1.f, 1.f };
-	tLightInfo.Direction = { 1.f, -1.f, 1.f };
-
-	m_pGraphicDev->SetLight(0, &tLightInfo);
-	m_pGraphicDev->LightEnable(0, TRUE);
-
-
 	return S_OK;
 }
 
@@ -90,7 +76,6 @@ HRESULT CMapEditor::Ready_Prototype()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_WorldHeartMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 2.f,2.f)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MoonForestMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 1.5f,1.5f)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_JungleMonkeyTownMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 1.5f,2.0f)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MoonTempleMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 2.0f, 2.0f)), E_FAIL);
 
 
 	//Texture
@@ -102,7 +87,7 @@ HRESULT CMapEditor::Ready_Prototype()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_WorldHeartMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map/WorldHeart.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MoonForestMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map/MoonForestMap.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_JungleMonkeyTownMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map/JungleMonkeyTownMap.png", TEX_NORMAL)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MoonTempleMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map/MoonTempleMap.png", TEX_NORMAL)), E_FAIL);
+
 
 	CResMgr::GetInstance()->init();
 
@@ -144,11 +129,11 @@ HRESULT CMapEditor::Ready_Layer_Environment(const _tchar* pLayerTag)
 	//pGameObject->SetTextureKey(L"Map");	
 
 	// Á¤±Û Æ÷·¹½ºÆ® ¸Ê 
-	//pGameObject = CJungleForestMap::Create(m_pGraphicDev);
-	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MoonForestMap", pGameObject), E_FAIL);
-	//pGameObject->SetObjectKey(L"Map");
-	//pGameObject->SetTextureKey(L"Map");
+	pGameObject = CJungleForestMap::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MoonForestMap", pGameObject), E_FAIL);
+	pGameObject->SetObjectKey(L"Map");
+	pGameObject->SetTextureKey(L"Map");
 
 
 
@@ -159,13 +144,6 @@ HRESULT CMapEditor::Ready_Layer_Environment(const _tchar* pLayerTag)
 	//pGameObject->SetObjectKey(L"Map");	
 	//pGameObject->SetTextureKey(L"Map");	
 
-
-	//´Þ½£ ½ÅÀü¸Ê
-	pGameObject = CMoonTempleMap::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Map", pGameObject), E_FAIL);
-	pGameObject->SetObjectKey(L"Map");
-	pGameObject->SetTextureKey(L"Map");
 
 
 	m_mapLayer.insert({ pLayerTag, pLayer });	

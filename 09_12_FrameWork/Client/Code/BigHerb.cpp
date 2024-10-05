@@ -56,6 +56,32 @@ void CBigHerb::Render_GameObject()
 
 		return;
 	}
+	else if (m_pPlayer->GetVisitingStore())
+	{
+		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+		m_pTextureCom->Set_Texture();
+		m_pBufferCom->Render_Buffer();
+
+		m_pCountRCTransformCom->m_vInfo[INFO_POS].x = m_pTransformCom->m_vInfo[INFO_POS].x + 36;
+		m_pCountRCTransformCom->m_vInfo[INFO_POS].y = m_pTransformCom->m_vInfo[INFO_POS].y - 44;
+		m_pCountRCTransformCom->m_vScale = { 40.f, 17.f, 1.f };
+
+		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pCountRCTransformCom->Get_WorldMatrix());
+		m_pPriceTextureCom->Set_Texture();
+		m_pBufferCom->Render_Buffer();
+
+		_vec2 vCountPos;
+
+		vCountPos.x = m_pTransformCom->m_vInfo[INFO_POS].x + (WINCX * 0.5f) + 28;
+		vCountPos.y = -(m_pTransformCom->m_vInfo[INFO_POS].y) + (WINCY * 0.5f) + 34;
+
+		wchar_t ItemCount[32];
+
+		swprintf(ItemCount, 32, L"%d", m_tInfo.iPrice);
+
+		Engine::Render_Font(L"Font_OguBold24", ItemCount, &vCountPos, D3DXCOLOR(0.1f, 0.1f, 0.1f, 1.f));
+
+	}
 	else if (m_pInven->Get_CurFilter() == m_tInfo.eType
 		&& m_pPlayer->GetPlayerInven()
 		&& !m_tInfo.bOnField)
@@ -66,6 +92,7 @@ void CBigHerb::Render_GameObject()
 
 		m_pCountRCTransformCom->m_vInfo[INFO_POS].x = m_pTransformCom->m_vInfo[INFO_POS].x + 46;
 		m_pCountRCTransformCom->m_vInfo[INFO_POS].y = m_pTransformCom->m_vInfo[INFO_POS].y - 44;
+		m_pCountRCTransformCom->m_vScale = { 20.f, 17.f, 1.f };
 
 		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pCountRCTransformCom->Get_WorldMatrix());
 		m_pCountRCTextureCom->Set_Texture();
@@ -88,7 +115,7 @@ void CBigHerb::Render_GameObject()
 
 void CBigHerb::OnCollision(CGameObject* _pOther)
 {
-	if (CBranch::g_Acquired == true)
+	if (CBigHerb::g_Acquired == true)
 	{
 		m_pInven->Add_Item(dynamic_cast<CItem*>(this));
 		//¾ÆÀÌÅÛ È¹µæ ÀÌÆåÆ® ¹ß»ý
@@ -99,11 +126,11 @@ void CBigHerb::OnCollision(CGameObject* _pOther)
 
 	if (GetKeyDown(DIK_A)) //ÁÝ±â
 	{
-		CBranch::g_Acquired = true;
-		
-		m_pItemUI->CallItemUI(true);
+		CBigHerb::g_Acquired = true;
+
+		/*m_pItemUI->CallItemUI(true);
 		m_pItemUI->Set_Texture(m_pTextureCom);
-		m_pItemUI->Set_Text(m_tInfo);
+		m_pItemUI->Set_Text(m_tInfo);*/
 		m_pInven->Add_Item(dynamic_cast<CItem*>(this));
 	}
 }

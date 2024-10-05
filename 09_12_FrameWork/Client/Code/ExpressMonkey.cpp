@@ -53,7 +53,7 @@ _int CExpressMonkey::Update_GameObject(const _float& fTimeDelta)
 
     if (!m_bQuestClear && m_bQuestAccept)
     {
-        if (m_pInven->Find_Item(CItem::QUEST, CItem::EXTICKET))        
+        if (m_pInven->Find_Item(CItem::QUEST, CItem::EXTICKET))
         {
             m_bQuestSucess = true;
         }

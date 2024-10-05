@@ -26,7 +26,6 @@ private:
 
 
 public:
-	CAnimation2* GetAnimation() { return m_pCurAnim; }
 	CGameObject* GetGameObj() { return m_pOwner; }
 	static CAnimator2* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 

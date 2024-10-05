@@ -3,7 +3,7 @@
 #include "Export_Utility.h"
 
 CStoneBlock::CStoneBlock(LPDIRECT3DDEVICE9 pGraphicDev)
-	: Engine::CGameObject(pGraphicDev), m_bIsMove(false), m_bIsUp(true), m_fMoveTime(0), m_iHoleImageID(0), m_iImageID(0)
+	: Engine::CGameObject(pGraphicDev), m_bIsMove(false)
 {
 }
 
@@ -14,19 +14,14 @@ CStoneBlock::~CStoneBlock()
 HRESULT CStoneBlock::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 16.f, 16.f, 0.f };	
+	m_pTransformCom->m_vScale = { 3.f, 3.f, 0.f };	
+	m_iImageID = 0;
 	m_vecTexture.resize(5);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_StoneBlock.png", &m_vecTexture[0]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_StoneBlockOnce.png", &m_vecTexture[1]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_StoneBlockOnce_Clear.png", &m_vecTexture[2]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_OceanStoneBlockOnce.png", &m_vecTexture[3]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_OceanStoneBlockOnce_Clear.png", &m_vecTexture[4]);
-
-	m_pHoleTransformCom->m_vScale = { 20.f, 20.f, 0.f };
-	m_pHoleTransformCom->Rotation(ROT_X, 90.f * 3.14159265359f / 180.f);
-	m_vecHoleTexture.resize(2);
-	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_StoneBlock_Hole.png", &m_vecHoleTexture[0]);
-	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_StoneBlock_Down.png", &m_vecHoleTexture[1]);
 	return S_OK;
 }
 
@@ -36,9 +31,7 @@ _int CStoneBlock::Update_GameObject(const _float& fTimeDelta)
 
 	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
-	if (m_bIsMove && m_fMoveTime < 1.f) {
-
-		m_fMoveTime += fTimeDelta;
+	if (m_bIsMove) {
 		_vec3 vPos, vMovePos;
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
 		m_fTargetPos.x = vPos.x;
@@ -46,14 +39,6 @@ _int CStoneBlock::Update_GameObject(const _float& fTimeDelta)
 		vMovePos = m_fTargetPos - vPos;
 
 		m_pTransformCom->Move_Pos(&vMovePos, fTimeDelta, 4.f);
-
-		if (m_fMoveTime > 0.4f) {			
-			m_iHoleImageID = m_bIsUp? 0 : 1;
-		}
-
-		if (m_fMoveTime > 1.f) {
-			m_bIsMove = false;			
-		}
 	}
 
 	return iExit;
@@ -71,11 +56,6 @@ void CStoneBlock::Render_GameObject()
 	m_pGraphicDev->SetTexture(0, m_vecTexture[m_iImageID]);
 	m_pBufferCom->Render_Buffer();
 
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pHoleTransformCom->Get_WorldMatrix());
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	m_pGraphicDev->SetTexture(0, m_vecHoleTexture[m_iHoleImageID]);
-	m_pBufferCom->Render_Buffer();
-
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 
@@ -87,25 +67,15 @@ HRESULT CStoneBlock::Add_Component()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
+	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_StoneBlock"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
+
 	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
-
-	pComponent = m_pHoleTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	m_mapComponent[ID_DYNAMIC].insert({ L"Com_HoleTransform", pComponent });
 	
 	return S_OK;
-}
-
-void CStoneBlock::Init(_float _fX, _float _fZ, _bool _bIsUp)
-{		
-	_float fTempY;	
-	fTempY = _bIsUp ? 16.f : -16.f;
-	m_iHoleImageID = _bIsUp ? 0 : 1;
-	m_pTransformCom->Set_Pos(_fX, fTempY, _fZ);
-	m_pHoleTransformCom->Set_Pos(_fX, 0.1f, _fZ + 10.f);
-	m_bIsUp = _bIsUp;
 }
 
 CStoneBlock* CStoneBlock::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -119,8 +89,6 @@ CStoneBlock* CStoneBlock::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 		return nullptr;
 	}
 
-	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pStoneBlock);
-	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PUZZLE, pStoneBlock);
 	return pStoneBlock;
 }
 
