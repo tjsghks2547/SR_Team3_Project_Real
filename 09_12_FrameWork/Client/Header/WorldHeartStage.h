@@ -7,6 +7,7 @@
 
 #include "DefaultUI.h"
 #include "InvenUI.h"
+#include "StoreUI.h"
 #include "QuickSlot.h"
 #include "Object.h"
 

@@ -15,6 +15,7 @@ class CCollider;
 END
 class CInvenUI;
 class CItemUI;
+class CStoreUI;
 
 class CItem : public Engine::CGameObject
 {
@@ -92,6 +93,7 @@ protected:
 protected:
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTexture* m_pTextureCom;
+	Engine::CTexture* m_pPriceTextureCom;
 	Engine::CTransform* m_pTransformCom;
 	Engine::CCollider* m_pColliderCom;
 
@@ -106,6 +108,7 @@ protected:
 	CPlayer* m_pPlayer;
 	CInvenUI* m_pInven;
 	CItemUI* m_pItemUI;
+	CStoreUI* m_pStoreUI;
 
 	CPickUpButton* m_pPickUpButton;
 public:

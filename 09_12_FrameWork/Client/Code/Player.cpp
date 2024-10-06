@@ -24,7 +24,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_vColPlayerPos(0.f, 0.f, 0.f)
     , m_vColliderPos(0.f, 0.f, 0.f)
     // UI 관련 초기화
-    , m_iPlayerCoin(10), m_bInven(false), m_bQuest(false)
+    , m_iPlayerCoin(10000), m_bInven(false), m_bQuest(false), m_bStoreVisit(false)
 
 {
     ZeroMemory(&m_tPlayerHP, sizeof(PLAYERHP));
