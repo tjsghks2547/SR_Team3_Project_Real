@@ -161,6 +161,7 @@
     <ClInclude Include="..\Header\BugStatue.h" />
     <ClInclude Include="..\Header\BugStatuePuzzle.h" />
     <ClInclude Include="..\Header\Catapult.h" />
+    <ClInclude Include="..\Header\ColorStone.h" />
     <ClInclude Include="..\Header\CombinationPuzzle.h" />
     <ClInclude Include="..\Header\CombinationStatue.h" />
     <ClInclude Include="..\Header\CookBigFish.h" />
@@ -303,6 +304,7 @@
     <ClCompile Include="..\Code\BugStatue.cpp" />
     <ClCompile Include="..\Code\BugStatuePuzzle.cpp" />
     <ClCompile Include="..\Code\Catapult.cpp" />
+    <ClCompile Include="..\Code\ColorStone.cpp" />
     <ClCompile Include="..\Code\CombinationPuzzle.cpp" />
     <ClCompile Include="..\Code\CombinationStatue.cpp" />
     <ClCompile Include="..\Code\CookBigFish.cpp" />
