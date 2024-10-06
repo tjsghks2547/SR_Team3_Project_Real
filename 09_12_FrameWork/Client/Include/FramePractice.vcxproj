@@ -156,9 +156,11 @@
     <ClInclude Include="..\Header\BigRoot.h" />
     <ClInclude Include="..\Header\BoardCursor.h" />
     <ClInclude Include="..\Header\Branch.h" />
+    <ClInclude Include="..\Header\BreakableStone.h" />
     <ClInclude Include="..\Header\BuffUI.h" />
     <ClInclude Include="..\Header\BugStatue.h" />
     <ClInclude Include="..\Header\BugStatuePuzzle.h" />
+    <ClInclude Include="..\Header\Catapult.h" />
     <ClInclude Include="..\Header\CombinationPuzzle.h" />
     <ClInclude Include="..\Header\CombinationStatue.h" />
     <ClInclude Include="..\Header\CookBigFish.h" />
@@ -201,8 +203,12 @@
     <ClInclude Include="..\Header\Mohican.h" />
     <ClInclude Include="..\Header\MonkeyStatue.h" />
     <ClInclude Include="..\Header\Monster.h" />
+    <ClInclude Include="..\Header\MonsterHPUI.h" />
+    <ClInclude Include="..\Header\MonsterSlimeFast.h" />
     <ClInclude Include="..\Header\MoonForestMap.h" />
     <ClInclude Include="..\Header\MoonForestStage.h" />
+    <ClInclude Include="..\Header\MoonTempleMap.h" />
+    <ClInclude Include="..\Header\MoonTempleStage.h" />
     <ClInclude Include="..\Header\MusicStatue.h" />
     <ClInclude Include="..\Header\Net.h" />
     <ClInclude Include="..\Header\NoteStatue.h" />
@@ -253,6 +259,7 @@
     <ClInclude Include="..\Header\Stone.h" />
     <ClInclude Include="..\Header\StoneBlock.h" />
     <ClInclude Include="..\Header\StoneBlockHole.h" />
+    <ClInclude Include="..\Header\StoneHole.h" />
     <ClInclude Include="..\Header\StonePedestal.h" />
     <ClInclude Include="..\Header\StoreNPC.h" />
     <ClInclude Include="..\Header\StoreSelector.h" />
@@ -291,9 +298,11 @@
     <ClCompile Include="..\Code\BigRoot.cpp" />
     <ClCompile Include="..\Code\BoardCursor.cpp" />
     <ClCompile Include="..\Code\Branch.cpp" />
+    <ClCompile Include="..\Code\BreakableStone.cpp" />
     <ClCompile Include="..\Code\BuffUI.cpp" />
     <ClCompile Include="..\Code\BugStatue.cpp" />
     <ClCompile Include="..\Code\BugStatuePuzzle.cpp" />
+    <ClCompile Include="..\Code\Catapult.cpp" />
     <ClCompile Include="..\Code\CombinationPuzzle.cpp" />
     <ClCompile Include="..\Code\CombinationStatue.cpp" />
     <ClCompile Include="..\Code\CookBigFish.cpp" />
@@ -334,8 +343,12 @@
     <ClCompile Include="..\Code\Mohican.cpp" />
     <ClCompile Include="..\Code\MonkeyStatue.cpp" />
     <ClCompile Include="..\Code\Monster.cpp" />
+    <ClCompile Include="..\Code\MonsterHPUI.cpp" />
+    <ClCompile Include="..\Code\MonsterSlimeFast.cpp" />
     <ClCompile Include="..\Code\MoonForestMap.cpp" />
     <ClCompile Include="..\Code\MoonForestStage.cpp" />
+    <ClCompile Include="..\Code\MoonTempleMap.cpp" />
+    <ClCompile Include="..\Code\MoonTempleStage.cpp" />
     <ClCompile Include="..\Code\MusicStatue.cpp" />
     <ClCompile Include="..\Code\Net.cpp" />
     <ClCompile Include="..\Code\NoteStatue.cpp" />
@@ -385,6 +398,7 @@
     <ClCompile Include="..\Code\Stone.cpp" />
     <ClCompile Include="..\Code\StoneBlock.cpp" />
     <ClCompile Include="..\Code\StoneBlockHole.cpp" />
+    <ClCompile Include="..\Code\StoneHole.cpp" />
     <ClCompile Include="..\Code\StonePedestal.cpp" />
     <ClCompile Include="..\Code\StoreNPC.cpp" />
     <ClCompile Include="..\Code\StoreSelector.cpp" />

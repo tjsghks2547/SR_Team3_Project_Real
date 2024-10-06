@@ -1,18 +1,19 @@
 #include "pch.h"
 #include "Player.h"
 #include "Define.h"
+#include "Monster.h"
 #include "InvenUI.h"//1003
-
 #include "Export_System.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
     :Engine::CGameObject(pGraphicDev)
     , m_pCamera(nullptr)
     , m_ePlayerState(PLAYERSTATE::PLY_END)
-    , m_iPlayerDir(OBJ_DIRECTION::OBJDIR_FRONT)
-    , m_vPlayerCurrPos()
-    , m_vPlayerPrevPos()
+    //, m_iPlayerDir(OBJ_DIRECTION::OBJDIR_FRONT)
+    //, m_vPlayerCurrPos()
+    //, m_vPlayerPrevPos()
     , m_bIsDiagonal(false)
+    , m_bFixPlayerDir(false)
     , m_bSwingTrigger(false)
     , m_objInteractionBox(nullptr)
     , m_objInteracting(nullptr)
@@ -23,7 +24,10 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_bInvincible(false)
     , m_bPushTrigger(false)
     , m_bPassAble(true)
+    , m_vColPlayerPos(0.f, 0.f, 0.f)
+    , m_vColliderPos(0.f, 0.f, 0.f)
     // UI 관련 초기화
+
     , m_iPlayerCoin(10000), m_bInven(false), m_bQuest(false), m_bStoreVisit(false)
 
 {
@@ -41,11 +45,22 @@ HRESULT CPlayer::Ready_GameObject()
     //민지 임시 코드
     m_tPlayerHP.iCurHP = 5;
     m_tPlayerHP.iMaxHP = 6;
-
+    m_eTag = TAG_PLAYER;
     m_pTransformCom->m_vScale = { 20.f,20.f,20.f };
     m_pTransformCom->Set_Pos(200.f, 30.f, 500.f);
 
     m_pStateControlCom->ChangeState(PlayerIdle::GetInstance(), this);
+
+
+    D3DLIGHT9		tLightInfo;
+    ZeroMemory(&tLightInfo, sizeof(D3DLIGHT9));
+
+
+
+    //m_pGraphicDev->SetLight(0, &tLightInfo);    
+    //m_pGraphicDev->LightEnable(0, TRUE);    
+
+
     return S_OK;
 }
 
@@ -77,50 +92,38 @@ void CPlayer::LateReady_GameObject()
 
 _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 {
-    if (Get_Layer(L"Layer_GameLogic")->GetGameState() == GAMESTATE_NONE  ||
+    if (Get_Layer(L"Layer_GameLogic")->GetGameState() == GAMESTATE_NONE ||
         GetPlayerState() == PLAYERSTATE::PLY_DANCE)
     {
+        m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
+        NULL_CHECK_RETURN(m_pInven, 0);
+
+
         if (m_BuffArray[0]->Get_BuffTime() < m_BuffArray[1]->Get_BuffTime())
         {
-
-            m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
-            NULL_CHECK_RETURN(m_pInven, 0);
-
-
-
-            if (m_BuffArray[0]->Get_BuffTime() < m_BuffArray[1]->Get_BuffTime())
-            {
-                m_BuffArray[0]->Set_YPos(90.f);
-                m_BuffArray[1]->Set_YPos(175.f);
-            }
-            else
-            {
-                m_BuffArray[1]->Set_YPos(90.f);
-                m_BuffArray[0]->Set_YPos(175.f);
-            }
-            Engine::CGameObject::Update_GameObject(fTimeDelta);
+            m_BuffArray[0]->Set_YPos(90.f);
+            m_BuffArray[1]->Set_YPos(175.f);
         }
+        else
+        {
+            m_BuffArray[1]->Set_YPos(90.f);
+            m_BuffArray[0]->Set_YPos(175.f);
+        }
+        Engine::CGameObject::Update_GameObject(fTimeDelta);
     }
-
 
     Key_Input(fTimeDelta);
     Add_RenderGroup(RENDER_ALPHA, this);
-    
+
     return 0;
 }
 
 void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-
     if (Get_Layer(L"Layer_GameLogic")->GetGameState() == GAMESTATE_NONE ||
         GetPlayerState() == PLAYERSTATE::PLY_DANCE)
     {
         SetPlayerDirection();
-
-    m_pTransformCom->Get_Info(INFO_POS, &m_vPlayerCurrPos);
-    //hat->Set_ItemPos(m_vPlayerCurrPos);
-    SetPlayerDirection();
-
 
         m_pAnimationCom->Update_Component(fTimeDelta);
 
@@ -132,8 +135,44 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CPlayer::Render_GameObject()
 {
+    //m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+
+
+    //조명작업
+    //D3DLIGHT9 tLightInfo;
+    //ZeroMemory(&tLightInfo, sizeof(D3DLIGHT9)); // 구조체 초기화
+    //
+    //tLightInfo.Type = D3DLIGHT_POINT; // 점 조명 타입 설정
+    //
+    //// 조명 색상 설정
+    //tLightInfo.Diffuse = { 1.f, 1.f, 1.f, 0.5f }; // 확산 색상 (흰색)
+    //tLightInfo.Specular = { 1.f, 1.f, 1.f, 1.f }; // 반사 색상 (흰색)
+    //tLightInfo.Ambient = { 1.0f, 1.0f, 1.0f, 0.5f }; // 주위 색상 (어두운 회색)
+    //
+    //
+    //_vec3 vPos;
+    //m_pTransformCom->Get_Info(INFO_POS, &vPos);
+    //
+    //// 조명 위치 설정
+    //tLightInfo.Position = { vPos.x, vPos.y, vPos.z }; // 조명 위치 (x, y, z)
+    //
+    //
+    //
+    //
+    //// 조명 범위 및 감쇠 설정
+    //tLightInfo.Range = 100.0f; // 조명이 도달할 수 있는 최대 거리
+    //tLightInfo.Falloff = 1.0f; // 감쇠 비율
+    //tLightInfo.Attenuation0 = 1.0f; // 고정 감쇠 계수
+    //tLightInfo.Attenuation1 = 0.005f; // 거리 감쇠 계수
+    //tLightInfo.Attenuation2 = 0.f; // 거리 제곱 감쇠 계수
+    //
+    //// 조명 정보 설정
+    //m_pGraphicDev->SetLight(0, &tLightInfo); // 조명 인덱스 0에 조명 정보 설정  
+    //m_pGraphicDev->LightEnable(0, TRUE); // 조명 인덱스 0의 조명 활성화    
+    //
+    //테스트
 
 
     if (m_bIsDiagonal)
@@ -143,20 +182,18 @@ void CPlayer::Render_GameObject()
 
     //Print_PlayerState();
 
-
     //FAILED_CHECK_RETURN(SetUp_Material(), );
 
-    m_pAnimationCom->Render_Buffer();   
-    m_equipHat->Render_GameObject();
-    
-
     m_pAnimationCom->Render_Buffer();
-    //hat->Render_GameObject();
-
+    m_equipHat->Render_GameObject();
 
     //9월 25일 충돌관련
-    m_pBoundBox->Render_Buffer();
+    if (!m_bInvincible)
+        m_pBoundBox->Render_Buffer();
 
+
+
+    //m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);  // 이거 설정안해주면 안됨 전역적으로 장치세팅이 저장되기 때문에
     m_pGraphicDev->SetTexture(0, NULL);  // 이거 설정안해주면 그대로 텍스처 나옴 이것도 마찬가지로 전역적으로 장치세팅이 되므로
 }
@@ -166,6 +203,19 @@ void CPlayer::OnCollisionEnter(CGameObject* _pOther)
     if (_pOther->IncludingType(OBJ_TYPE::NOTPASS_ABLE))
     {
         m_bPassAble = false;
+        m_pTransformCom->Get_Info(INFO_POS, &m_vColPlayerPos);
+        dynamic_cast<CTransform*>(
+            _pOther->Get_Component(ID_DYNAMIC, L"Com_Transform")
+            )->Get_Info(INFO_POS, &m_vColliderPos);
+    }
+
+    if (_pOther->IncludingType(OBJ_TYPE::HURT_ABLE))
+    {
+        if (m_bInvincible || !dynamic_cast<CMonster*>(_pOther)->GetActivation())
+            return;
+
+        m_pStateControlCom->ChangeState(PlayerHurt::GetInstance(), this);
+        //SetPlayerCurHP(-1);
     }
 }
 
@@ -174,88 +224,50 @@ void CPlayer::OnCollisionExit(CGameObject* _pOther)
     if (_pOther->IncludingType(OBJ_TYPE::NOTPASS_ABLE))
     {
         m_bPassAble = true;
-    }
+        m_vColPlayerPos.x = 0.f;
+        m_vColPlayerPos.y = 0.f;
+        m_vColPlayerPos.z = 0.f;
 
+        m_vColliderPos.x = 0.f;
+        m_vColliderPos.y = 0.f;
+        m_vColliderPos.z = 0.f;
+    }
 }
 
 void CPlayer::SetPlayerDirection()
 {
-    int num = 0;
-    m_vPlayerDir = m_vPlayerCurrPos - m_vPlayerPrevPos;
-    D3DXVec3Normalize(&m_vPlayerDir, &m_vPlayerDir);
+    if (m_bFixPlayerDir)
+        return;
 
-    if (m_vPlayerDir.x > 0)
+    _vec3 num;
+    num.x = 0; num.y = 0; num.z = 0;
+
+    if (Engine::GetKeyPress(CONTROLKEY::PLY_UPKEY))
     {
-        if (m_vPlayerDir.z > 0)
-        {
-            num = OBJ_DIRECTION::OBJDIR_RIGHT | OBJ_DIRECTION::OBJDIR_BACK;
-            m_bIsDiagonal = true;
-        }
-
-
-        else if (m_vPlayerDir.z == 0)
-        {
-            num = OBJ_DIRECTION::OBJDIR_RIGHT;
-            m_bIsDiagonal = false;
-        }
-
-
-        else if (m_vPlayerDir.z < 0)
-        {
-            num = OBJ_DIRECTION::OBJDIR_RIGHT | OBJ_DIRECTION::OBJDIR_FRONT;
-            m_bIsDiagonal = true;
-        }
-
+        num.z -= OBJ_DIRECTION::OBJDIR_FRONT;
     }
 
-    else if (m_vPlayerDir.x == 0)
+    if (Engine::GetKeyPress(CONTROLKEY::PLY_DOWNKEY))
     {
-        if (m_vPlayerDir.z > 0)
-        {
-            m_bIsDiagonal = false;
-            num = OBJ_DIRECTION::OBJDIR_BACK;
-        }
-
-        else if (m_vPlayerDir.z == 0)
-            num = m_iPlayerDir; //-> 해당방향 그대로 유지
-
-        else if (m_vPlayerDir.z < 0)
-        {
-            m_bIsDiagonal = false;
-            num = OBJ_DIRECTION::OBJDIR_FRONT;
-        }
-
+        num.z += OBJ_DIRECTION::OBJDIR_FRONT;
     }
 
-    else if (m_vPlayerDir.x < 0)
+    if (Engine::GetKeyPress(CONTROLKEY::PLY_LEFTKEY))
     {
-        if (m_vPlayerDir.z > 0)
-        {
-            num = OBJ_DIRECTION::OBJDIR_LEFT | OBJ_DIRECTION::OBJDIR_BACK;
-            m_bIsDiagonal = true;
-        }
+        num.x -= OBJ_DIRECTION::OBJDIR_FRONT;
+    }
 
-
-        else if (m_vPlayerDir.z == 0)
-        {
-            num = OBJ_DIRECTION::OBJDIR_LEFT;
-            m_bIsDiagonal = false;
-        }
-
-        else if (m_vPlayerDir.z < 0)
-        {
-            num = OBJ_DIRECTION::OBJDIR_LEFT | OBJ_DIRECTION::OBJDIR_FRONT;
-            m_bIsDiagonal = true;
-        }
+    if (Engine::GetKeyPress(CONTROLKEY::PLY_RIGHTKEY))
+    {
+        num.x += OBJ_DIRECTION::OBJDIR_FRONT;
     }
 
     ////////////////////////////////////////////////////////////////////////
-    if (num == m_iPlayerDir)
+    if (num == m_vPlayerDir)
         return;
-
     // 방향이 이전과 다르면 애니메이션 갱신
-    m_iPlayerDir = num;
-    m_pAnimationCom->SetAnimDir(m_ePlayerState, m_iPlayerDir, m_bIsDiagonal);
+    m_vPlayerDir = num;
+    m_pAnimationCom->SetAnimDir(m_ePlayerState, m_vPlayerDir, m_bIsDiagonal);
 }
 
 void CPlayer::ChangePickUpState()
@@ -277,6 +289,24 @@ void CPlayer::DurationInvincible(const _float& fTimeDelta)
     }
 }
 
+HRESULT CPlayer::SetUp_Material()
+{
+    D3DMATERIAL9 tMtrl; // 재질 구조체
+    ZeroMemory(&tMtrl, sizeof(D3DMATERIAL9)); // 구조체 초기화
+
+    // 재질 색상 설정
+    tMtrl.Diffuse = { 1.f, 1.f, 1.f, 1.f }; // 확산 색상 (빨간색)
+    tMtrl.Specular = { 1.f, 1.f, 1.f, 1.f }; // 반사 색상 (흰색)
+    tMtrl.Ambient = { 1.f, 1.f, 1.f, 1.f }; // 주위 색상 (어두운 회색)
+    tMtrl.Emissive = { 1.f, 1.f, 1.f, 1.f }; // 방출 색상 (검은색)
+    tMtrl.Power = 0.f; // 반사 강도 설정
+
+    // 재질 적용
+    m_pGraphicDev->SetMaterial(&tMtrl); // 재질 설정
+
+    return S_OK;
+}
+
 HRESULT CPlayer::Add_Component()
 {
     CComponent* pComponent = NULL;
@@ -296,10 +326,6 @@ HRESULT CPlayer::Add_Component()
     pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
-
-    pComponent = m_pCCalculatorCom = dynamic_cast<CCalculator*>(Engine::Clone_Proto(L"Proto_Calculator"));
-    NULL_CHECK_RETURN(pComponent, E_FAIL);
-    m_mapComponent[ID_DYNAMIC].insert({ L"Com_Calculator", pComponent });
 
     pComponent = m_pStateControlCom = dynamic_cast<CStateController*>(Engine::Clone_Proto(L"Proto_State"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
@@ -469,25 +495,6 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
         m_bInvincible ^= TRUE;
 }
 
-<<<<<<< HEAD
-=======
-_vec3 CPlayer::Piking_OnTerrain()
-{
-    CTerrainTex* pTerrainBufferCom = dynamic_cast<CTerrainTex*>(Engine::Get_Component(ID_STATIC, L"Layer_GameLogic", L"Terrain", L"Com_Buffer"));
-    NULL_CHECK_RETURN(pTerrainBufferCom, _vec3());
-
-    CTransform* pTerrainTransCom = dynamic_cast<CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_GameLogic", L"Terrain", L"Com_Transform"));
-    NULL_CHECK_RETURN(pTerrainTransCom, _vec3());
-
-    return m_pCCalculatorCom->Picking_OnTerrian(g_hWnd, pTerrainBufferCom, pTerrainTransCom);
-}
-
-void CPlayer::Print_PlayerState()
-{
-
-}
-
->>>>>>> origin/main
 CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
     CPlayer* pPlayer = new CPlayer(pGraphicDev);
