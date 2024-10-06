@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Item.h"
+#include "Player.h"
 
 BEGIN(Engine)
 
@@ -30,6 +31,7 @@ public:
 		m_pItemTextureCom->Set_Texture();
 	}
 	void	  Render_Text();
+
 private:
 	HRESULT    Add_Component();
 
@@ -45,6 +47,7 @@ private:
 
 	CItem::ITEM_INFO		m_tCopyInfo;
 
+	CPlayer* m_pPlayer;
 public:
 	static CItemUI* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 

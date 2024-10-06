@@ -115,9 +115,6 @@
     <Filter Include="04. Component\02. Texture\03. Calculator">
       <UniqueIdentifier>{d70971f5-fdb5-4002-98fb-07c720b3edca}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. Component\06. Puzzle\Plant Orb">
-      <UniqueIdentifier>{90c1701f-ef00-4306-b6e6-42a4645ae6b0}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Header\Management.h">
@@ -228,9 +225,6 @@
     <ClInclude Include="..\..\Header\Animation2.h">
       <Filter>04. Component\07. Animatior2\Animation2</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Header\PlantOrbCom.h">
-      <Filter>04. Component\06. Puzzle\Plant Orb</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\Management.cpp">
@@ -241,6 +235,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\Layer.cpp">
       <Filter>02. Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\GameObject.cpp">
+      <Filter>03. GameObject</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Component.cpp">
       <Filter>04. Component</Filter>
@@ -332,11 +329,11 @@
     <ClCompile Include="..\Code\Animation2.cpp">
       <Filter>04. Component\07. Animatior2\Animation2</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\GameObject.cpp">
-      <Filter>03. GameObject\Puzzle Object</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\PlantOrbCom.cpp">
       <Filter>04. Component\06. Puzzle\Plant Orb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\GameObject.cpp">
+      <Filter>03. GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

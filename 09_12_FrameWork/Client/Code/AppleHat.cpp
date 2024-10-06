@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "AppleHat.h"
+#include "Player.h"
 
 CAppleHat::CAppleHat(LPDIRECT3DDEVICE9 pGraphicDev)
     :CItem(pGraphicDev)
@@ -45,6 +46,12 @@ void CAppleHat::Render_GameObject()
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	m_pTextureCom->Set_Texture();
 	m_pBufferCom->Render_Buffer();
+}
+
+void CAppleHat::Use_Item()
+{
+	m_pEquipHat = m_pPlayer->GetEquipHat();
+	m_pEquipHat->SetHatTexture(m_pTextureCom);
 }
 
 HRESULT CAppleHat::Add_Component()

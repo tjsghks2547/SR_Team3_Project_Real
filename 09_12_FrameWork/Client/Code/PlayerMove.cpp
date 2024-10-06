@@ -13,7 +13,8 @@ void PlayerMove::Enter()
 
     m_fMoveSpeed = 50.f;
     (dynamic_cast<CPlayer*>(m_CGameObject))->SetMoveSpeed(m_fMoveSpeed);
-
+    float fItemMoveSpeed = (dynamic_cast<CPlayer*>(m_CGameObject))->GetItemMoveSpeed();
+    m_fMoveSpeed += fItemMoveSpeed;
 
 }
 
@@ -68,7 +69,6 @@ void PlayerMove::Key_Input(const _float& fTimeDelta)
         if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPassAble() ||
             (abs(colDir.x) > 0.71 || colDir.z < 0.69))
         {
-            (dynamic_cast<CPlayer*>(m_CGameObject))->SetMoveSpeed(m_fMoveSpeed);
             m_pTransformCom->Move_Pos(D3DXVec3Normalize(
                 &vLook, &vLook), fTimeDelta, m_fMoveSpeed);
         }
@@ -79,7 +79,6 @@ void PlayerMove::Key_Input(const _float& fTimeDelta)
         if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPassAble() ||
             (abs(colDir.x) > 0.71 || colDir.z > -0.69))
         {
-            (dynamic_cast<CPlayer*>(m_CGameObject))->SetMoveSpeed(m_fMoveSpeed);
             m_pTransformCom->Move_Pos(D3DXVec3Normalize(
                 &vLook, &vLook), fTimeDelta, -m_fMoveSpeed);
         }
@@ -90,7 +89,6 @@ void PlayerMove::Key_Input(const _float& fTimeDelta)
         if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPassAble() ||
             (abs(colDir.z) > 0.71 || colDir.x > -0.69))
         {
-            (dynamic_cast<CPlayer*>(m_CGameObject))->SetMoveSpeed(m_fMoveSpeed);
             m_pTransformCom->Move_Pos(D3DXVec3Normalize(
                 &vRight, &vRight), fTimeDelta, -m_fMoveSpeed);
         }
@@ -102,7 +100,6 @@ void PlayerMove::Key_Input(const _float& fTimeDelta)
         if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPassAble() ||
             (abs(colDir.z) > 0.71 || colDir.x < 0.69))
         {
-            (dynamic_cast<CPlayer*>(m_CGameObject))->SetMoveSpeed(m_fMoveSpeed);
             m_pTransformCom->Move_Pos(D3DXVec3Normalize(
                 &vRight, &vRight), fTimeDelta, m_fMoveSpeed);
         }

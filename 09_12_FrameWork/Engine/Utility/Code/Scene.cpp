@@ -32,6 +32,16 @@ CGameObject* CScene::Get_GameObject(const _tchar* pLayeTag, const _tchar* pObjTa
 	return iter->second->Get_GameObject(pLayeTag, pObjTag);
 }
 
+CLayer* CScene::Get_Layer(const _tchar* pLayerTag)
+{
+	auto iter = find_if(m_mapLayer.begin(), m_mapLayer.end(), CTag_Finder(pLayerTag));
+
+	if (iter == m_mapLayer.end())
+		return nullptr;
+
+	return iter->second;
+}
+
 HRESULT CScene::Ready_Scene()
 {
 	return S_OK;

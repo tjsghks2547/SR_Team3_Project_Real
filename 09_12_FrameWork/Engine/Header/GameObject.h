@@ -2,6 +2,7 @@
 
 #include "Base.h"
 #include "Component.h"
+//#include "Layer.h"
 #include "Collider.h"
 
 BEGIN(Engine)
@@ -16,6 +17,7 @@ protected:
 
 public:
 	CComponent* Get_Component(COMPONENTID eID, const _tchar* pComponentTag);
+
 	//0913
 	_float				Get_ViewZ() const { return m_fViewZ; }
 
@@ -66,15 +68,21 @@ public:
 
 	void SetObjectType(int _iObjType) { m_iObjType = _iObjType; }
 	int GetObjectType() { return m_iObjType; }
-	_bool IncludingType(OBJ_TYPE _eType)
-	{
-		return m_iObjType & _eType;
-	}
+	_bool IncludingType(OBJ_TYPE _eType) { return m_iObjType & _eType; }
 
 public:
-	virtual void OnCollision(CGameObject* _pOther) {  };
-	virtual void OnCollisionEnter(CGameObject* _pOther) {  };
-	virtual void OnCollisionExit(CGameObject* _pOther) {  };
+	virtual void OnCollision(CGameObject* _pOther)
+	{
+		
+	}
+	virtual void OnCollisionEnter(CGameObject* _pOther)
+	{
+		
+	}
+	virtual void OnCollisionExit(CGameObject* _pOther)
+	{ 
+		
+	}
 };
 
 END

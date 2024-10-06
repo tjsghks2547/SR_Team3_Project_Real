@@ -1,6 +1,7 @@
 #include "Layer.h"
 
 CLayer::CLayer()
+	: m_eGameState(GAMESTATE_NONE)
 {
 }
 

@@ -76,9 +76,6 @@
     <Filter Include="02. GameObject\01. Entity\01. Player\State">
       <UniqueIdentifier>{a42c768b-ce43-4301-9e73-eb6ba9227dbd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\03. Terrain">
-      <UniqueIdentifier>{04e535d0-ebd6-4f3f-b0c5-71e12c38c66f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\04. DynamicCamera">
       <UniqueIdentifier>{a8d78f72-dda9-40ad-82df-1fcf68dd8f47}</UniqueIdentifier>
     </Filter>
@@ -169,7 +166,6 @@
     <Filter Include="02. GameObject\11. UI\01. InvenUI">
       <UniqueIdentifier>{346f8069-d9f4-488f-9088-15ac45f039e2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\01. Entity\03. Terrain" />
     <Filter Include="02. GameObject\09. Puzzle\00. Common Object">
       <UniqueIdentifier>{9c246355-1a19-4509-bc00-a124a5a0223a}</UniqueIdentifier>
     </Filter>
@@ -284,9 +280,6 @@
     <Filter Include="02. GameObject\07. Map\03.JungleForestMap">
       <UniqueIdentifier>{6021e17d-67bf-4647-9994-560ed2778a3a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\11. UI\05. MonsterHPUI">
-      <UniqueIdentifier>{5f02926f-426d-4043-9c08-65b149e58dc1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\11. UI\05. BuffUI">
       <UniqueIdentifier>{674113ab-d04b-4277-92ca-04c88ff8e6b3}</UniqueIdentifier>
     </Filter>
@@ -344,8 +337,12 @@
     <Filter Include="01. Scene\07. MoonTempleStage">
       <UniqueIdentifier>{80a70c4f-ba82-4581-b30e-1d6cfbe7a57a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\11. UI\04. StoreUI\StoreSelector">
-      <UniqueIdentifier>{1bf1d25f-20ab-4b9e-9f76-a8edc12095e6}</UniqueIdentifier>
+    <Filter Include="02. GameObject\03. Terrain" />
+    <Filter Include="02. GameObject\15. EquipHat">
+      <UniqueIdentifier>{262a8c01-95e5-4011-b117-31122d515f42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\11. UI\07. MonsterUI">
+      <UniqueIdentifier>{dfad8560-ed16-43f4-b8e4-8acf049298cc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -386,7 +383,7 @@
       <Filter>01. Scene\02. Loading</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Terrain.h">
-      <Filter>02. GameObject\01. Entity\03. Terrain</Filter>
+      <Filter>02. GameObject\03. Terrain</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\DynamicCamera.h">
       <Filter>02. GameObject\04. DynamicCamera</Filter>
@@ -712,12 +709,6 @@
     <ClInclude Include="..\Header\JungleForestMap.h">
       <Filter>02. GameObject\07. Map\03.JungleForestMap</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\MonsterHPUI.h">
-      <Filter>02. GameObject\11. UI\05. MonsterHPUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\MonsterSlimeFast.h">
-      <Filter>02. GameObject\01. Entity\02. Monster</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\InteractionButton.h">
       <Filter>02. GameObject\11. UI\99. ButtonUI\TextBttn</Filter>
     </ClInclude>
@@ -748,38 +739,41 @@
     <ClInclude Include="..\Header\Sheep.h">
       <Filter>02. GameObject\12. NPC\00. QuestNPC\01. Sheep</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\PlantOrb.h">
+      <Filter>02. GameObject\09. Puzzle\Shooting Plant\Plant Orb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PlayerPickUp.h">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\EquipHat.h">
+      <Filter>02. GameObject\15. EquipHat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\MonsterSlimeFast.h">
+      <Filter>02. GameObject\01. Entity\02. Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\MonsterHPUI.h">
+      <Filter>02. GameObject\11. UI\07. MonsterUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\MoonTempleMap.h">
+      <Filter>02. GameObject\07. Map\05.MoonTempleMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\MoonTempleStage.h">
+      <Filter>01. Scene\07. MoonTempleStage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Catapult.h">
+      <Filter>02. GameObject\09. Puzzle\Catapult</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ColorStone.h">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\04. Color Stone</Filter>
+    </ClInclude>
     <ClInclude Include="..\Header\StoneHole.h">
       <Filter>02. GameObject\09. Puzzle\00. Common Object\05. Stone Hole</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\BreakableStone.h">
       <Filter>02. GameObject\09. Puzzle\00. Common Object\06. Breakable Stone</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\ColorStone.h">
-      <Filter>02. GameObject\09. Puzzle\00. Common Object\04. Color Stone</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\FlowerGlow.h">
-      <Filter>02. GameObject\09. Puzzle\Light Flower\FlowerGlow</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\LightFlower.h">
-      <Filter>02. GameObject\09. Puzzle\Light Flower</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\ShootingPlant.h">
-      <Filter>02. GameObject\09. Puzzle\Shooting Plant</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\PlantOrb.h">
-      <Filter>02. GameObject\09. Puzzle\Shooting Plant\Plant Orb</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Catapult.h">
-      <Filter>02. GameObject\09. Puzzle\Catapult</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\MoonTempleStage.h">
-      <Filter>01. Scene\07. MoonTempleStage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\MoonTempleMap.h">
-      <Filter>02. GameObject\07. Map\05.MoonTempleMap</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\StoreSelector.h">
-      <Filter>02. GameObject\11. UI\04. StoreUI\StoreSelector</Filter>
+      <Filter>02. GameObject\11. UI\04. StoreUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -805,7 +799,7 @@
       <Filter>01. Scene\02. Loading</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Terrain.cpp">
-      <Filter>02. GameObject\01. Entity\03. Terrain</Filter>
+      <Filter>02. GameObject\03. Terrain</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\DynamicCamera.cpp">
       <Filter>02. GameObject\04. DynamicCamera</Filter>
@@ -1137,12 +1131,6 @@
     <ClCompile Include="..\Code\JungleForestMap.cpp">
       <Filter>02. GameObject\07. Map\03.JungleForestMap</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\MonsterHPUI.cpp">
-      <Filter>02. GameObject\11. UI\05. MonsterHPUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\MonsterSlimeFast.cpp">
-      <Filter>02. GameObject\01. Entity\02. Monster</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\InteractionButton.cpp">
       <Filter>02. GameObject\11. UI\99. ButtonUI\TextBttn</Filter>
     </ClCompile>
@@ -1173,38 +1161,41 @@
     <ClCompile Include="..\Code\Cow.cpp">
       <Filter>02. GameObject\12. NPC\00. QuestNPC\03. Cow</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\PlantOrb.cpp">
+      <Filter>02. GameObject\09. Puzzle\Shooting Plant\Plant Orb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PlayerPickUp.cpp">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\EquipHat.cpp">
+      <Filter>02. GameObject\15. EquipHat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MonsterSlimeFast.cpp">
+      <Filter>02. GameObject\01. Entity\02. Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MonsterHPUI.cpp">
+      <Filter>02. GameObject\11. UI\07. MonsterUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MoonTempleMap.cpp">
+      <Filter>02. GameObject\07. Map\05.MoonTempleMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MoonTempleStage.cpp">
+      <Filter>01. Scene\07. MoonTempleStage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Catapult.cpp">
+      <Filter>02. GameObject\09. Puzzle\Catapult</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ColorStone.cpp">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\04. Color Stone</Filter>
+    </ClCompile>
     <ClCompile Include="..\Code\StoneHole.cpp">
       <Filter>02. GameObject\09. Puzzle\00. Common Object\05. Stone Hole</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\BreakableStone.cpp">
       <Filter>02. GameObject\09. Puzzle\00. Common Object\06. Breakable Stone</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\ColorStone.cpp">
-      <Filter>02. GameObject\09. Puzzle\00. Common Object\04. Color Stone</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\FlowerGlow.cpp">
-      <Filter>02. GameObject\09. Puzzle\Light Flower\FlowerGlow</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\LightFlower.cpp">
-      <Filter>02. GameObject\09. Puzzle\Light Flower</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\ShootingPlant.cpp">
-      <Filter>02. GameObject\09. Puzzle\Shooting Plant</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\PlantOrb.cpp">
-      <Filter>02. GameObject\09. Puzzle\Shooting Plant\Plant Orb</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\Catapult.cpp">
-      <Filter>02. GameObject\09. Puzzle\Catapult</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\MoonTempleStage.cpp">
-      <Filter>01. Scene\07. MoonTempleStage</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\MoonTempleMap.cpp">
-      <Filter>02. GameObject\07. Map\05.MoonTempleMap</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\StoreSelector.cpp">
-      <Filter>02. GameObject\11. UI\04. StoreUI\StoreSelector</Filter>
+      <Filter>02. GameObject\11. UI\04. StoreUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

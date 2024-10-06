@@ -126,9 +126,9 @@ void CBigRoot::OnCollision(CGameObject* _pOther)
 	if (GetKeyDown(DIK_A)) //ащ╠Б
 	{
 		CBigRoot::g_Acquired = true;
-		m_pItemUI->CallItemUI(true);
+		/*m_pItemUI->CallItemUI(true);
 		m_pItemUI->Set_Texture(m_pTextureCom);
-		m_pItemUI->Set_Text(m_tInfo);
+		m_pItemUI->Set_Text(m_tInfo);*/
 		m_pInven->Add_Item(dynamic_cast<CItem*>(this));
 	}
 }

@@ -1,8 +1,10 @@
 #include "pch.h"
 #include "ExploreHat.h"
+#include "Player.h"
 
 CExploreHat::CExploreHat(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CItem(pGraphicDev)
+	, m_pEquipHat(nullptr)
 {
 }
 
@@ -50,6 +52,13 @@ void CExploreHat::Render_GameObject()
 
 	m_pTextureCom->Set_Texture();
 	m_pBufferCom->Render_Buffer();
+}
+
+void CExploreHat::Use_Item()
+{
+	m_pPlayer->SetItemMoveSpeed(50);
+	m_pEquipHat = m_pPlayer->GetEquipHat();
+	m_pEquipHat->SetHatTexture(m_pTextureCom);
 }
 
 HRESULT CExploreHat::Add_Component()

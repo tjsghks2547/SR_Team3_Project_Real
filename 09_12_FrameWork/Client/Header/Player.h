@@ -11,6 +11,8 @@
 #include "PlayerSmash.h"
 #include "PlayerRolling.h"
 #include "PlayerHurt.h"
+#include "PlayerPickUp.h"
+#include "EquipHat.h"
 #include "Export_Utility.h"
 
 //민지
@@ -65,18 +67,6 @@ class CCollider;
 END
 
 class CBuffUI;//1003
-
-struct PLAYERINFO
-{
-	_int iCurrHP;
-	_int iMaxHP;
-
-	// 플레이어 장비/인벤토리 관련
-	_int m_iCurrCoin;
-	_int m_iEquippedHat_IndexNumber;
-	// 
-};
-
 class CPlayer : public Engine::CGameObject
 {
 private:
@@ -159,23 +149,23 @@ public:
 	void			DisableDiagonal() { m_bIsDiagonal = false; }
 	// 물체랑 부딪혀도 통과할 수 있는지 판단합니다. 리턴값이 false 플레이어가 움직이지 않습니다.
 	_bool			GetPassAble() { return m_bPassAble; }
-	///////////////////////////////////////////////////////////////////////////
 
-	///////////////////////////////////////////////////////////////////////////
+	// 플레이어 상태를 아이템 획득 모션으로 변경합니다.
+	void			ChangePickUpState();
 
 	// 플레이어 능력치 관련 //////////////////////////////////////////////////////
 	float			GetMoveSpeed() { return m_fMoveSpeed; }
 	void			SetMoveSpeed(float _fSpeed) { m_fMoveSpeed = _fSpeed; }
-	
-	
+	float			GetItemMoveSpeed() { return m_fItemMoveSpeed; }
+	void			SetItemMoveSpeed(float _itemSpeed) { m_fItemMoveSpeed += _itemSpeed; }
+
+	int				GetItemAttackPower() { return m_iItemAttackPower; }
+	void			SetItemAttackPower(int _itemPower) { m_iItemAttackPower += _itemPower; }
 	//민지
-
-	//1005추가
+	_bool           GetVisitingStore() { return m_bStoreVisit; }
+	void            SetVisitingStore(_bool _bVisit) { m_bStoreVisit = _bVisit; }
 	_int			GetPlayerCoin() { return m_iPlayerCoin; }
-	void			SetPlayerCoin(_int _iCoin) { m_iPlayerCoin += _iCoin; }
-	_bool			GetVisitingStore() { return m_bStoreVisit; }
-	void			SetVisitingStore(_bool _bVisit) { m_bStoreVisit = _bVisit; }
-
+	void            SetPlayerCoin(_int _iCoin) { m_iPlayerCoin += _iCoin; }
 	PLAYERHP		GetPlayerHP() { return m_tPlayerHP; }
 	_bool			GetPlayerQuestUI() { return m_bQuest; }//0928
 	_bool			GetPlayerInven() { return m_bInven; }
@@ -192,8 +182,16 @@ public:
 		m_tPlayerHP.iMaxHP = _SetHP;
 	}
 	//1003
-	void			SetPowerTime(_int _SetTime) { m_BuffArray[0]->Set_BuffTime(_SetTime); }
-	void			SetSpeedTime(_int _SetTime) { m_BuffArray[1]->Set_BuffTime(_SetTime); }
+	void			SetPowerTime(_int _SetTime, _float _SetPower = 10.f)
+	{
+		m_BuffArray[0]->Set_BuffTime(_SetTime);
+		m_iItemAttackPower = _SetPower;
+	}
+	void			SetSpeedTime(_int _SetTime, _float _SetSpeed = 20.f)
+	{
+		m_BuffArray[1]->Set_BuffTime(_SetTime);
+		m_fItemMoveSpeed = _SetSpeed;
+	}
 
 
 	void			SetInvincible(_bool value = true) { m_bInvincible = value; }
@@ -205,9 +203,9 @@ public:
 	////////////////////////////////////////////////////////////////////////////
 	CCamera* GetCamera() { return m_pCamera; }
 	void			SetCamera(CCamera* _camera) { m_pCamera = _camera; }
-	CItem* hat;
 
-
+	void			SetEquipHat(CEquipHat* _equipHat) { m_equipHat = _equipHat; }
+	CEquipHat* GetEquipHat() { return m_equipHat; }
 	//조명 예시 
 	HRESULT			SetUp_Material();
 
@@ -225,33 +223,33 @@ private:
 	Engine::CTexture* m_pTextureCom;
 	Engine::CAnimation* m_pAnimationCom;
 	Engine::CCamera* m_pCamera;
-	//Engine::CCalculator*		m_pCCalculatorCom;
 	Engine::CStateController* m_pStateControlCom;
 	Engine::CCollider* m_pBoundBox;
 
 	PLAYERSTATE					m_ePlayerState;
-	//int							m_iPlayerDir;
-	bool						m_bIsDiagonal;
 
-	// 현재 프레임 - 이전 프레임 하여 플레이어가 이동한 방향을 알아냄
-	//_vec3						m_vPlayerCurrPos;
-	//_vec3						m_vPlayerPrevPos;
+	_bool						m_bIsDiagonal;
 	_vec3						m_vPlayerDir;
 	_bool						m_bFixPlayerDir;
 
 	_bool						m_bSwingTrigger;
 	_bool						m_bPushTrigger;
-	CGameObject* m_objInteractionBox;  // 상호작용할 박스
-	CGameObject* m_objInteracting;     // 그 박스와 충돌 중인 오브젝트
+
 	_vec3						m_vColPlayerPos;
 	_vec3						m_vColliderPos;
 
 	_bool						m_bPassAble;
-	float						m_fMoveSpeed;
 	_bool						m_bInvincible;
 
+	_int						m_iAttackPower;
+	_int						m_iItemAttackPower;
+	_float						m_fMoveSpeed;
+	_float						m_fItemMoveSpeed;
 
 
+	CGameObject* m_objInteractionBox;  // 상호작용할 박스
+	CGameObject* m_objInteracting;     // 그 박스와 충돌 중인 오브젝트
+	CEquipHat* m_equipHat;
 	//민지
 	CBuffUI* m_BuffArray[2];
 

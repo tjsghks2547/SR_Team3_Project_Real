@@ -77,7 +77,10 @@ public:
 	virtual   void      LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual   void      Render_GameObject();
 
-	virtual   void      Use_Item() {}
+	virtual   void      Use_Item()
+	{
+		//Engine::Get_Layer(L"Layer_GameLogic")->SetGameState(GAMESTATE_NONE);
+	}
 	void				Render_QuickItem();
 	void				Render_ItemView();
 

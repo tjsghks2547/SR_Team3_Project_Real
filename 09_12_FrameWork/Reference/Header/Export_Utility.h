@@ -54,6 +54,7 @@ inline	void				Render_Scene(LPDIRECT3DDEVICE9 pGraphicDev);
 //9월 5일 이후 추가한 코드 
 inline CGameObject*         Get_GameObject(const _tchar* pLayeTag, const _tchar* pObjTag);
 inline CScene* Get_CurScenePtr();
+inline CLayer* Get_Layer(const _tchar* pLayerTag);
 
 // ComponentMgr
 

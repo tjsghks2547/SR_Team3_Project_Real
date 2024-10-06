@@ -40,37 +40,53 @@ void PlayerLiftMove::Key_Input(const _float& fTimeDelta)
 
     _vec3  vLook;
     _vec3  vRight;
-
     m_pTransformCom->Get_Info(INFO_LOOK, &vLook);
     m_pTransformCom->Get_Info(INFO_RIGHT, &vRight);
 
+    _vec3 colPos = (dynamic_cast<CPlayer*>(m_CGameObject))->GetColliderPos();
+    _vec3 colPlayerPos = (dynamic_cast<CPlayer*>(m_CGameObject))->GetColPlayerPos();
+    _vec3 colDir = colPos - colPlayerPos; // 플레이어에서 충돌체로 가는 벡터
+    D3DXVec3Normalize(&colDir, &colDir);  // 충돌 했을 때 충돌체 방향
 
-    if (Engine::GetKeyPress(DIK_UP))
+    if (Engine::GetKeyPress(CONTROLKEY::PLY_UPKEY))
     {
-        m_pTransformCom->Move_Pos(
-            D3DXVec3Normalize(&vLook, &vLook), fTimeDelta, m_fMoveSpeed);
+        if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPassAble() ||
+            (abs(colDir.x) > 0.71 || colDir.z < 0.69))
+        {
+            m_pTransformCom->Move_Pos(D3DXVec3Normalize(
+                &vLook, &vLook), fTimeDelta, m_fMoveSpeed);
+        }
+    }
+
+    if (Engine::GetKeyPress(CONTROLKEY::PLY_DOWNKEY))
+    {
+        if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPassAble() ||
+            (abs(colDir.x) > 0.71 || colDir.z > -0.69))
+        {
+            m_pTransformCom->Move_Pos(D3DXVec3Normalize(
+                &vLook, &vLook), fTimeDelta, -m_fMoveSpeed);
+        }
+    }
+
+    if (Engine::GetKeyPress(CONTROLKEY::PLY_LEFTKEY))
+    {
+        if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPassAble() ||
+            (abs(colDir.z) > 0.71 || colDir.x > -0.69))
+        {
+            m_pTransformCom->Move_Pos(D3DXVec3Normalize(
+                &vRight, &vRight), fTimeDelta, -m_fMoveSpeed);
+        }
 
     }
 
-
-    if (Engine::GetKeyPress(DIK_DOWN))
+    if (Engine::GetKeyPress(CONTROLKEY::PLY_RIGHTKEY))
     {
-        m_pTransformCom->Move_Pos(D3DXVec3Normalize(
-            &vLook, &vLook), fTimeDelta, -m_fMoveSpeed);
-    }
-
-
-    if (Engine::GetKeyPress(DIK_LEFT))
-    {
-        m_pTransformCom->Move_Pos(D3DXVec3Normalize(
-            &vRight, &vRight), fTimeDelta, -m_fMoveSpeed);
-    }
-
-
-    if (Engine::GetKeyPress(DIK_RIGHT))
-    {
-        m_pTransformCom->Move_Pos(D3DXVec3Normalize(
-            &vRight, &vRight), fTimeDelta, m_fMoveSpeed);
+        if ((dynamic_cast<CPlayer*>(m_CGameObject))->GetPassAble() ||
+            (abs(colDir.z) > 0.71 || colDir.x < 0.69))
+        {
+            m_pTransformCom->Move_Pos(D3DXVec3Normalize(
+                &vRight, &vRight), fTimeDelta, m_fMoveSpeed);
+        }
     }
 
     _vec3 colObjPos;

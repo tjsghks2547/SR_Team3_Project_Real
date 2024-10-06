@@ -20,7 +20,6 @@ HRESULT CStage::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_GameLogic(L"Layer_GameLogic"), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
 
-	
 	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 	
 	return S_OK;
@@ -30,7 +29,6 @@ HRESULT CStage::Ready_Scene()
 _int CStage::Update_Scene(const _float& fTimeDelta)
 {
 	_int  iExit = Engine::CScene::Update_Scene(fTimeDelta);
-
 
 	if (GetAsyncKeyState('M') & 0x8000)
 	{
@@ -175,16 +173,16 @@ HRESULT CStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
 
 	//1003
-	pGameObject = CBranch::Create(m_pGraphicDev);
+	/*pGameObject = CBranch::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	_vec3 ItemPos = { 300.f, 20.f, 700.f };
 	dynamic_cast<CBranch*>(pGameObject)->Set_DropItem(ItemPos);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_Branch", pGameObject), E_FAIL);
-	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pGameObject);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pGameObject);*/
 
 	pGameObject = CExpressTicket::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	ItemPos = { 330.f, 20.f, 700.f };
+	_vec3 ItemPos = { 330.f, 20.f, 700.f };
 	dynamic_cast<CExpressTicket*>(pGameObject)->Set_DropItem(ItemPos);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_ExpressTicket", pGameObject), E_FAIL);
 	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pGameObject);
