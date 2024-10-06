@@ -174,7 +174,7 @@ HRESULT CWorldHearStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 
     Engine::CGameObject* pGameObject = nullptr;
 
-
+#pragma region Main
     pGameObject = CWorldHeartMap::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"WorldHeartMap", pGameObject), E_FAIL);
@@ -183,13 +183,65 @@ HRESULT CWorldHearStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Player", pGameObject), E_FAIL);
     CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PLAYER, pGameObject);
-
+#pragma endregion
+   
+#pragma region MinJi
     pGameObject = CBranch::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     _vec3 ItemPos = { 300.f, 20.f, 700.f };
     dynamic_cast<CBranch*>(pGameObject)->Set_DropItem(ItemPos);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_Branch", pGameObject), E_FAIL);
     CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pGameObject);
+#pragma endregion
+
+#pragma region Crystal Puzzle
+    _float fOffsetX = 3000;
+    _float fOffsetZ = 1000;
+
+    Engine::CGameObject* pCGameObject = nullptr;
+    pCGameObject = CCrystalPuzzle::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pCGameObject, E_FAIL);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CrystalPuzzle", pCGameObject), E_FAIL);
+    CCrystalPuzzle* pCrystalPuzzle = static_cast<CCrystalPuzzle*>(pCGameObject);
+
+    pGameObject = CCrystal::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Crystal_00", pGameObject), E_FAIL);
+    static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX, 18.f, fOffsetZ);
+    pCrystalPuzzle->Add_Crystal(pGameObject);
+
+    pGameObject = CPressBlock::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PressBlock_00", pGameObject), E_FAIL);
+    static_cast<CPressBlock*>(pGameObject)->Init(pCrystalPuzzle, 2, fOffsetX, fOffsetZ - 35.f);
+    pCrystalPuzzle->Add_PressBlock(pGameObject);
+
+    pGameObject = CCrystal::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Crystal_01", pGameObject), E_FAIL);
+    static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX + 35.f, 18.f, fOffsetZ);
+    static_cast<CCrystal*>(pGameObject)->Set_ImageID(3);
+    pCrystalPuzzle->Add_Crystal(pGameObject);
+
+    pGameObject = CPressBlock::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PressBlock_01", pGameObject), E_FAIL);
+    static_cast<CPressBlock*>(pGameObject)->Init(pCrystalPuzzle, 4, fOffsetX + 35.f, fOffsetZ - 35.f);
+    pCrystalPuzzle->Add_PressBlock(pGameObject);
+
+    pGameObject = CCrystal::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Crystal_02", pGameObject), E_FAIL);
+    static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX + 70.f, 18.f, fOffsetZ);
+    pCrystalPuzzle->Add_Crystal(pGameObject);
+
+    pGameObject = CPressBlock::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PressBlock_02", pGameObject), E_FAIL);
+    static_cast<CPressBlock*>(pGameObject)->Init(pCrystalPuzzle, 2, fOffsetX + 70.f, fOffsetZ - 35.f);
+    pCrystalPuzzle->Add_PressBlock(pGameObject);
+
+#pragma endregion
 
     m_mapLayer.insert({ pLayerTag, pLayer });
 
@@ -202,31 +254,34 @@ HRESULT CWorldHearStage::Ready_Layer_UI(const _tchar* pLayerTag)
     NULL_CHECK_RETURN(pLayer, E_FAIL);
 
     Engine::CGameObject* pGameObject = nullptr;
-
     pGameObject = CDefaultUI::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Default_UI", pGameObject), E_FAIL);
+    
 
     pGameObject = CInvenUI::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Inven_UI", pGameObject), E_FAIL);
+    
 
     pGameObject = CQuickSlot::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"QuickSlot_UI", pGameObject), E_FAIL);
+   
 
     pGameObject = CQuestUI::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Quest_UI", pGameObject), E_FAIL);
+  
     
     pGameObject = CPowerUI::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Power_UI", pGameObject), E_FAIL);
 
+
     pGameObject = CSpeedUI::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Speed_UI", pGameObject), E_FAIL);
-
     m_mapLayer.insert({ pLayerTag, pLayer });
 
     return S_OK;

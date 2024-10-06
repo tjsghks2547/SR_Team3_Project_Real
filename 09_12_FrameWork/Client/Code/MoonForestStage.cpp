@@ -32,7 +32,7 @@ _int CMoonForestStage::Update_Scene(const _float& fTimeDelta)
 
     if (GetAsyncKeyState('B') & 0x8000)
     {
-        Engine::CScene* pStage3 = CElectriceelBossStage::Create(m_pGraphicDev);
+        Engine::CScene* pStage3 = CMoonTempleStage::Create(m_pGraphicDev);
         NULL_CHECK_RETURN(pStage3, -1);
 
         FAILED_CHECK_RETURN(Engine::Set_Scene(pStage3), E_FAIL);
@@ -187,31 +187,34 @@ HRESULT CMoonForestStage::Ready_Layer_UI(const _tchar* pLayerTag)
     NULL_CHECK_RETURN(pLayer, E_FAIL);
 
     Engine::CGameObject* pGameObject = nullptr;
-
     pGameObject = CDefaultUI::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Default_UI", pGameObject), E_FAIL);
+
 
     pGameObject = CInvenUI::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Inven_UI", pGameObject), E_FAIL);
 
+
     pGameObject = CQuickSlot::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"QuickSlot_UI", pGameObject), E_FAIL);
+    
 
     pGameObject = CQuestUI::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Quest_UI", pGameObject), E_FAIL);
+  
 
     pGameObject = CPowerUI::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Power_UI", pGameObject), E_FAIL);
+  
 
     pGameObject = CSpeedUI::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Speed_UI", pGameObject), E_FAIL);
-
     m_mapLayer.insert({ pLayerTag, pLayer });
 
     return S_OK;

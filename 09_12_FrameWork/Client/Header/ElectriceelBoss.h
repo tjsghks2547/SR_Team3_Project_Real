@@ -3,13 +3,32 @@
 
 enum class Electriceel_STATE
 {
-	IN_OUT_9,
-	IN_OUT_11,
-	IN_OUT_12,
-	IN_OUT_1,
-	IN_OUT_3,
+	OUT_9,
+	OUT_11,
+	OUT_12,
+	OUT_1,
+	OUT_3,
 
-	IDLE,
+	IDLE_12,
+	IDLE_1,
+	IDLE_3,
+	IDLE_9,
+	IDLE_11,
+
+	IN_9,
+	IN_11,
+	IN_12,
+	IN_1,
+	IN_3,
+
+	PROJECT_SHOT_12,
+	PROJECT_SHOT_1,
+	PROJECT_SHOT_3,
+	PROJECT_SHOT_9,
+	PROJECT_SHOT_11,
+
+
+
 	ATTACK,
 
 };

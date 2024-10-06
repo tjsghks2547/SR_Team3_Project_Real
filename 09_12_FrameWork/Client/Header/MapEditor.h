@@ -6,6 +6,8 @@
 #include "WorldHeartMap.h"	
 #include "MoonForestMap.h"
 #include "JungleForestMap.h"
+#include "MoonTempleMap.h"
+#include "ElectriceelBossMap.h"
 
 class CMapEditor : public Engine::CScene
 {

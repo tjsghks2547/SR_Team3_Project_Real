@@ -215,416 +215,447 @@ HRESULT CStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 
 	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER, pGameObject);
 
+	// 1003 동영 일반몬스터
+	pGameObject = CMonsterSlimeFast::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonsterSlimeFast", pGameObject), E_FAIL);
+	dynamic_cast<CMonster*>(pGameObject)->SetPlayer(
+		dynamic_cast<CPlayer*>(PlayerObj));
+	dynamic_cast<CMonster*>(pGameObject)->GetLayer(pLayer);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER, pGameObject);
+
+
 	CScene* pScene = CManagement::GetInstance()->GetCurScenePtr();
-
-
-
 
 	//0927
 	pGameObject = CTestObject::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Test_Object", pGameObject), E_FAIL);
 
-	//pGameObject = CMonster::Create(m_pGraphicDev);
-	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster", pGameObject), E_FAIL);
-
-	
-
-	//pGameObject = CSkyBox::Create(m_pGraphicDev);
-	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SkyBox", pGameObject), E_FAIL);
-
 #pragma region Pipe Game
-	pGameObject = CPipeBoard::Create(m_pGraphicDev);
+
+	_float fOffsetX = 100;
+	_float fOffsetZ = 600;
+
+	/*pGameObject = CPipeBoard::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PipeBoard", pGameObject), E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PipeBoard", pGameObject), E_FAIL);*/
 #pragma endregion
 
 #pragma region Crystal Puzzle
-	Engine::CGameObject* pCP = nullptr;
-	pCP = CCrystalPuzzle::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pCP, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CrystalPuzzle", pCP), E_FAIL);
-	CCrystalPuzzle* temp = static_cast<CCrystalPuzzle*>(pCP);
+	//Engine::CGameObject* pCGameObject = nullptr;
+	//pCGameObject = CCrystalPuzzle::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pCGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CrystalPuzzle", pCGameObject), E_FAIL);
+	//CCrystalPuzzle* pCrystalPuzzle = static_cast<CCrystalPuzzle*>(pCGameObject);
 
-	pGameObject = CCrystal::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Crystal_00", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(10.f, 5.55f, 100.f);
-	temp->Add_Crystal(pGameObject);
+	//pGameObject = CCrystal::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Crystal_00", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX, 18.f, fOffsetZ);
+	//pCrystalPuzzle->Add_Crystal(pGameObject);
 
-	pGameObject = CPressBlock::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PressBlock_00", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(10.f, 0.5f, 90.f);
-	static_cast<CPressBlock*>(pGameObject)->Set_ImageID(2);
-	temp->Add_PressBlock(pGameObject);
+	//pGameObject = CPressBlock::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PressBlock_00", pGameObject), E_FAIL);	
+	//static_cast<CPressBlock*>(pGameObject)->Init(pCrystalPuzzle, 2, fOffsetX, fOffsetZ - 35.f);
+	//pCrystalPuzzle->Add_PressBlock(pGameObject);
 
-	pGameObject = CCrystal::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Crystal_01", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(25.f, 5.55f, 100.f);
-	static_cast<CCrystal*>(pGameObject)->Set_ImageID(3);
-	temp->Add_Crystal(pGameObject);
+	//pGameObject = CCrystal::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Crystal_01", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX + 35.f, 18.f, fOffsetZ);
+	//static_cast<CCrystal*>(pGameObject)->Set_ImageID(3);
+	//pCrystalPuzzle->Add_Crystal(pGameObject);
 
-	pGameObject = CPressBlock::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PressBlock_01", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(25.f, 0.5f, 90.f);
-	static_cast<CPressBlock*>(pGameObject)->Set_ImageID(0);
-	temp->Add_PressBlock(pGameObject);
+	//pGameObject = CPressBlock::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PressBlock_01", pGameObject), E_FAIL);	
+	//static_cast<CPressBlock*>(pGameObject)->Init(pCrystalPuzzle, 4, fOffsetX + 35.f, fOffsetZ - 35.f);
+	//pCrystalPuzzle->Add_PressBlock(pGameObject);
 
-	pGameObject = CCrystal::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Crystal_02", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(40.f, 5.55f, 100.f);
-	temp->Add_Crystal(pGameObject);
+	//pGameObject = CCrystal::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Crystal_02", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX + 70.f, 18.f, fOffsetZ);
+	//pCrystalPuzzle->Add_Crystal(pGameObject);
 
-	pGameObject = CPressBlock::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PressBlock_02", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(40.f, 0.5f, 90.f);
-	static_cast<CPressBlock*>(pGameObject)->Set_Group(pCP);
-	static_cast<CPressBlock*>(pGameObject)->Set_ImageID(2);
-	temp->Add_PressBlock(pGameObject);
+	//pGameObject = CPressBlock::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PressBlock_02", pGameObject), E_FAIL);
+	//static_cast<CPressBlock*>(pGameObject)->Init(pCrystalPuzzle, 2, fOffsetX + 70.f, fOffsetZ - 35.f);
+	//pCrystalPuzzle->Add_PressBlock(pGameObject);
 
-	pCP = CCrystalPuzzle::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pCP, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CrystalPuzzle_1", pCP), E_FAIL);
-	temp = static_cast<CCrystalPuzzle*>(pCP);
-
-	pGameObject = CCrystal::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Crystal_03", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(10.f, 5.55f, 50.f);
-	temp->Add_Crystal(pGameObject);
-
-	pGameObject = CPressBlock::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PressBlock_03", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(10.f, 0.5f, 40.f);
-	static_cast<CPressBlock*>(pGameObject)->Set_Group(pCP);
-	static_cast<CPressBlock*>(pGameObject)->Set_ImageID(1);
-	temp->Add_PressBlock(pGameObject);
 #pragma endregion
 
 #pragma region Monkey Statue Puzzle
-	pGameObject = CMonkeyStatue::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonkeyStatue_00", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(10.f, 4.f, 10.f);
-	CMonkeyStatue* pMS = static_cast<CMonkeyStatue*>(pGameObject);
+	//pGameObject = CMonkeyStatue::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonkeyStatue_00", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX, 22.f,fOffsetZ);
+	//CMonkeyStatue* pMS = static_cast<CMonkeyStatue*>(pGameObject);
 
-	pGameObject = CStoneBlock::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlock_00", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(10.f, 3.f, 20.f);
-	pMS->Add_StoneBlock(pGameObject);
+	//pGameObject = CStoneBlock::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlock_00", pGameObject), E_FAIL);
+	//static_cast<CStoneBlock*>(pGameObject)->Init(100.f + fOffsetX, 20.f + fOffsetZ, true);
+	//pMS->Add_StoneBlock(pGameObject);
 
-	pGameObject = CStoneBlockHole::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlockHole_00", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(10.f, 0.05f, 22.5f);
-	pMS->Add_StoneBlockHole(pGameObject);
+	//pGameObject = CStoneBlock::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlock_01", pGameObject), E_FAIL);	
+	//static_cast<CStoneBlock*>(pGameObject)->Init(150.f + fOffsetX, 20.f + fOffsetZ, false);
+	//pMS->Add_StoneBlock(pGameObject);
 
-	pGameObject = CStoneBlock::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlock_01", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(20.f, 3.f, 20.f);
-	pMS->Add_StoneBlock(pGameObject);
-
-	pGameObject = CStoneBlockHole::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlockHole_01", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(20.f, 0.05f, 22.5f);
-	pMS->Add_StoneBlockHole(pGameObject);
 #pragma endregion
 
 #pragma region Bug Statue Puzzle
 
-	pGameObject = CBugStatuePuzzle::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BugStatuePuzzle_00", pGameObject), E_FAIL);
-	CBugStatuePuzzle* pBS = static_cast<CBugStatuePuzzle*>(pGameObject);
+	//pGameObject = CBugStatuePuzzle::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BugStatuePuzzle_00", pGameObject), E_FAIL);
+	//CBugStatuePuzzle* pBS = static_cast<CBugStatuePuzzle*>(pGameObject);
 
-	pGameObject = CBugStatue::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BugStatue_00", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(60.f, 4.f, 10.f);
-	static_cast<CBugStatue*>(pGameObject)->Set_Group(pBS);
-	pBS->Add_Statue(pGameObject);
+	//pGameObject = CBugStatue::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BugStatue_00", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(60.f, 4.f, 10.f);
+	//static_cast<CBugStatue*>(pGameObject)->Set_Group(pBS);
+	//pBS->Add_Statue(pGameObject);
 
-	pGameObject = CStoneBlock::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlock_10", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(60.f, 3.f, 20.f);
-	static_cast<CStoneBlock*>(pGameObject)->Set_ImageID(1);
-	pBS->Add_StoneBlock(pGameObject);
+	//pGameObject = CStoneBlock::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlock_10", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(60.f, 3.f, 20.f);
+	//static_cast<CStoneBlock*>(pGameObject)->Set_ImageID(1);
+	//pBS->Add_StoneBlock(pGameObject);
 
-	pGameObject = CStoneBlockHole::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlockHole_10", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(60.f, 0.05f, 22.5f);
-	pBS->Add_StoneBlockHole(pGameObject);
+	//pGameObject = CStoneBlockHole::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlockHole_10", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(60.f, 0.05f, 22.5f);
+	//pBS->Add_StoneBlockHole(pGameObject);
 
-	pGameObject = CBugStatue::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BugStatue_01", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(40.f, 4.f, 10.f);
-	static_cast<CBugStatue*>(pGameObject)->Set_Group(pBS);
-	pBS->Add_Statue(pGameObject);
+	//pGameObject = CBugStatue::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BugStatue_01", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(40.f, 4.f, 10.f);
+	//static_cast<CBugStatue*>(pGameObject)->Set_Group(pBS);
+	//pBS->Add_Statue(pGameObject);
 
-	pGameObject = CStoneBlock::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlock_11", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(40.f, 3.f, 20.f);
-	static_cast<CStoneBlock*>(pGameObject)->Set_ImageID(1);
-	pBS->Add_StoneBlock(pGameObject);
+	//pGameObject = CStoneBlock::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlock_11", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(40.f, 3.f, 20.f);
+	//static_cast<CStoneBlock*>(pGameObject)->Set_ImageID(1);
+	//pBS->Add_StoneBlock(pGameObject);
 
-	pGameObject = CStoneBlockHole::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlockHole_11", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(40.f, 0.05f, 22.5f);
-	pBS->Add_StoneBlockHole(pGameObject);
+	//pGameObject = CStoneBlockHole::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlockHole_11", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(40.f, 0.05f, 22.5f);
+	//pBS->Add_StoneBlockHole(pGameObject);
 
-	pGameObject = CBugStatue::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BugStatue_02", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(50.f, 4.f, 10.f);
-	static_cast<CBugStatue*>(pGameObject)->Set_Group(pBS);
-	pBS->Add_Statue(pGameObject);
+	//pGameObject = CBugStatue::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BugStatue_02", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(50.f, 4.f, 10.f);
+	//static_cast<CBugStatue*>(pGameObject)->Set_Group(pBS);
+	//pBS->Add_Statue(pGameObject);
 
-	pGameObject = CStoneBlock::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlock_12", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(50.f, 3.f, 20.f);
-	static_cast<CStoneBlock*>(pGameObject)->Set_ImageID(1);
-	pBS->Add_StoneBlock(pGameObject);
+	//pGameObject = CStoneBlock::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlock_12", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(50.f, 3.f, 20.f);
+	//static_cast<CStoneBlock*>(pGameObject)->Set_ImageID(1);
+	//pBS->Add_StoneBlock(pGameObject);
 
-	pGameObject = CStoneBlockHole::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlockHole_12", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(50.f, 0.05f, 22.5f);
-	pBS->Add_StoneBlockHole(pGameObject);
+	//pGameObject = CStoneBlockHole::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlockHole_12", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(50.f, 0.05f, 22.5f);
+	//pBS->Add_StoneBlockHole(pGameObject);
 #pragma endregion
 
 #pragma region Combination Puzzle
 
-	pGameObject = CCombinationPuzzle::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CCombinationPuzzle_00", pGameObject), E_FAIL);
-	CCombinationPuzzle* pCombination = static_cast<CCombinationPuzzle*>(pGameObject);
+	//pGameObject = CCombinationPuzzle::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CCombinationPuzzle_00", pGameObject), E_FAIL);
+	//CCombinationPuzzle* pCombination = static_cast<CCombinationPuzzle*>(pGameObject);
 
-	pGameObject = CCombinationStatue::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CombinationStatue_00", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(40.f, 4.f, 40.f);
-	static_cast<CCombinationStatue*>(pGameObject)->Set_Group(pCombination);
-	pCombination->Add_Statue(pGameObject);
+	//pGameObject = CCombinationStatue::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CombinationStatue_00", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(40.f, 4.f, 40.f);
+	//static_cast<CCombinationStatue*>(pGameObject)->Set_Group(pCombination);
+	//pCombination->Add_Statue(pGameObject);
 
-	pGameObject = CStoneBlock::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlock_13", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(45.f, 3.f, 50.f);
-	static_cast<CStoneBlock*>(pGameObject)->Set_ImageID(1);
-	pCombination->Add_StoneBlock(pGameObject);
+	//pGameObject = CStoneBlock::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlock_13", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(45.f, 3.f, 50.f);
+	//static_cast<CStoneBlock*>(pGameObject)->Set_ImageID(1);
+	//pCombination->Add_StoneBlock(pGameObject);
 
-	pGameObject = CStoneBlockHole::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlockHole_13", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(45.f, 0.05f, 52.5f);
-	pCombination->Add_StoneBlockHole(pGameObject);
+	//pGameObject = CStoneBlockHole::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlockHole_13", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(45.f, 0.05f, 52.5f);
+	//pCombination->Add_StoneBlockHole(pGameObject);
 
-	pGameObject = CCombinationStatue::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CombinationStatue_01", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(50.f, 4.f, 40.f);
-	static_cast<CCombinationStatue*>(pGameObject)->Set_Group(pCombination);
-	pCombination->Add_Statue(pGameObject);
+	//pGameObject = CCombinationStatue::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CombinationStatue_01", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(50.f, 4.f, 40.f);
+	//static_cast<CCombinationStatue*>(pGameObject)->Set_Group(pCombination);
+	//pCombination->Add_Statue(pGameObject);
 
-	pGameObject = CStoneBlock::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlock_14", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(55.f, 3.f, 50.f);
-	static_cast<CStoneBlock*>(pGameObject)->Set_ImageID(1);
-	pCombination->Add_StoneBlock(pGameObject);
+	//pGameObject = CStoneBlock::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlock_14", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(55.f, 3.f, 50.f);
+	//static_cast<CStoneBlock*>(pGameObject)->Set_ImageID(1);
+	//pCombination->Add_StoneBlock(pGameObject);
 
-	pGameObject = CStoneBlockHole::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlockHole_14", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(55.f, 0.05f, 52.5f);
-	pCombination->Add_StoneBlockHole(pGameObject);
+	//pGameObject = CStoneBlockHole::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlockHole_14", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(55.f, 0.05f, 52.5f);
+	//pCombination->Add_StoneBlockHole(pGameObject);
 
-	pGameObject = CCombinationStatue::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CombinationStatue_02", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(60.f, 4.f, 40.f);
-	static_cast<CCombinationStatue*>(pGameObject)->Set_Group(pCombination);
-	pCombination->Add_Statue(pGameObject);
+	//pGameObject = CCombinationStatue::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CombinationStatue_02", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(60.f, 4.f, 40.f);
+	//static_cast<CCombinationStatue*>(pGameObject)->Set_Group(pCombination);
+	//pCombination->Add_Statue(pGameObject);
 #pragma endregion
 
 #pragma region Music Puzzle
 
-	pGameObject = CMusicStatue::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MusicStatue_00", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(70.f, 4.f, 40.f);
-	CMusicStatue* pMusicStatue = static_cast<CMusicStatue*>(pGameObject);
+	//pGameObject = CMusicStatue::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MusicStatue_00", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(70.f, 4.f, 40.f);
+	//CMusicStatue* pMusicStatue = static_cast<CMusicStatue*>(pGameObject);
 
-	pGameObject = CStoneBlock::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlock_15", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(75.f, 3.f, 50.f);
-	static_cast<CStoneBlock*>(pGameObject)->Set_ImageID(1);
-	pMusicStatue->Add_StoneBlock(pGameObject);
+	//pGameObject = CStoneBlock::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlock_15", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(75.f, 3.f, 50.f);
+	//static_cast<CStoneBlock*>(pGameObject)->Set_ImageID(1);
+	//pMusicStatue->Add_StoneBlock(pGameObject);
 
-	pGameObject = CStoneBlockHole::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlockHole_15", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(75.f, 0.05f, 52.5f);
-	pMusicStatue->Add_StoneBlockHole(pGameObject);
+	//pGameObject = CStoneBlockHole::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlockHole_15", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(75.f, 0.05f, 52.5f);
+	//pMusicStatue->Add_StoneBlockHole(pGameObject);
 
-	pGameObject = CStoneBlock::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlock_16", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(85.f, 3.f, 50.f);
-	static_cast<CStoneBlock*>(pGameObject)->Set_ImageID(1);
-	pMusicStatue->Add_StoneBlock(pGameObject);
+	//pGameObject = CStoneBlock::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlock_16", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(85.f, 3.f, 50.f);
+	//static_cast<CStoneBlock*>(pGameObject)->Set_ImageID(1);
+	//pMusicStatue->Add_StoneBlock(pGameObject);
 
-	pGameObject = CStoneBlockHole::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlockHole_16", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(85.f, 0.05f, 52.5f);
-	pMusicStatue->Add_StoneBlockHole(pGameObject);
+	//pGameObject = CStoneBlockHole::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneBlockHole_16", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(85.f, 0.05f, 52.5f);
+	//pMusicStatue->Add_StoneBlockHole(pGameObject);
 
-	pGameObject = CNoteStatue::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NoteStatue_00", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(75.f, 4.f, 20.f);
-	static_cast<CNoteStatue*>(pGameObject)->Set_NoteID(0);
-	static_cast<CNoteStatue*>(pGameObject)->Set_Group(pMusicStatue);
+	//pGameObject = CNoteStatue::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NoteStatue_00", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(75.f, 4.f, 20.f);
+	//static_cast<CNoteStatue*>(pGameObject)->Set_NoteID(0);
+	//static_cast<CNoteStatue*>(pGameObject)->Set_Group(pMusicStatue);
 
-	pGameObject = CNoteStatue::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NoteStatue_01", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(85.f, 4.f, 20.f);
-	static_cast<CNoteStatue*>(pGameObject)->Set_NoteID(1);
-	static_cast<CNoteStatue*>(pGameObject)->Set_Group(pMusicStatue);
+	//pGameObject = CNoteStatue::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NoteStatue_01", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(85.f, 4.f, 20.f);
+	//static_cast<CNoteStatue*>(pGameObject)->Set_NoteID(1);
+	//static_cast<CNoteStatue*>(pGameObject)->Set_Group(pMusicStatue);
 
-	pGameObject = CNoteStatue::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NoteStatue_02", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(95.f, 4.f, 20.f);
-	static_cast<CNoteStatue*>(pGameObject)->Set_NoteID(2);
-	static_cast<CNoteStatue*>(pGameObject)->Set_Group(pMusicStatue);
+	//pGameObject = CNoteStatue::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NoteStatue_02", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(95.f, 4.f, 20.f);
+	//static_cast<CNoteStatue*>(pGameObject)->Set_NoteID(2);
+	//static_cast<CNoteStatue*>(pGameObject)->Set_Group(pMusicStatue);
 
-	pGameObject = CNoteStatue::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NoteStatue_03", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(105.f, 4.f, 20.f);
-	static_cast<CNoteStatue*>(pGameObject)->Set_NoteID(3);
-	static_cast<CNoteStatue*>(pGameObject)->Set_Group(pMusicStatue);
+	//pGameObject = CNoteStatue::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NoteStatue_03", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(105.f, 4.f, 20.f);
+	//static_cast<CNoteStatue*>(pGameObject)->Set_NoteID(3);
+	//static_cast<CNoteStatue*>(pGameObject)->Set_Group(pMusicStatue);
 
-	pGameObject = CNoteStatue::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NoteStatue_04", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(115.f, 4.f, 20.f);
-	static_cast<CNoteStatue*>(pGameObject)->Set_NoteID(4);
-	static_cast<CNoteStatue*>(pGameObject)->Set_Group(pMusicStatue);
+	//pGameObject = CNoteStatue::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NoteStatue_04", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(115.f, 4.f, 20.f);
+	//static_cast<CNoteStatue*>(pGameObject)->Set_NoteID(4);
+	//static_cast<CNoteStatue*>(pGameObject)->Set_Group(pMusicStatue);
 
-	pGameObject = CNoteStatue::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NoteStatue_05", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(125.f, 4.f, 20.f);
-	static_cast<CNoteStatue*>(pGameObject)->Set_NoteID(5);
-	static_cast<CNoteStatue*>(pGameObject)->Set_Group(pMusicStatue);
+	//pGameObject = CNoteStatue::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NoteStatue_05", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(125.f, 4.f, 20.f);
+	//static_cast<CNoteStatue*>(pGameObject)->Set_NoteID(5);
+	//static_cast<CNoteStatue*>(pGameObject)->Set_Group(pMusicStatue);
 
-	pGameObject = CFirePit::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"FirePit_00", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(75.f, 4.f, 60.f);
-	pMusicStatue->Add_FirePit(pGameObject);
+	//pGameObject = CFirePit::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"FirePit_00", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(75.f, 4.f, 60.f);
+	//pMusicStatue->Add_FirePit(pGameObject);
 
-	pGameObject = CFirePit::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"FirePit_01", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(85.f, 4.f, 60.f);
-	pMusicStatue->Add_FirePit(pGameObject);
+	//pGameObject = CFirePit::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"FirePit_01", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(85.f, 4.f, 60.f);
+	//pMusicStatue->Add_FirePit(pGameObject);
 
-	pGameObject = CFirePit::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"FirePit_02", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(95.f, 4.f, 60.f);
-	pMusicStatue->Add_FirePit(pGameObject);
+	//pGameObject = CFirePit::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"FirePit_02", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(95.f, 4.f, 60.f);
+	//pMusicStatue->Add_FirePit(pGameObject);
 
-	pGameObject = CFirePit::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"FirePit_03", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(105.f, 4.f, 60.f);
-	pMusicStatue->Add_FirePit(pGameObject);
+	//pGameObject = CFirePit::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"FirePit_03", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(105.f, 4.f, 60.f);
+	//pMusicStatue->Add_FirePit(pGameObject);
 
-	pGameObject = CFirePit::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"FirePit_04", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(115.f, 4.f, 60.f);
-	pMusicStatue->Add_FirePit(pGameObject);
+	//pGameObject = CFirePit::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"FirePit_04", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(115.f, 4.f, 60.f);
+	//pMusicStatue->Add_FirePit(pGameObject);
 
-	pGameObject = CFirePit::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"FirePit_05", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(125.f, 4.f, 60.f);
-	pMusicStatue->Add_FirePit(pGameObject);
+	//pGameObject = CFirePit::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"FirePit_05", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(125.f, 4.f, 60.f);
+	//pMusicStatue->Add_FirePit(pGameObject);
 
 #pragma endregion
 
 #pragma region Scale Puzzle
-	pGameObject = CScale::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CScale_00", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(170.f, 15.f, 60.f);
-	static_cast<CScale*>(pGameObject)->Init_Position(170.f, 15.f, 55.f);
 
-	pGameObject = CWeightComparator::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"WeightComparator_00", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(170.f, .02f, 30.f);
+
+	//pGameObject = CScale::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CScale_00", pGameObject), E_FAIL);
+	//static_cast<CScale*>(pGameObject)->Init_Position(170.f + fOffsetX, 150.f + fOffsetZ);
+
+	//pGameObject = CWeightComparator::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"WeightComparator_00", pGameObject), E_FAIL);	
+	//static_cast<CWeightComparator*>(pGameObject)->Init(170.f + fOffsetX, 30.f + fOffsetZ);
+
+#pragma endregion
+
+#pragma region Catapult
+	//pGameObject = CCatapult::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Catapult_00", pGameObject), E_FAIL);
+	//static_cast<CCatapult*>(pGameObject)->Init_Pos(200.f, 450.f);
 
 	//pGameObject = CStone::Create(m_pGraphicDev);
 	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CStone_00", pGameObject), E_FAIL);
-	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(170.f, 3.f, 18.f);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(250.f, 15.f, 450.f);
 
-	pGameObject = CStonePedestal::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CStonePedestal_00", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(162.5f, .05f, 30.f);
-
-	pGameObject = CStonePedestal::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CStonePedestal_01", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(177.5f, .05f, 30.f);
-
-	pGameObject = CStonePedestal::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CStonePedestal_02", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(147.5f, .05f, 30.f);
-
-	pGameObject = CStonePedestal::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CStonePedestal_03", pGameObject), E_FAIL);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(192.5f, .05f, 30.f);
-
-	//pGameObject = CStonePedestal::Create(m_pGraphicDev);
+	//pGameObject = CStone::Create(m_pGraphicDev);
 	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CStonePedestal_00", pGameObject), E_FAIL);
-	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(165.f, .05f, 30.f);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CStone_01", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(150.f, 15.f, 400.f);
 
-	//pGameObject = CStonePedestal::Create(m_pGraphicDev);
+	//pGameObject = CBreakableStone::Create(m_pGraphicDev);
 	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CStonePedestal_00", pGameObject), E_FAIL);
-	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(165.f, .05f, 30.f);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CBreakableStone_00", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(200.f, 14.f, 700.f);
 
+#pragma endregion
+
+#pragma region ShootingPlant
+	//pGameObject = CLightFlower::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightFlower_00", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(200.f, 30.f, 610.f);
+	//CLightFlower* pLightFlower = static_cast<CLightFlower*>(pGameObject);
+
+	//pGameObject = CFlowerGlow::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"FlowerGlow_00", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(200.f, 15.f, 610.f);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_TexTransform"))->Set_Pos(200.f, 0.05f, 600.f);
+	//pLightFlower->Set_Glow(pGameObject);
+
+	//pGameObject = CShootingPlant::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ShootingPlant_00", pGameObject), E_FAIL);
+	//static_cast<CShootingPlant*>(pGameObject)->Init_Pos(400.f, 600.f);	
+
+	//pGameObject = CShootingPlant::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ShootingPlant_01", pGameObject), E_FAIL);
+	//static_cast<CShootingPlant*>(pGameObject)->Set_ImageID(0);
+	//static_cast<CShootingPlant*>(pGameObject)->Init_Pos(450.f, 600.f);
+
+#pragma endregion
+
+#pragma region Color Stone
+	//pGameObject = CColorStone::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ColorStone_00", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(200.f, 14.f, 600.f);
+	//static_cast<CColorStone*>(pGameObject)->Set_ImageID(0);
+
+	//pGameObject = CColorStone::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ColorStone_01", pGameObject), E_FAIL);
+	//static_cast<CColorStone*>(pGameObject)->Set_ImageID(1);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(250.f, 14.f, 600.f);
+
+	//pGameObject = CColorStone::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ColorStone_02", pGameObject), E_FAIL);
+	//static_cast<CColorStone*>(pGameObject)->Set_ImageID(2);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(300.f, 14.f, 600.f);
+
+	//pGameObject = CColorStone::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ColorStone_03", pGameObject), E_FAIL);
+	//static_cast<CColorStone*>(pGameObject)->Set_ImageID(2);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(200.f, 14.f, 640.f);
+
+	//pGameObject = CColorStone::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ColorStone_04", pGameObject), E_FAIL);
+	//static_cast<CColorStone*>(pGameObject)->Set_ImageID(2);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(250.f, 14.f, 640.f);
+
+	//pGameObject = CColorStone::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ColorStone_05", pGameObject), E_FAIL);
+	//static_cast<CColorStone*>(pGameObject)->Set_ImageID(2);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(300.f, 14.f, 640.f);
+
+#pragma endregion
+
+#pragma region Hole
+	//pGameObject = CStoneHole::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StoneHole_00", pGameObject), E_FAIL);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_TexTransform"))->Set_Pos(45.f + fOffsetX, 0.05f, fOffsetZ - 100.5f);
+	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(45.f + fOffsetX, 0.05f, fOffsetZ - 100.5f);
 #pragma endregion
 
 	m_mapLayer.insert({ pLayerTag, pLayer });
@@ -641,31 +672,31 @@ HRESULT CStage::Ready_Layer_UI(const _tchar* pLayerTag)
 	pGameObject = CDefaultUI::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Default_UI", pGameObject), E_FAIL);
+	m_mapLayer.insert({ pLayerTag, pLayer });
 
 	pGameObject = CInvenUI::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Inven_UI", pGameObject), E_FAIL);
+	m_mapLayer.insert({ pLayerTag, pLayer });
 
 	pGameObject = CQuickSlot::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"QuickSlot_UI", pGameObject), E_FAIL);
+	m_mapLayer.insert({ pLayerTag, pLayer });
 
 	pGameObject = CQuestUI::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Quest_UI", pGameObject), E_FAIL);
+	m_mapLayer.insert({ pLayerTag, pLayer });
 	
 	pGameObject = CPowerUI::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Power_UI", pGameObject), E_FAIL);
+	m_mapLayer.insert({ pLayerTag, pLayer });
 
 	pGameObject = CSpeedUI::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Speed_UI", pGameObject), E_FAIL);
-
-	pGameObject = CStoreUI::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Store_UI", pGameObject), E_FAIL);
-
 	m_mapLayer.insert({ pLayerTag, pLayer });
 
 	return S_OK;
@@ -812,4 +843,5 @@ void CStage::init()
 	CCollisionMgr::GetInstance()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);
 	CCollisionMgr::GetInstance()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::OBJECT);
 	CCollisionMgr::GetInstance()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::NPC);
+	CCollisionMgr::GetInstance()->CheckGroup(GROUP_TYPE::PUZZLE, GROUP_TYPE::PUZZLE);
 }

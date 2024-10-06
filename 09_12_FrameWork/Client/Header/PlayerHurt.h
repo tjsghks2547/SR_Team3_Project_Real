@@ -30,7 +30,9 @@ public:
 
 private:
 	static PlayerHurt* m_instance;
-
+	void KnockBack(const _float& fTimeDelta, _vec3 vKnockBackDir);
 private:
-	float m_fFixedTimer;
+	float m_fHurtDuration = 0.f;
+	_bool m_bKnockBackTrigger = false;
+	_vec3 m_vKnockBackDir;
 };

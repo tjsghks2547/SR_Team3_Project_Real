@@ -26,13 +26,62 @@ public:
 
 public:
 	void SetAnimFrame(PLAYERSTATE _ePlayerState, bool _bDiagonal);
-	void SetAnimDir(PLAYERSTATE _ePlayerState, int _dir, bool _bDiagonal)
+	void SetAnimDir(PLAYERSTATE _ePlayerState, _vec3 _dir, bool& _bDiagonal)
 	{
-		if (_bDiagonal)
-			m_iCurrentDir = round(_dir * 0.6 - 3);
-		else
-			m_iCurrentDir = log(_dir) / log(2); // 0,1,2,3
+		if (_dir.x == 1)
+		{
+			if (_dir.z == -1)
+			{
+				_bDiagonal = true;
+				m_iCurrentDir = 3;
+			}
+			else if (_dir.z == 0)
+			{
+				_bDiagonal = false;
+				m_iCurrentDir = 3;
 
+			}
+			else
+			{
+				_bDiagonal = true;
+				m_iCurrentDir = 2;
+			}
+		}
+		else if (_dir.x == 0)
+		{
+
+			if (_dir.z == 1)
+			{
+				_bDiagonal = false;
+				m_iCurrentDir = 0;
+			}
+			else if (_dir.z == 0)
+			{
+			}
+			else
+			{
+				_bDiagonal = false;
+				m_iCurrentDir = 1;
+			}
+		}
+		else
+		{
+			if (_dir.z == -1)
+			{
+				_bDiagonal = true;
+				m_iCurrentDir = 1;
+			}
+			else if (_dir.z == 0)
+			{
+				_bDiagonal = false;
+				m_iCurrentDir = 2;
+			}
+			else
+			{
+				_bDiagonal = true;
+				m_iCurrentDir = 0;
+			}
+		}
 		SetAnimFrame(_ePlayerState, _bDiagonal);
 	}
 

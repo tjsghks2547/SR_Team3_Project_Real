@@ -30,6 +30,7 @@ public:
 
 private:
 	static PlayerIdle* m_instance;
-	float m_fDuration;
-	float m_fKeyDownTimer;
+	float m_fIdleDuration = 0.f;
+	float m_fDanceKeyDownTimer = 0.f;
+	CGameObject* m_interactionObj = nullptr;
 };

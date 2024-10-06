@@ -39,7 +39,8 @@ void CObject::Render_GameObject()
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	
+	//m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
+
 	if (m_strTextureKey == L"Wall")
 	{
 		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[0]);
@@ -334,18 +335,53 @@ void CObject::Render_GameObject()
 		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[55]);
 	}
 
+	else if (m_strTextureKey == L"Temple_Flower_one")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[56]);
+	}
+
+	else if (m_strTextureKey == L"Temple_Flower_two")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[57]);
+
+	}
+
+	else if (m_strTextureKey == L"Temple_Flower_three")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[58]);
+	}
+
+	else if (m_strTextureKey == L"Temple_Wall_one")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[59]);
+	}
+
+	else if (m_strTextureKey == L"Temple_Wall_two")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[60]);
+	}
+
+	else if (m_strTextureKey == L"Temple_statue")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[61]);
+	}
+
+	else if (m_strTextureKey == L"black_cell")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[62]);
+		}
 
 
 	m_pBufferCom->Render_Buffer();
 
 
-
+	
 
 
 
 	//¸ÊÅø ÀÛ¼º½Ã ²ô±â 
 	//m_pBoundBox->Render_Buffer();
-
+	//m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, false);
 
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }

@@ -222,7 +222,7 @@ void CImgui_ObjectTool::ShowObjectWindow()
 
 		}
 
-		if (ImGui::ImageButton("Super", m_vecObjectTexture[1], imageSize))	
+		else if (ImGui::ImageButton("Super", m_vecObjectTexture[1], imageSize))	
 		{
 
 			//여기가 문제내 
@@ -651,6 +651,57 @@ void CImgui_ObjectTool::ShowObjectWindow()
 			m_sCurTextureData =  L"Big_desk";
 			m_sCurTextureKey =   L"Big_desk";
 			m_strCurObjectName = L"Big_desk";
+		};
+
+		if (ImGui::ImageButton("Temple_Flower_one", m_vecObjectTexture[56], imageSize))
+		{
+			m_sCurTextureData =  L"Temple_Flower_one";
+			m_sCurTextureKey =   L"Temple_Flower_one";
+			m_strCurObjectName = L"Temple_Flower_one";
+		};
+
+
+		if (ImGui::ImageButton("Temple_Flower_two", m_vecObjectTexture[57], imageSize))
+		{
+			m_sCurTextureData = L"Temple_Flower_two";
+			m_sCurTextureKey = L"Temple_Flower_two";
+			m_strCurObjectName = L"Temple_Flower_two";
+		};
+
+		if (ImGui::ImageButton("Temple_Flower_three", m_vecObjectTexture[58], imageSize))
+		{
+			m_sCurTextureData =  L"Temple_Flower_three";
+			m_sCurTextureKey =   L"Temple_Flower_three";
+			m_strCurObjectName = L"Temple_Flower_three";
+		};
+
+		if (ImGui::ImageButton("Temple_Wall_one", m_vecObjectTexture[59], imageSize))
+		{
+			m_sCurTextureData =  L"Temple_Wall_one";
+			m_sCurTextureKey =   L"Temple_Wall_one";
+			m_strCurObjectName = L"Temple_Wall_one";
+		};
+
+
+		if (ImGui::ImageButton("Temple_Wall_two", m_vecObjectTexture[60], imageSize))
+		{
+			m_sCurTextureData =  L"Temple_Wall_two";
+			m_sCurTextureKey =   L"Temple_Wall_two";
+			m_strCurObjectName = L"Temple_Wall_two";
+		};
+
+		if (ImGui::ImageButton("Temple_statue", m_vecObjectTexture[61], imageSize))
+		{
+			m_sCurTextureData =  L"Temple_statue";
+			m_sCurTextureKey =   L"Temple_statue";
+			m_strCurObjectName = L"Temple_statue";
+		};
+
+		if (ImGui::ImageButton("black_cell", m_vecObjectTexture[62], imageSize))
+		{
+			m_sCurTextureData =  L"black_cell";
+			m_sCurTextureKey =   L"black_cell";
+			m_strCurObjectName = L"black_cell";
 		};
 
 
@@ -1162,13 +1213,13 @@ _vec3 CImgui_ObjectTool::PickingOnTerrain()
 	D3DXVec3TransformNormal(&vRayDir, &vRayDir, &matView);
 
 
-	CMapTex* pTerrainBufferCom = dynamic_cast<CMapTex*>(Engine::Get_Component(ID_STATIC, L"Layer_Environment", L"MoonForestMap", L"Com_Buffer"));
+	CMapTex* pTerrainBufferCom = dynamic_cast<CMapTex*>(Engine::Get_Component(ID_STATIC, L"Layer_Environment", L"Map", L"Com_Buffer"));
 	if (pTerrainBufferCom == nullptr)
 	{
 		MSG_BOX("pTerrainBufferCom is nullptr");
 	}
 
-	CTransform* pTerrainTransCom = dynamic_cast<CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_Environment", L"MoonForestMap", L"Com_Transform"));
+	CTransform* pTerrainTransCom = dynamic_cast<CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_Environment", L"Map", L"Com_Transform"));
 	if (pTerrainBufferCom == nullptr)
 	{
 		MSG_BOX("pTerrainTransCom is nullptr");
