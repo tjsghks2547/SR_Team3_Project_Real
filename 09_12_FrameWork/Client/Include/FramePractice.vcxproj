@@ -208,11 +208,8 @@
     <ClInclude Include="..\Header\NoteStatue.h" />
     <ClInclude Include="..\Header\PickUpButton.h" />
     <ClInclude Include="..\Header\Pig.h" />
-<<<<<<< HEAD
     <ClInclude Include="..\Header\PlantOrb.h" />
     <ClInclude Include="..\Header\PlayerPickUp.h" />
-=======
->>>>>>> origin/main
     <ClInclude Include="..\Header\PowerUI.h" />
     <ClInclude Include="..\Header\QuestNPC.h" />
     <ClInclude Include="..\Header\Object.h" />
@@ -345,11 +342,8 @@
     <ClCompile Include="..\Code\Penguin.cpp" />
     <ClCompile Include="..\Code\PickUpButton.cpp" />
     <ClCompile Include="..\Code\Pig.cpp" />
-<<<<<<< HEAD
     <ClCompile Include="..\Code\PlantOrb.cpp" />
     <ClCompile Include="..\Code\PlayerPickUp.cpp" />
-=======
->>>>>>> origin/main
     <ClCompile Include="..\Code\PowerUI.cpp" />
     <ClCompile Include="..\Code\QuestNPC.cpp" />
     <ClCompile Include="..\Code\Object.cpp" />
