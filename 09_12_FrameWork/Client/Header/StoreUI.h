@@ -12,7 +12,7 @@ class CTransform;
 
 END
 class CPlayer;
-class CItemSelector;
+class CStoreSelector;
 
 class CStoreUI : public Engine::CGameObject
 {
@@ -27,6 +27,8 @@ public:
 	virtual   void      LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual   void      Render_GameObject();
 
+	void				CallStoreUI(_bool _Call) { m_bCall = _Call; }
+
 
 public:
 	void	Add_Item(CItem* _Item);
@@ -40,6 +42,9 @@ public:
 		m_vInvenPos.x += m_InvenInterval.x;
 	}
 
+	_bool  Get_CallStore() { return m_bCall; }
+	_int   Get_ItemCount() { return m_ItemList.size(); }
+	CItem* Get_Item(int _idx) { return m_ItemList.at(_idx); }
 private:
 	HRESULT    Add_Component();
 
@@ -51,7 +56,7 @@ private:
 	Engine::CTexture* m_pTextureCom;
 	Engine::CTransform* m_pTransformCom;
 
-	CItemSelector* m_pItemSelector;
+	CStoreSelector* m_pStoreSelector;
 
 private:
 	CPlayer* m_pPlayer;
@@ -60,7 +65,7 @@ private:
 
 	_vec3			m_vInvenPos;// 인벤 칸 위치
 	_vec2			m_InvenInterval; // 간격
-
+	_bool			m_bCall;
 public:
 	static CStoreUI* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 

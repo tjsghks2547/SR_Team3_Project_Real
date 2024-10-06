@@ -264,6 +264,7 @@
     <ClInclude Include="..\Header\StoneHole.h" />
     <ClInclude Include="..\Header\StonePedestal.h" />
     <ClInclude Include="..\Header\StoreNPC.h" />
+    <ClInclude Include="..\Header\StoreSelector.h" />
     <ClInclude Include="..\Header\StoreUI.h" />
     <ClInclude Include="..\Header\Terrain.h" />
     <ClInclude Include="..\Header\TestCol.h" />
@@ -404,6 +405,7 @@
     <ClCompile Include="..\Code\StoneHole.cpp" />
     <ClCompile Include="..\Code\StonePedestal.cpp" />
     <ClCompile Include="..\Code\StoreNPC.cpp" />
+    <ClCompile Include="..\Code\StoreSelector.cpp" />
     <ClCompile Include="..\Code\StoreUI.cpp" />
     <ClCompile Include="..\Code\Terrain.cpp" />
     <ClCompile Include="..\Code\TestCol.cpp" />

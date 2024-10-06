@@ -101,6 +101,9 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_SpeedUI", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/SpeedUI.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_PickUpButton", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/PickUpButton.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_AcquiredItemUI", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/AcquiredItemUI.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_BuyButton", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/BuyButton.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_PriceUI", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/PriceUI.png", TEX_NORMAL)), E_FAIL);
+
 	//Item
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_ExploreHat", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/Explore.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_PartyHat", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/PartyHat.png", TEX_NORMAL)), E_FAIL);

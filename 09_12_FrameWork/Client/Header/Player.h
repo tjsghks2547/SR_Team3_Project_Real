@@ -169,7 +169,13 @@ public:
 	
 	
 	//¹ÎÁö
+
+	//1005Ãß°¡
 	_int			GetPlayerCoin() { return m_iPlayerCoin; }
+	void			SetPlayerCoin(_int _iCoin) { m_iPlayerCoin += _iCoin; }
+	_bool			GetVisitingStore() { return m_bStoreVisit; }
+	void			SetVisitingStore(_bool _bVisit) { m_bStoreVisit = _bVisit; }
+
 	PLAYERHP		GetPlayerHP() { return m_tPlayerHP; }
 	_bool			GetPlayerQuestUI() { return m_bQuest; }//0928
 	_bool			GetPlayerInven() { return m_bInven; }
@@ -247,16 +253,18 @@ private:
 
 
 	//¹ÎÁö
-	CBuffUI*	m_BuffArray[2];
+	CBuffUI* m_BuffArray[2];
 
-	CInvenUI*	m_pInven;
-	CQuestUI*	m_pQuestUI;
+	CInvenUI* m_pInven;
+	CQuestUI* m_pQuestUI;
 	CQuickSlot* m_pQuickSlot;
 
 	_int		m_iPlayerCoin;
 	PLAYERHP	m_tPlayerHP;
 	_bool		m_bInven;
 	_bool		m_bQuest;
+	_bool		m_bStoreVisit;
+
 public:
 	static CPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 

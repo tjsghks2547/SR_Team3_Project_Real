@@ -5,7 +5,7 @@
 #include "ItemSelector.h"
 
 vector<CItem*>	CInvenUI::m_ItemList[CItem::TYPE_END];
-
+D3DXVECTOR3 CInvenUI::m_vInvenPos[CItem::TYPE_END];
 
 CInvenUI::CInvenUI(LPDIRECT3DDEVICE9 pGraphicDev)
     :Engine::CGameObject(pGraphicDev)

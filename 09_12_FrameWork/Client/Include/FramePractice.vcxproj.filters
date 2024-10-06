@@ -344,6 +344,9 @@
     <Filter Include="01. Scene\07. MoonTempleStage">
       <UniqueIdentifier>{80a70c4f-ba82-4581-b30e-1d6cfbe7a57a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\11. UI\04. StoreUI\StoreSelector">
+      <UniqueIdentifier>{1bf1d25f-20ab-4b9e-9f76-a8edc12095e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -775,6 +778,9 @@
     <ClInclude Include="..\Header\MoonTempleMap.h">
       <Filter>02. GameObject\07. Map\05.MoonTempleMap</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\StoreSelector.h">
+      <Filter>02. GameObject\11. UI\04. StoreUI\StoreSelector</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FramePractice.cpp">
@@ -1196,6 +1202,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\MoonTempleMap.cpp">
       <Filter>02. GameObject\07. Map\05.MoonTempleMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\StoreSelector.cpp">
+      <Filter>02. GameObject\11. UI\04. StoreUI\StoreSelector</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
