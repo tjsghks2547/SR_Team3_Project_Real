@@ -16,19 +16,6 @@ HRESULT CSeaLion::Ready_GameObject()
 
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
-    CItem* pItem = dynamic_cast<CCookSmallFish*>(CCookSmallFish::Create(m_pGraphicDev));
-    NULL_CHECK_RETURN(pItem, 0);
-    m_ItemArray.push_back(pItem);
-
-    pItem = dynamic_cast<CCookMiddleFish*>(CCookMiddleFish::Create(m_pGraphicDev));
-    NULL_CHECK_RETURN(pItem, 0);
-    m_ItemArray.push_back(pItem);
-
-    pItem = dynamic_cast<CCookBigFish*>(CCookBigFish::Create(m_pGraphicDev));
-    NULL_CHECK_RETURN(pItem, 0);
-    m_ItemArray.push_back(pItem);
-
-
     D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/SeaLion.png", &m_pTex);
     m_pAnimatorCom->CreateAnimation(L"SeaLion", m_pTex, _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.12f, 7);
 
@@ -45,10 +32,15 @@ void CSeaLion::LateReady_GameObject()
 
 _int CSeaLion::Update_GameObject(const _float& fTimeDelta)
 {
-
     CStoreNPC::Update_GameObject(fTimeDelta);
 
     _int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
+
+    for (size_t i = 0; i < m_ItemArray.size(); i++)
+    {
+
+        m_ItemArray[i]->Update_GameObject(fTimeDelta);
+    }
 
     Add_RenderGroup(RENDER_ALPHA, this);
 
@@ -57,6 +49,10 @@ _int CSeaLion::Update_GameObject(const _float& fTimeDelta)
 
 void CSeaLion::LateUpdate_GameObject(const _float& fTimeDelta)
 {
+    for (size_t i = 0; i < m_ItemArray.size(); i++)
+    {
+        m_ItemArray[i]->LateUpdate_GameObject(fTimeDelta);
+    }
     Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
@@ -76,13 +72,16 @@ void CSeaLion::Render_GameObject()
 
 void CSeaLion::OnCollision(CGameObject* _pOther)
 {
+    if (_pOther->GetObjectKey() != L"PlayerInteractionBox")
+        return;
 
     if (Engine::GetKeyDown(DIK_D))
     {
+        m_ItemArray.clear();
         m_bStoreOn = false;
+        m_pInterButton->CallButton(true); // 대화중이 아닐 때 버튼 활성화
     }
-
-    if (m_bStoreOn)
+    else if (m_bStoreOn)
     {
         return;
     }
@@ -92,7 +91,34 @@ void CSeaLion::OnCollision(CGameObject* _pOther)
         m_bConversation = m_bConversation ? false : true;
         // 대화중일때 S를 누르면 대화종료
         // 대화중이 아닐때 S를 누르면 대화시작
+        if (!m_bConversation)
+        {
+            // 여기에 UIbool true + 아이템 세팅
+            m_bStoreOn = true;
 
+            CItem* pItem = dynamic_cast<CCookSmallFish*>(CCookSmallFish::Create(m_pGraphicDev));
+            NULL_CHECK_RETURN(pItem);
+            pItem->LateReady_GameObject();
+            m_ItemArray.push_back(pItem);
+
+            pItem = dynamic_cast<CCookMiddleFish*>(CCookMiddleFish::Create(m_pGraphicDev));
+            NULL_CHECK_RETURN(pItem);
+            pItem->LateReady_GameObject();
+            m_ItemArray.push_back(pItem);
+
+            pItem = dynamic_cast<CCookBigFish*>(CCookBigFish::Create(m_pGraphicDev));
+            NULL_CHECK_RETURN(pItem);
+            pItem->LateReady_GameObject();
+            m_ItemArray.push_back(pItem);
+
+            for (size_t i = 0; i < m_ItemArray.size(); i++)
+            {
+                m_pStoreUI->Add_Item(m_ItemArray[i]);
+            }
+            m_pStoreUI->CallStoreUI(true);
+
+            return;
+        }
 
         if (m_bConversation)
         {
@@ -100,9 +126,6 @@ void CSeaLion::OnCollision(CGameObject* _pOther)
 
             m_pTextBox->Set_Text(m_tInfo); //대화창 텍스트 세팅
             m_pTextBox->CallTextBox(true); //대화창 호출
-
-            // 여기에 UIbool true + 아이템 세팅
-            m_bStoreOn = true;
         }
 
     }
@@ -168,7 +191,7 @@ CSeaLion* CSeaLion::Create(LPDIRECT3DDEVICE9 pGraphicDev)
     if (FAILED(pNPC->Ready_GameObject()))
     {
         Safe_Release(pNPC);
-        MSG_BOX("CSeaLion Create Failed");
+        MSG_BOX("SeaLion Create Failed");
         return nullptr;
     }
 

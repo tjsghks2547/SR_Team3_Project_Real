@@ -72,9 +72,9 @@ private:
 	CPlayer* m_pPlayer;
 
 	static vector<CItem*>	m_ItemList[CItem::TYPE_END];
+	static D3DXVECTOR3		m_vInvenPos[CItem::TYPE_END]; // 인벤 칸 위치
 
-	_vec3			m_vInvenPos[CItem::TYPE_END]; // 인벤 칸 위치
-	_vec2			m_InvenInterval; // 간격
+	_vec2					m_InvenInterval; // 간격
 
 	//CItem::ITEMTYPE  
 	_int	m_iItemFilter;

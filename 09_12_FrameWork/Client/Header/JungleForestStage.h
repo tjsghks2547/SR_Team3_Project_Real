@@ -6,6 +6,7 @@
 #include "PlayerInteractionBox.h"
 
 #include "DefaultUI.h"
+#include "StoreUI.h"
 #include "InvenUI.h"
 #include "QuickSlot.h"
 #include "Object.h"
