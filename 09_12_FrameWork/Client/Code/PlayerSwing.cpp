@@ -12,6 +12,7 @@ void PlayerSwing::Enter()
     (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(PLAYERSTATE::PLY_SWING);
 
     m_pAnimationCom->SetTextureScale(1.5f);
+    (dynamic_cast<CPlayer*>(m_CGameObject))->FixCurPlayerDir(true);
 }
 
 void PlayerSwing::Update(const _float& fTimeDelta)
@@ -32,5 +33,6 @@ void PlayerSwing::Exit()
     m_pAnimationCom->SetTextureScale(1.f);
 
     dynamic_cast<CPlayer*>(m_CGameObject)->SetSwingTrigger(false);
+    (dynamic_cast<CPlayer*>(m_CGameObject))->FixCurPlayerDir(false);
 
 }

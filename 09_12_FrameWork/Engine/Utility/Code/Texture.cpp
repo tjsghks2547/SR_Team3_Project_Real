@@ -15,11 +15,6 @@ CTexture::CTexture(const CTexture& rhs)
 
     for (_uint i = 0; i < iSize; ++i)
         m_vecTexture[i]->AddRef();
-
-    iSize = rhs.m_vecPath.size();
-    m_vecPath.reserve(iSize);
-
-    m_vecPath = rhs.m_vecPath;
 }
 
 CTexture::~CTexture()
@@ -48,7 +43,6 @@ HRESULT CTexture::Ready_Texture(const _tchar* pPath, TEXTUREID eType, const int&
             break;
         }
 
-        m_vecPath.push_back(szFileName);
         m_vecTexture.push_back(pTexture);
     }
 
@@ -67,7 +61,6 @@ HRESULT CTexture::Ready_Texture(const list<_tchar*> pPathList)
             D3DXCreateTextureFromFile(m_pGraphicDev, iter,
                 (LPDIRECT3DTEXTURE9*)&pTexture), E_FAIL);
 
-        m_vecPath.push_back(iter);
         m_vecTexture.push_back(pTexture);
     }
 
@@ -79,7 +72,6 @@ void CTexture::Set_Texture(const _uint& iIndex)
     if (m_vecTexture.size() < iIndex)
         return;
 
-    m_szNowPath = m_vecPath[iIndex];
     m_pGraphicDev->SetTexture(0, m_vecTexture[iIndex]);
 }
 

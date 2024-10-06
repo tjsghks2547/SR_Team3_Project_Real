@@ -2,10 +2,10 @@
 #include "StoreUI.h"
 
 #include "Player.h"
-#include "StoreSelector.h"
+#include "ItemSelector.h"
 CStoreUI::CStoreUI(LPDIRECT3DDEVICE9 pGraphicDev)
     :Engine::CGameObject(pGraphicDev)
-    , m_pStoreSelector(nullptr), m_bCall(false)
+    , m_pItemSelector(nullptr)
 {
 }
 
@@ -17,9 +17,9 @@ HRESULT CStoreUI::Ready_GameObject()
 {
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
+    // 인벤토리 간격
     m_InvenInterval = { 145.7f, 137.f };
     m_fViewZ = 0.9f;
-
 
     return S_OK;
 }
@@ -29,70 +29,68 @@ void CStoreUI::LateReady_GameObject()
     m_pPlayer = dynamic_cast<CPlayer*>(Engine::Get_GameObject(L"Layer_GameLogic", L"Player"));
     NULL_CHECK_RETURN(m_pPlayer);
 
-    m_pStoreSelector = dynamic_cast<CStoreSelector*>(CStoreSelector::Create(m_pGraphicDev));
-    NULL_CHECK_RETURN(m_pStoreSelector);
-    m_pStoreSelector->LateReady_GameObject();
+    m_pItemSelector = dynamic_cast<CItemSelector*>(CItemSelector::Create(m_pGraphicDev));
+    NULL_CHECK_RETURN(m_pItemSelector);
 }
 
 _int CStoreUI::Update_GameObject(const _float& fTimeDelta)
 {
     _int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
-    if (m_bCall)
+    Engine::Add_RenderGroup(RENDER_UI, this);
+    Key_Input(fTimeDelta);
+
+    for (auto& pItem : m_ItemList)
     {
-        m_pPlayer->SetVisitingStore(true);
-        Engine::Add_RenderGroup(RENDER_UI, this);
-        Key_Input(fTimeDelta);
+        if (pItem == nullptr)
+            continue;
 
-        for (auto& pItem : m_ItemList)
-        {
-            if (pItem == nullptr)
-                continue;
+        pItem->Update_GameObject(fTimeDelta);
+        pItem->LateUpdate_GameObject(fTimeDelta);
 
-            pItem->Update_GameObject(fTimeDelta);
-            pItem->LateUpdate_GameObject(fTimeDelta);
-        }
-
-        if (m_pStoreSelector)
-        {
-            m_pStoreSelector->Update_GameObject(fTimeDelta);
-            m_pStoreSelector->LateUpdate_GameObject(fTimeDelta);
-        }
     }
+
+    if (m_pItemSelector)
+    {
+        m_pItemSelector->Update_GameObject(fTimeDelta);
+        m_pItemSelector->LateUpdate_GameObject(fTimeDelta);
+    }
+
     return iExit;
 }
 
 void CStoreUI::LateUpdate_GameObject(const _float& fTimeDelta)
 {
     Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
+
+    // 나중애 z비교 함수 만들기....;
+    m_fViewZ = 0.9f;
 }
 
 void CStoreUI::Render_GameObject()
 {
-    if (m_bCall)
+    _vec2 HpPosition(556.f, 15.f);
+
+    Engine::Render_Font(L"Font_OguBold48", L"상점", &HpPosition, D3DXCOLOR(0.999f, 0.98f, 0.9f, 1.f));
+
+    m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+    m_pTextureCom->Set_Texture();
+    m_pBufferCom->Render_Buffer();
+
+
+    // 상점 아이템 출력
+    for (auto& pItem : m_ItemList)
     {
-        _vec2 HpPosition(556.f, 15.f);
+        if (pItem == nullptr)
+            continue;
 
-        Engine::Render_Font(L"Font_OguBold48", L"상점", &HpPosition, D3DXCOLOR(0.999f, 0.98f, 0.9f, 1.f));
-
-        m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-        m_pTextureCom->Set_Texture();
-        m_pBufferCom->Render_Buffer();
-
-
-        // 상점 아이템 출력
-        for (auto& pItem : m_ItemList)
-        {
-            if (pItem == nullptr)
-                continue;
-
-            pItem->Render_GameObject();
-        }
-        if (m_pStoreSelector)
-        {
-            m_pStoreSelector->Render_GameObject();
-        }
+        pItem->Render_GameObject();
     }
+    if (m_pItemSelector)
+    {
+        m_pItemSelector->Render_GameObject();
+    }
+
 }
 
 void CStoreUI::Add_Item(CItem* _Item)
@@ -111,6 +109,7 @@ HRESULT CStoreUI::Add_Component()
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
+    //Background
     pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_StoreUI"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_TextureStoreUI", pComponent });
@@ -121,7 +120,6 @@ HRESULT CStoreUI::Add_Component()
     m_pTransformCom->m_vInfo[INFO_POS] = { 0.f, 0.f, 0.9f };
     m_pTransformCom->m_vScale = { 640.f, 360.f, 1.f };
 
-    return S_OK;
 }
 
 void CStoreUI::Key_Input(const _float& fTimeDelta)
@@ -129,8 +127,6 @@ void CStoreUI::Key_Input(const _float& fTimeDelta)
     if (Engine::GetKeyDown(DIK_D))
     {
         m_ItemList.clear();
-        m_bCall = false;
-        m_pPlayer->SetVisitingStore(false);
     }
 }
 

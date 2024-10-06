@@ -33,11 +33,13 @@ private:
 	HRESULT    Add_Component();
 
 public:
-	static CStoneBlockHole* Create(LPDIRECT3DDEVICE9 pGraphicDev);	
+	static CStoneBlockHole* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	void Reset_Duration() { m_fDuration = m_iImageID == 0? 0: 2; }
 
 private:
 	vector<IDirect3DTexture9*> m_vecTexture;
 	CTransform* m_pStoneBlock;
+	_float m_fDuration;
 	_int m_iImageID;
 
 private:

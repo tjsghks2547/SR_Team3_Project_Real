@@ -30,7 +30,7 @@ public:
 private:
     static PlayerMove* m_instance;
     float m_fMoveSpeed;
-    CGameObject* m_colliderObj;
+    CGameObject* m_interactionObj = nullptr;
 
 private:
     void Key_Input(const _float& fTimeDelta);

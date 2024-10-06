@@ -81,7 +81,7 @@ void CCombinationPuzzle::Check_Matched()
 
 	for (int i = 0; i < m_vecStoneBlocks.size(); ++i)
 	{
-		static_cast<CStoneBlock*>(m_vecStoneBlocks[i])->Move_StoneBlock(true, _vec3{ 0.f, -3.f, 0.f });
+		static_cast<CStoneBlock*>(m_vecStoneBlocks[i])->Move_StoneBlock();
 		static_cast<CStoneBlockHole*>(m_vecStoneBlocksHoles[i])->Set_ImageID(1);
 	}
 }
