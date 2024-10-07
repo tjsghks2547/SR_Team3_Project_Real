@@ -25,6 +25,7 @@ public:
 	virtual  void     LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual  void     Render_GameObject();
 
+	
 private:
 	HRESULT  Add_Component();
 	HRESULT  SetUp_Material();

@@ -25,7 +25,11 @@ HRESULT CObject::Ready_GameObject()
 _int CObject::Update_GameObject(const _float& fTimeDelta)
 {
 
-	Add_RenderGroup(RENDER_ALPHA, this);
+	if (GetTransparent())
+		Add_RenderGroup(RENDER_TRANSLUCNET, this);
+
+	else
+		Add_RenderGroup(RENDER_ALPHA, this);
 
 	return Engine::CGameObject::Update_GameObject(fTimeDelta);
 }

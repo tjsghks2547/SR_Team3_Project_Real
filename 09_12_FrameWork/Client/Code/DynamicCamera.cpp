@@ -20,7 +20,7 @@ CDynamicCamera::CDynamicCamera(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_bZoomTrigger(false)
     , m_fZoomRatio(100.f)
     , m_fMoveToPlayerSpeed(0.f)
-
+    , m_bMoveTrigger(false)
     , m_fShakeDeltaTime(0.f)
     , m_bShakeTrigger(false)
     , fShakeTickTime(0.f)
@@ -92,9 +92,6 @@ _int CDynamicCamera::Update_GameObject(const _float& fTimeDelta)
 
     m_playerTransform->Get_Info(INFO_POS, &m_vPlayerPos);
 
-
-
-
     Key_Input(fTimeDelta);
 
     Add_RenderGroup(RENDER_UI, this);
@@ -103,9 +100,9 @@ _int CDynamicCamera::Update_GameObject(const _float& fTimeDelta)
 
 void CDynamicCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-    D3DXMatrixInverse(&m_matCameraWorld, 0, &m_matView);
-    m_Player = dynamic_cast<CPlayer*>(Engine::Get_GameObject(
-        L"Layer_GameLogic", L"Player"));
+    //D3DXMatrixInverse(&m_matCameraWorld, 0, &m_matView);
+    //m_Player = dynamic_cast<CPlayer*>(Engine::Get_GameObject(
+    //    L"Layer_GameLogic", L"Player"));
     m_fMoveToPlayerSpeed = dynamic_cast<CPlayer*>(m_Player)->GetMoveSpeed();
     /*ResetZoom(fTimeDelta);
 
@@ -118,32 +115,25 @@ void CDynamicCamera::LateUpdate_GameObject(const _float& fTimeDelta)
     if (m_eCameraState == CAMERASTATE::PLAYER)
     {
         m_playerTransform->Get_Info(INFO_POS, &m_vPlayerPos);
-        MoveToPlayer(fTimeDelta);
+        if (m_bMoveTrigger)
+            MoveToPlayer(fTimeDelta);
+        else
+            CheckMoveTrigger();
     }
 
-    else if (m_eCameraState == CAMERASTATE::DEBUG)
-    {
-        Mouse_Move(fTimeDelta);
-    }
+    //else if (m_eCameraState == CAMERASTATE::DEBUG)
+    //{
+    //    Mouse_Move(fTimeDelta);
+    //}
 
-
+    RayTransfer();
     CCamera::LateUpdate_GameObject(fTimeDelta);
 }
 
 void CDynamicCamera::Render_GameObject()
 {
-    return;
-    _vec2 vCountPos(100, 50);
+    _vec2 vCountPos(100, 150);
     wchar_t str[32] = L"";
-    swprintf(str, 32, L"%f", m_fDistance);
-
-    Engine::Render_Font(L"Font_OguBold24", str, &vCountPos, D3DXCOLOR(0.1f, 0.1f, 0.1f, 1.f));
-
-    vCountPos.y = 70;
-    swprintf(str, 32, L"%f", m_fMoveToPlayerSpeed);
-
-    Engine::Render_Font(L"Font_OguBold24", str, &vCountPos, D3DXCOLOR(0.1f, 0.1f, 0.1f, 1.f));
-
 }
 
 CDynamicCamera* CDynamicCamera::Create(LPDIRECT3DDEVICE9 pGraphicDev
@@ -303,24 +293,41 @@ void CDynamicCamera::Mouse_Move(const _float& fTimeDelta)
     }
 }
 
-void CDynamicCamera::MoveToPlayer(const _float& fTimeDelta)
+void CDynamicCamera::CheckMoveTrigger()
 {
+    // 카메라가 움직이는 중이면 계산하지 않음
+    // 플레이어가 소프트 존 밖으로 벗어나면 movetrigger = true
+    _vec2 softZoneLT(m_vEye.x - 20, m_vEye.z + 20);
+    _vec2 softZoneRB(m_vEye.x + 20, m_vEye.z - 20);
+
     _vec3 vTargetPos = m_vPlayerPos;
     vTargetPos.y += m_vIntervalPos.y;
     vTargetPos.z += m_vIntervalPos.z;
 
-    _vec3 vDir = vTargetPos - m_vEye;
+    _bool value = false;
+    value |= softZoneLT.x >= vTargetPos.x || softZoneRB.x <= vTargetPos.x;
+    value |= softZoneLT.y <= vTargetPos.z || softZoneRB.y >= vTargetPos.z;
+
+    m_bMoveTrigger = value;
+}
+
+void CDynamicCamera::MoveToPlayer(const _float& fTimeDelta)
+{
+    _vec3 TargetPos = m_vPlayerPos;
+    TargetPos.y += m_vIntervalPos.y;
+    TargetPos.z += m_vIntervalPos.z;
+
+    _vec3 vDir = TargetPos - m_vEye;
     m_fDistance = D3DXVec3Length(&vDir);
 
-    if (m_fDistance < 0.1f)
-        return;
+    vMoveDir = *D3DXVec3Normalize(&vDir, &vDir)
+        * fTimeDelta * m_fMoveToPlayerSpeed * (m_fDistance / 5.f);
 
-    m_fMoveToPlayerSpeed += m_fDistance * 5;
-    _vec3 vMoveDir = *D3DXVec3Normalize(&vDir, &vDir) * fTimeDelta * m_fMoveToPlayerSpeed;
-    m_fDistance = D3DXVec3Length(&vMoveDir);
-    if (m_fDistance < 0.9f)
+    if (m_fDistance < 1.f)
+    {
+        m_bMoveTrigger = false;
         return;
-
+    }
     m_vEye += vMoveDir;
     m_vAt += vMoveDir;
 
@@ -409,5 +416,64 @@ void CDynamicCamera::ShakeMoveTrigger(const _float& fTimeDelta)
         shakeAmplitude = 0.1f;
         shakeTimer = shakeDuration;
         m_vAt.y = m_fPrevShakeAtYPos;
+    }
+}
+
+void CDynamicCamera::RayTransfer()
+{
+    Ray ray;
+    ray.origin = m_vEye;
+    ray.direction = m_vAt - m_vEye;
+
+    _float fU, fV, fDist;
+
+    auto objectMap = Get_Layer(L"Layer_GameLogic")->GetLayerGameObjectPtr();
+    for (auto objectIter = objectMap.begin(); objectIter != objectMap.end(); ++objectIter)
+    {
+        CTransform* objectTransform = dynamic_cast<CTransform*>(
+            (*objectIter).second->Get_Component(ID_DYNAMIC, L"Com_Transform"));
+
+        if (!objectTransform)
+            continue;
+
+        _matrix matWorld;
+        objectTransform->Get_WorldMatrix(&matWorld);
+
+        _vec3 objectPos;
+        objectTransform->Get_Info(INFO_POS, &objectPos);
+
+        CRcTex* objectRcTex = dynamic_cast<CRcTex*>(
+            (*objectIter).second->Get_Component(ID_STATIC, L"Com_Buffer"));
+
+        if (!objectRcTex)
+            continue;
+
+        // 오브젝트의 각 정점들 * 월드 행렬 -> 월드 공간에서 오브젝트 판별
+        _vec3* pos = objectRcTex->Get_VtxPos();
+        _vec3* pWorldPos = new _vec3[4];
+        for (int i = 0; i < 4; i++)
+        {
+            D3DXVec3TransformCoord(&pWorldPos[i], &pos[i], &matWorld);
+        }
+
+        //01
+        //32
+        _bool bCheck = false;
+
+        // 오른쪽위
+        bCheck |= D3DXIntersectTri(
+            &pWorldPos[1],
+            &pWorldPos[2],
+            &pWorldPos[0],
+            &ray.origin, &ray.direction, &fU, &fV, &fDist);
+
+        // 왼쪽아래
+        bCheck |= D3DXIntersectTri(
+            &pWorldPos[0],
+            &pWorldPos[2],
+            &pWorldPos[3],
+            &ray.origin, &ray.direction, &fU, &fV, &fDist);
+
+        (*objectIter).second->SetTransparent(bCheck);
     }
 }

@@ -21,6 +21,14 @@ HRESULT CElectriceelBossStage::Ready_Scene()
 
 	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 
+    CLayer* layer = Engine::Get_Layer(L"Layer_GameLogic");
+    CPlayer* player = dynamic_cast<CPlayer*>(
+        Get_GameObject(L"Layer_GameLogic", L"Player"));
+
+    dynamic_cast<CTransform*>(
+        player->Get_Component(ID_DYNAMIC, L"Com_Transform")
+        )->Set_Pos(500.f, 30.f, 550.f);
+
 	return S_OK;
 }
 
