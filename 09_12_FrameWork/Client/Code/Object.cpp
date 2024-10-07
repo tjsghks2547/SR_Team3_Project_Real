@@ -369,15 +369,44 @@ void CObject::Render_GameObject()
 	else if (m_strTextureKey == L"black_cell")
 	{
 		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[62]);
-		}
+	}
 
+	else if (m_strTextureKey == L"Arena_Wall")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[63]);
+	}
+
+	else if (m_strTextureKey == L"blackBoard")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[64]);
+	}
+
+	else if (m_strTextureKey == L"ArenaMark")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[65]);
+	}
+
+	else if (m_strTextureKey == L"Caffet_One")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[66]);
+	}
+
+	else if (m_strTextureKey == L"Caffet_Two")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[67]);
+	}
+
+	else if (m_strTextureKey == L"Caffet_Three")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[68]);
+	}
+
+	else if (m_strTextureKey == L"Pillar")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[69]);
+	}
 
 	m_pBufferCom->Render_Buffer();
-
-
-	
-
-
 
 	//¸ÊÅø ÀÛ¼º½Ã ²ô±â 
 	//m_pBoundBox->Render_Buffer();

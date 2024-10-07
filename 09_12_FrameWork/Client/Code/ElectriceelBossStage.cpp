@@ -28,7 +28,16 @@ _int CElectriceelBossStage::Update_Scene(const _float& fTimeDelta)
 {
 	_int  iExit = Engine::CScene::Update_Scene(fTimeDelta);
 
+    if (GetAsyncKeyState('B') & 0x8000)
+    {
+        Engine::CScene* pStage3 = CArenaStage::Create(m_pGraphicDev);
+        NULL_CHECK_RETURN(pStage3, -1);
 
+        FAILED_CHECK_RETURN(Engine::Set_Scene(pStage3), E_FAIL);
+        //pStage3->init(); // 맵툴에서 가져온 오브젝트들을 위해 사용   
+
+        return 0;
+    }
 
 	return iExit;
 }

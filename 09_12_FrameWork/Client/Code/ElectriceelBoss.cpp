@@ -52,17 +52,17 @@ HRESULT CElectriceelBoss::Ready_GameObject()
     m_pAnimatorCom->CreateAnimation(L"IN_11", m_vecTexture[1], _vec2(2560.f, 0.f), _vec2(512.f, 512.f), _vec2(-512.f, 0.f), 0.2f, 5);
 
 
-    m_pAnimatorCom->CreateAnimation(L"IDLE_12", m_vecTexture[2], _vec2(0.f, 0.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
-    m_pAnimatorCom->CreateAnimation(L"IDLE_1",  m_vecTexture[2], _vec2(0.f, 512.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
-    m_pAnimatorCom->CreateAnimation(L"IDLE_3",  m_vecTexture[2], _vec2(0.f, 1024.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
-    m_pAnimatorCom->CreateAnimation(L"IDLE_9",  m_vecTexture[2], _vec2(0.f, 1536.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
-    m_pAnimatorCom->CreateAnimation(L"IDLE_11", m_vecTexture[3], _vec2(0.f, 0.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
+    m_pAnimatorCom->CreateAnimation(L"IDLE_12", m_vecTexture[2], _vec2(0.f, 0.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.2f, 3);
+    m_pAnimatorCom->CreateAnimation(L"IDLE_1",  m_vecTexture[2], _vec2(0.f, 512.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.2f, 3);
+    m_pAnimatorCom->CreateAnimation(L"IDLE_3",  m_vecTexture[2], _vec2(0.f, 1024.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.2f, 3);
+    m_pAnimatorCom->CreateAnimation(L"IDLE_9",  m_vecTexture[2], _vec2(0.f, 1536.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.2f, 3);
+    m_pAnimatorCom->CreateAnimation(L"IDLE_11", m_vecTexture[3], _vec2(0.f, 0.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.2f, 3);
 
 
-    m_pAnimatorCom->CreateAnimation(L"PROJECT_SHOT_12", m_vecTexture[4], _vec2(0.f, 0.f),   _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
-    m_pAnimatorCom->CreateAnimation(L"PROJECT_SHOT_1",  m_vecTexture[4], _vec2(0.f, 512.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
-    m_pAnimatorCom->CreateAnimation(L"PROJECT_SHOT_3",  m_vecTexture[4], _vec2(0.f, 1024.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
-    m_pAnimatorCom->CreateAnimation(L"PROJECT_SHOT_9",  m_vecTexture[4], _vec2(0.f, 1536.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.4f, 3);
+    m_pAnimatorCom->CreateAnimation(L"PROJECT_SHOT_12", m_vecTexture[4], _vec2(0.f, 0.f),   _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.2f, 3);
+    m_pAnimatorCom->CreateAnimation(L"PROJECT_SHOT_1",  m_vecTexture[4], _vec2(0.f, 512.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.2f, 3);
+    m_pAnimatorCom->CreateAnimation(L"PROJECT_SHOT_3",  m_vecTexture[4], _vec2(0.f, 1024.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.2f, 3);
+    m_pAnimatorCom->CreateAnimation(L"PROJECT_SHOT_9",  m_vecTexture[4], _vec2(0.f, 1536.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.2f, 3);
     //m_pAnimatorCom->CreateAnimation(L"PROJECT_SHOT_11", m_vecTexture[5], _vec2(0.f ,)
 
 
@@ -159,38 +159,41 @@ void CElectriceelBoss::update_animation()
 {
     if(m_eCurState == Electriceel_STATE::OUT_12)    
     {
-        m_pAnimatorCom->Play(L"OUT_12", false);
+        m_pAnimatorCom->Play(L"OUT_12", true);
         if (m_pAnimatorCom->GetAnimation()->IsFinish())
         {
             m_pAnimatorCom->SetAnimationFrame(L"OUT_12", 0);
             m_eCurState = Electriceel_STATE::IDLE_12;
+            
         }
     }
 
     if(m_eCurState == Electriceel_STATE::IDLE_12)
     {
-        m_pAnimatorCom->Play(L"IDLE_12", false);    
+        m_pAnimatorCom->Play(L"IDLE_12", true);    
         if (m_pAnimatorCom->GetAnimation()->IsFinish()) 
         {
             m_pAnimatorCom->SetAnimationFrame(L"IDLE_12", 0);   
-            m_eCurState = Electriceel_STATE::PROJECT_SHOT_12;    
+            m_eCurState = Electriceel_STATE::PROJECT_SHOT_12;
+            
         }
     }
         
     if (m_eCurState == Electriceel_STATE::PROJECT_SHOT_12)  
     {   
-        m_pAnimatorCom->Play(L"PROJECT_SHOT_12", false);    
+        m_pAnimatorCom->Play(L"PROJECT_SHOT_12", true);    
         if (m_pAnimatorCom->GetAnimation()->IsFinish()) 
         {
             m_pAnimatorCom->SetAnimationFrame(L"PROJECT_SHOT_12", 0);   
             m_eCurState = Electriceel_STATE::IN_12; 
+           
         }
     }
 
-
+    
     if(m_eCurState == Electriceel_STATE::IN_12)
     {
-        m_pAnimatorCom->Play(L"IN_12", false);
+        m_pAnimatorCom->Play(L"IN_12", true);
         if (m_pAnimatorCom->GetAnimation()->IsFinish())
         {
             m_pAnimatorCom->SetAnimationFrame(L"IN_12", 0);

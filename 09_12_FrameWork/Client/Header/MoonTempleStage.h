@@ -10,6 +10,7 @@
 #include "Object.h"
 
 #include "MoonTempleMap.h"
+
 #include "ElectriceelBossStage.h"
 
 class CMoonTempleStage : public CScene

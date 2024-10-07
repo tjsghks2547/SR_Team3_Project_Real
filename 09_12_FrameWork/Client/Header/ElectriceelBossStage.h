@@ -11,7 +11,7 @@
 #include "QuickSlot.h"
 #include "Object.h"
 #include "ElectriceelBoss.h"
-
+#include "ArenaStage.h"
 
 
 class CElectriceelBossStage : public CScene

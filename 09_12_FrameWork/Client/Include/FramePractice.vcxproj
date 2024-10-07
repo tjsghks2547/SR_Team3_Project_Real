@@ -150,6 +150,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\AppleHat.h" />
+    <ClInclude Include="..\Header\ArenaMap.h" />
+    <ClInclude Include="..\Header\ArenaStage.h" />
     <ClInclude Include="..\Header\BackGround.h" />
     <ClInclude Include="..\Header\BigFruit.h" />
     <ClInclude Include="..\Header\BigHerb.h" />
@@ -293,6 +295,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\AppleHat.cpp" />
+    <ClCompile Include="..\Code\ArenaMap.cpp" />
+    <ClCompile Include="..\Code\ArenaStage.cpp" />
     <ClCompile Include="..\Code\BackGround.cpp" />
     <ClCompile Include="..\Code\BigFruit.cpp" />
     <ClCompile Include="..\Code\BigHerb.cpp" />

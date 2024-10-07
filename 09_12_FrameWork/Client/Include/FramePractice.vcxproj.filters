@@ -344,6 +344,12 @@
     <Filter Include="02. GameObject\11. UI\07. MonsterUI">
       <UniqueIdentifier>{dfad8560-ed16-43f4-b8e4-8acf049298cc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Scene\09. ArenaStage">
+      <UniqueIdentifier>{8402fe60-a462-4a00-9d93-fc0bcb7c9849}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\07. Map\07.ArenaMap">
+      <UniqueIdentifier>{0f28fa70-581e-4422-96ad-5c7290a16ddc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -775,6 +781,12 @@
     <ClInclude Include="..\Header\StoreSelector.h">
       <Filter>02. GameObject\11. UI\04. StoreUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\ArenaStage.h">
+      <Filter>01. Scene\09. ArenaStage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ArenaMap.h">
+      <Filter>02. GameObject\07. Map\07.ArenaMap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FramePractice.cpp">
@@ -1196,6 +1208,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\StoreSelector.cpp">
       <Filter>02. GameObject\11. UI\04. StoreUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ArenaStage.cpp">
+      <Filter>01. Scene\09. ArenaStage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ArenaMap.cpp">
+      <Filter>02. GameObject\07. Map\07.ArenaMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -705,6 +705,59 @@ void CImgui_ObjectTool::ShowObjectWindow()
 		};
 
 
+		if (ImGui::ImageButton("Arena_Wall", m_vecObjectTexture[63], imageSize))
+		{
+			m_sCurTextureData =  L"Arena_Wall";
+			m_sCurTextureKey =   L"Arena_Wall";
+			m_strCurObjectName = L"Arena_Wall";
+		};
+
+		if (ImGui::ImageButton("blackBoard", m_vecObjectTexture[64], imageSize))
+		{
+			m_sCurTextureData =  L"blackBoard";
+			m_sCurTextureKey =   L"blackBoard";
+			m_strCurObjectName = L"blackBoard";
+		};
+
+
+		if (ImGui::ImageButton("ArenaMark", m_vecObjectTexture[65], imageSize))
+		{
+			m_sCurTextureData =  L"ArenaMark";
+			m_sCurTextureKey =   L"ArenaMark";
+			m_strCurObjectName = L"ArenaMark";
+		};
+
+		if (ImGui::ImageButton("Caffet_One", m_vecObjectTexture[66], imageSize))
+		{
+			m_sCurTextureData =  L"Caffet_One";
+			m_sCurTextureKey =   L"Caffet_One";
+			m_strCurObjectName = L"Caffet_One";
+		};
+
+		if (ImGui::ImageButton("Caffet_Two", m_vecObjectTexture[67], imageSize))
+		{
+			m_sCurTextureData =  L"Caffet_Two";
+			m_sCurTextureKey =   L"Caffet_Two";
+			m_strCurObjectName = L"Caffet_Two";
+		};
+
+
+		if (ImGui::ImageButton("Caffet_Three", m_vecObjectTexture[68], imageSize))
+		{
+			m_sCurTextureData =  L"Caffet_Three";
+			m_sCurTextureKey =   L"Caffet_Three";
+			m_strCurObjectName = L"Caffet_Three";
+		};
+
+		if (ImGui::ImageButton("Pillar", m_vecObjectTexture[69], imageSize))
+		{
+			m_sCurTextureData =  L"Pillar";
+			m_sCurTextureKey =   L"Pillar";
+			m_strCurObjectName = L"Pillar";
+		};
+
+
+
 		//일단 오브젝트 생성해보기 
 		ImGui::End();
 
