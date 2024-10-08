@@ -23,7 +23,6 @@
 #include "BoardCursor.h"
 #include "MonkeyStatue.h"
 #include "StoneBlock.h"
-#include "StoneBlockHole.h"
 #include "BugStatue.h"
 #include "BugStatuePuzzle.h"
 #include "CombinationPuzzle.h"
@@ -42,6 +41,10 @@
 #include "ShootingPlant.h"
 #include "StoneHole.h"
 #include "BreakableStone.h"
+#include "Rock.h"
+#include "FenceThorn.h"
+#include "FrontDoor.h"
+#include "Trigger.h"
 
 
 #include "Terrain.h"

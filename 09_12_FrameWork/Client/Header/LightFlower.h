@@ -20,11 +20,11 @@ public:
 	virtual   HRESULT   Ready_GameObject();
 	virtual   _int      Update_GameObject(const _float& fTimeDelta);
 	virtual   void	    LateUpdate_GameObject(const _float& fTimeDelta);
-	virtual   void      Render_GameObject();
-	virtual   void		LateReady_GameObject() override;
+	virtual   void      Render_GameObject();	
 
 public:
 	void Set_Glow(CGameObject* _pObj) { m_pGlow = _pObj; }
+	void Set_Pedestal(CGameObject* _pObj) { m_pPedestal = _pObj; }
 	void Match_Puzzle() override;
 
 private:
@@ -41,6 +41,7 @@ public:
 
 private:
 	CGameObject* m_pGlow;
+	CGameObject* m_pPedestal;
 
 private:
 	bool LoadTextureFromFile(LPDIRECT3DDEVICE9 d3dDevice, const char* filePath, IDirect3DTexture9** outTexture)

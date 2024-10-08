@@ -23,6 +23,9 @@
 #include "Scale.h"
 #include "WeightComparator.h"
 #include "Catapult.h"
+#include "Rock.h"
+#include "FrontDoor.h"
+#include "Trigger.h"
 
 class CJungleForestStage :public CScene
 {

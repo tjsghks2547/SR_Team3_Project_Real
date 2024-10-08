@@ -1,4 +1,6 @@
 #pragma once
+#include "Player.h"
+#include "PlayerInteractionBox.h"
 #include "GameObject.h"
 
 BEGIN(Engine)
@@ -6,6 +8,7 @@ BEGIN(Engine)
 class CTexture;
 class CRcTex;
 class CTransform;
+class CCollider;
 
 END
 
@@ -20,10 +23,13 @@ public:
 	virtual   _int      Update_GameObject(const _float& fTimeDelta);
 	virtual   void	    LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual   void      Render_GameObject();
+	virtual void OnCollision(CGameObject* _pOther);
+	virtual void OnCollisionEnter(CGameObject* _pOther);
+	virtual void OnCollisionExit(CGameObject* _pOther);
+	virtual void	SetPlayer(CPlayer* _Player) { m_CPlayer = _Player; }
 
 public:	
-	void Add_StoneBlock(CGameObject* _pObj) { m_vecStoneBlocks.push_back(_pObj); }
-	void Add_StoneBlockHole(CGameObject* _pObj) { m_vecStoneBlocksHoles.push_back(_pObj); }
+	void Add_StoneBlock(CGameObject* _pObj) { m_vecStoneBlocks.push_back(_pObj); }	
 	void Add_FirePit(CGameObject* _pObj) { m_vecFirePits.push_back(_pObj); }
 	void Play_Music();
 	void Match_Note(_int _iNote);
@@ -34,17 +40,21 @@ private:
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTexture* m_pTextureCom;
 	Engine::CTransform* m_pTransformCom;
+	Engine::CCollider* m_pBoundBox;
 
 private:
 	HRESULT    Add_Component();
 
 private:
 	_bool m_bIsClear;
+	_bool m_bIsActivate;
 	_int m_iCurNote;
 	vector<_int> m_vecKeyOrder;
 	vector<CGameObject*> m_vecFirePits;
 	vector<CGameObject*> m_vecStoneBlocks;
-	vector<CGameObject*> m_vecStoneBlocksHoles;	
+
+protected:
+	CPlayer* m_CPlayer;
 
 public:
 	static CMusicStatue* Create(LPDIRECT3DDEVICE9 pGraphicDev);	

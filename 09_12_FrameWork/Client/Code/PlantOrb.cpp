@@ -33,14 +33,14 @@ _int CPlantOrb::Update_GameObject(const _float& fTimeDelta)
 	if (!m_bIsActive)
 		return 0;
 
+	Add_RenderGroup(RENDER_ALPHA, this);
+	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
+
 	m_fDruration += fTimeDelta;
-	if (m_fDruration >= 3) {
+	if (m_fDruration >= 2) {
 		m_bIsActive = false;
 		m_fDruration = 0;
 	}
-
-	Add_RenderGroup(RENDER_ALPHA, this);
-	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
 	Move(fTimeDelta);
 	return iExit;
@@ -63,7 +63,7 @@ void CPlantOrb::Render_GameObject()
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	m_pGraphicDev->SetTexture(0, m_vecTexture[m_iImageID]);
 	m_pBufferCom->Render_Buffer();
-
+	//m_pBoundBox->Render_Buffer();
 
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pShadowTransformCom->Get_WorldMatrix());
 	m_pShadowTextureCom->Set_Texture();
@@ -78,31 +78,32 @@ void CPlantOrb::OnCollision(CGameObject* _pOther)
 
 void CPlantOrb::OnCollisionEnter(CGameObject* _pOther)
 {
-	if (!m_bIsActive)
+	if (_pOther->Get_Tag() == TAG_NONE)
 		return;
 
 	if (_pOther->Get_Tag() == TAG_PLAYER) {
 		static_cast<CPlayer*>(_pOther)->SetPlayerCurHP(-1);
-		m_fDruration = 0;
-		m_bIsActive = false;
 	}
+
+	m_fDruration = 0;
+	m_bIsActive = false;
 }
 
 void CPlantOrb::OnCollisionExit(CGameObject* _pOther)
 {
 }
 
-void CPlantOrb::Init_Pos(_float _fX, _float _fZ)
+void CPlantOrb::Init_Pos(_float _fX, _float _fZ, _float _fDir)
 {	
-	m_pTransformCom -> Set_Pos(_fX, 18.f, _fZ);
-	m_pShadowTransformCom->Set_Pos(_fX, 0.03f, _fZ);
+	m_pTransformCom -> Set_Pos(_fX + (15 * _fDir), 20.f, _fZ);
+	m_pShadowTransformCom->Set_Pos(_fX + (15 * _fDir), 0.2f, _fZ);
 }
 
 void CPlantOrb::Move(const _float& fTimeDelta)
 {
 	_vec3 vRight;	
 	m_pTransformCom->Get_Info(INFO_RIGHT, &vRight);
-	m_pTransformCom->Move_Pos(D3DXVec3Normalize( &vRight, &vRight), fTimeDelta, m_fSpeed * 2);
+	m_pTransformCom->Move_Pos(D3DXVec3Normalize( &vRight, &vRight), fTimeDelta, m_fSpeed * 5.f);
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	m_pShadowTransformCom->Set_Pos(vPos.x, 0.03f, vPos.z);

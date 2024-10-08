@@ -100,6 +100,7 @@ public:
 		m_pAnimationCom->SetAnimFrame(m_ePlayerState, m_bIsDiagonal);
 	}
 
+	void Set_Interacting(_bool _bInteract) { m_bIsInteracting = _bInteract; }
 	// 공격중인지 판단합니다.
 	_bool			GetSwingTrigger() { return m_bSwingTrigger; }
 	void			SetSwingTrigger(_bool bSwing) { m_bSwingTrigger = bSwing; }
@@ -262,6 +263,7 @@ private:
 	_bool		m_bInven;
 	_bool		m_bQuest;
 	_bool		m_bStoreVisit;
+	_bool		m_bIsInteracting;
 
 public:
 	static CPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);

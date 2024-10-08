@@ -6,6 +6,7 @@ BEGIN(Engine)
 class CTexture;
 class CRcTex;
 class CTransform;
+class CCollider;
 
 END
 
@@ -25,6 +26,7 @@ private:
 	Engine::CRcTex* m_pBufferCom;	
 	Engine::CTransform* m_pTransformCom;	
 	Engine::CTransform* m_pHoleTransformCom;
+	Engine::CCollider* m_pBoundBox;
 
 private:
 	HRESULT    Add_Component();
@@ -50,7 +52,7 @@ public:
 	{
 		m_bIsMove = true;
 		m_bIsUp = m_bIsUp == true ? false : true;
-		m_fTargetPos = m_bIsUp == true ? _vec3{ 0.f, 18.f, 0.f } : _vec3{ 0.f, -18.f, 0.f };
+		m_fTargetPos = m_bIsUp == true ? _vec3{ 0.f, 13.5f, 0.f } : _vec3{ 0.f, -14.f, 0.f };
 		m_iHoleImageID = 0;
 		m_fMoveTime = 0;
 	};

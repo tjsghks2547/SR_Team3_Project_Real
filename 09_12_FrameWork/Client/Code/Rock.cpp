@@ -1,61 +1,54 @@
 #include "pch.h"
-#include "LightFlower.h"
-#include "FlowerGlow.h"
-#include "ColorStone.h"
-#include "StonePedestal.h"
+#include "Rock.h"
 #include "Export_Utility.h"
 
-CLightFlower::CLightFlower(LPDIRECT3DDEVICE9 pGraphicDev)
-	: Engine::CPuzzleObject(pGraphicDev)
+CRock::CRock(LPDIRECT3DDEVICE9 pGraphicDev)
+	: Engine::CGameObject(pGraphicDev)
 {
 }
 
-CLightFlower::~CLightFlower()
+CRock::~CRock()
 {
 }
 
-HRESULT CLightFlower::Ready_GameObject()
+HRESULT CRock::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 20.f, 30.f, 20.f };	
-
+	SetObjectType(NOTPASS_ABLE);
+	m_eTag = TAG_OBJECT;
+	m_pTransformCom->m_vScale = { 16.f, 16.f, 16.f };
 	return S_OK;
 }
 
-_int CLightFlower::Update_GameObject(const _float& fTimeDelta)
+_int CRock::Update_GameObject(const _float& fTimeDelta)
 {
 	Add_RenderGroup(RENDER_ALPHA, this);
 	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
-	if (m_pGlow != nullptr)
-		m_pGlow->Update_GameObject(fTimeDelta);
-
 	return iExit;
 }
 
-void CLightFlower::LateUpdate_GameObject(const _float& fTimeDelta)
+void CRock::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
-
-
-	if (m_pGlow != nullptr)
-		m_pGlow->LateUpdate_GameObject(fTimeDelta);
 }
 
-void CLightFlower::Render_GameObject()
+void CRock::Render_GameObject()
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);	
+	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	m_pTextureCom->Set_Texture();
 	m_pBufferCom->Render_Buffer();
-
+	//m_pBoundBox->Render_Buffer();
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
-
-	if (m_pGlow != nullptr)
-		m_pGlow->Render_GameObject();
 }
 
-HRESULT CLightFlower::Add_Component()
+void CRock::OnCollisionEnter(CGameObject* _pOther)
+{
+
+}
+
+HRESULT CRock::Add_Component()
 {
 	CComponent* pComponent = NULL;
 
@@ -63,7 +56,7 @@ HRESULT CLightFlower::Add_Component()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
-	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_LightFlower"));
+	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Rock"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
 
@@ -79,23 +72,9 @@ HRESULT CLightFlower::Add_Component()
 	return S_OK;
 }
 
-void CLightFlower::Match_Puzzle()
+CRock* CRock::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	if (static_cast<CStonePedestal*>(m_pPedestal)->Get_Stone() == nullptr) {
-		m_pGlow->Set_Active(false);
-		return;
-	}
-		
-	int iIndex = static_cast<CColorStone*>(static_cast<CStonePedestal*>(m_pPedestal)->Get_Stone())->Get_ImageID();
-	if (iIndex >= 0) {
-		static_cast<CFlowerGlow*>(m_pGlow)->Set_ImageID(iIndex);
-		m_pGlow->Set_Active(true);
-	}		
-}
-
-CLightFlower* CLightFlower::Create(LPDIRECT3DDEVICE9 pGraphicDev)
-{
-	CLightFlower* pCrystal = new CLightFlower(pGraphicDev);
+	CRock* pCrystal = new CRock(pGraphicDev);
 
 	if (FAILED(pCrystal->Ready_GameObject()))
 	{
@@ -104,11 +83,11 @@ CLightFlower* CLightFlower::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 		return nullptr;
 	}
 	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pCrystal);
-	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PUZZLE, pCrystal);
+
 	return pCrystal;
 }
 
-void CLightFlower::Free()
+void CRock::Free()
 {
 	Engine::CGameObject::Free();
 }

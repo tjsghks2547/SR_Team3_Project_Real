@@ -13,8 +13,7 @@ CStone::~CStone()
 
 HRESULT CStone::Ready_GameObject()
 {
-	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	//m_eObjType = PUSH_ABLE;
+	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);	
 	int type = OBJ_TYPE::LIFT_ABLE + OBJ_TYPE::PUSH_ABLE;
 	SetObjectType(type);
 	m_eTag = TAG_STONE;
@@ -40,12 +39,11 @@ _int CStone::Update_GameObject(const _float& fTimeDelta)
 		m_vVelocity.y += gravity * fTimeDelta * 10.f;
 		vPos += m_vVelocity * fTimeDelta * 10.f;
 			m_pTransformCom->Set_Pos(vPos);
-		if (vPos.y <= 14.0f) {
+		if (vPos.y <= 10.0f) {
 			vPos.y = 15.0f;			
 			m_bIsLaunched = false;
 			m_vVelocity = _vec3{ 0.f, 30.f, 40.f };
 		}
-
 
 		m_pTransformCom->Set_Pos(vPos);
 	}	
@@ -72,7 +70,7 @@ void CStone::Render_GameObject()
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	m_pTextureCom->Set_Texture();
 	m_pBufferCom->Render_Buffer();
-	//m_pBoundBox->Render_Buffer();
+	m_pBoundBox->Render_Buffer();
 
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pShadowTransformCom->Get_WorldMatrix());
 	m_pShadowTextureCom->Set_Texture();

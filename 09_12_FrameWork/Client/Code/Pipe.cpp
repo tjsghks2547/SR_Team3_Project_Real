@@ -15,7 +15,7 @@ CPipe::~CPipe()
 HRESULT CPipe::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 6.f, 6.f, 0.f };
+	m_pTransformCom->m_vScale = { 12.f, 12.f, 0.f };
 	m_pTransformCom->Rotation(ROT_X, 90.f * 3.14159265359f / 180.f);
 	m_iImageID = 0;	
 	m_vecTexture.resize(12);

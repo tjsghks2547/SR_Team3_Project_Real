@@ -19,8 +19,7 @@ public:
 	static CCrystalPuzzle* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Add_Crystal(CGameObject* _pCrystal) { m_vecCrystals.push_back(_pCrystal); }
 	void Add_PressBlock(CGameObject* _pBlock) { m_vecPressBlocks.push_back(_pBlock); }
-	void Check_Matched();
-	void Key_Input(const _float& fTimeDelta);
+	void Check_Matched();	
 
 private:
 	_bool m_bIsMatched;

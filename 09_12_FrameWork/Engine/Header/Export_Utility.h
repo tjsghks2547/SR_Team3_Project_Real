@@ -78,11 +78,10 @@ inline  HRESULT  Ready_Light(LPDIRECT3DDEVICE9 pGraphicDev,
 //sound
 inline void Sound_Initialize();
 inline void Play_Sound(const _tchar* pSoundKey, CHANNELID eID, float fVolume);
-inline void PlayBGM(_tchar* pSoundKey, float fVolume);
+inline void PlayBGM(const _tchar* pSoundKey, float fVolume);
 inline void StopSound(CHANNELID eID);
 inline void StopAll();
-inline void SetChannelVolume(CHANNELID eID, float fVolume);
-inline _tchar* Get_CurBGM();
+inline void SetChannelVolume(CHANNELID eID, float fVolume); inline void SetChannelVolume(CHANNELID eID, float fVolume);
 
 inline void		Release_Utility();
 

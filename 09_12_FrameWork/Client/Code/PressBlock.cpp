@@ -15,8 +15,8 @@ CPressBlock::~CPressBlock()
 HRESULT CPressBlock::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 16.f, 16.f, 16.f };
-	m_pTexTransformCom->m_vScale = { 16.f, 16.f, 0.f };
+	m_pTransformCom->m_vScale = { 15.f, 15.f, 15.f };
+	m_pTexTransformCom->m_vScale = { 15.f, 15.f, 0.f };
 	m_pTexTransformCom->Rotation(ROT_X, 90.f * 3.14159265359f / 180.f);
 	m_iImageID = 0;
 	m_bIsPressed = false;
@@ -97,7 +97,7 @@ HRESULT CPressBlock::Add_Component()
 void CPressBlock::Init(CGameObject* _pGroup, _int _iID, _float _fX, _float _fZ)
 {
 	m_pGroup = _pGroup;
-	m_iMaxID = _iID;
+	m_iMaxID = _iID + 2;
 	m_pTransformCom->Set_Pos(_fX, 10.f, _fZ);
 	m_pTexTransformCom->Set_Pos(_fX, 0.1f, _fZ);
 
