@@ -29,7 +29,7 @@ protected:
 
 	_ulong						m_dwIdxSize;
 	D3DFORMAT					m_IdxFmt; 
-
+	_vec3* m_pPos;
 
 public:
 	virtual void  Free();

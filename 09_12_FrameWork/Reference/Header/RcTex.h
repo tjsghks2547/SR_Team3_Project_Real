@@ -15,7 +15,7 @@ private:
 public:
 	virtual  HRESULT  Ready_Buffer();
 	virtual  void	  Render_Buffer();
-
+	virtual _vec3* Get_VtxPos() { return m_pPos; }
 
 public:
 	static   CRcTex*			Create(LPDIRECT3DDEVICE9 pGraphicDev);

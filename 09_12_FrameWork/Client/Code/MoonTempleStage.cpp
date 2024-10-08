@@ -32,6 +32,14 @@ HRESULT CMoonTempleStage::Ready_Scene()
 
     //m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
 
+    CLayer* layer = Engine::Get_Layer(L"Layer_GameLogic");
+    CPlayer* player = dynamic_cast<CPlayer*>(
+        Get_GameObject(L"Layer_GameLogic", L"Player"));
+
+    dynamic_cast<CTransform*>(
+        player->Get_Component(ID_DYNAMIC, L"Com_Transform")
+        )->Set_Pos(1000.f, 30.f, 150.f);
+
     return S_OK;
 }
 

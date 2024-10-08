@@ -26,6 +26,7 @@ void CRenderer::Render_GameObject(LPDIRECT3DDEVICE9& pGraphicDev)
 	Render_Priority(pGraphicDev);
 	Render_NonAlpha(pGraphicDev);
 	Render_Alpha(pGraphicDev);
+	Render_Trancelucent(pGraphicDev);
 	Render_UI(pGraphicDev);
 
 	Clear_RenderGroup();
@@ -54,13 +55,6 @@ void CRenderer::Render_NonAlpha(LPDIRECT3DDEVICE9& pGraphicDev)
 
 void CRenderer::Render_Alpha(LPDIRECT3DDEVICE9& pGraphicDev)
 {
-	//pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-	//
-	//for (auto& pGameObject : m_RenderGroup[RENDER_ALPHA])
-	//	pGameObject->Render_GameObject();
-	//
-	//pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
-
 	pGraphicDev->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 	pGraphicDev->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
 	pGraphicDev->SetRenderState(D3DRS_ALPHAREF, 0xc0);
@@ -121,7 +115,8 @@ void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)
 void CRenderer::Render_Trancelucent(LPDIRECT3DDEVICE9& pGraphicDev)
 {
 	pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-	pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
+	pGraphicDev->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+	pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(128, 255, 255, 255));
 	pGraphicDev->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
 	pGraphicDev->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TFACTOR);
 	pGraphicDev->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_TEXTURE);
@@ -133,6 +128,9 @@ void CRenderer::Render_Trancelucent(LPDIRECT3DDEVICE9& pGraphicDev)
 		pGameObject->Render_GameObject();
 
 	pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+	pGraphicDev->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+	pGraphicDev->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_SELECTARG1);
+	pGraphicDev->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
 }
 
 void CRenderer::Free()

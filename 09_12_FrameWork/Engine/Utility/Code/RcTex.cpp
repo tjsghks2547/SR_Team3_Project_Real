@@ -12,6 +12,7 @@ CRcTex::CRcTex(LPDIRECT3DDEVICE9 pGraphicDev)
 CRcTex::CRcTex(const CRcTex& rhs)
     :CVIBuffer(rhs)
 {
+    m_pPos = rhs.m_pPos;
 }
 
 CRcTex::~CRcTex()
@@ -29,6 +30,8 @@ HRESULT CRcTex::Ready_Buffer()
     m_IdxFmt = D3DFMT_INDEX32;
 
     FAILED_CHECK_RETURN(CVIBuffer::Ready_Buffer(), E_FAIL);
+
+    m_pPos = new _vec3[m_dwVtxCnt];
 
     VTXTEX2* pVertex = NULL;
 
@@ -48,6 +51,8 @@ HRESULT CRcTex::Ready_Buffer()
 
     m_pVB->Unlock();
 
+    for (int i = 0; i < m_dwVtxCnt; i++)
+        m_pPos[i] = pVertex[i].vPosition;
 
     INDEX32* pIndex = nullptr;
 

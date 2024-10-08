@@ -17,6 +17,12 @@ class CTransform;
 
 END
 
+struct Ray
+{
+	_vec3 origin;
+	_vec3 direction;
+};
+
 class CPlayer;
 
 class CDynamicCamera : public CCamera
@@ -45,12 +51,14 @@ public:
 private:
 	void  Key_Input(const _float& fTimeDelta);
 	void  Mouse_Move(const _float& fTimeDelta);
+	void  CheckMoveTrigger();
 	void  MoveToPlayer(const _float& fTimeDelta);
 
 	void  ZoomToTrigger(const _float& fTimeDelta);
 	void  ResetZoom(const _float& fTimeDelta);
 
 	void  ShakeMoveTrigger(const _float& fTimeDelta);
+	void  RayTransfer();
 
 private:
 
@@ -67,6 +75,8 @@ private:
 	float m_fMoveToPlayerSpeed;
 	float m_fDistance;
 
+	_bool m_bMoveTrigger;
+	_vec3 vMoveDir;
 	// Zoom
 	// 외부에서 ZoomTo()함수에 의해 true가 돼, 업데이트에서 줌인/아웃이 진행
 	bool m_bZoomTrigger;

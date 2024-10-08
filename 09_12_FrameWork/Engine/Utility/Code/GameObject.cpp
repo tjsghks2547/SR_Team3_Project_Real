@@ -5,6 +5,7 @@ CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDevice)
 	:m_pGraphicDev(pGraphicDevice)
 	, m_strKey(L"")
 	, m_iObjType(0)
+	, m_bIsTransparent(false)
 {
 	m_pGraphicDev->AddRef();
 }
@@ -12,6 +13,7 @@ CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDevice)
 CGameObject::CGameObject(const CGameObject& rhs)
 	:m_pGraphicDev(rhs.m_pGraphicDev)
 	, m_strKey(L"")
+	, m_bIsTransparent(false)
 {
 	m_pGraphicDev->AddRef();
 }
@@ -23,7 +25,7 @@ CGameObject::~CGameObject()
 CComponent* CGameObject::Get_Component(COMPONENTID eID, const _tchar* pComponentTag)
 {
 	CComponent* pComponent = Find_Component(eID, pComponentTag);
-	NULL_CHECK_RETURN(pComponent, nullptr);
+	//NULL_CHECK_RETURN(pComponent, nullptr);
 
 	return pComponent;
 }

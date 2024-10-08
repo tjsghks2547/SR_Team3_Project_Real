@@ -30,7 +30,8 @@ public:
 
 	//0913
 	void			Compute_ViewZ(const _vec3* pPos);
-
+	virtual	 _bool    GetTransparent() { return m_bIsTransparent; }
+	virtual  void	  SetTransparent(_bool _bValue) { m_bIsTransparent = _bValue; }
 protected:
 	map<const _tchar*, CComponent*>    m_mapComponent[ID_END];
 	LPDIRECT3DDEVICE9				   m_pGraphicDev;
@@ -38,6 +39,7 @@ protected:
 	//0913
 	_float								m_fViewZ;
 	int									m_iObjType;
+	_bool								m_bIsTransparent;
 public:
 	CComponent* Find_Component(COMPONENTID eID, const _tchar* pComponentTag);
 
