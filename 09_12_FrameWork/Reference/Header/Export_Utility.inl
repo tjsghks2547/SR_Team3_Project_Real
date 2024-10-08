@@ -60,7 +60,7 @@ inline void Play_Sound(const _tchar* pSoundKey, CHANNELID eID, float fVolume) {
 	CSoundManager::GetInstance()->Play_Sound(pSoundKey, eID, fVolume);
 }
 
-inline void PlayBGM(_tchar* pSoundKey, float fVolume) {
+inline void PlayBGM(const _tchar* pSoundKey, float fVolume) {
 	CSoundManager::GetInstance()->PlayBGM(pSoundKey, fVolume);
 }
 

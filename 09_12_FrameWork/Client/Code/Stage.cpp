@@ -20,6 +20,10 @@ HRESULT CStage::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_GameLogic(L"Layer_GameLogic"), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
 
+	Engine::StopSound(SOUND_BGM);
+	//Engine::PlayBGM(L"BGM_1_CentralArea.wav", 1.f);
+	//Play_Sound(L"BGM_19_TutorialAmbience.wav", SOUND_EFFECT, 1.f);
+
 	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 	
 	return S_OK;
@@ -34,6 +38,7 @@ _int CStage::Update_Scene(const _float& fTimeDelta)
 	{
 		Engine::CScene* pStage2 = CWorldHearStage::Create(m_pGraphicDev);	
 		NULL_CHECK_RETURN(pStage2, -1);
+
 
 		FAILED_CHECK_RETURN(Engine::Set_Scene(pStage2), E_FAIL);
 		//pStage2->init(); // 맵툴에서 가져온 오브젝트들을 위해 사용 

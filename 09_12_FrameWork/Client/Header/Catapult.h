@@ -1,5 +1,7 @@
 #pragma once
 #include "GameObject.h"
+#include "Player.h"
+#include "PlayerInteractionBox.h"
 
 BEGIN(Engine)
 
@@ -27,6 +29,7 @@ public:
 
 public:
 	void Init_Pos(_float _fX, _float _fZ);
+	virtual void	SetPlayer(CPlayer* _Player) { m_CPlayer = _Player; }
 
 private:
 	HRESULT    Add_Component();
@@ -48,8 +51,12 @@ public:
 
 private:
 	_bool m_bIndicator;
+	_bool m_bIsActivate;
 	_float m_fPullDuration;
 	CGameObject* m_pStone;
+
+protected:
+	CPlayer* m_CPlayer;
 
 private:
 	bool LoadTextureFromFile(LPDIRECT3DDEVICE9 d3dDevice, const char* filePath, IDirect3DTexture9** outTexture)

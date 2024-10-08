@@ -16,10 +16,10 @@ CBoardCursor::~CBoardCursor()
 HRESULT CBoardCursor::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 7.f, 7.f, 0.f };
+	m_pTransformCom->m_vScale = { 15.f, 15.f, 0.f };
 	m_pTransformCom->Rotation(ROT_X, 90.f * 3.14f / 180.f);
 	//m_pTransformCom->Rotation(ROT_Y, 90.f * 3.14f / 180.f);
-	m_pTransformCom->Set_Pos(0.f, 0.11f, -12.2f);
+	m_pTransformCom->Set_Pos(0.f, 0.2f, -12.2f);
 	return S_OK;
 }
 
@@ -32,7 +32,7 @@ _int CBoardCursor::Update_GameObject(const _float& fTimeDelta)
 	if (!m_bIsActive)
 		return iExit;
 
-	Add_RenderGroup(RENDER_ALPHA, this);
+	Add_RenderGroup(RENDER_TRANSLUCNET, this);
 
 	//Engine::CTransform* pPlayerTransform = dynamic_cast<Engine::CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_GameLogic", L"Player", L"Com_Transform"));
 	//NULL_CHECK_RETURN(pPlayerTransform, -1);	

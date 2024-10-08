@@ -2,7 +2,6 @@
 #include "MusicStatue.h"
 #include "FirePit.h"
 #include "StoneBlock.h"
-#include "StoneBlockHole.h"
 #include "Export_Utility.h"
 
 CMusicStatue::CMusicStatue(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -17,13 +16,14 @@ CMusicStatue::~CMusicStatue()
 HRESULT CMusicStatue::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 17.f, 16.f, 0.f };
-	m_vecKeyOrder.push_back(0);
-	m_vecKeyOrder.push_back(1);
+	SetObjectType(NOTPASS_ABLE);
+	m_pTransformCom->m_vScale = { 17.f, 16.f, 15.f };
 	m_vecKeyOrder.push_back(2);
+	m_vecKeyOrder.push_back(1);
 	m_vecKeyOrder.push_back(3);
-	m_vecKeyOrder.push_back(4);
+	m_vecKeyOrder.push_back(0);
 	m_vecKeyOrder.push_back(5);
+	m_vecKeyOrder.push_back(4);
 	return S_OK;
 }
 
@@ -52,9 +52,34 @@ void CMusicStatue::Render_GameObject()
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 
+void CMusicStatue::OnCollision(CGameObject* _pOther)
+{
+	if (_pOther->GetObjectKey() != L"PlayerInteractionBox")
+		return;
+
+	m_CPlayer = dynamic_cast<CPlayerInteractionBox*>(_pOther)->GetPlayer();
+	if (m_CPlayer->GetSwingTrigger() && !m_bIsActivate)
+	{
+		Play_Music();
+		m_bIsActivate = true;
+	}
+}
+
+void CMusicStatue::OnCollisionEnter(CGameObject* _pOther)
+{
+}
+
+void CMusicStatue::OnCollisionExit(CGameObject* _pOther)
+{
+	if (_pOther->GetObjectKey() != L"PlayerInteractionBox")
+		return;
+
+	m_bIsActivate = false;
+}
+
 void CMusicStatue::Play_Music()
 {
-	
+	Play_Sound(L"SFX_676_MusicIceDrum_join.wav", SOUND_EFFECT, 1.f);
 }
 
 void CMusicStatue::Match_Note(_int _iNote)
@@ -89,8 +114,7 @@ void CMusicStatue::Clear_Puzzle()
 	for (int i = 0; i < m_vecStoneBlocks.size(); ++i)
 	{
 		static_cast<CStoneBlock*>(m_vecStoneBlocks[i])->Set_ImageID(4);
-		static_cast<CStoneBlock*>(m_vecStoneBlocks[i])->Move_StoneBlock();		
-		static_cast<CStoneBlockHole*>(m_vecStoneBlocksHoles[i])->Set_ImageID(1);
+		static_cast<CStoneBlock*>(m_vecStoneBlocks[i])->Move_StoneBlock();
 	}
 
 	m_bIsClear = true;
@@ -112,6 +136,11 @@ HRESULT CMusicStatue::Add_Component()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 
+	pComponent = m_pBoundBox = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	m_pBoundBox->SetGameObjectPtr(this);
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collider", pComponent });
+
 	return S_OK;
 }
 
@@ -126,6 +155,7 @@ CMusicStatue* CMusicStatue::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 		return nullptr;
 	}
 
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pMusicStatue);
 	return pMusicStatue;
 }
 

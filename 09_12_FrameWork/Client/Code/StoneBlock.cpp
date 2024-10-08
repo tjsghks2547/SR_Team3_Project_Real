@@ -14,7 +14,8 @@ CStoneBlock::~CStoneBlock()
 HRESULT CStoneBlock::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 16.f, 16.f, 0.f };	
+	SetObjectType(OBJ_TYPE::NOTPASS_ABLE);
+	m_pTransformCom->m_vScale = { 14.f, 14.f, 14.f };	
 	m_vecTexture.resize(5);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_StoneBlock.png", &m_vecTexture[0]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_StoneBlockOnce.png", &m_vecTexture[1]);
@@ -22,7 +23,7 @@ HRESULT CStoneBlock::Ready_GameObject()
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_OceanStoneBlockOnce.png", &m_vecTexture[3]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_OceanStoneBlockOnce_Clear.png", &m_vecTexture[4]);
 
-	m_pHoleTransformCom->m_vScale = { 20.f, 20.f, 0.f };
+	m_pHoleTransformCom->m_vScale = { 18.f, 18.f, 0.f };
 	m_pHoleTransformCom->Rotation(ROT_X, 90.f * 3.14159265359f / 180.f);
 	m_vecHoleTexture.resize(2);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_StoneBlock_Hole.png", &m_vecHoleTexture[0]);
@@ -94,17 +95,22 @@ HRESULT CStoneBlock::Add_Component()
 	pComponent = m_pHoleTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_HoleTransform", pComponent });
-	
+
+	pComponent = m_pBoundBox = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	m_pBoundBox->SetGameObjectPtr(this);
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collider", pComponent });
+
 	return S_OK;
 }
 
 void CStoneBlock::Init(_float _fX, _float _fZ, _bool _bIsUp)
 {		
 	_float fTempY;	
-	fTempY = _bIsUp ? 16.f : -16.f;
+	fTempY = _bIsUp ? 13.5f : -14.f;
 	m_iHoleImageID = _bIsUp ? 0 : 1;
 	m_pTransformCom->Set_Pos(_fX, fTempY, _fZ);
-	m_pHoleTransformCom->Set_Pos(_fX, 0.1f, _fZ + 10.f);
+	m_pHoleTransformCom->Set_Pos(_fX, 0.1f, _fZ + 10.5f);
 	m_bIsUp = _bIsUp;
 }
 

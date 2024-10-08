@@ -14,7 +14,8 @@ CFirePit::~CFirePit()
 HRESULT CFirePit::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 3.f, 4.f, 0.f };
+	m_pTransformCom->m_vScale = { 16.f, 20.f, 16.f };
+	SetObjectType(NOTPASS_ABLE);
 	m_iImageID = 0;
 	m_vecTexture.resize(2);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_FirePlace.png", &m_vecTexture[0]);

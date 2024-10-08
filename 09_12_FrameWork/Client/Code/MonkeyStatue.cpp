@@ -1,11 +1,10 @@
 #include "pch.h"
 #include "MonkeyStatue.h"
 #include "StoneBlock.h"
-#include "StoneBlockHole.h"
 #include "Export_Utility.h"
 
 CMonkeyStatue::CMonkeyStatue(LPDIRECT3DDEVICE9 pGraphicDev)
-	: Engine::CGameObject(pGraphicDev)
+	: Engine::CGameObject(pGraphicDev), m_bIsActivate(false)
 {
 }
 
@@ -16,7 +15,8 @@ CMonkeyStatue::~CMonkeyStatue()
 HRESULT CMonkeyStatue::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 18.f, 22.f, 18.f };
+	m_pTransformCom->m_vScale = { 16.f, 20.f, 16.f };
+	SetObjectType(OBJ_TYPE::NOTPASS_ABLE);
 	m_bIs = false;
 	return S_OK;
 }
@@ -47,17 +47,33 @@ void CMonkeyStatue::Render_GameObject()
 
 void CMonkeyStatue::OnCollision(CGameObject* _pOther)
 {
+	if (_pOther->GetObjectKey() != L"PlayerInteractionBox")
+		return;
+
+	m_CPlayer = dynamic_cast<CPlayerInteractionBox*>(_pOther)->GetPlayer();
+	if (m_CPlayer->GetSwingTrigger() && !m_bIsActivate)
+	{
+		Active_StoneBlock();
+		m_bIsActivate = true;
+		//Play_Sound()
+	}
 }
 
 void CMonkeyStatue::OnCollisionEnter(CGameObject* _pOther)
 {
-	if (_pOther->Get_Tag() == TAG_PLAYER) {
-		Active_StoneBlock();
-	}
+	//if (_pOther->Get_Tag() == TAG_PLAYER) {
+	//	Active_StoneBlock();
+	//}
+
+
 }
 
 void CMonkeyStatue::OnCollisionExit(CGameObject* _pOther)
 {
+	if (_pOther->GetObjectKey() != L"PlayerInteractionBox")
+		return;
+
+	m_bIsActivate = false;
 }
 
 void CMonkeyStatue::Active_StoneBlock()

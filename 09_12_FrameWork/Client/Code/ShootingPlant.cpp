@@ -4,7 +4,7 @@
 #include "Export_Utility.h"
 
 CShootingPlant::CShootingPlant(LPDIRECT3DDEVICE9 pGraphicDev)
-	: Engine::CGameObject(pGraphicDev), m_iImageID(1), m_isFire(false), m_fFireRate(1), m_bIsRight(false)
+	: Engine::CGameObject(pGraphicDev), m_iImageID(0), m_isFire(false), m_fFireRate(1), m_bIsRight(false)
 {
 }
 
@@ -17,11 +17,15 @@ HRESULT CShootingPlant::Ready_GameObject()
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 	m_pTransformCom->m_vScale = { 150.f, 20.f, 150.f };
 	m_pTexTransformCom->m_vScale = { 15.f, 15.f, 15.f };
-
-	m_vecTexture.resize(3);
+	m_pTexTransformCom->Rotation(ROT_X, 30.f * 3.14159265359f / 180.f);
+	m_eTag = TAG_NONE;
+	m_vecTexture.resize(6);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_PlantCannon_Blue_Static.png", &m_vecTexture[0]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_PlantCannon_Yellow_Static.png", &m_vecTexture[1]);
-	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_PlantCannon_RedBlue_Static.png", &m_vecTexture[2]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_PlantCannon_Yellow_Static.png", &m_vecTexture[2]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_PlantCannon_RedBlue_Static.png", &m_vecTexture[3]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_PlantCannon_Yellow_Static.png", &m_vecTexture[4]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_PlantCannon_RedBlue_Static.png", &m_vecTexture[5]);
 	
 	return S_OK;
 }
@@ -42,25 +46,22 @@ void CShootingPlant::OnCollisionEnter(CGameObject* _pOther)
 	}
 }
 
-void CShootingPlant::OnCollisionExit(CGameObject* _pOther)
+void CShootingPlant::OnCollisionExit(CGameObject* _pOther)	
 {
 	if (_pOther->Get_Tag() == TAG_PLAYER) {
-		m_isFire = false;	
-		m_fFireRate = 1;
+		m_isFire = false;
+		m_fFireRate = 0.f;
 	}
 }
 
 _int CShootingPlant::Update_GameObject(const _float& fTimeDelta)
 {
-	if (!m_bIsActive)
-		return 0;
-
 	Add_RenderGroup(RENDER_ALPHA, this);
 
 	if (m_isFire) {
 		m_fFireRate += fTimeDelta;
 
-		if (m_fFireRate >= 1) {
+		if (m_fFireRate >= 0.2f) {
 			Shot();
 			m_fFireRate = 0;
 		}
@@ -76,9 +77,6 @@ _int CShootingPlant::Update_GameObject(const _float& fTimeDelta)
 
 void CShootingPlant::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-	if (!m_bIsActive)
-		return;
-
 	for (auto& iter : m_vecBullet)
 		iter->LateUpdate_GameObject(fTimeDelta);
 
@@ -87,9 +85,6 @@ void CShootingPlant::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CShootingPlant::Render_GameObject()
 {
-	if (!m_bIsActive)
-		return;
-
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTexTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	m_pGraphicDev->SetTexture(0, m_vecTexture[m_iImageID]);
@@ -115,6 +110,7 @@ void CShootingPlant::Set_Dir(_bool _bIsRight)
 {
 	if (_bIsRight) {
 		m_pTexTransformCom->Rotation(ROT_Y, 180.f * 3.14159265359f / 180.f);
+		m_pTexTransformCom->Rotation(ROT_X, -60.f * 3.14159265359f / 180.f);
 		m_bIsRight = true;
 	}
 }
@@ -157,8 +153,8 @@ CShootingPlant* CShootingPlant::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 		MSG_BOX("pPipeBoard Create Failed");
 		return nullptr;
 	}
+
 	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pCrystal);
-	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PUZZLE, pCrystal);
 	return pCrystal;
 }
 
@@ -169,14 +165,13 @@ void CShootingPlant::Shot()
 
 	for (int i = 0; i < m_vecBullet.size(); ++i)
 	{
-		if (!m_vecBullet[i]->Is_Active()) {
-						
-			vPos.x += m_bIsRight? 15.f : -15.f;
-			vPos.z -= 0.1f;
-			static_cast<CPlantOrb*>(m_vecBullet[i])->Init_Pos(vPos.x, vPos.z);
-			m_vecBullet[i]->Set_Active(true);
-			return;
-		}
+		if (m_vecBullet[i]->Is_Active())
+			continue;				
+
+		float tempX =  m_bIsRight ? 1.f : -1.f;		
+		static_cast<CPlantOrb*>(m_vecBullet[i])->Init_Pos(vPos.x, vPos.z, tempX);
+		m_vecBullet[i]->Set_Active(true);
+		return;
 	}
 
 	Create_Bullet();
@@ -185,13 +180,11 @@ void CShootingPlant::Shot()
 void CShootingPlant::Create_Bullet()
 {
 	_vec3 vPos;
-	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	vPos.y = 18;
-	vPos.x += m_bIsRight ? 15.f : -15.f;
-	vPos.z -= 0.1f;
+	m_pTexTransformCom->Get_Info(INFO_POS, &vPos);	
+	float tempX = m_bIsRight ? 1.f : -1.f;	
 	CGameObject* pOb = CPlantOrb::Create(m_pGraphicDev);
-	static_cast<CPlantOrb*>(pOb)->Init_Pos(vPos.x, vPos.z);
-	static_cast<CPlantOrb*>(pOb)->Set_Speed(m_bIsRight ? 35.f : -35.f);	
+	static_cast<CPlantOrb*>(pOb)->Init_Pos(vPos.x + tempX, vPos.z, tempX);
+	static_cast<CPlantOrb*>(pOb)->Set_Speed(m_bIsRight ? 35.f : -35.f);
 	static_cast<CPlantOrb*>(pOb)->Set_ImageID(m_iImageID);
 	pOb->Set_Active(true);
 

@@ -4,7 +4,7 @@
 #include "Export_Utility.h"
 
 CFlowerGlow::CFlowerGlow(LPDIRECT3DDEVICE9 pGraphicDev)
-	: Engine::CGameObject(pGraphicDev), m_iImageID(1)
+	: Engine::CGameObject(pGraphicDev), m_iImageID(0)
 {
 }
 
@@ -15,8 +15,10 @@ CFlowerGlow::~CFlowerGlow()
 HRESULT CFlowerGlow::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 80.f, 40.f, 80.f };
-	m_pTexTransformCom->m_vScale = { 80.f, 80.f, 0.f };
+	m_bIsActive = false;
+	m_eTag = TAG_NONE;
+	m_pTransformCom->m_vScale = { 100.f, 40.f, 100.f };
+	m_pTexTransformCom->m_vScale = { 100.f, 100.f, 0.f };
 	m_pTexTransformCom->Rotation(ROT_X, 90.f * 3.14159265359f / 180.f);
 	m_vecTexture.resize(6);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_MoonForest_FlowerLightStandArea_Blue.png", &m_vecTexture[0]);
@@ -31,7 +33,11 @@ HRESULT CFlowerGlow::Ready_GameObject()
 
 _int CFlowerGlow::Update_GameObject(const _float& fTimeDelta)
 {
+	if (!m_bIsActive)
+		return 0;
+
 	Add_RenderGroup(RENDER_TRANSLUCNET, this);
+
 	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
 	return iExit;
@@ -39,11 +45,17 @@ _int CFlowerGlow::Update_GameObject(const _float& fTimeDelta)
 
 void CFlowerGlow::LateUpdate_GameObject(const _float& fTimeDelta)
 {
+	if (!m_bIsActive)
+		return;
+
 	Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
 void CFlowerGlow::Render_GameObject()
 {
+	if (!m_bIsActive)
+		return;
+
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTexTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	m_pGraphicDev->SetTexture(0, m_vecTexture[m_iImageID]);
@@ -69,6 +81,7 @@ void CFlowerGlow::OnCollisionEnter(CGameObject* _pOther)
 			return;
 
 		_pOther->Set_Active(false);
+		static_cast<CPlantOrb*>(_pOther)->Set_Duration();
 	}
 }
 

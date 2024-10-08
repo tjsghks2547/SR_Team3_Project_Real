@@ -14,9 +14,10 @@ CStoneHole::~CStoneHole()
 HRESULT CStoneHole::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 18.f, 18.f, 18.f };
+	m_pTransformCom->m_vScale = { 15.f, 20.f, 15.f };
 	m_pTexTransformCom->m_vScale = { 18.f, 18.f, 18.f };
 	m_pTexTransformCom->Rotation(ROT_X, 90.f * 3.14159265359f / 180.f);
+	SetObjectType(NOTPASS_ABLE);
 	m_vecTexture.resize(2);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_StoneHole.png", &m_vecTexture[0]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_StoneHoleFill.png", &m_vecTexture[1]);
@@ -30,7 +31,7 @@ _int CStoneHole::Update_GameObject(const _float& fTimeDelta)
 
 	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
-	if (m_pCollided != nullptr && m_fPullDuration < 1.f) {
+	if (m_pCollided != nullptr && m_fPullDuration < .5f) {
 		m_fPullDuration += fTimeDelta;
 
 		_vec3 vPos, vMovePos, vTarget;
@@ -40,10 +41,11 @@ _int CStoneHole::Update_GameObject(const _float& fTimeDelta)
 		vPos.z -= 10.f;
 		vMovePos = vPos - vTarget;
 		vMovePos.y = 0.f;
-		StoneTrasnform->Move_Pos(&vMovePos, fTimeDelta, 2.5f);
+		StoneTrasnform->Move_Pos(&vMovePos, fTimeDelta, 4.f);
 
-		if (m_fPullDuration > 1.f) {
+		if (m_fPullDuration >= .5f) {
 			m_pCollided->Set_Active(false);
+			m_bIsActive = false;
 			m_iImageID = 1;
 		}
 	}
@@ -77,6 +79,7 @@ void CStoneHole::OnCollisionEnter(CGameObject* _pOther)
 			return;
 
 		m_pCollided = _pOther;
+		m_bIsActive = false;
 	}
 }
 
