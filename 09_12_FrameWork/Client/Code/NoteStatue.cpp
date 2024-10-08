@@ -15,14 +15,14 @@ CNoteStatue::~CNoteStatue()
 HRESULT CNoteStatue::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 3.f, 4.f, 0.f };
+	SetObjectType(NOTPASS_ABLE);
+	m_pTransformCom->m_vScale = { 16.f, 20.f, 16.f };
 	return S_OK;
 }
 
 _int CNoteStatue::Update_GameObject(const _float& fTimeDelta)
 {
-	Add_RenderGroup(RENDER_ALPHA, this);
-	Key_Input(fTimeDelta);
+	Add_RenderGroup(RENDER_ALPHA, this);	
 	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
 	return iExit;
@@ -44,8 +44,57 @@ void CNoteStatue::Render_GameObject()
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 
+void CNoteStatue::OnCollision(CGameObject* _pOther)
+{
+	if (_pOther->GetObjectKey() != L"PlayerInteractionBox")
+		return;
+
+	m_CPlayer = dynamic_cast<CPlayerInteractionBox*>(_pOther)->GetPlayer();
+	if (m_CPlayer->GetSwingTrigger() && !m_bIsActivate)
+	{
+		Play_Note();
+		m_bIsActivate = true;
+	}
+}
+
+void CNoteStatue::OnCollisionEnter(CGameObject* _pOther)
+{
+
+}
+
+void CNoteStatue::OnCollisionExit(CGameObject* _pOther)
+{
+	if (_pOther->GetObjectKey() != L"PlayerInteractionBox")
+		return;
+
+	m_bIsActivate = false;
+}
+
 void CNoteStatue::Play_Note()
 {
+	switch (m_iNoteID)
+	{
+	case 0:
+		Play_Sound(L"SFX_674_MusicIceDrum1.wav", SOUND_EFFECT, 1.f);
+		break;
+	case 1:
+		Play_Sound(L"SFX_675_MusicIceDrum2.wav", SOUND_EFFECT, 1.f);
+		break;
+	case 2:
+		Play_Sound(L"SFX_676_MusicIceDrum3.wav", SOUND_EFFECT, 1.f);
+		break;
+	case 3:
+		Play_Sound(L"SFX_677_MusicIceDrum4.wav", SOUND_EFFECT, 1.f);
+		break;
+	case 4:
+		Play_Sound(L"SFX_678_MusicIceDrum5.wav", SOUND_EFFECT, 1.f);
+		break;
+	case 5:
+		Play_Sound(L"SFX_679_MusicIceDrum6.wav", SOUND_EFFECT, 1.f);
+		break;
+	default:
+		break;
+	}
 	static_cast<CMusicStatue*>(m_pGroup)->Match_Note(m_iNoteID);
 }
 
@@ -65,6 +114,11 @@ HRESULT CNoteStatue::Add_Component()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 
+	pComponent = m_pBoundBox = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	m_pBoundBox->SetGameObjectPtr(this);
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collider", pComponent });
+
 	return S_OK;
 }
 
@@ -79,52 +133,8 @@ CNoteStatue* CNoteStatue::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 		return nullptr;
 	}
 
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pNoteStatue);
 	return pNoteStatue;
-}
-
-void CNoteStatue::Key_Input(const _float& fTimeDelta)
-{
-	if (Engine::GetKeyUp(DIK_1))
-	{
-		if (m_iNoteID == 0) {
-			Play_Note();
-		}
-	}
-
-	if (Engine::GetKeyUp(DIK_2))
-	{
-		if (m_iNoteID == 1) {
-			Play_Note();
-		}
-	}
-
-	if (Engine::GetKeyUp(DIK_3))
-	{
-		if (m_iNoteID == 2) {
-			Play_Note();
-		}
-	}
-
-	if (Engine::GetKeyUp(DIK_4))
-	{
-		if (m_iNoteID == 3) {
-			Play_Note();
-		}
-	}
-
-	if (Engine::GetKeyUp(DIK_5))
-	{
-		if (m_iNoteID == 4) {
-			Play_Note();
-		}
-	}
-
-	if (Engine::GetKeyUp(DIK_6))
-	{
-		if (m_iNoteID == 5) {
-			Play_Note();
-		}
-	}
 }
 
 void CNoteStatue::Free()

@@ -32,17 +32,17 @@ _int CCatapult::Update_GameObject(const _float& fTimeDelta)
 	Add_RenderGroup(RENDER_ALPHA, this);
 	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
-	if (m_pStone != nullptr && m_fPullDuration < 1.5f) {
+	if (m_pStone != nullptr && m_fPullDuration < .5f) {
 		m_fPullDuration += fTimeDelta;
 
 		_vec3 vPos, vMovePos, vTarget;
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
 		Engine::CTransform* StoneTrasnform = static_cast<Engine::CTransform*>(m_pStone->Get_Component(ID_DYNAMIC, L"Com_Transform"));
 		StoneTrasnform->Get_Info(INFO_POS, &vTarget);
-		vPos.z -= 13.f;
-		vPos.y = 21.f;
+		vPos.z -= 15.f;
+		vPos.y = 25.f;
 		vMovePos = vPos - vTarget;
-		StoneTrasnform->Move_Pos(&vMovePos, fTimeDelta, 3.f);
+		StoneTrasnform->Move_Pos(&vMovePos, fTimeDelta, 10.f);
 	}
 
 	return iExit;
@@ -52,10 +52,11 @@ void CCatapult::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
 	
-	if (m_pStone != nullptr && m_fPullDuration > 1.5f) {
+	if (m_pStone != nullptr && m_fPullDuration > .5f) {
 		_vec3 vPos;
 		m_pBucketTransformCom->Get_Info(INFO_POS, &vPos);
 		vPos.y = 21.f;
+		vPos.z -= 13.f;
 		static_cast<Engine::CTransform*>(m_pStone->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vPos);
 	}
 
@@ -93,41 +94,64 @@ void CCatapult::Render_GameObject()
 void CCatapult::OnCollision(CGameObject* _pOther)
 {
 
-	if (Engine::GetKeyDown(DIK_A)) {
+	//if (Engine::GetKeyDown(DIK_A)) {
 
-		if (_pOther->Get_Tag() == TAG_PLAYER) {			
+	//	if (_pOther->Get_Tag() == TAG_PLAYER) {			
 
-			if (m_pStone == nullptr)
-				return;
+	//		if (m_pStone == nullptr)
+	//			return;
 
-			static_cast<CStone*>(m_pStone)->SetObjectType(PUSH_ABLE);
-			static_cast<CStone*>(m_pStone)->Launch();
-			m_pStone = nullptr;
-		}
+	//		static_cast<CStone*>(m_pStone)->SetObjectType(PUSH_ABLE);
+	//		static_cast<CStone*>(m_pStone)->Launch();
+	//		m_pStone = nullptr;
+	//	}
+	//}
+
+	if (_pOther->GetObjectKey() != L"PlayerInteractionBox") {
+		return;
 	}
+		
+
+	m_CPlayer = dynamic_cast<CPlayerInteractionBox*>(_pOther)->GetPlayer();	
+	if (m_CPlayer->GetSwingTrigger() && !m_bIsActivate)
+	{
+		if (m_pStone == nullptr)
+			return;
+
+		int type = OBJ_TYPE::LIFT_ABLE + OBJ_TYPE::PUSH_ABLE;
+		static_cast<CStone*>(m_pStone)->SetObjectType(type);
+		static_cast<CStone*>(m_pStone)->Launch();
+		m_pStone = nullptr;
+		m_bIsActivate = true;
+		m_bIndicator = false;
+	}
+
 }
 
 void CCatapult::OnCollisionEnter(CGameObject* _pOther)
 {
-	if (_pOther->Get_Tag() == TAG_PLAYER) {
-		m_bIndicator = true;
-	}
+	//if (_pOther->Get_Tag() == TAG_PLAYER) {
+	//	m_bIndicator = true;
+	//}
 
 	if (_pOther->Get_Tag() == TAG_STONE) {
 		if (m_pStone != nullptr)
 			return;
 
 		m_pStone = _pOther;
-		int type = OBJ_TYPE::LIFT_ABLE + OBJ_TYPE::PUSH_ABLE;
+		int type = OBJ_TYPE::TYPE_NONE;
 		static_cast<CStone*>(m_pStone)->SetObjectType(type);
+		m_fPullDuration = 0;
+		m_bIndicator = true;
 	}
 }
 
 void CCatapult::OnCollisionExit(CGameObject* _pOther)
 {
-	if (_pOther->Get_Tag() == TAG_PLAYER) {
-		m_bIndicator = false;
-	}
+	if (_pOther->GetObjectKey() != L"PlayerInteractionBox")
+		return;
+
+	m_bIsActivate = false;
 }
 
 void CCatapult::Init_Pos(_float _fX, _float _fZ)

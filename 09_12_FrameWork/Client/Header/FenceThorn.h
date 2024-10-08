@@ -3,19 +3,17 @@
 
 BEGIN(Engine)
 
-class CTexture;
 class CRcTex;
 class CTransform;
 class CCollider;
-class CPlantOrbCom;
 
 END
 
-class CPlantOrb :public Engine::CGameObject
+class CFenceThorn :public Engine::CGameObject
 {
 private:
-	explicit CPlantOrb(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual ~CPlantOrb();
+	explicit CFenceThorn(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual ~CFenceThorn();
 
 public:
 	virtual   HRESULT   Ready_GameObject();
@@ -26,33 +24,24 @@ public:
 	virtual void OnCollisionEnter(CGameObject* _pOther);
 	virtual void OnCollisionExit(CGameObject* _pOther);
 
-public:	
-	void Set_ImageID(_int _iId) { m_iImageID = _iId; }
-	_int Get_ImageID() { return m_iImageID; }	
-	void Init_Pos(_float _fX, _float _fZ, _float _fDir);
-	void Set_Speed(_float _fSpeed) { m_fSpeed = _fSpeed; }
-	void Set_Duration() { m_fDruration = 0; }
-	void Move(const _float& fTimeDelta);
-
 private:
 	HRESULT    Add_Component();
 
+public:
+	void Init(_bool _bHorizontal, _float _fX, _float _fZ);
+
 private:
-	Engine::CRcTex* m_pBufferCom;	
+	Engine::CRcTex* m_pBufferCom;
+	Engine::CTransform* m_pTexTransformCom;
 	Engine::CTransform* m_pTransformCom;
 	Engine::CCollider* m_pBoundBox;
-	Engine::CPlantOrbCom* m_pPlantOrbCom;
-	Engine::CTexture* m_pShadowTextureCom;
-	Engine::CTransform* m_pShadowTransformCom;
 
 public:
-	static CPlantOrb* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CFenceThorn* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:	
 	vector<IDirect3DTexture9*> m_vecTexture;
 	_int m_iImageID;
-	_float m_fSpeed;
-	_float m_fDruration;
 
 private:
 	bool LoadTextureFromFile(LPDIRECT3DDEVICE9 d3dDevice, const char* filePath, IDirect3DTexture9** outTexture)

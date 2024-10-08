@@ -353,6 +353,24 @@
     <Filter Include="02. GameObject\14.ElectriceelBoss\Electirc">
       <UniqueIdentifier>{75cc1c91-68a2-4815-8b3c-319f91345104}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\00. Common Object\07. Rock">
+      <UniqueIdentifier>{2f6522af-f091-45ef-af31-ac3963711193}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\00. Common Object\08. Fence Thorn">
+      <UniqueIdentifier>{85b2f0a5-6e0e-4cc6-a956-3406d0bfa213}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\00. Common Object\09. Trigger">
+      <UniqueIdentifier>{33c86de3-19f5-4492-8be2-bbaf2f5b0a40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\00. Common Object\10. Door">
+      <UniqueIdentifier>{89f96aab-c3a6-4a76-b810-cba659871266}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\11. UI\99. ButtonUI\Examine">
+      <UniqueIdentifier>{4781ee2e-98bf-4f50-a58c-07e51f99e35b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\11. UI\99. ButtonUI\Close">
+      <UniqueIdentifier>{6f8deab9-d5c6-4401-a897-1732e73ed1d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -793,6 +811,33 @@
     <ClInclude Include="..\Header\ElectricEffect.h">
       <Filter>02. GameObject\14.ElectriceelBoss\Electirc</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Rock.h">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\07. Rock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\FenceThorn.h">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\08. Fence Thorn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\FrontDoor.h">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\10. Door</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Trigger.h">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\09. Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ExamineButton.h">
+      <Filter>02. GameObject\11. UI\99. ButtonUI\Examine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CloseButton.h">
+      <Filter>02. GameObject\11. UI\99. ButtonUI\Close</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ShootingPlant.h">
+      <Filter>02. GameObject\09. Puzzle\Shooting Plant</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\LightFlower.h">
+      <Filter>02. GameObject\09. Puzzle\Light Flower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\FlowerGlow.h">
+      <Filter>02. GameObject\09. Puzzle\Light Flower\FlowerGlow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FramePractice.cpp">
@@ -1223,6 +1268,33 @@
     </ClCompile>
     <ClCompile Include="..\Code\ElectricEffect.cpp">
       <Filter>02. GameObject\14.ElectriceelBoss\Electirc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Rock.cpp">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\07. Rock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\FenceThorn.cpp">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\08. Fence Thorn</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\FrontDoor.cpp">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\10. Door</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Trigger.cpp">
+      <Filter>02. GameObject\09. Puzzle\00. Common Object\09. Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ExamineButton.cpp">
+      <Filter>02. GameObject\11. UI\99. ButtonUI\Examine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CloseButton.cpp">
+      <Filter>02. GameObject\11. UI\99. ButtonUI\Close</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\FlowerGlow.cpp">
+      <Filter>02. GameObject\09. Puzzle\Light Flower\FlowerGlow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\LightFlower.cpp">
+      <Filter>02. GameObject\09. Puzzle\Light Flower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ShootingPlant.cpp">
+      <Filter>02. GameObject\09. Puzzle\Shooting Plant</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

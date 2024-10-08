@@ -67,14 +67,14 @@
 		m_pSystem->update();
 	}
 
-	void CSoundManager::PlayBGM(_tchar* pSoundKey, float fVolume)
+	void CSoundManager::PlayBGM(const _tchar* pSoundKey, float fVolume)
 	{
-		if (m_CurBGM == pSoundKey)
-			return;
-		else if(m_CurBGM != nullptr)
-			StopSound(SOUND_BGM);
+		//if (m_CurBGM == pSoundKey)
+		//	return;
+		//else if(m_CurBGM != nullptr)
+		//	StopSound(SOUND_BGM);
 
-		m_CurBGM = pSoundKey;
+		//m_CurBGM = pSoundKey;
 		
 		map<const _tchar*, FMOD::Sound*>::iterator iter;
 

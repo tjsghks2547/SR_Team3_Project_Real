@@ -18,8 +18,6 @@ HRESULT CCrystalPuzzle::Ready_GameObject()
 
 _int CCrystalPuzzle::Update_GameObject(const _float& fTimeDelta)
 {
-	Key_Input(fTimeDelta);
-	
 	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
 	return iExit;
@@ -66,18 +64,7 @@ void CCrystalPuzzle::Check_Matched()
 	for (auto& iter : m_vecPressBlocks) {
 		static_cast<CPressBlock*>(iter)->Set_Clear(true);
 		static_cast<CPressBlock*>(iter)->Set_ImageID(8);
-	}
-
-	//All Matched Function
-	//MSG_BOX("All Matched!");
-}
-
-void CCrystalPuzzle::Key_Input(const _float& fTimeDelta)
-{
-	if (Engine::GetKeyUp(DIK_2))
-	{		
-		//for (auto& iter : m_vecCrystals)
-		//	static_cast<CPressBlock*>(iter)->On_CollisionEnter();
+		static_cast<CPressBlock*>(iter)->Set_Active(false);
 	}
 }
 

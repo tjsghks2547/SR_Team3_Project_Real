@@ -36,8 +36,8 @@ _int CStonePedestal::Update_GameObject(const _float& fTimeDelta)
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);	
 		Engine::CTransform* StoneTrasnform = static_cast<Engine::CTransform*>(m_pCollided->Get_Component(ID_DYNAMIC, L"Com_Transform"));		
 		StoneTrasnform->Get_Info(INFO_POS, &vTarget);
-		vPos.z -= 10.f;		
-		vMovePos = vPos - vTarget;		
+		vPos.z -= 10.f;
+		vMovePos = vPos - vTarget;
 		vMovePos.y = 0.f;
 		StoneTrasnform->Move_Pos(&vMovePos, fTimeDelta, 2.f);
 	}
@@ -96,7 +96,7 @@ void CStonePedestal::OnCollisionExit(CGameObject* _pOther)
 void CStonePedestal::Init(_float _fX, _float _fZ)
 {
 	m_pTransformCom->Set_Pos(_fX, 20.f, _fZ);
-	m_pTexTransformCom->Set_Pos(_fX, .15f, _fZ);
+	m_pTexTransformCom->Set_Pos(_fX, .2f, _fZ);
 }
 
 void CStonePedestal::Pull()

@@ -163,6 +163,7 @@
     <ClInclude Include="..\Header\BugStatue.h" />
     <ClInclude Include="..\Header\BugStatuePuzzle.h" />
     <ClInclude Include="..\Header\Catapult.h" />
+    <ClInclude Include="..\Header\CloseButton.h" />
     <ClInclude Include="..\Header\ColorStone.h" />
     <ClInclude Include="..\Header\CombinationPuzzle.h" />
     <ClInclude Include="..\Header\CombinationStatue.h" />
@@ -180,10 +181,14 @@
     <ClInclude Include="..\Header\ElectricEffect.h" />
     <ClInclude Include="..\Header\EnkyHat.h" />
     <ClInclude Include="..\Header\EquipHat.h" />
+    <ClInclude Include="..\Header\ExamineButton.h" />
     <ClInclude Include="..\Header\ExploreHat.h" />
     <ClInclude Include="..\Header\ExpressMonkey.h" />
     <ClInclude Include="..\Header\ExpressTicket.h" />
+    <ClInclude Include="..\Header\FenceThorn.h" />
     <ClInclude Include="..\Header\FirePit.h" />
+    <ClInclude Include="..\Header\FlowerGlow.h" />
+    <ClInclude Include="..\Header\FrontDoor.h" />
     <ClInclude Include="..\Header\ImGuiManger.h" />
     <ClInclude Include="..\Header\Imgui_ObjectTool.h" />
     <ClInclude Include="..\Header\Imgui_Terrain.h" />
@@ -195,6 +200,7 @@
     <ClInclude Include="..\Header\JungleForestMap.h" />
     <ClInclude Include="..\Header\JungleForestStage.h" />
     <ClInclude Include="..\Header\Leaf.h" />
+    <ClInclude Include="..\Header\LightFlower.h" />
     <ClInclude Include="..\Header\Loading.h" />
     <ClInclude Include="..\Header\Logo.h" />
     <ClInclude Include="..\Header\MainApp.h" />
@@ -248,9 +254,11 @@
     <ClInclude Include="..\Header\QuickSlot.h" />
     <ClInclude Include="..\Header\Ray.h" />
     <ClInclude Include="..\Header\ResMgr.h" />
+    <ClInclude Include="..\Header\Rock.h" />
     <ClInclude Include="..\Header\Scale.h" />
     <ClInclude Include="..\Header\SeaLion.h" />
     <ClInclude Include="..\Header\Sheep.h" />
+    <ClInclude Include="..\Header\ShootingPlant.h" />
     <ClInclude Include="..\Header\SkyBox.h" />
     <ClInclude Include="..\Header\SmallFruit.h" />
     <ClInclude Include="..\Header\SmallHerb.h" />
@@ -275,6 +283,7 @@
     <ClInclude Include="..\Header\DefaultUI.h" />
     <ClInclude Include="..\Header\TestObject.h" />
     <ClInclude Include="..\Header\TextBox.h" />
+    <ClInclude Include="..\Header\Trigger.h" />
     <ClInclude Include="..\Header\WeightComparator.h" />
     <ClInclude Include="..\Header\WorldHeartStage.h" />
     <ClInclude Include="WorldHeartMap.h" />
@@ -309,6 +318,7 @@
     <ClCompile Include="..\Code\BugStatue.cpp" />
     <ClCompile Include="..\Code\BugStatuePuzzle.cpp" />
     <ClCompile Include="..\Code\Catapult.cpp" />
+    <ClCompile Include="..\Code\CloseButton.cpp" />
     <ClCompile Include="..\Code\ColorStone.cpp" />
     <ClCompile Include="..\Code\CombinationPuzzle.cpp" />
     <ClCompile Include="..\Code\CombinationStatue.cpp" />
@@ -325,10 +335,14 @@
     <ClCompile Include="..\Code\ElectricEffect.cpp" />
     <ClCompile Include="..\Code\EnkyHat.cpp" />
     <ClCompile Include="..\Code\EquipHat.cpp" />
+    <ClCompile Include="..\Code\ExamineButton.cpp" />
     <ClCompile Include="..\Code\ExploreHat.cpp" />
     <ClCompile Include="..\Code\ExpressMonkey.cpp" />
     <ClCompile Include="..\Code\ExpressTicket.cpp" />
+    <ClCompile Include="..\Code\FenceThorn.cpp" />
     <ClCompile Include="..\Code\FirePit.cpp" />
+    <ClCompile Include="..\Code\FlowerGlow.cpp" />
+    <ClCompile Include="..\Code\FrontDoor.cpp" />
     <ClCompile Include="..\Code\ImGuiManger.cpp" />
     <ClCompile Include="..\Code\Imgui_ObjectTool.cpp" />
     <ClCompile Include="..\Code\Imgui_Terrain.cpp" />
@@ -339,6 +353,7 @@
     <ClCompile Include="..\Code\JungleForestMap.cpp" />
     <ClCompile Include="..\Code\JungleForestStage.cpp" />
     <ClCompile Include="..\Code\Leaf.cpp" />
+    <ClCompile Include="..\Code\LightFlower.cpp" />
     <ClCompile Include="..\Code\Loading.cpp" />
     <ClCompile Include="..\Code\Logo.cpp" />
     <ClCompile Include="..\Code\MainApp.cpp" />
@@ -392,9 +407,11 @@
     <ClCompile Include="..\Code\QuickSlot.cpp" />
     <ClCompile Include="..\Code\Ray.cpp" />
     <ClCompile Include="..\Code\ResMgr.cpp" />
+    <ClCompile Include="..\Code\Rock.cpp" />
     <ClCompile Include="..\Code\Scale.cpp" />
     <ClCompile Include="..\Code\SeaLion.cpp" />
     <ClCompile Include="..\Code\Sheep.cpp" />
+    <ClCompile Include="..\Code\ShootingPlant.cpp" />
     <ClCompile Include="..\Code\SkyBox.cpp" />
     <ClCompile Include="..\Code\SmallFruit.cpp" />
     <ClCompile Include="..\Code\SmallHerb.cpp" />
@@ -418,6 +435,7 @@
     <ClCompile Include="..\Code\DefaultUI.cpp" />
     <ClCompile Include="..\Code\TestObject.cpp" />
     <ClCompile Include="..\Code\TextBox.cpp" />
+    <ClCompile Include="..\Code\Trigger.cpp" />
     <ClCompile Include="..\Code\WeightComparator.cpp" />
     <ClCompile Include="..\Code\WorldHeartStage.cpp" />
     <ClCompile Include="..\Header\ItemSelector.cpp" />

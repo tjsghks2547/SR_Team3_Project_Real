@@ -1,5 +1,7 @@
 #pragma once
 #include "GameObject.h"
+#include "Player.h"
+#include "PlayerInteractionBox.h"
 
 BEGIN(Engine)
 
@@ -26,6 +28,7 @@ public:
 	virtual void OnCollisionExit(CGameObject* _pOther);
 	
 public:
+	virtual void	SetPlayer(CPlayer* _Player) { m_CPlayer = _Player; }
 	void Active_StoneBlock();
 	void Add_StoneBlock(CGameObject* pSb) { m_vecStoneBlocks.push_back(pSb); }	
 
@@ -43,7 +46,11 @@ public:
 
 private:
 	_bool m_bIs;
+	_bool m_bIsActivate;
 	vector<CGameObject*> m_vecStoneBlocks;	
+
+protected:
+	CPlayer* m_CPlayer;
 
 private:
 	virtual void Free();
