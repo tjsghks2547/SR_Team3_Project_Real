@@ -350,6 +350,9 @@
     <Filter Include="02. GameObject\07. Map\07.ArenaMap">
       <UniqueIdentifier>{0f28fa70-581e-4422-96ad-5c7290a16ddc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\14.ElectriceelBoss\Electirc">
+      <UniqueIdentifier>{75cc1c91-68a2-4815-8b3c-319f91345104}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -787,6 +790,9 @@
     <ClInclude Include="..\Header\ArenaMap.h">
       <Filter>02. GameObject\07. Map\07.ArenaMap</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\ElectricEffect.h">
+      <Filter>02. GameObject\14.ElectriceelBoss\Electirc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FramePractice.cpp">
@@ -1214,6 +1220,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\ArenaMap.cpp">
       <Filter>02. GameObject\07. Map\07.ArenaMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ElectricEffect.cpp">
+      <Filter>02. GameObject\14.ElectriceelBoss\Electirc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

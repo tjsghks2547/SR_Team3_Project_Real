@@ -177,6 +177,7 @@
     <ClInclude Include="..\Header\ElectriceelBoss.h" />
     <ClInclude Include="..\Header\ElectriceelBossMap.h" />
     <ClInclude Include="..\Header\ElectriceelBossStage.h" />
+    <ClInclude Include="..\Header\ElectricEffect.h" />
     <ClInclude Include="..\Header\EnkyHat.h" />
     <ClInclude Include="..\Header\EquipHat.h" />
     <ClInclude Include="..\Header\ExploreHat.h" />
@@ -321,6 +322,7 @@
     <ClCompile Include="..\Code\ElectriceelBoss.cpp" />
     <ClCompile Include="..\Code\ElectriceelBossMap.cpp" />
     <ClCompile Include="..\Code\ElectriceelBossStage.cpp" />
+    <ClCompile Include="..\Code\ElectricEffect.cpp" />
     <ClCompile Include="..\Code\EnkyHat.cpp" />
     <ClCompile Include="..\Code\EquipHat.cpp" />
     <ClCompile Include="..\Code\ExploreHat.cpp" />
