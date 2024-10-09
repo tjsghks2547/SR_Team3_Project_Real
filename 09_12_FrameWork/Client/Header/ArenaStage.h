@@ -9,7 +9,15 @@
 #include "QuickSlot.h"
 #include "Object.h"
 
+#include "MCRabbit.h"
+#include "QuestLion.h"
+#include "RabbitLeft.h"
+#include "MoleSide.h"
 #include "ArenaMap.h"
+#include "RhinoMaster.h"
+#include "KnightCat.h"
+#include "KnightDog.h"
+
 
 
 class CArenaStage : public CScene

@@ -356,6 +356,34 @@
     <Filter Include="02. GameObject\11. UI\99. ButtonUI\Close">
       <UniqueIdentifier>{6f8deab9-d5c6-4401-a897-1732e73ed1d7}</UniqueIdentifier>
     </Filter>
+
+    <Filter Include="02. GameObject\01. Entity\03. ArenaMonster">
+      <UniqueIdentifier>{a32b11f1-d861-46ba-bc8e-f82e8050a0fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Entity\03. ArenaMonster\Rhino">
+      <UniqueIdentifier>{16d96d19-43d2-41ab-b581-a2cc93791bbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. NPC\00. QuestNPC\04. RhinoMaster">
+      <UniqueIdentifier>{2bfac528-0c5a-4696-b891-08ee592fb1dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. NPC\00. QuestNPC\05. KnightCat">
+      <UniqueIdentifier>{544c9117-91dd-46cc-a1dd-487e1f8c4834}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. NPC\00. QuestNPC\06. KnightDog">
+      <UniqueIdentifier>{f65a0aa5-e56e-40d6-93db-fdcf3abbcbdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. NPC\00. QuestNPC\07. QuestLion">
+      <UniqueIdentifier>{efa834e7-c019-4d1c-990a-8a03bb023392}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. NPC\00. QuestNPC\08. MCRabbit">
+      <UniqueIdentifier>{bd57e3f2-48d4-485e-b9eb-bb4b294d61ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. NPC\02. Audience">
+      <UniqueIdentifier>{d4162df6-bc53-41b1-9088-a71d61addffe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\11. UI\08. BossUI">
+      <UniqueIdentifier>{e16f78cc-f3cb-4f16-8ab0-89d70019dd58}</UniqueIdentifier>
+    </Filter>
     <Filter Include="01. Scene\07. MoonForestStage">
       <UniqueIdentifier>{a2eeedee-a75a-4a32-b8cf-9d37504516bb}</UniqueIdentifier>
     </Filter>
@@ -856,6 +884,42 @@
     <ClInclude Include="..\Header\FlowerGlow.h">
       <Filter>02. GameObject\09. Puzzle\Light Flower\FlowerGlow</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\ArenaMonster.h">
+      <Filter>02. GameObject\01. Entity\03. ArenaMonster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Rhino.h">
+      <Filter>02. GameObject\01. Entity\03. ArenaMonster\Rhino</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\RhinoStone.h">
+      <Filter>02. GameObject\01. Entity\03. ArenaMonster\Rhino</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\RhinoMaster.h">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\04. RhinoMaster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\KnightCat.h">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\05. KnightCat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\KnightDog.h">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\06. KnightDog</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\QuestLion.h">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\07. QuestLion</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\MCRabbit.h">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\08. MCRabbit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Audience.h">
+      <Filter>02. GameObject\12. NPC\02. Audience</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\RabbitLeft.h">
+      <Filter>02. GameObject\12. NPC\02. Audience</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\MoleSide.h">
+      <Filter>02. GameObject\12. NPC\02. Audience</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\BossHPBar.h">
+      <Filter>02. GameObject\11. UI\08. BossUI</Filter>
+    </ClInclude>   
     <ClInclude Include="..\Header\SunTempleStage.h">
       <Filter>01. Scene\06. SunTempleStage</Filter>
     </ClInclude>
@@ -1329,6 +1393,42 @@
     <ClCompile Include="..\Code\ShootingPlant.cpp">
       <Filter>02. GameObject\09. Puzzle\Shooting Plant</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\ArenaMonster.cpp">
+      <Filter>02. GameObject\01. Entity\03. ArenaMonster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Rhino.cpp">
+      <Filter>02. GameObject\01. Entity\03. ArenaMonster\Rhino</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\RhinoStone.cpp">
+      <Filter>02. GameObject\01. Entity\03. ArenaMonster\Rhino</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\RhinoMaster.cpp">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\04. RhinoMaster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\KnightCat.cpp">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\05. KnightCat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\KnightDog.cpp">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\06. KnightDog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\QuestLion.cpp">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\07. QuestLion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MCRabbit.cpp">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\08. MCRabbit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Audience.cpp">
+      <Filter>02. GameObject\12. NPC\02. Audience</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\RabbitLeft.cpp">
+      <Filter>02. GameObject\12. NPC\02. Audience</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MoleSide.cpp">
+      <Filter>02. GameObject\12. NPC\02. Audience</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\BossHPBar.cpp">
+      <Filter>02. GameObject\11. UI\08. BossUI</Filter>
+    </ClCompile>  
     <ClCompile Include="..\Code\SunTempleStage.cpp">
       <Filter>01. Scene\06. SunTempleStage</Filter>
     </ClCompile>

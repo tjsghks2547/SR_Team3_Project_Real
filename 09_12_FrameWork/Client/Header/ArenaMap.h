@@ -26,13 +26,13 @@ private:
 	HRESULT   Add_Component();
 	HRESULT   SetUp_Material();
 
-private:	
-	Engine::CMapTex* m_pBufferCom;	
-	Engine::CTransform* m_pTransformCom;	
+private:
+	Engine::CMapTex* m_pBufferCom;
+	Engine::CTransform* m_pTransformCom;
 	Engine::CTexture* m_pTextureCom;
-		
+
 public:
-	static CArenaMap* Create(LPDIRECT3DDEVICE9 pGraphicDev);	
+	static CArenaMap* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 	virtual void Free();

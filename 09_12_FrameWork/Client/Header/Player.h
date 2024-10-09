@@ -193,6 +193,8 @@ public:
 		m_BuffArray[1]->Set_BuffTime(_SetTime);
 		m_fItemMoveSpeed = _SetSpeed;
 	}
+	_vec3			GetPlayerPos() { return m_pTransformCom->m_vInfo[INFO_POS]; }
+	_vec3			SetPlayerPos(_vec3 _vPos) { return m_pTransformCom->m_vInfo[INFO_POS] = _vPos; }
 
 
 	void			SetInvincible(_bool value = true) { m_bInvincible = value; }

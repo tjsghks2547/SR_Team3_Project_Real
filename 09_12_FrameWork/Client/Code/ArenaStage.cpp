@@ -2,7 +2,7 @@
 #include "ArenaStage.h"
 
 CArenaStage::CArenaStage(LPDIRECT3DDEVICE9 pGraphicDev)
-	:Engine::CScene(pGraphicDev)
+    :Engine::CScene(pGraphicDev)
 {
 
 }
@@ -13,36 +13,36 @@ CArenaStage::~CArenaStage()
 
 HRESULT CArenaStage::Ready_Scene()
 {
-	FAILED_CHECK_RETURN(Ready_Layer_Environmnet(L"Layer_Environment"), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_Layer_GameLogic(L"Layer_GameLogic"), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
+    FAILED_CHECK_RETURN(Ready_Layer_Environmnet(L"Layer_Environment"), E_FAIL);
+    FAILED_CHECK_RETURN(Ready_Layer_GameLogic(L"Layer_GameLogic"), E_FAIL);
+    FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
 
-	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);	
+    m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 
-	return S_OK;
+    return S_OK;
 }
 
 _int CArenaStage::Update_Scene(const _float& fTimeDelta)
 {
-	_int  iExit = Engine::CScene::Update_Scene(fTimeDelta);
+    _int  iExit = Engine::CScene::Update_Scene(fTimeDelta);
 
-	//if (GetAsyncKeyState('B') & 0x8000)
-	//{
-	//	Engine::CScene* pStage3 = CElectriceelBossStage::Create(m_pGraphicDev);
-	//	NULL_CHECK_RETURN(pStage3, -1);
-	//
-	//	FAILED_CHECK_RETURN(Engine::Set_Scene(pStage3), E_FAIL);
-	//	//pStage3->init(); // 맵툴에서 가져온 오브젝트들을 위해 사용   
-	//
-	//	return 0;
-	//}
+    //if (GetAsyncKeyState('B') & 0x8000)
+    //{
+    //	Engine::CScene* pStage3 = CElectriceelBossStage::Create(m_pGraphicDev);
+    //	NULL_CHECK_RETURN(pStage3, -1);
+    //
+    //	FAILED_CHECK_RETURN(Engine::Set_Scene(pStage3), E_FAIL);
+    //	//pStage3->init(); // 맵툴에서 가져온 오브젝트들을 위해 사용   
+    //
+    //	return 0;
+    //}
 
-	return iExit;
+    return iExit;
 }
 
 void CArenaStage::LateUpdate_Scene(const _float& fTimeDelta)
 {
-	Engine::CScene::LateUpdate_Scene(fTimeDelta);
+    Engine::CScene::LateUpdate_Scene(fTimeDelta);
 }
 
 void CArenaStage::Render_Scene()
@@ -120,6 +120,8 @@ void CArenaStage::init()
             CloseHandle(hFile);
         }
     }
+    //1009민지
+    CCollisionMgr::GetInstance()->CheckGroup(GROUP_TYPE::MONSTER, GROUP_TYPE::OBJECT);
 }
 
 HRESULT CArenaStage::Ready_LightInfo()
@@ -156,7 +158,7 @@ HRESULT CArenaStage::Ready_Layer_Environmnet(const _tchar* pLayerTag)
 HRESULT CArenaStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 {
     Engine::CLayer* pLayer = CLayer::Create();
-    NULL_CHECK_RETURN(pLayer, E_FAIL);  
+    NULL_CHECK_RETURN(pLayer, E_FAIL);
 
     Engine::CGameObject* pGameObject = nullptr;
 
@@ -168,8 +170,156 @@ HRESULT CArenaStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 
     pGameObject = CPlayer::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    pGameObject->SetObjectKey(L"Player");
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Player", pGameObject), E_FAIL);
     CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PLAYER, pGameObject);
+
+    //1006
+    pGameObject = CRhino::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Rhino", pGameObject), E_FAIL);
+    pGameObject->SetObjectKey(L"Rhino");
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER, pGameObject);
+
+    pGameObject = CMCRabbit::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPCRabbit", pGameObject), E_FAIL);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+
+    pGameObject = CQuestLion::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Lion", pGameObject), E_FAIL);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+
+    pGameObject = CRhinoMaster::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NoArm", pGameObject), E_FAIL);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+
+    pGameObject = CKnightCat::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Cat", pGameObject), E_FAIL);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+
+    pGameObject = CKnightDog::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Dog", pGameObject), E_FAIL);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+
+
+    pGameObject = CRabbitLeft::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CheerRabbitSide", pGameObject), E_FAIL);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+
+    pGameObject = CMoleSide::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MoleSide", pGameObject), E_FAIL);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+
+
+    pGameObject = CRabbitLeft::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    _vec3 vNPCPos = { 850.f, 20.f, 500.f };
+    dynamic_cast<CRabbitLeft*>(pGameObject)->Set_Pos(vNPCPos);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CheerRabbitSide1", pGameObject), E_FAIL);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+
+    pGameObject = CMoleSide::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    vNPCPos = { 860.f, 20.f, 450.f };
+    dynamic_cast<CMoleSide*>(pGameObject)->Set_Pos(vNPCPos);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MoleSide1", pGameObject), E_FAIL);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+
+
+    pGameObject = CRabbitLeft::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    vNPCPos = { 880.f, 20.f, 450.f };
+    dynamic_cast<CRabbitLeft*>(pGameObject)->Set_Pos(vNPCPos);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CheerRabbitSide2", pGameObject), E_FAIL);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+
+    pGameObject = CMoleSide::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    vNPCPos = { 860.f, 20.f, 400.f };
+    dynamic_cast<CMoleSide*>(pGameObject)->Set_Pos(vNPCPos);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MoleSide2", pGameObject), E_FAIL);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+
+    pGameObject = CMoleSide::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    vNPCPos = { 860.f, 20.f, 800.f };
+    dynamic_cast<CMoleSide*>(pGameObject)->Set_Pos(vNPCPos);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MoleSide3", pGameObject), E_FAIL);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+
+    pGameObject = CRabbitLeft::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    vNPCPos = { 850.f, 20.f, 300.f };
+    dynamic_cast<CRabbitLeft*>(pGameObject)->Set_Pos(vNPCPos);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CheerRabbitSide3", pGameObject), E_FAIL);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+
+    pGameObject = CMoleSide::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    dynamic_cast<CMoleSide*>(pGameObject)->Set_Dir();
+    vNPCPos = { 300.f, 20.f, 700.f };
+    dynamic_cast<CMoleSide*>(pGameObject)->Set_Pos(vNPCPos);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MoleSide4", pGameObject), E_FAIL);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+
+
+    pGameObject = CRabbitLeft::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    dynamic_cast<CRabbitLeft*>(pGameObject)->Set_Dir();
+    vNPCPos = { 300.f, 20.f, 750.f };
+    dynamic_cast<CRabbitLeft*>(pGameObject)->Set_Pos(vNPCPos);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CheerRabbitSide4", pGameObject), E_FAIL);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+
+
+    pGameObject = CMoleSide::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    dynamic_cast<CMoleSide*>(pGameObject)->Set_Dir();
+    vNPCPos = { 170.f, 20.f, 550.f };
+    dynamic_cast<CMoleSide*>(pGameObject)->Set_Pos(vNPCPos);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MoleSide5", pGameObject), E_FAIL);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+
+
+    pGameObject = CMoleSide::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    dynamic_cast<CMoleSide*>(pGameObject)->Set_Dir();
+    vNPCPos = { 140.f, 20.f, 430.f };
+    dynamic_cast<CMoleSide*>(pGameObject)->Set_Pos(vNPCPos);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MoleSide6", pGameObject), E_FAIL);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+
+    pGameObject = CMoleSide::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    dynamic_cast<CMoleSide*>(pGameObject)->Set_Dir();
+    vNPCPos = { 100.f, 20.f, 400.f };
+    dynamic_cast<CMoleSide*>(pGameObject)->Set_Pos(vNPCPos);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MoleSide7", pGameObject), E_FAIL);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+
+
+    pGameObject = CRabbitLeft::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    dynamic_cast<CRabbitLeft*>(pGameObject)->Set_Dir();
+    vNPCPos = { 200.f, 20.f, 650.f };
+    dynamic_cast<CRabbitLeft*>(pGameObject)->Set_Pos(vNPCPos);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CheerRabbitSide5", pGameObject), E_FAIL);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+
+    pGameObject = CRabbitLeft::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    dynamic_cast<CRabbitLeft*>(pGameObject)->Set_Dir();
+    vNPCPos = { 140.f, 20.f, 500.f };
+    dynamic_cast<CRabbitLeft*>(pGameObject)->Set_Pos(vNPCPos);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CheerRabbitSide6", pGameObject), E_FAIL);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
 
 
     m_mapLayer.insert({ pLayerTag, pLayer });
@@ -218,9 +368,9 @@ HRESULT CArenaStage::Ready_Layer_UI(const _tchar* pLayerTag)
 
 CArenaStage* CArenaStage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-    CArenaStage* pArenaStage = new CArenaStage(pGraphicDev);    
+    CArenaStage* pArenaStage = new CArenaStage(pGraphicDev);
 
-    return pArenaStage; 
+    return pArenaStage;
 }
 
 void CArenaStage::Free()

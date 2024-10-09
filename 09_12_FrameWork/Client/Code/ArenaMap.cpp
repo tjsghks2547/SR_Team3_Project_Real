@@ -14,21 +14,21 @@ CArenaMap::~CArenaMap()
 
 HRESULT CArenaMap::Ready_GameObject()
 {
-    FAILED_CHECK_RETURN(Add_Component(), E_FAIL);   
+    FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
     return S_OK;
 }
 
 _int CArenaMap::Update_GameObject(const float& fTimeDelta)
 {
-    Add_RenderGroup(RENDER_NONALPHA, this);     
+    Add_RenderGroup(RENDER_NONALPHA, this);
 
-    return Engine::CGameObject::Update_GameObject(fTimeDelta);  
+    return Engine::CGameObject::Update_GameObject(fTimeDelta);
 }
 
 void CArenaMap::LateUpdate_GameObject(const float& fTimeDelta)
 {
-    Engine::CGameObject::LateUpdate_GameObject(fTimeDelta); 
+    Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
 void CArenaMap::Render_GameObject()
@@ -44,7 +44,7 @@ void CArenaMap::Render_GameObject()
 
 HRESULT CArenaMap::Add_Component()
 {
-    CComponent* pComponent = NULL;  
+    CComponent* pComponent = NULL;
 
     pComponent = m_pBufferCom = dynamic_cast<CMapTex*>(Engine::Clone_Proto(L"Proto_ArenaMapTex"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
@@ -71,17 +71,17 @@ CArenaMap* CArenaMap::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
     CArenaMap* pArenaMap = new CArenaMap(pGraphicDev);
 
-    if (FAILED(pArenaMap->Ready_GameObject()))  
+    if (FAILED(pArenaMap->Ready_GameObject()))
     {
-        Safe_Release(pArenaMap);    
+        Safe_Release(pArenaMap);
         MSG_BOX("pMap Create Failed");
         return nullptr;
     }
 
-    return pArenaMap;   
+    return pArenaMap;
 }
 
 void CArenaMap::Free()
 {
-    Engine::CGameObject::Free();    
+    Engine::CGameObject::Free();
 }
