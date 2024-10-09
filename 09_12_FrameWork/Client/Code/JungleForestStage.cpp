@@ -30,7 +30,7 @@ _int CJungleForestStage::Update_Scene(const _float& fTimeDelta)
 
     if (GetAsyncKeyState('M') & 0x8000)
     {
-        Engine::CScene* pStage3 = CMoonForestStage::Create(m_pGraphicDev);  
+        Engine::CScene* pStage3 = CSunTempleStage::Create(m_pGraphicDev);  
         NULL_CHECK_RETURN(pStage3, -1);
 
         FAILED_CHECK_RETURN(Engine::Set_Scene(pStage3), E_FAIL);
@@ -145,8 +145,8 @@ HRESULT CJungleForestStage::Ready_Layer_Environmnet(const _tchar* pLayerTag)
 
 
     //GameObject = CSkyBox::Create(m_pGraphicDev);          
-    NULL_CHECK_RETURN(pGameObject, E_FAIL);
-    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SkyBox", pGameObject), E_FAIL);
+    //NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    //FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SkyBox", pGameObject), E_FAIL);
 
     m_mapLayer.insert({ pLayerTag, pLayer });
 

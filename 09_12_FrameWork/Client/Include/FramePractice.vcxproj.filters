@@ -259,17 +259,8 @@
     <Filter Include="02. GameObject\11. UI\04. StoreUI">
       <UniqueIdentifier>{b4e2d467-5a41-4c9e-ab03-bf239e097ca8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04.ResMgr">
-      <UniqueIdentifier>{74332b0b-4fad-44c7-a07e-2c00fd2a121a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\14.ElectriceelBoss">
       <UniqueIdentifier>{10d4fa82-6e5f-4edc-b844-798a3499244f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Scene\06. MoonForestStage">
-      <UniqueIdentifier>{a2eeedee-a75a-4a32-b8cf-9d37504516bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Scene\08. ElectriceelBossStage">
-      <UniqueIdentifier>{1fc6eec5-e151-4341-aba6-34ca36d28024}</UniqueIdentifier>
     </Filter>
     <Filter Include="01. Scene\05. JungleForestStage">
       <UniqueIdentifier>{c0a247d7-6e24-492f-905c-de5f1a5dc32a}</UniqueIdentifier>
@@ -334,18 +325,12 @@
     <Filter Include="02. GameObject\07. Map\05.MoonTempleMap">
       <UniqueIdentifier>{8af04f41-de30-4c41-adbb-2497e2f26dad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Scene\07. MoonTempleStage">
-      <UniqueIdentifier>{80a70c4f-ba82-4581-b30e-1d6cfbe7a57a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\03. Terrain" />
     <Filter Include="02. GameObject\15. EquipHat">
       <UniqueIdentifier>{262a8c01-95e5-4011-b117-31122d515f42}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. GameObject\11. UI\07. MonsterUI">
       <UniqueIdentifier>{dfad8560-ed16-43f4-b8e4-8acf049298cc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Scene\09. ArenaStage">
-      <UniqueIdentifier>{8402fe60-a462-4a00-9d93-fc0bcb7c9849}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. GameObject\07. Map\07.ArenaMap">
       <UniqueIdentifier>{0f28fa70-581e-4422-96ad-5c7290a16ddc}</UniqueIdentifier>
@@ -371,6 +356,7 @@
     <Filter Include="02. GameObject\11. UI\99. ButtonUI\Close">
       <UniqueIdentifier>{6f8deab9-d5c6-4401-a897-1732e73ed1d7}</UniqueIdentifier>
     </Filter>
+
     <Filter Include="02. GameObject\01. Entity\03. ArenaMonster">
       <UniqueIdentifier>{a32b11f1-d861-46ba-bc8e-f82e8050a0fa}</UniqueIdentifier>
     </Filter>
@@ -397,6 +383,42 @@
     </Filter>
     <Filter Include="02. GameObject\11. UI\08. BossUI">
       <UniqueIdentifier>{e16f78cc-f3cb-4f16-8ab0-89d70019dd58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\07. MoonForestStage">
+      <UniqueIdentifier>{a2eeedee-a75a-4a32-b8cf-9d37504516bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\08. MoonTempleStage">
+      <UniqueIdentifier>{80a70c4f-ba82-4581-b30e-1d6cfbe7a57a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\06. SunTempleStage">
+      <UniqueIdentifier>{6a67762e-e74c-4e56-9465-611ebf6fae7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\07. Map\08.SunTempleMap">
+      <UniqueIdentifier>{b5d57f6b-d344-4471-b60f-1b9ee0f68b03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\11. ArenaStage">
+      <UniqueIdentifier>{8402fe60-a462-4a00-9d93-fc0bcb7c9849}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\10. ElectriceelBossStage">
+      <UniqueIdentifier>{1fc6eec5-e151-4341-aba6-34ca36d28024}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\09. TownStage">
+      <UniqueIdentifier>{b03ab419-4429-4eb9-b079-883ba00e123b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\07. Map\09.Town">
+      <UniqueIdentifier>{09208069-7673-4328-804e-145a222e1043}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Manager">
+      <UniqueIdentifier>{74332b0b-4fad-44c7-a07e-2c00fd2a121a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Manager\ResMgr">
+      <UniqueIdentifier>{f718d0ae-54d9-4549-9454-3b5026d80c79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\14.ElectriceelBoss\WaterFall">
+      <UniqueIdentifier>{e402c33f-db52-48d5-ac59-e3b849380458}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\14.ElectriceelBoss\Bullet">
+      <UniqueIdentifier>{ad03d4cc-b74b-4a88-9128-f5ac226eb2ee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -739,17 +761,14 @@
     <ClInclude Include="..\Header\TestCol2.h">
       <Filter>02. GameObject\01. Entity\01. Player</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\ResMgr.h">
-      <Filter>04.ResMgr</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\MoonForestStage.h">
-      <Filter>01. Scene\06. MoonForestStage</Filter>
+      <Filter>01. Scene\07. MoonForestStage</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\MoonForestMap.h">
       <Filter>02. GameObject\07. Map\04.MoonForestMap</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\ElectriceelBossStage.h">
-      <Filter>01. Scene\08. ElectriceelBossStage</Filter>
+      <Filter>01. Scene\10. ElectriceelBossStage</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\ElectriceelBossMap.h">
       <Filter>02. GameObject\07. Map\06 ElectriceelBossMap</Filter>
@@ -812,7 +831,7 @@
       <Filter>02. GameObject\07. Map\05.MoonTempleMap</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\MoonTempleStage.h">
-      <Filter>01. Scene\07. MoonTempleStage</Filter>
+      <Filter>01. Scene\08. MoonTempleStage</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Catapult.h">
       <Filter>02. GameObject\09. Puzzle\Catapult</Filter>
@@ -830,7 +849,7 @@
       <Filter>02. GameObject\11. UI\04. StoreUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\ArenaStage.h">
-      <Filter>01. Scene\09. ArenaStage</Filter>
+      <Filter>01. Scene\11. ArenaStage</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\ArenaMap.h">
       <Filter>02. GameObject\07. Map\07.ArenaMap</Filter>
@@ -900,6 +919,24 @@
     </ClInclude>
     <ClInclude Include="..\Header\BossHPBar.h">
       <Filter>02. GameObject\11. UI\08. BossUI</Filter>
+    </ClInclude>   
+    <ClInclude Include="..\Header\SunTempleStage.h">
+      <Filter>01. Scene\06. SunTempleStage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\SunTempleMap.h">
+      <Filter>02. GameObject\07. Map\08.SunTempleMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\TownStage.h">
+      <Filter>01. Scene\09. TownStage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Town.h">
+      <Filter>02. GameObject\07. Map\09.Town</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ResMgr.h">
+      <Filter>04.Manager\ResMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\WaterFall.h">
+      <Filter>02. GameObject\14.ElectriceelBoss\WaterFall</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1233,17 +1270,14 @@
     <ClCompile Include="..\Code\TestCol2.cpp">
       <Filter>02. GameObject\01. Entity\01. Player</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\ResMgr.cpp">
-      <Filter>04.ResMgr</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\MoonForestStage.cpp">
-      <Filter>01. Scene\06. MoonForestStage</Filter>
+      <Filter>01. Scene\07. MoonForestStage</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\MoonForestMap.cpp">
       <Filter>02. GameObject\07. Map\04.MoonForestMap</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\ElectriceelBossStage.cpp">
-      <Filter>01. Scene\08. ElectriceelBossStage</Filter>
+      <Filter>01. Scene\10. ElectriceelBossStage</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\ElectriceelBossMap.cpp">
       <Filter>02. GameObject\07. Map\06 ElectriceelBossMap</Filter>
@@ -1306,7 +1340,7 @@
       <Filter>02. GameObject\07. Map\05.MoonTempleMap</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\MoonTempleStage.cpp">
-      <Filter>01. Scene\07. MoonTempleStage</Filter>
+      <Filter>01. Scene\08. MoonTempleStage</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Catapult.cpp">
       <Filter>02. GameObject\09. Puzzle\Catapult</Filter>
@@ -1324,7 +1358,7 @@
       <Filter>02. GameObject\11. UI\04. StoreUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\ArenaStage.cpp">
-      <Filter>01. Scene\09. ArenaStage</Filter>
+      <Filter>01. Scene\11. ArenaStage</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\ArenaMap.cpp">
       <Filter>02. GameObject\07. Map\07.ArenaMap</Filter>
@@ -1394,6 +1428,24 @@
     </ClCompile>
     <ClCompile Include="..\Code\BossHPBar.cpp">
       <Filter>02. GameObject\11. UI\08. BossUI</Filter>
+    </ClCompile>  
+    <ClCompile Include="..\Code\SunTempleStage.cpp">
+      <Filter>01. Scene\06. SunTempleStage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SunTempleMap.cpp">
+      <Filter>02. GameObject\07. Map\08.SunTempleMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\TownStage.cpp">
+      <Filter>01. Scene\09. TownStage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Town.cpp">
+      <Filter>02. GameObject\07. Map\09.Town</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ResMgr.cpp">
+      <Filter>04.Manager\ResMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\WaterFall.cpp">
+      <Filter>02. GameObject\14.ElectriceelBoss\WaterFall</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

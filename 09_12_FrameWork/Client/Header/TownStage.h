@@ -2,38 +2,20 @@
 #include "Scene.h"
 #include "DynamicCamera.h"
 #include "Player.h"
-
-#include "SunTempleStage.h"
-#include "PlayerInteractionBox.h"
+#include "ElectriceelBossStage.h"
+#include "Town.h"
 
 #include "DefaultUI.h"
-#include "StoreUI.h"
 #include "InvenUI.h"
 #include "QuickSlot.h"
 #include "Object.h"
-#include "JungleForestMap.h"
 
-#include "CrystalPuzzle.h"
-#include "Crystal.h"
-#include "PressBlock.h"
-#include "MonkeyStatue.h"
-#include "StoneBlock.h"
-#include "Stone.h"
-#include "StoneHole.h"
-#include "BreakableStone.h"
-#include "Scale.h"
-#include "WeightComparator.h"
-#include "Catapult.h"
-#include "Rock.h"
-#include "FrontDoor.h"
-#include "Trigger.h"
 
-class CJungleForestStage :public CScene
+class CTownStage:public CScene
 {
 private:
-	explicit CJungleForestStage(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual ~CJungleForestStage();
-
+	explicit CTownStage(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual ~CTownStage();
 
 public:
 	virtual   HRESULT   Ready_Scene();
@@ -50,10 +32,11 @@ private:
 
 
 public:
-	static CJungleForestStage* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CTownStage* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 	virtual  void Free();
+
 
 
 };

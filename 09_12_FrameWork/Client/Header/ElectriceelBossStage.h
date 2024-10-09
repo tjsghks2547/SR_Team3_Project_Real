@@ -12,6 +12,7 @@
 #include "Object.h"
 #include "ElectriceelBoss.h"
 #include "ArenaStage.h"
+#include "WaterFall.h"	
 
 
 class CElectriceelBossStage : public CScene

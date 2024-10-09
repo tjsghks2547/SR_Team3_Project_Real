@@ -92,6 +92,7 @@ HRESULT CMapEditor::Ready_Prototype()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_JungleMonkeyTownMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 1.5f,2.0f)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MoonTempleMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 2.0f, 2.0f)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_ArenaMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 1.0f, 1.0f)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_SunTempleMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 2.0f, 2.0f)), E_FAIL);
 
 	//Texture
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_PlayerTex", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Player1.jpg", TEX_NORMAL)), E_FAIL);
@@ -104,7 +105,7 @@ HRESULT CMapEditor::Ready_Prototype()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_JungleMonkeyTownMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map/JungleMonkeyTownMap.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MoonTempleMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map/MoonTempleMap.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_ArenaMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map/ArenaMap.png", TEX_NORMAL)), E_FAIL);
-
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_SunTempleMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map/SunTempleMap.png", TEX_NORMAL)), E_FAIL);
 
 
 	CResMgr::GetInstance()->init();
@@ -172,14 +173,20 @@ HRESULT CMapEditor::Ready_Layer_Environment(const _tchar* pLayerTag)
 
 
 	//¾Æ·¹³ª ¸Ê
-	pGameObject = CArenaMap::Create(m_pGraphicDev);	
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);	
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Map", pGameObject), E_FAIL);	
-	pGameObject->SetObjectKey(L"Map");	
+	//pGameObject = CArenaMap::Create(m_pGraphicDev);	
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);	
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Map", pGameObject), E_FAIL);	
+	//pGameObject->SetObjectKey(L"Map");	
+	//pGameObject->SetTextureKey(L"Map");	
+
+	//ÅÂ¾ç ½ÅÀü ¸Ê 
+	pGameObject = CSunTempleMap::Create(m_pGraphicDev);		
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);		
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Map", pGameObject), E_FAIL);		
+	pGameObject->SetObjectKey(L"Map");		
 	pGameObject->SetTextureKey(L"Map");	
-
-
-	m_mapLayer.insert({ pLayerTag, pLayer });	
+		
+	m_mapLayer.insert({ pLayerTag, pLayer });		
 		
 	return S_OK;
 }

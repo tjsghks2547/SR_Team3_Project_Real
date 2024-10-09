@@ -58,6 +58,8 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_JungleMonkeyTownMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 1.5f,2.0f)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MoonTempleMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 2.0f, 2.0f)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_ArenaMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 1.0f, 1.0f)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_SunTempleMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 2.0f, 2.0f)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_TownMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 1.0f, 1.0f)), E_FAIL);
 	
 
 
@@ -75,6 +77,10 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_JungleMonkeyTownMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map/JungleMonkeyTownMap.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MoonTempleMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map/MoonTempleMap.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_ArenaMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map/ArenaMap.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_SunTempleMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map/SunTempleMap.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_TownMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map/TownMap.png", TEX_NORMAL)), E_FAIL);
+
+
 
 	//NPC
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_FishShop", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/FishShop.png", TEX_NORMAL)), E_FAIL);
@@ -172,6 +178,12 @@ _uint CLoading::Loading_Stage()
 
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MonsterTrashSlime",
 		Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Monster/Sprite_MonsterTrashSlime.png", TEX_NORMAL)), E_FAIL);
+
+
+
+	//EFFECT
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Electriceel", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/ElectriceelBoss/Sprite_ThunderVertical.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Attack_Area", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Object/Sprite_AttackTargetSingle.png", TEX_NORMAL)), E_FAIL);	
 
 
 
