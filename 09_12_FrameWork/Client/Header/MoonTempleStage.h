@@ -38,7 +38,7 @@
 #include "FenceThorn.h"
 
 #include "MoonTempleMap.h"
-#include "ElectriceelBossStage.h"
+#include "TownStage.h"
 
 class CMoonTempleStage : public CScene
 {

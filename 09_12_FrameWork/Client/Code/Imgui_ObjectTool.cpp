@@ -756,7 +756,28 @@ void CImgui_ObjectTool::ShowObjectWindow()
 			m_strCurObjectName = L"Pillar";
 		};
 
+		if (ImGui::ImageButton("SunTemple_Entrance", m_vecObjectTexture[70], imageSize))
+		{
+			m_sCurTextureData =  L"SunTemple_Entrance";
+			m_sCurTextureKey =   L"SunTemple_Entrance";
+			m_strCurObjectName = L"SunTemple_Entrance";
+		};
 
+
+		if (ImGui::ImageButton("Jungle_Wall", m_vecObjectTexture[71], imageSize))
+		{
+			m_sCurTextureData =  L"Jungle_Wall";
+			m_sCurTextureKey =   L"Jungle_Wall";
+			m_strCurObjectName = L"Jungle_Wall";
+		};
+
+
+		if (ImGui::ImageButton("Jungle_Tile", m_vecObjectTexture[72], imageSize))
+		{
+			m_sCurTextureData =  L"Jungle_Tile";
+			m_sCurTextureKey =   L"Jungle_Tile";
+			m_strCurObjectName = L"Jungle_Tile";
+		};
 
 		//일단 오브젝트 생성해보기 
 		ImGui::End();

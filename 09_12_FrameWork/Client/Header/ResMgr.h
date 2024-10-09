@@ -29,9 +29,13 @@ private:
 private:
 	LPDIRECT3DDEVICE9 m_pGraphicDev;
 	vector<IDirect3DTexture9*> m_vecTexture;
+	vector<IDirect3DTexture9*> m_vecEffectTexture;
+	
+
 
 
 public:
 	vector<IDirect3DTexture9*>& GetTexture() { return m_vecTexture; }
+	vector<IDirect3DTexture9*>& GetEffectTexture() { return  m_vecEffectTexture; }
 };
 

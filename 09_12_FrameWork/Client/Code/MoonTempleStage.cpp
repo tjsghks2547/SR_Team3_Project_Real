@@ -42,7 +42,7 @@ _int CMoonTempleStage::Update_Scene(const _float& fTimeDelta)
 
 	if (GetAsyncKeyState('M') & 0x8000)
 	{
-		Engine::CScene* pStage3 = CElectriceelBossStage::Create(m_pGraphicDev);
+		Engine::CScene* pStage3 = CTownStage::Create(m_pGraphicDev);
 		NULL_CHECK_RETURN(pStage3, -1);
 
 		FAILED_CHECK_RETURN(Engine::Set_Scene(pStage3), E_FAIL);
@@ -730,6 +730,8 @@ HRESULT CMoonTempleStage::Ready_Layer_UI(const _tchar* pLayerTag)
 	pGameObject = CStoreUI::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Store_UI", pGameObject), E_FAIL);
+
+	m_mapLayer.insert({ pLayerTag, pLayer });
 
 	return S_OK;
 }

@@ -27,12 +27,10 @@ HRESULT CElectriceelBoss::Ready_GameObject()
     D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/ElectriceelBoss/Sprite_HarborElectricEel_InOut1.png", &m_vecTexture[0]);
     //11시 InOut 텍스처
     D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/ElectriceelBoss/Sprite_HarborElectricEel_InOut2.png", &m_vecTexture[1]);
-  
     //12시,1시,3시,9시 Idle 텍스처
     D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/ElectriceelBoss/Sprite_HarborElectricEel_Idle1.png", &m_vecTexture[2]);
     //11시 Idle 텍스처
     D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/ElectriceelBoss/Sprite_HarborElectricEel_Idle2.png", &m_vecTexture[3]);
-
 
     //12시,1시,3시,9시 투사체발사 텍스처 
     D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/ElectriceelBoss/Sprite_HarborElectricEel_ProjectileShoot.png", &m_vecTexture[4]);
@@ -72,6 +70,10 @@ HRESULT CElectriceelBoss::Ready_GameObject()
     dwtime = GetTickCount64();  
     m_pTransformCom->Set_Pos(200.f, 60.f, 500.f);
     m_pTransformCom->m_vScale = { 75.f, 100.f, 20.f };
+
+    srand((unsigned int)time(NULL));
+
+
 
     return S_OK;
 }
@@ -186,14 +188,26 @@ void CElectriceelBoss::update_animation()
         m_pAnimatorCom->Play(L"PROJECT_SHOT_12", false);    
         if (m_pAnimatorCom->GetAnimation()->IsFinish()) 
         {
-            CElectricEffect* pElectricEffect = CElectricEffect::Create(m_pGraphicDev);  
             map<const _tchar*, CLayer*>& pMapLayer = Engine::Get_CurScenePtr()->GetLayerMapPtr();   
-            pMapLayer[L"Layer_GameLogic"]->Add_GameObject(L"Electric_Effect",pElectricEffect);  
+           
+            for (int i = 0; i < 6; i++) 
+            {
+                wstring* Effect_Name = new wstring;
+                *Effect_Name = L"Electric_Effect"+ to_wstring(i);
+            
+                CElectricEffect* pElectricEffect = CElectricEffect::Create(m_pGraphicDev);  
+                pMapLayer[L"Layer_GameLogic"]->Add_GameObject((*Effect_Name).c_str(), pElectricEffect);
+                pElectricEffect->name = Effect_Name->c_str();
+                dynamic_cast<CTransform*>(pElectricEffect->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(rand() % 200 + 400.f, 1.f, rand() % 200 + 400.f);
 
-            m_pAnimatorCom->GetAnimation()->SetFrame(0);    
-            m_eCurState = Electriceel_STATE::IN_12; 
+                CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER_EFFECT, pElectricEffect);
+            }
+
+            m_pAnimatorCom->GetAnimation()->SetFrame(0);        
+            m_eCurState = Electriceel_STATE::IN_12;     
            
         }
+
     }
 
     

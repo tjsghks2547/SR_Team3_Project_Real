@@ -121,10 +121,10 @@ void CDynamicCamera::LateUpdate_GameObject(const _float& fTimeDelta)
             CheckMoveTrigger();
     }
 
-    //else if (m_eCameraState == CAMERASTATE::DEBUG)
-    //{
-    //    Mouse_Move(fTimeDelta);
-    //}
+    else if (m_eCameraState == CAMERASTATE::DEBUG)
+    {
+        Mouse_Move(fTimeDelta);
+    }
 
     RayTransfer();
     CCamera::LateUpdate_GameObject(fTimeDelta);

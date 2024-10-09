@@ -36,7 +36,7 @@ _int CElectriceelBossStage::Update_Scene(const _float& fTimeDelta)
 {
 	_int  iExit = Engine::CScene::Update_Scene(fTimeDelta);
 
-    if (GetAsyncKeyState('B') & 0x8000)
+    if (GetAsyncKeyState('M') & 0x8000)
     {
         Engine::CScene* pStage3 = CArenaStage::Create(m_pGraphicDev);
         NULL_CHECK_RETURN(pStage3, -1);
@@ -185,7 +185,10 @@ HRESULT CElectriceelBossStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
     NULL_CHECK_RETURN(pGameObject, E_FAIL);     
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ElectriceelBoss", pGameObject), E_FAIL);   
 
-
+    //ÆøÆ÷
+    //pGameObject = CWaterFall::Create(m_pGraphicDev);    
+    //NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    //FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"WaterFall", pGameObject), E_FAIL);
 
 
     m_mapLayer.insert({ pLayerTag, pLayer });
