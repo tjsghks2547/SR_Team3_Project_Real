@@ -731,6 +731,8 @@ HRESULT CMoonTempleStage::Ready_Layer_UI(const _tchar* pLayerTag)
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Store_UI", pGameObject), E_FAIL);
 
+	m_mapLayer.insert({ pLayerTag, pLayer });
+
 	return S_OK;
 }
 

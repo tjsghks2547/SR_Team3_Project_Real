@@ -151,12 +151,15 @@
   <ItemGroup>
     <ClInclude Include="..\Header\AppleHat.h" />
     <ClInclude Include="..\Header\ArenaMap.h" />
+    <ClInclude Include="..\Header\ArenaMonster.h" />
     <ClInclude Include="..\Header\ArenaStage.h" />
+    <ClInclude Include="..\Header\Audience.h" />
     <ClInclude Include="..\Header\BackGround.h" />
     <ClInclude Include="..\Header\BigFruit.h" />
     <ClInclude Include="..\Header\BigHerb.h" />
     <ClInclude Include="..\Header\BigRoot.h" />
     <ClInclude Include="..\Header\BoardCursor.h" />
+    <ClInclude Include="..\Header\BossHPBar.h" />
     <ClInclude Include="..\Header\Branch.h" />
     <ClInclude Include="..\Header\BreakableStone.h" />
     <ClInclude Include="..\Header\BuffUI.h" />
@@ -199,6 +202,8 @@
     <ClInclude Include="..\Header\ItemUI.h" />
     <ClInclude Include="..\Header\JungleForestMap.h" />
     <ClInclude Include="..\Header\JungleForestStage.h" />
+    <ClInclude Include="..\Header\KnightCat.h" />
+    <ClInclude Include="..\Header\KnightDog.h" />
     <ClInclude Include="..\Header\Leaf.h" />
     <ClInclude Include="..\Header\LightFlower.h" />
     <ClInclude Include="..\Header\Loading.h" />
@@ -207,10 +212,12 @@
     <ClInclude Include="..\Header\Map.h" />
     <ClInclude Include="..\Header\MapCamera.h" />
     <ClInclude Include="..\Header\MapEditor.h" />
+    <ClInclude Include="..\Header\MCRabbit.h" />
     <ClInclude Include="..\Header\MiddleFruit.h" />
     <ClInclude Include="..\Header\MiddleHerb.h" />
     <ClInclude Include="..\Header\MiddleRoot.h" />
     <ClInclude Include="..\Header\Mohican.h" />
+    <ClInclude Include="..\Header\MoleSide.h" />
     <ClInclude Include="..\Header\MonkeyStatue.h" />
     <ClInclude Include="..\Header\Monster.h" />
     <ClInclude Include="..\Header\MonsterHPUI.h" />
@@ -227,6 +234,7 @@
     <ClInclude Include="..\Header\PlantOrb.h" />
     <ClInclude Include="..\Header\PlayerPickUp.h" />
     <ClInclude Include="..\Header\PowerUI.h" />
+    <ClInclude Include="..\Header\QuestLion.h" />
     <ClInclude Include="..\Header\QuestNPC.h" />
     <ClInclude Include="..\Header\Object.h" />
     <ClInclude Include="..\Header\PartyHat.h" />
@@ -252,8 +260,12 @@
     <ClInclude Include="..\Header\QuestCursor.h" />
     <ClInclude Include="..\Header\QuestUI.h" />
     <ClInclude Include="..\Header\QuickSlot.h" />
+    <ClInclude Include="..\Header\RabbitLeft.h" />
     <ClInclude Include="..\Header\Ray.h" />
     <ClInclude Include="..\Header\ResMgr.h" />
+    <ClInclude Include="..\Header\Rhino.h" />
+    <ClInclude Include="..\Header\RhinoMaster.h" />
+    <ClInclude Include="..\Header\RhinoStone.h" />
     <ClInclude Include="..\Header\Rock.h" />
     <ClInclude Include="..\Header\Scale.h" />
     <ClInclude Include="..\Header\SeaLion.h" />
@@ -306,12 +318,15 @@
   <ItemGroup>
     <ClCompile Include="..\Code\AppleHat.cpp" />
     <ClCompile Include="..\Code\ArenaMap.cpp" />
+    <ClCompile Include="..\Code\ArenaMonster.cpp" />
     <ClCompile Include="..\Code\ArenaStage.cpp" />
+    <ClCompile Include="..\Code\Audience.cpp" />
     <ClCompile Include="..\Code\BackGround.cpp" />
     <ClCompile Include="..\Code\BigFruit.cpp" />
     <ClCompile Include="..\Code\BigHerb.cpp" />
     <ClCompile Include="..\Code\BigRoot.cpp" />
     <ClCompile Include="..\Code\BoardCursor.cpp" />
+    <ClCompile Include="..\Code\BossHPBar.cpp" />
     <ClCompile Include="..\Code\Branch.cpp" />
     <ClCompile Include="..\Code\BreakableStone.cpp" />
     <ClCompile Include="..\Code\BuffUI.cpp" />
@@ -352,6 +367,8 @@
     <ClCompile Include="..\Code\ItemUI.cpp" />
     <ClCompile Include="..\Code\JungleForestMap.cpp" />
     <ClCompile Include="..\Code\JungleForestStage.cpp" />
+    <ClCompile Include="..\Code\KnightCat.cpp" />
+    <ClCompile Include="..\Code\KnightDog.cpp" />
     <ClCompile Include="..\Code\Leaf.cpp" />
     <ClCompile Include="..\Code\LightFlower.cpp" />
     <ClCompile Include="..\Code\Loading.cpp" />
@@ -360,10 +377,12 @@
     <ClCompile Include="..\Code\Map.cpp" />
     <ClCompile Include="..\Code\MapCamera.cpp" />
     <ClCompile Include="..\Code\MapEditor.cpp" />
+    <ClCompile Include="..\Code\MCRabbit.cpp" />
     <ClCompile Include="..\Code\MiddleFruit.cpp" />
     <ClCompile Include="..\Code\MiddleHerb.cpp" />
     <ClCompile Include="..\Code\MiddleRoot.cpp" />
     <ClCompile Include="..\Code\Mohican.cpp" />
+    <ClCompile Include="..\Code\MoleSide.cpp" />
     <ClCompile Include="..\Code\MonkeyStatue.cpp" />
     <ClCompile Include="..\Code\Monster.cpp" />
     <ClCompile Include="..\Code\MonsterHPUI.cpp" />
@@ -381,6 +400,7 @@
     <ClCompile Include="..\Code\PlantOrb.cpp" />
     <ClCompile Include="..\Code\PlayerPickUp.cpp" />
     <ClCompile Include="..\Code\PowerUI.cpp" />
+    <ClCompile Include="..\Code\QuestLion.cpp" />
     <ClCompile Include="..\Code\QuestNPC.cpp" />
     <ClCompile Include="..\Code\Object.cpp" />
     <ClCompile Include="..\Code\PartyHat.cpp" />
@@ -405,8 +425,12 @@
     <ClCompile Include="..\Code\QuestCursor.cpp" />
     <ClCompile Include="..\Code\QuestUI.cpp" />
     <ClCompile Include="..\Code\QuickSlot.cpp" />
+    <ClCompile Include="..\Code\RabbitLeft.cpp" />
     <ClCompile Include="..\Code\Ray.cpp" />
     <ClCompile Include="..\Code\ResMgr.cpp" />
+    <ClCompile Include="..\Code\Rhino.cpp" />
+    <ClCompile Include="..\Code\RhinoMaster.cpp" />
+    <ClCompile Include="..\Code\RhinoStone.cpp" />
     <ClCompile Include="..\Code\Rock.cpp" />
     <ClCompile Include="..\Code\Scale.cpp" />
     <ClCompile Include="..\Code\SeaLion.cpp" />
