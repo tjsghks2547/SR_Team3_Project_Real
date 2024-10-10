@@ -879,4 +879,5 @@ void CStage::init()
 	CCollisionMgr::GetInstance()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::NPC);
 	CCollisionMgr::GetInstance()->CheckGroup(GROUP_TYPE::PUZZLE, GROUP_TYPE::PUZZLE);
 	CCollisionMgr::GetInstance()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER_EFFECT);
+	CCollisionMgr::GetInstance()->CheckGroup(GROUP_TYPE::MONSTER, GROUP_TYPE::OBJECT);	
 }

@@ -14,6 +14,8 @@
 #include "ElectriceelBoss.h"
 #include "ArenaStage.h"
 #include "WaterFall.h"	
+#include "Stone.h"
+#include "PlayerInteractionBox.h"
 
 
 class CElectriceelBossStage : public CScene

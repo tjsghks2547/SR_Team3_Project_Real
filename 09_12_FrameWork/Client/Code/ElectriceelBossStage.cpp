@@ -47,6 +47,7 @@ _int CElectriceelBossStage::Update_Scene(const _float& fTimeDelta)
         return 0;
     }
 
+
 	return iExit;
 }
 
@@ -184,8 +185,26 @@ HRESULT CElectriceelBossStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 
     pGameObject = CElectriceelBoss::Create(m_pGraphicDev);  
     NULL_CHECK_RETURN(pGameObject, E_FAIL);     
-    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ElectriceelBoss", pGameObject), E_FAIL);   
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ElectriceelBoss", pGameObject), E_FAIL);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER, pGameObject);    
 
+
+    pGameObject = CStone::Create(m_pGraphicDev);    
+    NULL_CHECK_RETURN(pGameObject, E_FAIL); 
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Stone0", pGameObject), E_FAIL);  
+    static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(500.f, 10.f, 500.f);
+    pGameObject->SetObjectKey(L"Stone0");
+
+    pGameObject = CPlayerInteractionBox::Create(m_pGraphicDev); 
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PlayerInteractionBox", pGameObject), E_FAIL);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PLAYER, pGameObject);
+    pGameObject->SetObjectKey(L"PlayerInteractionBox");
+
+    CGameObject* PlayerObj = pLayer->Get_GameObject(L"Layer_GameLogic", L"Player");
+    CGameObject* InteractionObj = pLayer->Get_GameObject(L"Layer_GameLogic", L"PlayerInteractionBox");
+    dynamic_cast<CPlayerInteractionBox*>(InteractionObj)->SetPlayer(
+        dynamic_cast<CPlayer*>(PlayerObj));
     //폭포 웨이브
     //pGameObject = CWaterFall::Create(m_pGraphicDev);    
     //NULL_CHECK_RETURN(pGameObject, E_FAIL);

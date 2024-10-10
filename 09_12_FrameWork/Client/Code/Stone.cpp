@@ -7,6 +7,7 @@
 CStone::CStone(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CGameObject(pGraphicDev), m_iStoneID(0), m_bIsLaunched(false)
 	, m_vDirSmash{0.f,0.f,0.f}
+	, m_bThrowStone(false)
 {
 }
 
@@ -39,7 +40,14 @@ _int CStone::Update_GameObject(const _float& fTimeDelta)
 	if (m_vDirSmash != _vec3{0.f,0.f,0.f})
 	{
 		m_pTransformCom->Move_Pos(&m_vDirSmash, fTimeDelta, 300.f);
-		return iExit;
+		
+		if(m_bThrowStone ==true)
+		{
+			dwtime = GetTickCount64();
+			m_bThrowStone = false; 
+		}
+
+
 	}
 
 
@@ -77,6 +85,34 @@ void CStone::Render_GameObject()
 {
 	if (!m_bIsActive)
 		return;
+
+	if (dwtime + 3000 < GetTickCount64())
+	{
+		Engine::CGameObject::Free();
+		map<const _tchar*, CLayer*>& mapLayer = CManagement::GetInstance()->GetCurScenePtr()->GetLayerMapPtr();
+		//그니깐 레이어에서 삭제해줘야한다는것. 
+		CLayer* pLayer = nullptr;
+
+		for (auto iter = mapLayer.begin(); iter != mapLayer.end(); ++iter)
+		{
+			const _tchar* layerKey = iter->first;
+
+			if (_tcscmp(layerKey, _T("Layer_GameLogic")) == 0)
+			{
+				pLayer = iter->second;
+			}
+		}
+		map<const _tchar*, CGameObject*>& pMap = pLayer->GetLayerGameObjectPtr();
+
+		auto iter = find_if(pMap.begin(), pMap.end(), CTag_Finder(L"Stone0"));
+
+		if (iter != pMap.end())
+		{
+			pMap.erase(iter);
+		}
+
+		return; 
+	}
 
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
@@ -160,6 +196,7 @@ void CStone::OnCollisionEnter(CGameObject* _pOther)
 		if(dynamic_cast<CPlayerInteractionBox*>(_pOther)->GetPlayer()->GetPlayerState() == PLY_SMASH)
 		{
 			m_vDirSmash = dynamic_cast<CPlayerInteractionBox*>(_pOther)->GetPlayer()->GetPlayerDirVector2();
+			m_bThrowStone = true;
 		}
 		
 	}

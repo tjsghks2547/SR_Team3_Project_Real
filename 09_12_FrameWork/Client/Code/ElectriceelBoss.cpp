@@ -5,6 +5,7 @@
 #include "BossHPBar.h"
 #include "ElectriceelBullet.h"
 #include "WaterFall.h"
+#include "Stone.h"
 
 CElectriceelBoss::CElectriceelBoss(LPDIRECT3DDEVICE9 pGraphicDev)
     :Engine::CGameObject(pGraphicDev)
@@ -17,8 +18,8 @@ CElectriceelBoss::CElectriceelBoss(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 
     m_tInfo.pBossName = L"천둥 뱀장어";
-    m_tInfo.iMaxHP = 100;
-    m_tInfo.iCurHP = 100;
+    m_tInfo.iMaxHP = 10;
+    m_tInfo.iCurHP = 5;
 }
 
 CElectriceelBoss::~CElectriceelBoss()
@@ -141,6 +142,35 @@ _int CElectriceelBoss::Update_GameObject(const _float& fTimeDelta)
     update_sound(); 
 
     m_pBossHPBar->Update_GameObject(fTimeDelta);    
+
+
+    map<const _tchar*, CLayer*>& mapLayer = CManagement::GetInstance()->GetCurScenePtr()->GetLayerMapPtr();
+    //그니깐 레이어에서 삭제해줘야한다는것. 
+    CLayer* pLayer = nullptr;
+
+    for (auto iter = mapLayer.begin(); iter != mapLayer.end(); ++iter)
+    {
+        const _tchar* layerKey = iter->first;
+
+        if (_tcscmp(layerKey, _T("Layer_GameLogic")) == 0)
+        {
+            pLayer = iter->second;
+        }
+    }
+    map<const _tchar*, CGameObject*>& pMap = pLayer->GetLayerGameObjectPtr();
+
+    auto iter = find_if(pMap.begin(), pMap.end(), CTag_Finder(L"Stone0"));
+
+    if (iter == pMap.end())
+    {
+        Engine::CGameObject* pGameObject = nullptr; 
+        pGameObject = CStone::Create(m_pGraphicDev);    
+        NULL_CHECK_RETURN(pGameObject, E_FAIL); 
+        mapLayer[L"Layer_GameLogic"]->Add_GameObject(L"Stone0", pGameObject);
+        static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(500.f, 10.f, 500.f);    
+    }
+
+
 
     return Engine::CGameObject::Update_GameObject(fTimeDelta);
 }
@@ -904,6 +934,15 @@ CElectriceelBoss* CElectriceelBoss::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 void CElectriceelBoss::Free()
 {
     Engine::CGameObject::Free();
+}
+
+void CElectriceelBoss::OnCollisionEnter(CGameObject* _pOther)
+{
+    if(dynamic_cast<CStone*>(_pOther)->GetObjectKey() == L"Stone0")
+    {
+        --m_tInfo.iCurHP;
+    }
+
 }
 
 void CElectriceelBoss::OnCollision(CGameObject* _pOther)

@@ -109,6 +109,7 @@ private:
 	IDirect3DTexture9* m_pComeTex;
 
 public:
+	virtual void OnCollisionEnter(CGameObject* _pOther);
 	virtual void OnCollision(CGameObject* _pOther);
 
 private:

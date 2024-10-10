@@ -69,4 +69,9 @@ public:
 //10월 11일 긴급히 적음 선환
 public:
 	_vec3 m_vDirSmash;
+
+private:
+	bool  m_bThrowStone;
+	ULONGLONG dwtime;
+
 };
