@@ -15,8 +15,6 @@
 #include "Crystal.h"
 #include "PressBlock.h"
 
-#include "WhiteBird.h"
-
 //여기다 넣을 오브젝트들 다 include하기
 
 class CWorldHearStage : public CScene

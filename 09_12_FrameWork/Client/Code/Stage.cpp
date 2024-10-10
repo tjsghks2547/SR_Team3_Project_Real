@@ -167,6 +167,11 @@ HRESULT CStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_ExMonkey", pGameObject), E_FAIL);
 	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
 
+	//1001
+	pGameObject = CSeaLion::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_SeaLion", pGameObject), E_FAIL);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
 
 	//1002
 	pGameObject = CSheep::Create(m_pGraphicDev);

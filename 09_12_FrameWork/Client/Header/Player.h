@@ -99,9 +99,7 @@ public:
 		m_ePlayerState = _ePlayerState;
 		m_pAnimationCom->SetAnimFrame(m_ePlayerState, m_bIsDiagonal);
 	}
-	//1010 민지
-	_int Get_HonorScore() { return m_iHonorScore; }
-	void Set_HonorScore(_int _Score) { m_iHonorScore += _Score; }
+
 	void Set_Interacting(_bool _bInteract) { m_bIsInteracting = _bInteract; }
 	// 공격중인지 판단합니다.
 	_bool			GetSwingTrigger() { return m_bSwingTrigger; }
@@ -206,7 +204,7 @@ public:
 	_vec3			GetColliderPos() { return m_vColliderPos; }
 	_vec3			GetColPlayerPos() { return m_vColPlayerPos; }
 	////////////////////////////////////////////////////////////////////////////
-	CCamera*		GetCamera() { return m_pCamera; }
+	CCamera* GetCamera() { return m_pCamera; }
 	void			SetCamera(CCamera* _camera) { m_pCamera = _camera; }
 
 	void			SetEquipHat(CEquipHat* _equipHat) { m_equipHat = _equipHat; }
@@ -262,8 +260,6 @@ private:
 	CQuestUI* m_pQuestUI;
 	CQuickSlot* m_pQuickSlot;
 
-	//1010 민지
-	_int		m_iHonorScore;
 	_int		m_iPlayerCoin;
 	PLAYERHP	m_tPlayerHP;
 	_bool		m_bInven;

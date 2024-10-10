@@ -40,7 +40,6 @@ public:
 	void			Set_Appear() { m_eState = STONE_TARGET; m_fTime = 0; }
 	void			Set_Dead() { m_eState = STONE_BROKEN; m_fTime = 0; }
 	_bool 			Get_Dead() { return m_eState == STONE_DEAD ? true : false; }
-	void			Set_ActiveNone() { m_bDead = true; }
 private:
 	HRESULT			Add_Component();
 
@@ -57,7 +56,6 @@ private:
 	_bool		m_bPosSet;
 	_bool		m_bRotation;
 
-	_bool		m_bDead;
 public:
 	static CRhinoStone* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 

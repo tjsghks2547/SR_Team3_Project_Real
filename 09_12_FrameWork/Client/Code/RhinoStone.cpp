@@ -9,7 +9,7 @@ Engine::_uint CRhinoStone::m_iStaticID = 0;
 CRhinoStone::CRhinoStone(LPDIRECT3DDEVICE9 pGraphicDev)
 	:Engine::CGameObject(pGraphicDev)
 	, m_bPosSet(false), m_bRotation(false)
-	, m_fTime(0), m_bDead(false)
+	, m_fTime(0)
 {
 }
 
@@ -164,9 +164,6 @@ void CRhinoStone::Render_GameObject()
 
 void CRhinoStone::OnCollision(CGameObject* _pOther)
 {
-	if (m_bDead)
-		m_bIsActive = false;
-
 	if (m_eState != STONE_SURVIVE)
 		return;
 

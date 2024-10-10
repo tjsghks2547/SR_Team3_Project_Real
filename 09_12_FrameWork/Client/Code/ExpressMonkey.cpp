@@ -118,7 +118,7 @@ void CExpressMonkey::Render_GameObject()
 
 void CExpressMonkey::OnCollision(CGameObject* _pOther)
 {
-    if (_pOther->GetObjectKey() != L"Player")
+    if (_pOther->GetObjectKey() != L"PlayerInteractionBox")
         return;
 
     m_bEnter = true;

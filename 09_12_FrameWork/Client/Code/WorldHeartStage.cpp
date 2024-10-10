@@ -197,11 +197,6 @@ HRESULT CWorldHearStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 	dynamic_cast<CPlayerInteractionBox*>(InteractionObj)->SetPlayer(
 		dynamic_cast<CPlayer*>(PlayerObj));
 
-	pGameObject = CWhiteBird::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"WhiteBird", pGameObject), E_FAIL);
-	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
-
 #pragma endregion
 
 #pragma region MinJi

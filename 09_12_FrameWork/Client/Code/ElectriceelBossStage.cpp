@@ -180,7 +180,6 @@ HRESULT CElectriceelBossStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Player", pGameObject), E_FAIL);
     CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PLAYER, pGameObject);
-    pGameObject->SetObjectKey(L"Player");
 
     pGameObject = CElectriceelBoss::Create(m_pGraphicDev);  
     NULL_CHECK_RETURN(pGameObject, E_FAIL);     

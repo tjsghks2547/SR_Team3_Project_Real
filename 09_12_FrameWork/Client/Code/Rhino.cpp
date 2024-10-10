@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "Rhino.h"
-#include "RhinoEffect.h"
 
 CRhino::CRhino(LPDIRECT3DDEVICE9 pGraphicDev)
     :CArenaMonster(pGraphicDev)
@@ -55,7 +54,6 @@ HRESULT CRhino::Ready_GameObject()
     D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/ArenaMonster/RhinoJump.png", &m_pAppearTex);
     m_pAnimatorCom->CreateAnimation(L"RhinoLand", m_pAppearTex, _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.25f, 3);
     m_pAnimatorCom->CreateAnimation(L"RhinoJump", m_pAppearTex, _vec2(0.f, 256.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.25f, 3);
-    m_pAnimatorCom->CreateAnimation(L"RhinoSky", m_pAppearTex, _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 2.0f, 0);
 
     m_pAnimatorCom->Play(L"RhinoLand", true); // 등장씬~
 
@@ -94,14 +92,15 @@ _int CRhino::Update_GameObject(const _float& fTimeDelta)
 
     if (m_tInfo.iCurHP <= 0)
     {
-        m_bCreate = false;
-        m_pPlayer->Set_HonorScore(100);
-        m_pPlayer->SetPlayerPos(_vec3(500.f, 20.f, 800.f));
-
-        for (size_t i = 0; i < 10; i++)
+        for (int i = 0; i < 10; ++i)
         {
-            m_pRhinoStone[i]->Set_ActiveNone();
+            if (m_pRhinoStone[i] != nullptr)
+            {
+                Safe_Release(m_pRhinoStone[i]); // 동적 할당된 객체 삭제
+                m_pRhinoStone[i] = nullptr; // 포인터 초기화
+            }
         }
+        m_bCreate = false;
         return 0;
     }
 
@@ -154,7 +153,6 @@ void CRhino::Render_GameObject()
     case RHINO_LAND:
     case RHINO_APPEAR:
     case RHINO_JUMP:
-    case RHINO_SKY:
         pCurrentTex = m_pAppearTex;
         break;
     case RHINO_STOMPING:
@@ -177,9 +175,6 @@ void CRhino::Render_GameObject()
 
 void CRhino::OnCollision(CGameObject* _pOther)
 {
-    if (!m_bCreate)
-        return;
-
     if (_pOther->GetObjectKey() == L"Player")
     {
         m_pPlayer->SetPlayerCurHP(-1);
@@ -249,8 +244,6 @@ void CRhino::Stomping_Ani()
 
 void CRhino::RhinoState_Update(_float fTimeDelta)
 {
-    map<const _tchar*, CLayer*>& pMapLayer = Engine::Get_CurScenePtr()->GetLayerMapPtr();
-
     m_fTime += fTimeDelta;
 
     switch (m_eState)
@@ -258,11 +251,12 @@ void CRhino::RhinoState_Update(_float fTimeDelta)
     case RHINO_APPEAR: // 1초 등장
         m_pAnimatorCom->Play(L"RhinoLand", false); // 착지
 
+        //if (m_fTime >= 1.0f) //1초 기나면
+        //{
         if (m_pAnimatorCom->GetAnimation()->IsFinish())
         {
             m_eState = RHINO_STOMPING; // 발구르기
             m_fTime = 0.0f;
-            m_pAnimatorCom->GetAnimation()->SetFrame(0);
         }
         break;
 
@@ -274,7 +268,6 @@ void CRhino::RhinoState_Update(_float fTimeDelta)
         {
             m_eState = RHINO_RUNNING; // 들이박기
             m_fTime = 0.0f;
-            m_pAnimatorCom->GetAnimation()->SetFrame(0);
         }
         break;
 
@@ -286,23 +279,24 @@ void CRhino::RhinoState_Update(_float fTimeDelta)
         {
             m_eState = RHINO_JUMP; // 부서졌다면 점프로 넘어가기
             m_fTime = 0.0f;
-            m_pAnimatorCom->GetAnimation()->SetFrame(0);
 
         }
         else if (m_fTime >= 3.0f && !m_pRhinoStone[9]->Get_Dead())
         {
-            m_pAnimatorCom->GetAnimation()->SetFrame(0);
             m_eState = RHINO_STOMPING; // 아니면 다시 발구르러 가기
             m_fTime = 0.0f;
         }
         break;
 
     case RHINO_JUMP: // 리노 점프해서 
-        m_pAnimatorCom->Play(L"RhinoJump", false); // 점프(1회만 출력 / false)
-        if (m_pAnimatorCom->GetAnimation()->IsFinish())
+        m_pAnimatorCom->Play(L"RhinoJump", true); // 점프(1회만 출력 / false)
+
+        if (m_fTime >= 3.0f) //3초 뒤에 
         {
-            m_eState = RHINO_SKY; // 착지
-            m_pAnimatorCom->GetAnimation()->SetFrame(0);
+            m_eState = RHINO_LAND; // 착지
+            m_fTime = 0.0f;
+            m_bStoneAppear = false; // 새 생성 없던 일로ㅋ
+            break;
         }
 
         if (m_bStoneAppear) // 이미 생성했으면. 
@@ -316,44 +310,17 @@ void CRhino::RhinoState_Update(_float fTimeDelta)
 
         break;
 
-    case RHINO_SKY:
-        m_pAnimatorCom->Play(L"RhinoSky", false); // 충돌 브로큰 할거
-        if (m_pAnimatorCom->GetAnimation()->IsFinish())
-        {
-            m_eState = RHINO_LAND; // 착지
-            m_fTime = 0.0f;
-            m_pAnimatorCom->GetAnimation()->SetFrame(0);
-            m_bStoneAppear = false; // 새 생성 없던 일로ㅋ
-        }
-        break;
     case RHINO_LAND:
-        m_pAnimatorCom->Play(L"RhinoLand", false); // 점프
+        m_pAnimatorCom->Play(L"RhinoLand", true); // 점프
 
-        if (m_pAnimatorCom->GetAnimation()->IsFinish())
+        if (m_fTime >= 1.0f)
         {
             m_eState = RHINO_STOMPING; // 초기 자세로 대충 얘가 idle인듯
             m_fTime = 0.0f;
-            m_pAnimatorCom->GetAnimation()->SetFrame(0);
-
             for (size_t i = 0; i < 9; i++)
             {
                 m_pRhinoStone[i]->Set_Dead(); // 나머지 9개 죽인 척 하기
             }
-            
-            //이펙
-            wstring* Effect_Name = new wstring;
-            *Effect_Name = L"Rhino_Effect" + to_wstring(30);
-
-            CRhinoEffect* pRhinoEffect = CRhinoEffect::Create(m_pGraphicDev);
-            pMapLayer[L"Layer_GameLogic"]->Add_GameObject((*Effect_Name).c_str(), pRhinoEffect);
-            pRhinoEffect->name = Effect_Name->c_str();
-
-            _vec3 vEffectPos = m_pTransformCom->m_vInfo[INFO_POS];
-            vEffectPos.x += 30.f;
-            vEffectPos.y += 30.f;
-            vEffectPos.z += 1.f;
-            dynamic_cast<CTransform*>(pRhinoEffect->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vEffectPos);
-
         }
         break;
 

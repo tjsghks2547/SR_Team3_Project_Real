@@ -25,9 +25,9 @@ public:
 	//virtual   void		OnCollisionEnter(CGameObject* _pOther);
 	virtual   void		OnCollisionExit(CGameObject* _pOther);
 
-	void	   Set_Monster(MONSTER_NUM _eChoice) { m_eMonster = _eChoice; }
 private:
 	HRESULT    Add_Component();
+	void	   Set_Monster(MONSTER_NUM _eChoice) { m_eMonster = _eChoice; }
 	void	   Create_Monster();
 
 private:

@@ -162,7 +162,7 @@ HRESULT CSeaLion::Add_Component()
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformFishShop", pComponent });
     m_pShopTransformCom->m_vScale = { 30.f, 30.f, 30.f };
-    m_pShopTransformCom->Set_Pos(630.f, 30.f, 229.f);
+    m_pShopTransformCom->Set_Pos(300.f, 30.f, 798.f);
 
     //-여기까지 텍스쳐-
 
@@ -174,7 +174,7 @@ HRESULT CSeaLion::Add_Component()
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
     m_pTransformCom->m_vScale = { 20.f, 20.f, 30.f };
-    m_pTransformCom->Set_Pos(630.f, 25.f, 230.f);
+    m_pTransformCom->Set_Pos(300.f, 25.f, 800.f);
 
     pComponent = m_pColliderCom = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);

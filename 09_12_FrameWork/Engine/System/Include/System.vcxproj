@@ -164,7 +164,6 @@ call CopySystem.bat</Command>
     <ClCompile Include="..\Code\TimerMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Client\Include\Resource.h" />
     <ClInclude Include="..\..\Header\Export_System.h" />
     <ClInclude Include="..\..\Header\FontMgr.h" />
     <ClInclude Include="..\..\Header\Frame.h" />

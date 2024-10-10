@@ -58,7 +58,7 @@ void CSheep::Render_GameObject()
 
 void CSheep::OnCollision(CGameObject* _pOther)
 {
-    if (_pOther->GetObjectKey() != L"Player")
+    if (_pOther->GetObjectKey() != L"PlayerInteractionBox")
         return;
 
     if (Engine::GetKeyDown(DIK_S))

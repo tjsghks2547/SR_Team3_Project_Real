@@ -9,7 +9,7 @@
 #include "InvenUI.h"
 #include "QuickSlot.h"
 #include "Object.h"
-#include "SeaLion.h"
+
 
 class CTownStage:public CScene
 {

@@ -170,7 +170,6 @@ HRESULT CSunTempleStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Player", pGameObject), E_FAIL);    
     CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PLAYER, pGameObject); 
     static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(1400.f, 18.f, 300.f);   
-    pGameObject->SetObjectKey(L"Player");
 
     m_mapLayer.insert({ pLayerTag, pLayer });   
 
