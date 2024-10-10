@@ -27,6 +27,9 @@
 #include "Engine_Typedef.h"
 #include "Engine_Function.h"
 
+#include <Vfw.h>
+#pragma comment (lib, "Vfw32.lib")
+
 #define DIRECTINPUT_VERSION	0x0800
 #include <dinput.h>
 

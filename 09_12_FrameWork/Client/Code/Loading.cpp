@@ -3,6 +3,7 @@
 #include "Export_Utility.h"
 #include "ResMgr.h"
 
+	
 
 CLoading::CLoading(LPDIRECT3DDEVICE9 pGraphicDev)
 	:m_pGraphicDev(pGraphicDev)
@@ -29,7 +30,7 @@ HRESULT CLoading::Ready_Loading(LOADINGID eLoading)
 
 _uint CLoading::Loading_Stage()
 {
-
+	
 	lstrcpy(m_szLoading, L"Etc Loading................");
 
 	//ETC
@@ -327,6 +328,7 @@ unsigned int __stdcall CLoading::Thread_Main(void* pArg)
 	{
 	case LOADING_STAGE:
 		iFlag = pLoading->Loading_Stage();
+
 		break;
 
 	case LOADING_BOSS:

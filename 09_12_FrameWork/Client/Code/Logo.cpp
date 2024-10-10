@@ -23,24 +23,28 @@ HRESULT CLogo::Ready_Scene()
 
 	FAILED_CHECK_RETURN(Ready_Layer_Environment(L"Layer_Environment"), E_FAIL);
 
+
+	PlayVideo(g_hWnd, L"../Bin/Resource/Video/CutScene_0_BabyOguWakeUp.wmv");	
+
 	return S_OK;
 }
 
 _int CLogo::Update_Scene(const _float& fTimeDelta)
 {
 	_int  iExit = Engine::CScene::Update_Scene(fTimeDelta);
-
+	
+	
 	if(true == m_pLoading->Get_Finish())
 	{
-		if(GetAsyncKeyState(VK_RETURN) & 0x8000)
-		{
+		//if(GetAsyncKeyState(VK_RETURN) & 0x8000)
+		//{
 			Engine::CScene* pStage = CStage::Create(m_pGraphicDev);
 			NULL_CHECK_RETURN(pStage, -1);
 
 			FAILED_CHECK_RETURN(Engine::Set_Scene(pStage), E_FAIL);
 
 			return 0;
-		}
+		//}
 	}
 
 	return iExit;
@@ -73,16 +77,16 @@ HRESULT CLogo::Ready_Prototype()
 
 HRESULT CLogo::Ready_Layer_Environment(const _tchar* pLayerTag)
 {
-	Engine::CLayer* pLayer = CLayer::Create();
-	NULL_CHECK_RETURN(pLayer, E_FAIL);
+	//Engine::CLayer* pLayer = CLayer::Create();
+	//NULL_CHECK_RETURN(pLayer, E_FAIL);
+	//
+	//Engine::CGameObject* pGameObject = nullptr; 
+	//
+	//pGameObject = CBackGround::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BackGround", pGameObject), E_FAIL);
 
-	Engine::CGameObject* pGameObject = nullptr; 
-
-	pGameObject = CBackGround::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BackGround", pGameObject), E_FAIL);
-
-	m_mapLayer.insert({ pLayerTag,pLayer });
+	//m_mapLayer.insert({ pLayerTag,pLayer });
 	return S_OK;
 }
 

@@ -16,7 +16,7 @@ CElectriceelBoss::CElectriceelBoss(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_iWaterFallCount(0)
 {
 
-    m_tInfo.pBossName = L"거대 뱀장어";
+    m_tInfo.pBossName = L"천둥 뱀장어";
     m_tInfo.iMaxHP = 100;
     m_tInfo.iCurHP = 100;
 }
@@ -109,10 +109,10 @@ _int CElectriceelBoss::Update_GameObject(const _float& fTimeDelta)
 
     Electriceel_STATE patterns[] =
     {
-        //Electriceel_STATE::OUT_9_SHOT,
+        Electriceel_STATE::OUT_9_WATERFALL, 
         Electriceel_STATE::OUT_1_SHOT,   
         //Electriceel_STATE::OUT_12,
-        //Electriceel_STATE::OUT_11_SHOT, 
+        Electriceel_STATE::OUT_11_SHOT, 
         Electriceel_STATE::OUT_3_WATERFALL, 
         //Electriceel_STATE::IDLE_12,
         //Electriceel_STATE::IDLE_12,
@@ -125,7 +125,7 @@ _int CElectriceelBoss::Update_GameObject(const _float& fTimeDelta)
     std::random_device rd;  
     std::mt19937 gen(rd()); 
     //std::uniform_int_distribution<> dis(0, 4);
-    std::uniform_int_distribution<> dis(0, 2);
+    std::uniform_int_distribution<> dis(0, 4);
     if (dwtime + 3500 < GetTickCount64())
     {
         int randomIndex = dis(gen);     
@@ -147,7 +147,7 @@ _int CElectriceelBoss::Update_GameObject(const _float& fTimeDelta)
 
 void CElectriceelBoss::update_move()
 {
-    if (m_eCurState == Electriceel_STATE::OUT_9_MAGIC || m_eCurState == Electriceel_STATE::OUT_9_SHOT)
+    if (m_eCurState == Electriceel_STATE::OUT_9_MAGIC || m_eCurState == Electriceel_STATE::OUT_9_WATERFALL)
     {
         m_pTransformCom->Set_Pos(200.f, 85.f, 500.f);
     }
@@ -480,7 +480,8 @@ void CElectriceelBoss::update_animation()
     if (m_eCurState == Electriceel_STATE::PROJECT_WATERFALL_3)  
     {
        
-        if (dwtimeShot + 350 < GetTickCount64())
+        m_pAnimatorCom->Play(L"PROJECT_SHOT_3", false);
+        if (dwtimeShot + 300 < GetTickCount64())
         {
             wstring* Effect_Name = new wstring;
             *Effect_Name = L"Electric_Effect" + to_wstring(m_iWaterFallCount);  
@@ -590,8 +591,148 @@ void CElectriceelBoss::update_animation()
         }
     }
 
+
+
+
+
 #pragma endregion
 
+#pragma region OUT_9_SHOT
+    if (m_eCurState == Electriceel_STATE::OUT_9_WATERFALL)  
+    {
+        m_pAnimatorCom->Play(L"OUT_9", false);
+        if (m_pAnimatorCom->GetAnimation()->IsFinish())
+        {
+            m_pAnimatorCom->GetAnimation()->SetFrame(0);
+            m_eCurState = Electriceel_STATE::IDLE_9_WATERFALL;  
+
+        }
+    }
+
+    if (m_eCurState == Electriceel_STATE::IDLE_9_WATERFALL)
+    {
+        m_pAnimatorCom->Play(L"IDLE_9", false);
+        if (m_pAnimatorCom->GetAnimation()->IsFinish())
+        {
+            m_pAnimatorCom->GetAnimation()->SetFrame(0);
+            m_eCurState = Electriceel_STATE::PROJECT_WATERFALL_9;
+        }
+    }
+
+
+    if (m_eCurState == Electriceel_STATE::PROJECT_WATERFALL_9)
+    {
+        m_pAnimatorCom->Play(L"PROJECT_SHOT_9", false);
+        if (dwtimeShot + 300 < GetTickCount64())
+        {
+            wstring* Effect_Name = new wstring;
+            *Effect_Name = L"Electric_Effect" + to_wstring(m_iWaterFallCount);
+
+            _vec3 patterns[] =
+            {
+                {-1.f,0.f,-1.f},// 이때는 1시  방향 위치 시작
+                {1.f,0.f,-1.f}, // 이때는 11시 방향 위치 시작
+                {0.f,0.f,-1.f}, // 이때는 12시 방향 위치 시작
+                {1.f,0.f,1.f},  // 이때는 7시  방향 위치 시작
+                {0.f,0.f,1.f},  // 이때는 6시  방향 위치 시작
+                {-1.f,0.f,1.f}, // 이때는 5시  방향 위치 시작
+
+            };
+            std::random_device rd;
+            std::mt19937 gen(rd());
+            std::uniform_int_distribution<> dis(0, 5);
+
+            int randomIndex = dis(gen);
+            _vec3 vDir = patterns[randomIndex];
+
+            CWaterFall* pWateFall = CWaterFall::Create(m_pGraphicDev);
+            pMapLayer[L"Layer_GameLogic"]->Add_GameObject((*Effect_Name).c_str(), pWateFall);
+            pWateFall->name = Effect_Name->c_str();
+
+            if (randomIndex == 0) // 1시 방향
+            {
+
+                dynamic_cast<CTransform*>(pWateFall->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(650.f, 41.f, 650.f);
+                pWateFall->SetWaterFallDir(patterns[0]);
+                pWateFall->LateReady_GameObject();
+
+                CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER_EFFECT, pWateFall);
+            }
+
+            if (randomIndex == 1) // 11시 방향
+            {
+
+                dynamic_cast<CTransform*>(pWateFall->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(350.f, 42.f, 650.f);
+                pWateFall->SetWaterFallDir(patterns[1]);
+                pWateFall->LateReady_GameObject();
+                CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER_EFFECT, pWateFall);
+            }
+
+            if (randomIndex == 2) // 12시 방향
+            {
+
+                dynamic_cast<CTransform*>(pWateFall->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(500.f, 43.f, 700.f);
+                pWateFall->SetWaterFallDir(patterns[2]);
+                pWateFall->LateReady_GameObject();
+                CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER_EFFECT, pWateFall);
+            }
+
+            if (randomIndex == 3) // 7시 방향
+            {
+
+                dynamic_cast<CTransform*>(pWateFall->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(350.f, 44.f, 350.f);
+                pWateFall->SetWaterFallDir(patterns[3]);
+                pWateFall->LateReady_GameObject();
+                CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER_EFFECT, pWateFall);
+            }
+
+            if (randomIndex == 4) // 6시 방향
+            {
+
+                dynamic_cast<CTransform*>(pWateFall->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(500.f, 45.f, 300.f);
+                pWateFall->SetWaterFallDir(patterns[4]);
+                pWateFall->LateReady_GameObject();
+                CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER_EFFECT, pWateFall);
+            }
+
+            if (randomIndex == 5) // 6시 방향
+            {
+
+                dynamic_cast<CTransform*>(pWateFall->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(650.f, 46.f, 350.f);
+                pWateFall->SetWaterFallDir(patterns[5]);
+                pWateFall->LateReady_GameObject();
+                CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER_EFFECT, pWateFall);
+            }
+
+            m_iWaterFallCount++;
+            //if (randomIndex == 3) // 시 방향
+            //{
+            //    dynamic_cast<CTransform*>(pWateFall->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(500.f, 100.f, 700.f);
+            //    pWateFall->SetWaterFallDir(patterns[3]);
+            //    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER_EFFECT, pWateFall);
+            //}
+            dwtimeShot = GetTickCount64();
+        }
+
+
+        if (m_pAnimatorCom->GetAnimation()->IsFinish())
+        {
+            m_pAnimatorCom->GetAnimation()->SetFrame(0);
+            m_eCurState = Electriceel_STATE::IN_9;
+            m_iWaterFallCount = 0;
+        }
+    }
+
+    if (m_eCurState == Electriceel_STATE::IN_9)
+    {
+        m_pAnimatorCom->Play(L"IN_9", false);
+        if (m_pAnimatorCom->GetAnimation()->IsFinish())
+        {
+            m_pAnimatorCom->GetAnimation()->SetFrame(0);
+            m_eCurState = Electriceel_STATE::OUT_9_WATERFALL;   
+        }
+    }
+#pragma endregion
 }
 
 void CElectriceelBoss::LateUpdate_GameObject(const _float& fTimeDelta)
@@ -625,7 +766,7 @@ void CElectriceelBoss::Render_GameObject()
     case Electriceel_STATE::OUT_3_MAGIC:
         m_pGraphicDev->SetTexture(0, m_vecTexture[0]);
         break;
-    case Electriceel_STATE::OUT_9_SHOT:
+    case Electriceel_STATE::OUT_9_WATERFALL:
         m_pGraphicDev->SetTexture(0, m_vecTexture[0]);
         break;
     case Electriceel_STATE::OUT_11_SHOT:
@@ -637,7 +778,7 @@ void CElectriceelBoss::Render_GameObject()
     case Electriceel_STATE::OUT_3_WATERFALL:
         m_pGraphicDev->SetTexture(0, m_vecTexture[0]);
         break;
-    case Electriceel_STATE::IDLE_9_SHOT:
+    case Electriceel_STATE::IDLE_9_WATERFALL:   
         m_pGraphicDev->SetTexture(0, m_vecTexture[2]);
         break;
     case Electriceel_STATE::IDLE_1_SHOT:
@@ -676,6 +817,10 @@ void CElectriceelBoss::Render_GameObject()
         m_pGraphicDev->SetTexture(0, m_vecTexture[0]);
         break;
 
+    case Electriceel_STATE::IN_9:   
+        m_pGraphicDev->SetTexture(0, m_vecTexture[0]);
+        break;
+
     case Electriceel_STATE::IN_11:
         m_pGraphicDev->SetTexture(0, m_vecTexture[1]);
         break;
@@ -688,6 +833,9 @@ void CElectriceelBoss::Render_GameObject()
         m_pGraphicDev->SetTexture(0, m_vecTexture[5]);  
         break;
 
+    case Electriceel_STATE::PROJECT_WATERFALL_9:
+        m_pGraphicDev->SetTexture(0, m_vecTexture[5]);
+        break;
     case Electriceel_STATE::PROJECT_SHOT_1:
         m_pGraphicDev->SetTexture(0, m_vecTexture[5]);
         break;

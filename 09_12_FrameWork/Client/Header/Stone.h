@@ -59,4 +59,14 @@ private:
 
 private:
 	virtual void Free();
+
+public:
+	virtual void OnCollision(CGameObject* _pOther);
+	virtual void OnCollisionEnter(CGameObject* _pOther);
+	virtual void OnCollisionExit(CGameObject* _pOther);
+
+
+//10월 11일 긴급히 적음 선환
+public:
+	_vec3 m_vDirSmash;
 };

@@ -5,6 +5,7 @@
 
 CPlayerInteractionBox::CPlayerInteractionBox(LPDIRECT3DDEVICE9 pGraphicDev)
     :Engine::CGameObject(pGraphicDev)
+    
 {
 }
 
@@ -31,7 +32,7 @@ _int CPlayerInteractionBox::Update_GameObject(const _float& fTimeDelta)
     Add_RenderGroup(RENDER_ALPHA, this);
 
     _vec3 vPlayerDir = m_CPlayer->GetPlayerDirVector();
-    if (vPlayerDir.x != 0 || vPlayerDir.z != 0)
+    if ((vPlayerDir.x != 0 || vPlayerDir.z != 0)&& m_CPlayer->m_bSmashEnd == false)
     {
         CTransform* m_playerTransform = dynamic_cast<CTransform*>(Engine::Get_Component(
             ID_DYNAMIC, L"Layer_GameLogic", L"Player", L"Com_Transform"));
@@ -40,9 +41,28 @@ _int CPlayerInteractionBox::Update_GameObject(const _float& fTimeDelta)
         m_playerTransform->Get_Info(INFO_POS, &pos);
         pos.x += vPlayerDir.x * 15;
         pos.z -= vPlayerDir.z * 15;
-
+        m_pTransformCom->m_vScale = { 5.f, 5.f, 5.f };
         m_pTransformCom->Set_Pos(pos);
     }
+
+    // 10월 11일 코드 추가 
+    if(m_CPlayer->m_bSmashEnd ==true)
+    {
+        CTransform* m_playerTransform = dynamic_cast<CTransform*>(Engine::Get_Component(
+            ID_DYNAMIC, L"Layer_GameLogic", L"Player", L"Com_Transform"));
+
+        _vec3 pos;
+        m_playerTransform->Get_Info(INFO_POS, &pos);
+        m_pTransformCom->m_vScale = { 20.f,20.f,20.f };
+        pos.x += vPlayerDir.x * 30; 
+        pos.z -= vPlayerDir.z * 30; 
+
+        m_pTransformCom->Set_Pos(pos);
+
+        m_CPlayer->m_bSmashEnd = false;
+    }
+
+    
 
     return Engine::CGameObject::Update_GameObject(fTimeDelta);
 }
@@ -99,7 +119,8 @@ CPlayerInteractionBox* CPlayerInteractionBox::Create(LPDIRECT3DDEVICE9 pGraphicD
 void CPlayerInteractionBox::OnCollisionEnter(CGameObject* _pOther)
 {
     if (m_CPlayer->GetPlayerState() == PLAYERSTATE::PLY_ROLLING ||
-        m_CPlayer->GetPlayerState() == PLAYERSTATE::PLY_ROLLINGDIAGONAL)
+        m_CPlayer->GetPlayerState() == PLAYERSTATE::PLY_ROLLINGDIAGONAL
+        )
         return;
 
     m_CPlayer->SetInteractingObj(_pOther);
@@ -111,6 +132,12 @@ void CPlayerInteractionBox::OnCollisionEnter(CGameObject* _pOther)
             m_CPlayer->SetPushTrigger(true);
 
         break;
+    }
+
+    if(m_CPlayer->GetPlayerState() == PLAYERSTATE::PLY_SMASH)
+    {
+        //_vec3 test = m_CPlayer->GetPlayerDirVector2();
+        //dynamic_cast<CTransform*>(_pOther->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Move_Pos(&test, CTimerMgr::GetInstance()->Get_TimeDelta(L"Timer_FPS60"), 100.f);
     }
 }
 

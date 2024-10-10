@@ -58,7 +58,7 @@ void CMainApp::LateUpdate_MainApp(const float& fTimeDelta)
 
 void CMainApp::Render_MainApp()
 {
-	Engine::Render_Begin(D3DXCOLOR(0.f, 0.f, 1.f, 1.f));
+	Engine::Render_Begin(D3DXCOLOR(0.f, 0.f, 0.f, 1.f));
 
 
 	// imgui ui 옵션값에 따른 연동

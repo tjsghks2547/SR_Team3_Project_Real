@@ -1,9 +1,12 @@
 #include "pch.h"
 #include "Stone.h"
 #include "Export_Utility.h"
+#include "PlayerInteractionBox.h"
+#include "Player.h"
 
 CStone::CStone(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CGameObject(pGraphicDev), m_iStoneID(0), m_bIsLaunched(false)
+	, m_vDirSmash{0.f,0.f,0.f}
 {
 }
 
@@ -31,6 +34,15 @@ _int CStone::Update_GameObject(const _float& fTimeDelta)
 
 	Add_RenderGroup(RENDER_ALPHA, this);
 	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
+
+	// 돌이 스매쉬랑 충돌했을때
+	if (m_vDirSmash != _vec3{0.f,0.f,0.f})
+	{
+		m_pTransformCom->Move_Pos(&m_vDirSmash, fTimeDelta, 300.f);
+		return iExit;
+	}
+
+
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
@@ -134,4 +146,26 @@ void CStone::Launch()
 void CStone::Free()
 {
 	Engine::CGameObject::Free();
+}
+
+void CStone::OnCollision(CGameObject* _pOther)
+{
+}
+
+void CStone::OnCollisionEnter(CGameObject* _pOther)
+{
+	//여기서 먹고 업데이트가 되야하는데
+	if(_pOther->GetObjectKey() == L"PlayerInteractionBox")
+	{
+		if(dynamic_cast<CPlayerInteractionBox*>(_pOther)->GetPlayer()->GetPlayerState() == PLY_SMASH)
+		{
+			m_vDirSmash = dynamic_cast<CPlayerInteractionBox*>(_pOther)->GetPlayer()->GetPlayerDirVector2();
+		}
+		
+	}
+
+}
+
+void CStone::OnCollisionExit(CGameObject* _pOther)
+{
 }

@@ -224,6 +224,7 @@ HRESULT CWorldHearStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Catapult_00", pGameObject), E_FAIL);
 	static_cast<CCatapult*>(pGameObject)->Init_Pos(fOffsetX + (30.f * 5), fOffsetZ + (30.f * 3));
 	static_cast<CCatapult*>(pGameObject)->SetPlayer(static_cast<CPlayer*>(PlayerObj));
+	pGameObject->SetObjectKey(L"Player");	
 
 	pGameObject = CStone::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);

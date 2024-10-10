@@ -89,6 +89,7 @@ public:
 
 	virtual			void			OnCollisionEnter(CGameObject* _pOther);
 	virtual			void			OnCollisionExit(CGameObject* _pOther);
+
 public:
 	// 애니메이션 관련 /////////////////////////////////////////////////////////
 	CAnimation* GetAnimationComp() { return m_pAnimationCom; }
@@ -280,6 +281,12 @@ public:
 
 private:
 	virtual void Free();
+
+
+//김선환 긴급해서 퍼블릭사용함 10월 11일
+public:
+	bool  m_bSmashEnd;
+
 
 };
 

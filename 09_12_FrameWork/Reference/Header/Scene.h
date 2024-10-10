@@ -25,11 +25,11 @@ public:
 	//0922 Seonhwan
 	virtual  void    init() { ; }
 
-
 protected:
 	map<const _tchar*, CLayer*>  m_mapLayer;
 	LPDIRECT3DDEVICE9			 m_pGraphicDev; 
-
+	HWND						m_hVideoHandle;
+	_bool	m_bVideoPlaying;		
 
 public:
 	virtual  void  Free();
@@ -43,6 +43,10 @@ public:
 
 private:
 	vector<CGameObject*>          m_vecArrObj[GROUP_TYPE::GROUP_END];
+
+
+public:
+	void  PlayVideo(HWND _hWnd, const wstring& _strFilePath);
 };
 
 END

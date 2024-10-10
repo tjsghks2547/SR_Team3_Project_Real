@@ -308,6 +308,7 @@
     <ClInclude Include="..\Header\DefaultUI.h" />
     <ClInclude Include="..\Header\TestObject.h" />
     <ClInclude Include="..\Header\TextBox.h" />
+    <ClInclude Include="..\Header\ThrowStone.h" />
     <ClInclude Include="..\Header\Town.h" />
     <ClInclude Include="..\Header\TownStage.h" />
     <ClInclude Include="..\Header\Trigger.h" />
@@ -490,6 +491,7 @@
     <ClCompile Include="..\Code\DefaultUI.cpp" />
     <ClCompile Include="..\Code\TestObject.cpp" />
     <ClCompile Include="..\Code\TextBox.cpp" />
+    <ClCompile Include="..\Code\ThrowStone.cpp" />
     <ClCompile Include="..\Code\Town.cpp" />
     <ClCompile Include="..\Code\TownStage.cpp" />
     <ClCompile Include="..\Code\Trigger.cpp" />

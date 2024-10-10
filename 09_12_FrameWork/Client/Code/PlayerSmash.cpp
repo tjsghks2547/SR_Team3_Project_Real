@@ -14,6 +14,7 @@ void PlayerSmash::Enter()
     m_pAnimationCom->SetTextureScale(1.5f);
     m_iStateCount = 0;
 
+    
     (dynamic_cast<CPlayer*>(m_CGameObject))->FixCurPlayerDir(true);
 }
 
@@ -40,6 +41,14 @@ void PlayerSmash::Update(const _float& fTimeDelta)
     if (dynamic_cast<CPlayer*>(m_CGameObject)->GetAnimationComp()->IsAnimationEnd())
     {
         m_pStateController->ChangeState(PlayerIdle::GetInstance(), m_CGameObject);
+
+    }
+
+    if(m_pAnimationCom->GetCurrentFrame() ==5)
+    {
+        dynamic_cast<CPlayer*>(m_CGameObject)->m_bSmashEnd = true; 
+        //여기가 박치기가 마무리될때 들어오는 코드
+        //_vec3 test = dynamic_cast<CPlayer*>(m_CGameObject)->GetPlayerDirVector();
 
     }
 

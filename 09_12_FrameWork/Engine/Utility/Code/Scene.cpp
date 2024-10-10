@@ -3,6 +3,8 @@
 
 CScene::CScene(LPDIRECT3DDEVICE9 pGraphicDev)
 	:m_pGraphicDev(pGraphicDev)
+	,m_bVideoPlaying(false)	
+	,m_hVideoHandle(nullptr)
 {
 	m_pGraphicDev->AddRef();
 }
@@ -104,4 +106,51 @@ HRESULT CScene::Add_ObjectGroup(GROUP_TYPE _eType, CGameObject* pGameObject)
 	m_vecArrObj[(UINT)_eType].push_back(pGameObject);
 
 	return S_OK;
+}
+
+void CScene::PlayVideo(HWND _hWnd, const wstring& _strFilePath)
+{
+	if (m_bVideoPlaying)
+		return;
+
+	m_hVideoHandle = MCIWndCreate(_hWnd,	
+		NULL,
+		WS_CHILD |	
+		WS_VISIBLE |	
+		MCIWNDF_NOPLAYBAR, _strFilePath.c_str());	
+
+	if (m_hVideoHandle == NULL)		
+	{
+		MessageBox(_hWnd, L"동영상 핸들을 생성하지 못했습니다.", L"Error", MB_OK);	
+		return;
+	}	
+
+	MoveWindow(m_hVideoHandle, 0, 0, WINCX, 720, FALSE);	
+
+	m_bVideoPlaying = true;		
+	MCIWndPlay(m_hVideoHandle);		
+	HDC dc = GetDC(_hWnd);		
+	HDC memDC = CreateCompatibleDC(dc);
+	HBITMAP hBitmap = CreateCompatibleBitmap(dc, WINCX, WINCY);
+	HBITMAP hOldBitmap = (HBITMAP)SelectObject(memDC, hBitmap);
+
+	Rectangle(dc, 0, 0, WINCX, WINCY);
+	BitBlt(dc, 0, 0, WINCX, WINCY, memDC, 0, 0, SRCCOPY);	
+	while (MCIWndGetLength(m_hVideoHandle) > MCIWndGetPosition(m_hVideoHandle))	
+	{
+		if (GetAsyncKeyState(VK_RETURN))
+		{
+			MCIWndClose(m_hVideoHandle);
+			m_bVideoPlaying = false;
+			break;
+		}
+
+	}
+
+	SelectObject(memDC, hOldBitmap);
+	ReleaseDC(_hWnd, memDC);
+	ReleaseDC(_hWnd, dc);
+
+	m_bVideoPlaying = false;
+	MCIWndClose(m_hVideoHandle);
 }

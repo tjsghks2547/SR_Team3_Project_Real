@@ -446,6 +446,9 @@
     <Filter Include="02. GameObject\01. Entity\02. Monster\MothMage">
       <UniqueIdentifier>{831f216f-51ef-495a-bf06-f1cfd98cccd5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\14.ElectriceelBoss\ThrowStone">
+      <UniqueIdentifier>{371aa46c-6590-49d3-a026-482d30917d2c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -1003,6 +1006,9 @@
     <ClInclude Include="..\Header\PlayerBalloonFly.h">
       <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\ThrowStone.h">
+      <Filter>02. GameObject\14.ElectriceelBoss\ThrowStone</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FramePractice.cpp">
@@ -1550,6 +1556,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\PlayerBalloonFly.cpp">
       <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ThrowStone.cpp">
+      <Filter>02. GameObject\14.ElectriceelBoss\ThrowStone</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

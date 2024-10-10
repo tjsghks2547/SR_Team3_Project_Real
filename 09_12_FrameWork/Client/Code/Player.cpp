@@ -31,6 +31,8 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_iHonorScore(0.f) //1010 민지
     , m_iPlayerCoin(10000), m_bInven(false), m_bQuest(false), m_bStoreVisit(false)
 
+    , m_bSmashEnd(false)
+
 {
     ZeroMemory(&m_tPlayerHP, sizeof(PLAYERHP));
 }
