@@ -226,6 +226,9 @@
     <ClInclude Include="..\Header\MonkeyStatue.h" />
     <ClInclude Include="..\Header\Monster.h" />
     <ClInclude Include="..\Header\MonsterHPUI.h" />
+    <ClInclude Include="..\Header\MonsterMothMage.h" />
+    <ClInclude Include="..\Header\MonsterMothMageBullet.h" />
+    <ClInclude Include="..\Header\MonsterMothMageOrb.h" />
     <ClInclude Include="..\Header\MonsterSlimeFast.h" />
     <ClInclude Include="..\Header\MoonForestMap.h" />
     <ClInclude Include="..\Header\MoonForestStage.h" />
@@ -238,6 +241,7 @@
     <ClInclude Include="..\Header\PickUpButton.h" />
     <ClInclude Include="..\Header\Pig.h" />
     <ClInclude Include="..\Header\PlantOrb.h" />
+    <ClInclude Include="..\Header\PlayerBalloonFly.h" />
     <ClInclude Include="..\Header\PlayerPickUp.h" />
     <ClInclude Include="..\Header\PowerUI.h" />
     <ClInclude Include="..\Header\QuestLion.h" />
@@ -405,6 +409,9 @@
     <ClCompile Include="..\Code\MonkeyStatue.cpp" />
     <ClCompile Include="..\Code\Monster.cpp" />
     <ClCompile Include="..\Code\MonsterHPUI.cpp" />
+    <ClCompile Include="..\Code\MonsterMothMage.cpp" />
+    <ClCompile Include="..\Code\MonsterMothMageBullet.cpp" />
+    <ClCompile Include="..\Code\MonsterMothMageOrb.cpp" />
     <ClCompile Include="..\Code\MonsterSlimeFast.cpp" />
     <ClCompile Include="..\Code\MoonForestMap.cpp" />
     <ClCompile Include="..\Code\MoonForestStage.cpp" />
@@ -418,6 +425,7 @@
     <ClCompile Include="..\Code\PickUpButton.cpp" />
     <ClCompile Include="..\Code\Pig.cpp" />
     <ClCompile Include="..\Code\PlantOrb.cpp" />
+    <ClCompile Include="..\Code\PlayerBalloonFly.cpp" />
     <ClCompile Include="..\Code\PlayerPickUp.cpp" />
     <ClCompile Include="..\Code\PowerUI.cpp" />
     <ClCompile Include="..\Code\QuestLion.cpp" />

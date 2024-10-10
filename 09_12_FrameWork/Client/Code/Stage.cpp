@@ -234,6 +234,20 @@ HRESULT CStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 	dynamic_cast<CMonster*>(pGameObject)->GetLayer(pLayer);
 	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER, pGameObject);
 
+	_tchar* objectName = new _tchar[32];
+	swprintf(objectName, 32, L"MonsterMothMage%d", 0);
+
+	pGameObject = CMonsterMothMage::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(objectName, pGameObject), E_FAIL);
+
+	dynamic_cast<CMonsterMothMage*>(pGameObject)->testNum = 0;
+
+	dynamic_cast<CMonster*>(pGameObject)->SetPlayer(
+		dynamic_cast<CPlayer*>(PlayerObj));
+
+	dynamic_cast<CMonster*>(pGameObject)->GetLayer(pLayer);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER, pGameObject);
 
 	CScene* pScene = CManagement::GetInstance()->GetCurScenePtr();
 

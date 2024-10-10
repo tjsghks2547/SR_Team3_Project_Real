@@ -39,7 +39,6 @@ _int CMoonTempleStage::Update_Scene(const _float& fTimeDelta)
 {
 	_int  iExit = Engine::CScene::Update_Scene(fTimeDelta);
 
-
 	if (GetAsyncKeyState('M') & 0x8000)
 	{
 		Engine::CScene* pStage3 = CTownStage::Create(m_pGraphicDev);

@@ -118,8 +118,11 @@ void CMonster::MoveToPlayer(const _float& fTimeDelta)
     _vec3 monsterPos;
     m_pTransformCom->Get_Info(INFO_POS, &monsterPos);
 
-    _vec3 dir = playerPos - monsterPos;
-    D3DXVec3Normalize(&dir, &dir);
+    m_vToPlayerDir = playerPos - monsterPos;
+
+    _vec3 dir;
+    D3DXVec3Normalize(&dir, &m_vToPlayerDir);
+    dir.y = 0;
 
     CTransform* transform =
         dynamic_cast<CTransform*>(Get_Component(ID_DYNAMIC, L"Com_Transform"));

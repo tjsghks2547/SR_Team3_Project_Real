@@ -8,7 +8,9 @@ enum class CAMERASTATE
 {
 	DEBUG = 0,
 	PLAYER,
-	EVENT
+	EVENT_ZOOM,
+	EVENT_SHAKE,
+	EVENT_WALK,
 };
 BEGIN(Engine)
 
@@ -46,7 +48,16 @@ public:
 	virtual   void      Render_GameObject();
 
 	void  ZoomTo(_float fRatio, _float fDuration);
+	void  ResetZoom(_float fDuration);
+
 	void  ShakeMove(_float fDuration);
+	void  WalkTo(_vec3 _vWalkPos, _float _fDuration,
+		_vec3 _vDeparture = _vec3(0, 0, 0));
+	void  WalkTo2(_vec3 _vDestination, _float _fDuration,
+		_vec3 _vDeparture = _vec3(0, 0, 0));
+
+	void  ResetWalkTo(_float _fDuration = 0.f);
+	void  DirectMoveToPlayer();
 
 private:
 	void  Key_Input(const _float& fTimeDelta);
@@ -55,9 +66,12 @@ private:
 	void  MoveToPlayer(const _float& fTimeDelta);
 
 	void  ZoomToTrigger(const _float& fTimeDelta);
-	void  ResetZoom(const _float& fTimeDelta);
 
 	void  ShakeMoveTrigger(const _float& fTimeDelta);
+
+	void  WalkToTrigger(const _float& fTimeDelta);
+
+
 	void  RayTransfer();
 
 private:
@@ -77,7 +91,8 @@ private:
 
 	_bool m_bMoveTrigger;
 	_vec3 vMoveDir;
-	// Zoom
+
+	// Zoom =====================================================================
 	// 외부에서 ZoomTo()함수에 의해 true가 돼, 업데이트에서 줌인/아웃이 진행
 	bool m_bZoomTrigger;
 
@@ -111,6 +126,14 @@ private:
 
 	// 진동 효과를 적용할 시간
 	float shakeTimer = shakeDuration;
+
+	// Event Walking ==================================================
+	bool m_bEventWalkTrigger;
+	bool m_bReturn;
+	float m_fEventWalkDuration;
+	float m_fEventWalkDeltaTime = 0.f;
+	_vec3 m_vDeparturePos;
+	_vec3 m_vWalkPos;
 
 public:
 	static  CDynamicCamera* Create(LPDIRECT3DDEVICE9 pGraphicDev

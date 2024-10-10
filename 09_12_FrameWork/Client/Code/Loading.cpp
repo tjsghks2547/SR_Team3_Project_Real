@@ -180,7 +180,15 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MonsterTrashSlime",
 		Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Monster/Sprite_MonsterTrashSlime.png", TEX_NORMAL)), E_FAIL);
 
+	list<const _tchar*> pMothMagePathList;
+	pMothMagePathList.push_back(L"../Bin/Resource/Texture/Monster/Sprite_MothMage_Idle.png");
+	pMothMagePathList.push_back(L"../Bin/Resource/Texture/Monster/Sprite_MothMage_Attack.png");
+	pMothMagePathList.push_back(L"../Bin/Resource/Texture/Monster/Sprite_MothMage_Orb.png");
+	pMothMagePathList.push_back(L"../Bin/Resource/Texture/Monster/Sprite_BugBallLiquid.png");
 
+
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MonsterMothMage",
+		Engine::CTexture::Create(m_pGraphicDev, pMothMagePathList)), E_FAIL);
 
 	//EFFECT
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Electriceel", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/ElectriceelBoss/Sprite_ThunderVertical.png", TEX_NORMAL)), E_FAIL);
@@ -217,7 +225,7 @@ _uint CLoading::Loading_AnimData()
 
 	int imageSizeX, imageSizeY;
 
-	list<TCHAR*> imgPathList;
+	list<const _tchar*> imgPathList;
 	vector<_vec2> animFrameCount;
 	vector<vector<int>*> animFramePlayList;
 

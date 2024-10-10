@@ -34,7 +34,7 @@ namespace Engine
 	enum TEXTRANGE { TEXT_DEFAULT, TEXT_CENTER, TEXTRANGE_END };
 
 	// 09.24 김선환
-	enum GROUP_TYPE { PLAYER, MONSTER, OBJECT, NPC, PUZZLE, GROUP_END = 32 };
+	enum GROUP_TYPE { PLAYER, MONSTER, OBJECT, NPC, PUZZLE, MONSTER_EFFECT, GROUP_END = 32 };
 
 	enum GAME_STATE
 	{
@@ -74,7 +74,7 @@ namespace Engine
 		PLY_ENDKEY		= 11 // 키 추가 하면 숫자도 늘려주세요
 	};
 
-	// 행동 순서는 변경해도 되나, 무조건 DIAGONAL은 이전 행동 다음에 적을 것
+	// 행동 순서 고정, DIAGONAL은 이전 행동 다음에 적을 것
 	enum PLAYERSTATE
 	{
 		PLY_IDLE, PLY_IDLEDIAGONAL,
@@ -93,6 +93,7 @@ namespace Engine
 		PLY_SMASH, PLY_SMASHDIAGONAL,
 		PLY_ROLLING, PLY_ROLLINGDIAGONAL,
 		PLY_HURT, PLY_HURTDIAGOANL,
+		PLY_BALLOONFLYUP, PLY_BALLOONFLYDOWN,
 		PLY_END
 	};
 

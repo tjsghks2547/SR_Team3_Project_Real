@@ -5,6 +5,7 @@ CAnimation::CAnimation()
 	, m_iCurrentDir(0)
 	, currentFrame(0)
 	, m_fAccTime(0.2f)
+	, m_bAnimationEnd(false)
 	, m_bAniamtionPause(false)
 {
 }
@@ -15,6 +16,7 @@ CAnimation::CAnimation(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_iCurrentDir(0)
 	, currentFrame(0)
 	, m_fAccTime(0.2f)
+	, m_bAnimationEnd(false)
 	, m_bAniamtionPause(false)
 {
 	//pGraphicDev->AddRef();
@@ -26,6 +28,7 @@ CAnimation::CAnimation(const CAnimation& rhs)
 	, m_iCurrentDir(0)
 	, currentFrame(0)
 	, m_fAccTime(0.2f)
+	, m_bAnimationEnd(false)
 	, m_bAniamtionPause(false)
 {
 	m_currentFrameCount = rhs.m_currentFrameCount;
@@ -108,18 +111,22 @@ _int CAnimation::Update_Component(const _float& fTimeDelta)
 		return 0;
 
 	m_fAccTime -= fTimeDelta;
-
 	if (m_fAccTime <= 0.f)
 	{
 		m_bAnimationEnd = false;
 		m_fAccTime += 0.2f;
 
-		if (currentFrame >= m_vecFramePlay[m_eCurrentState][m_iCurrentDir].size())
+		int size = m_vecFramePlay[m_eCurrentState][m_iCurrentDir].size();
+		if (currentFrame >= size - 1)
 		{
 			m_bAnimationEnd = true;
-			currentFrame = 0;
+
 		}
 
+		if (currentFrame >= size)
+		{
+			currentFrame = 0;
+		}
 		UpdateUV();
 		currentFrame++;
 	}

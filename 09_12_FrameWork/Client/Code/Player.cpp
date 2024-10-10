@@ -340,6 +340,9 @@ HRESULT CPlayer::Add_Component()
 
 void CPlayer::Key_Input(const _float& fTimeDelta)
 {
+    if (Engine::GetKeyDown(DIK_G))
+        m_pStateControlCom->ChangeState(PlayerBalloonFly::GetInstance(), this);
+
     //0922
     if (Engine::GetKeyDown(DIK_I))
     {

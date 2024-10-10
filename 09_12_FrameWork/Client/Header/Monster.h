@@ -83,6 +83,7 @@ protected:
 	MONSTER_HP m_tMonsterHP;
 
 	CPlayer* m_CPlayer;
+	_vec3 m_vToPlayerDir;
 	_bool m_bKnockBackTrigger;
 	_vec3 m_vKnockBackDir;
 

@@ -26,6 +26,8 @@ CDynamicCamera::CDynamicCamera(LPDIRECT3DDEVICE9 pGraphicDev)
     , fShakeTickTime(0.f)
     , m_fShakeDuration(0.f)
     , m_fShakePower(0.3f)
+    , m_bEventWalkTrigger(false)
+    , m_bReturn(false)
 {
 
 
@@ -100,31 +102,30 @@ _int CDynamicCamera::Update_GameObject(const _float& fTimeDelta)
 
 void CDynamicCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-    //D3DXMatrixInverse(&m_matCameraWorld, 0, &m_matView);
-    //m_Player = dynamic_cast<CPlayer*>(Engine::Get_GameObject(
-    //    L"Layer_GameLogic", L"Player"));
     m_fMoveToPlayerSpeed = dynamic_cast<CPlayer*>(m_Player)->GetMoveSpeed();
-    /*ResetZoom(fTimeDelta);
+
+    if (m_bShakeTrigger)
+
+
+        m_playerTransform->Get_Info(INFO_POS, &m_vPlayerPos);
+
+    if (m_bMoveTrigger)
+        MoveToPlayer(fTimeDelta);
+    else if (!m_bEventWalkTrigger)
+        CheckMoveTrigger();
+    else
+    {
+        WalkToTrigger(fTimeDelta);
+    }
+
+
+    /////////////////////////////////////////////
 
     if (m_bZoomTrigger)
-        ZoomToTrigger(fTimeDelta);*/
+        ZoomToTrigger(fTimeDelta);
 
     if (m_bShakeTrigger)
         ShakeMoveTrigger(fTimeDelta);
-
-    if (m_eCameraState == CAMERASTATE::PLAYER)
-    {
-        m_playerTransform->Get_Info(INFO_POS, &m_vPlayerPos);
-        if (m_bMoveTrigger)
-            MoveToPlayer(fTimeDelta);
-        else
-            CheckMoveTrigger();
-    }
-
-    else if (m_eCameraState == CAMERASTATE::DEBUG)
-    {
-        Mouse_Move(fTimeDelta);
-    }
 
     RayTransfer();
     CCamera::LateUpdate_GameObject(fTimeDelta);
@@ -164,61 +165,21 @@ void CDynamicCamera::Free()
     CCamera::Free();
 }
 
+///////////////////////////////////////////////////////////////////////////
 void CDynamicCamera::Key_Input(const _float& fTimeDelta)
 {
-    if (Engine::GetKeyDown(DIK_F1))
+    if (Engine::GetKeyDown(DIK_P))
     {
-        m_eCameraState = CAMERASTATE::PLAYER;
-        m_vEye = m_vPlayerPos;
-        //  m_vAt = m_vToPlayerAt;
+        _vec3 walkPos(0.f, 0.f, 300.f);
+        _vec3 startPos = m_vEye;
+        startPos.x += 400;
+        WalkTo(walkPos, 5.f);
     }
 
-    if (Engine::GetKeyDown(DIK_F2))
+    if (Engine::GetKeyDown(DIK_O))
     {
-        m_eCameraState = CAMERASTATE::DEBUG;
+        ResetWalkTo(3.f);
     }
-
-    if (Engine::GetKeyDown(DIK_F3))
-        m_eCameraState = CAMERASTATE::EVENT;
-
-    if (m_eCameraState != CAMERASTATE::DEBUG)
-        return;
-
-    // 뷰행렬을 역행렬 하면 카메라 월드 행렬을 가져올 수 있다.
-    _matrix		matCamWorld;
-    D3DXMatrixInverse(&matCamWorld, 0, &m_matView);
-
-    // 카메라 이동
-    _vec3	vRight;
-    memcpy(&vRight, &matCamWorld.m[0][0], sizeof(_vec3));
-
-    _vec3	vLength = *D3DXVec3Normalize(&vRight, &vRight) * fTimeDelta * 5.f;
-    if (Engine::Get_DIKeyState(DIK_D) & 0x80)
-    {
-        m_vEye += vLength;
-        m_vAt += vLength;
-    }
-    if (Engine::Get_DIKeyState(DIK_A) & 0x80)
-    {
-        m_vEye -= vLength;
-        m_vAt -= vLength;
-    }
-
-    _vec3	vFront{ 0.f, 0.f, 1.f };
-    vLength = *D3DXVec3Normalize(&vFront, &vFront) * fTimeDelta * 5.f;
-
-    if (Engine::Get_DIKeyState(DIK_W) & 0x80)
-    {
-        m_vEye += vLength;
-        m_vAt += vLength;
-    }
-    if (Engine::Get_DIKeyState(DIK_S) & 0x80)
-    {
-        m_vEye -= vLength;
-        m_vAt -= vLength;
-    }
-
-
 }
 
 void CDynamicCamera::Mouse_Move(const _float& fTimeDelta)
@@ -293,6 +254,7 @@ void CDynamicCamera::Mouse_Move(const _float& fTimeDelta)
     }
 }
 
+///////////////////////////////////////////////////////////////////////////
 void CDynamicCamera::CheckMoveTrigger()
 {
     // 카메라가 움직이는 중이면 계산하지 않음
@@ -333,6 +295,7 @@ void CDynamicCamera::MoveToPlayer(const _float& fTimeDelta)
 
 }
 
+///////////////////////////////////////////////////////////////////////////
 void CDynamicCamera::ZoomTo(_float fRatio, _float fDuration)
 {
     if (m_bZoomTrigger)
@@ -362,29 +325,26 @@ void CDynamicCamera::ZoomToTrigger(const _float& fTimeDelta)
     if (m_fZoomDeltaTime >= m_fZoomDuration)
     {
         m_bZoomTrigger = false;
+        if (m_fZoomRatio == 100)
+            DirectMoveToPlayer();
     }
 
 }
 
-void CDynamicCamera::ResetZoom(const _float& fTimeDelta)
+void CDynamicCamera::ResetZoom(_float fDuration)
 {
-    /*if (m_fZoomRatio == 100)
+    if (m_fZoomRatio == 100)
         return;
 
-    if (m_Player->GetPlayerState() == PLAYERSTATE::PLY_DASH ||
-        m_Player->GetPlayerState() == PLAYERSTATE::PLY_DASHDIAGONAL)
-        return;
-
-    m_fZoomInTimer += fTimeDelta;
-    if (m_fZoomInTimer >= 3.f)
-    {
-        ZoomTo(100.f, 2.f);
-        m_fZoomInTimer = 0.f;
-    }*/
+    ZoomTo(100.f, fDuration);
 }
 
+///////////////////////////////////////////////////////////////////////////
 void CDynamicCamera::ShakeMove(_float fDuration)
 {
+    if (m_bShakeTrigger)
+        return;
+
     shakeTimer = shakeDuration = fDuration;
     m_bShakeTrigger = true;
     m_fPrevShakeAtYPos = m_vAt.y;
@@ -417,6 +377,87 @@ void CDynamicCamera::ShakeMoveTrigger(const _float& fTimeDelta)
         shakeTimer = shakeDuration;
         m_vAt.y = m_fPrevShakeAtYPos;
     }
+}
+
+///////////////////////////////////////////////////////////////////////////
+void CDynamicCamera::WalkTo(_vec3 _vWalkPos, _float _fDuration, _vec3 _vDeparture)
+{
+    m_bEventWalkTrigger = true;
+
+    if (_vDeparture != _vec3(0, 0, 0))
+    {
+        m_vEye = m_vDeparturePos = _vDeparture;
+        m_vAt = { 0.f, -1.f, 1.f };
+        m_vAt += m_vEye;
+    }
+
+    m_vWalkPos = _vWalkPos;
+    m_fEventWalkDuration = _fDuration;
+}
+
+void CDynamicCamera::WalkTo2(_vec3 _vDestination, _float _fDuration, _vec3 _vDeparture)
+{
+    m_bEventWalkTrigger = true;
+
+    if (_vDeparture != _vec3(0, 0, 0))
+    {
+        m_vEye = m_vDeparturePos = _vDeparture;
+        m_vAt = { 0.f, -1.f, 1.f };
+        m_vAt += m_vEye;
+    }
+
+    m_vWalkPos = _vDestination - m_vEye;
+    m_fEventWalkDuration = _fDuration;
+}
+
+void CDynamicCamera::WalkToTrigger(const _float& fTimeDelta)
+{
+    m_fEventWalkDeltaTime += fTimeDelta;
+    if (m_fEventWalkDeltaTime >= m_fEventWalkDuration)
+    {
+        if (m_bReturn)
+        {
+            m_bEventWalkTrigger = false;
+            m_fEventWalkDeltaTime = 0.f;
+        }
+        return;
+        // m_bEventWalkTrigger = false;
+    }
+
+    _vec3 move = m_vWalkPos / m_fEventWalkDuration;
+    m_vEye += move * fTimeDelta;
+    m_vAt += move * fTimeDelta;
+}
+
+void CDynamicCamera::ResetWalkTo(_float _fDuration)
+{
+    m_bReturn = true;
+    if (_fDuration == 0.f)
+    {
+        m_vEye = m_vPlayerPos;
+        m_vEye.y += m_vOriginInterval.y;
+        m_vEye.z += m_vOriginInterval.z;
+        m_vAt = { 0.f, -1.f, 1.f };
+        m_vAt += m_vEye;
+
+        m_bEventWalkTrigger = false;
+        m_fEventWalkDeltaTime = 0.f;
+    }
+    else
+    {
+        _vec3 target = m_vPlayerPos;
+        target += m_vOriginInterval;
+
+        m_vWalkPos = target - m_vEye;
+        m_fEventWalkDeltaTime = 0.f;
+        m_fEventWalkDuration = _fDuration;
+    }
+}
+void CDynamicCamera::DirectMoveToPlayer()
+{
+    m_vEye = m_vPlayerPos;
+    m_vAt = { 0.f, -1.f, 1.f };
+    m_vAt += m_vEye;
 }
 
 void CDynamicCamera::RayTransfer()
