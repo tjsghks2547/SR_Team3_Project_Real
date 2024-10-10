@@ -1,59 +1,55 @@
 #include "pch.h"
-#include "ExpressMonkey.h"
+#include "Nue.h"
 
-CExpressMonkey::CExpressMonkey(LPDIRECT3DDEVICE9 pGraphicDev)
-    :CQuestNPC(pGraphicDev), m_bEnter(false)
+CNue::CNue(LPDIRECT3DDEVICE9 pGraphicDev)
+    :CQuestNPC(pGraphicDev)
 {
-
 }
 
-CExpressMonkey::~CExpressMonkey()
+CNue::~CNue()
 {
-
 }
 
-HRESULT CExpressMonkey::Ready_GameObject()
+HRESULT CNue::Ready_GameObject()
 {
     CQuestNPC::Ready_GameObject();
 
     SetObjectType(OBJ_TYPE::TALK_ABLE);
-
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
-    D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/MonkeyCome.png", &m_pComeTex);
-    m_pAnimatorCom->CreateAnimation(L"MonkeyEnter", m_pComeTex, _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.12f, 7);
+    D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/Nue.png", &m_pNPCTex);
+    m_pAnimatorCom->CreateAnimation(L"Nue", m_pNPCTex, _vec2(0.f, 0.f), _vec2(128.f, 128.f), _vec2(128.f, 0.f), 0.15f, 3);
 
-    D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/Monkey.png", &m_pNPCTex);
-    m_pAnimatorCom->CreateAnimation(L"MonkeyIDLE", m_pNPCTex, _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.12f, 7);
+    m_tInfo.pName = L"누에 용사";
+    m_tInfo.pContent = L"살려죠! 용사지만 갇혔엉!";
 
-    m_tInfo.pName = L"숭숭 익스프레스";
-    m_tInfo.pContent = L"익스프레스 이용권이 없으면 태워줄 수 없어요. 이용권을 가지고 다시 말 걸어주세요.";
-
-    m_tQuestInfo.pQuestTitle = L"숭숭 익스프레스 이용권 찾기";
-    m_tQuestInfo.pQuestContent = L"숭숭 익스프레스 이용권이 없으면 숭숭 익스프레스를 이용할 수 없다고?! 이용권을 찾아서 다시 오자!";
+    m_tQuestInfo.pQuestTitle = L"퍼즐 해결하깅 ㅋㅋ";
+    m_tQuestInfo.pQuestContent = L"퍼즐을 해결하면 문을 열어준다고 한당!!!";
 
     _vec3 vMarkPos = m_pTransformCom->m_vInfo[INFO_POS];
-    vMarkPos.y += 35.f;
+    vMarkPos.y += 33.f;
     m_pMarkTransformCom->m_vInfo[INFO_POS] = vMarkPos;
-
+    m_pMarkTransformCom->m_vScale = { 13.f, 11.f, 20.f };
 
     return S_OK;
+
 }
 
-void CExpressMonkey::LateReady_GameObject()
+void CNue::LateReady_GameObject()
 {
     CQuestNPC::LateReady_GameObject();
 }
 
-_int CExpressMonkey::Update_GameObject(const _float& fTimeDelta)
+_int CNue::Update_GameObject(const _float& fTimeDelta)
 {
     CQuestNPC::Update_GameObject(fTimeDelta);
 
     _int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
+    //퀘스트 클리어 조건 넣기
     if (!m_bQuestClear && m_bQuestAccept)
     {
-        if (m_pInven->Find_Item(CItem::QUEST, CItem::EXTICKET))        
+        if (m_pPlayer->Get_HonorScore() >= 100)
         {
             m_bQuestSucess = true;
         }
@@ -63,30 +59,17 @@ _int CExpressMonkey::Update_GameObject(const _float& fTimeDelta)
     return iExit;
 }
 
-void CExpressMonkey::LateUpdate_GameObject(const _float& fTimeDelta)
+void CNue::LateUpdate_GameObject(const _float& fTimeDelta)
 {
     Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
-void CExpressMonkey::Render_GameObject()
+void CNue::Render_GameObject()
 {
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-
-    if (!m_bEnter)
-    {
-        m_pGraphicDev->SetTexture(0, m_pNPCTex);
-        m_pAnimatorCom->Play(L"MonkeyIDLE", true);
-        m_pAnimatorCom->render();
-    }
-
-    if (m_bEnter)
-    {
-        m_pGraphicDev->SetTexture(0, m_pComeTex);
-        m_pAnimatorCom->Play(L"MonkeyEnter", true);
-        m_pAnimatorCom->render();
-    }
-
-    //m_pBufferCom->Render_Buffer();
+    m_pGraphicDev->SetTexture(0, m_pNPCTex);
+    m_pAnimatorCom->Play(L"Nue", true);
+    m_pAnimatorCom->render();
     m_pColliderCom->Render_Buffer();
 
     if (!m_bQuestClear)
@@ -113,23 +96,17 @@ void CExpressMonkey::Render_GameObject()
         m_pMarkAnimatorCom->render();
 
     }
-
 }
 
-void CExpressMonkey::OnCollision(CGameObject* _pOther)
+void CNue::OnCollision(CGameObject* _pOther)
 {
     if (_pOther->GetObjectKey() != L"Player")
         return;
 
-    m_bEnter = true;
-
-    // [S]버튼 출력.
-    // [S]버튼 클릭 시 텍스트박스 출력 + 텍스트 출력
     if (Engine::GetKeyDown(DIK_S))
     {
         m_bConversation = m_bConversation ? false : true;
-        // 대화중일때 S를 누르면 대화종료
-        // 대화중이 아닐때 S를 누르면 대화시작
+
         if (!m_bConversation)
         {
             if (!m_bQuestAccept)
@@ -159,48 +136,30 @@ void CExpressMonkey::OnCollision(CGameObject* _pOther)
             if (m_bQuestSucess)
             {
                 m_bQuestClear = true;
-                m_tInfo.pContent = L"오..이용권을 가지고 계시는군요............... 숭숭!!! 어디로 이동할까요??";
+                m_tInfo.pContent = L"퍼즐 해결 했구낭! 굿~";
                 m_pTextBox->Set_Text(m_tInfo); //대화창 텍스트 세팅
                 m_pQuestUI->Get_QuestArray()->pop_back();
             }
-        }
 
+        }
     }
 
     if (!m_bConversation)
     {
-        m_bEnter = false;
         m_pInterButton->CallButton(true); // 대화중이 아닐 때 버튼 활성화
         // 대화하기[S]
     }
 
 }
 
-
-
-void CExpressMonkey::OnCollisionEnter(CGameObject* _pOther)
-{
-    // 풍선커지기 + 반가워하는 포즈 애니메이션
-}
-
-void CExpressMonkey::OnCollisionExit(CGameObject* _pOther)
+void CNue::OnCollisionExit(CGameObject* _pOther)
 {
     m_pInterButton->CallButton(false);
 }
 
-
-
-HRESULT CExpressMonkey::Add_Component()
+HRESULT CNue::Add_Component()
 {
     CComponent* pComponent = NULL;
-
-    //pComponent = m_pBufferCom = dynamic_cast<CRcTex*>(Engine::Clone_Proto(L"Proto_RcTex"));
-    //NULL_CHECK_RETURN(pComponent, E_FAIL);
-    //m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
-
-    //pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_ExpressMonkey"));
-    //NULL_CHECK_RETURN(pComponent, E_FAIL);
-    //m_mapComponent[ID_STATIC].insert({ L"Com_Texture",pComponent });
 
     pComponent = m_pAnimatorCom = dynamic_cast<CAnimator2*>(Engine::Clone_Proto(L"Proto_Animator"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
@@ -209,8 +168,8 @@ HRESULT CExpressMonkey::Add_Component()
     pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
-    m_pTransformCom->m_vScale = { 30.f, 30.f, 30.f };
-    m_pTransformCom->Set_Pos(200.f, 30.f, 800.f);
+    m_pTransformCom->m_vScale = { 20.f, 20.f, 20.f };
+    m_pTransformCom->Set_Pos(1000.f, 20.f, 750.f);
 
     pComponent = m_pColliderCom = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
@@ -219,23 +178,23 @@ HRESULT CExpressMonkey::Add_Component()
 
 
     return S_OK;
+
 }
 
-CExpressMonkey* CExpressMonkey::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CNue* CNue::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-    CExpressMonkey* pNPC = new CExpressMonkey(pGraphicDev);
+    CNue* pNPC = new CNue(pGraphicDev);
 
     if (FAILED(pNPC->Ready_GameObject()))
     {
         Safe_Release(pNPC);
-        MSG_BOX("ExpressMonkey Create Failed");
+        MSG_BOX("CNue Create Failed");
         return nullptr;
     }
 
     return pNPC;
 }
 
-void CExpressMonkey::Free()
+void CNue::Free()
 {
-    Engine::CGameObject::Free();
 }

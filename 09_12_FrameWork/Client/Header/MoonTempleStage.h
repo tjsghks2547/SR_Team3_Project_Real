@@ -5,8 +5,10 @@
 
 #include "DefaultUI.h"
 #include "InvenUI.h"
+#include "QuestUI.h"
 #include "QuickSlot.h"
 #include "Object.h"
+#include "Nue.h"
 
 #include "Pipe.h"
 #include "PipeBoard.h"

@@ -1,43 +1,37 @@
 #include "pch.h"
-#include "MCRabbit.h"
+#include "Hochi.h"
 
-CMCRabbit::CMCRabbit(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CQuestNPC(pGraphicDev), m_pRhino(nullptr)
+CHochi::CHochi(LPDIRECT3DDEVICE9 pGraphicDev)
+	:CQuestNPC(pGraphicDev)
 {
 }
 
-CMCRabbit::~CMCRabbit()
+CHochi::~CHochi()
 {
 }
 
-HRESULT CMCRabbit::Ready_GameObject()
+HRESULT CHochi::Ready_GameObject()
 {
     CQuestNPC::Ready_GameObject();
 
     SetObjectType(OBJ_TYPE::TALK_ABLE);
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
-    m_eMonster = NUM_END;
+    D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/Hochi.png", &m_pNPCTex);
+    m_pAnimatorCom->CreateAnimation(L"Hochi", m_pNPCTex, _vec2(0.f, 0.f), _vec2(128.f, 128.f), _vec2(128.f, 0.f), 0.12f, 5);
 
-    D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/RabbitNPC.png", &m_pNPCTex);
-    m_pAnimatorCom->CreateAnimation(L"NPCRabbit", m_pNPCTex, _vec2(0.f, 0.f), _vec2(128.f, 128.f), _vec2(128.f, 0.f), 0.15f, 1);
-
-    m_tInfo.pName = L"중계를 즐기는 토끼";
-    m_tInfo.pContent = L"아직 전투 상대를 선택하시지 않았군여!!!                  선택 후에 다시 말걸어주세여!!!!!!!!!!!";
+    m_tInfo.pName = L"호치";
+    m_tInfo.pContent = L"이 안에서는 알쏭달쏭한 냄새가 나.....댄스!!!!!!!!!!!";
 
     return S_OK;
 }
 
-void CMCRabbit::LateReady_GameObject()
+void CHochi::LateReady_GameObject()
 {
     CQuestNPC::LateReady_GameObject();
-
-    m_pRhino = dynamic_cast<CRhino*>(Engine::Get_GameObject(L"Layer_GameLogic", L"Rhino"));
-    NULL_CHECK_RETURN(m_pRhino);
-
 }
 
-_int CMCRabbit::Update_GameObject(const _float& fTimeDelta)
+_int CHochi::Update_GameObject(const _float& fTimeDelta)
 {
     CQuestNPC::Update_GameObject(fTimeDelta);
 
@@ -48,21 +42,21 @@ _int CMCRabbit::Update_GameObject(const _float& fTimeDelta)
     return iExit;
 }
 
-void CMCRabbit::LateUpdate_GameObject(const _float& fTimeDelta)
+void CHochi::LateUpdate_GameObject(const _float& fTimeDelta)
 {
     Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
-void CMCRabbit::Render_GameObject()
+void CHochi::Render_GameObject()
 {
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
     m_pGraphicDev->SetTexture(0, m_pNPCTex);
-    m_pAnimatorCom->Play(L"NPCRabbit", true);
+    m_pAnimatorCom->Play(L"Hochi", true);
     m_pAnimatorCom->render();
     m_pColliderCom->Render_Buffer();
 }
 
-void CMCRabbit::OnCollision(CGameObject* _pOther)
+void CHochi::OnCollision(CGameObject* _pOther)
 {
     if (_pOther->GetObjectKey() != L"Player")
         return;
@@ -74,20 +68,10 @@ void CMCRabbit::OnCollision(CGameObject* _pOther)
         if (m_bConversation)
         {
             m_pInterButton->CallButton(false); // 대화 중일 경우 버튼 출력이 필요 없음!!!!
-           
-            if (m_eMonster != NUM_END)
-                m_tInfo.pContent = L"선택한 상대와 결투를 시작합니다!!!!!!!!!!!!!!!!        거절은 거절한다!!!!";
 
             m_pTextBox->Set_Text(m_tInfo); //대화창 텍스트 세팅
             m_pTextBox->CallTextBox(true); //대화창 호출
         }
-
-        if (!m_bConversation)
-        {
-            if(m_eMonster != NUM_END)
-                Create_Monster();
-        }
-
     }
 
     if (!m_bConversation)
@@ -95,15 +79,18 @@ void CMCRabbit::OnCollision(CGameObject* _pOther)
         m_pInterButton->CallButton(true); // 대화중이 아닐 때 버튼 활성화
         // 대화하기[S]
     }
-
 }
 
-void CMCRabbit::OnCollisionExit(CGameObject* _pOther)
+void CHochi::OnCollisionEnter(CGameObject* _pOther)
+{
+}
+
+void CHochi::OnCollisionExit(CGameObject* _pOther)
 {
     m_pInterButton->CallButton(false);
 }
 
-HRESULT CMCRabbit::Add_Component()
+HRESULT CHochi::Add_Component()
 {
     CComponent* pComponent = NULL;
 
@@ -114,8 +101,8 @@ HRESULT CMCRabbit::Add_Component()
     pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
-    m_pTransformCom->m_vScale = { 20.f, 20.f, 20.f };
-    m_pTransformCom->Set_Pos(500.f, 20.f, 800.f);
+    m_pTransformCom->m_vScale = { 25.f, 25.f, 30.f };
+    m_pTransformCom->Set_Pos(880.f, 30.f, 1900.f);
 
     pComponent = m_pColliderCom = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
@@ -124,41 +111,23 @@ HRESULT CMCRabbit::Add_Component()
 
 
     return S_OK;
-
 }
 
-void CMCRabbit::Create_Monster()
+CHochi* CHochi::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-    _vec3 vPlayerPos = { 500.f, 50.f, 300.f };
-
-    switch (m_eMonster)
-    {
-    case RHINO:
-        m_pRhino->Set_Create();
-        m_pRhino->LateReady_GameObject();
-        
-        m_pPlayer->SetPlayerPos(vPlayerPos);
-    default:
-        m_tInfo.pContent = L"아직 대전 상대를 고르지 않았군여?!?!?!!?!??! 선택 후 다시 말 걸어주세여!!!!!";
-        break;
-    }
-}
-
-CMCRabbit* CMCRabbit::Create(LPDIRECT3DDEVICE9 pGraphicDev)
-{
-    CMCRabbit* pNPC = new CMCRabbit(pGraphicDev);
+    CHochi* pNPC = new CHochi(pGraphicDev);
 
     if (FAILED(pNPC->Ready_GameObject()))
     {
         Safe_Release(pNPC);
-        MSG_BOX("MCRabbit Create Failed");
+        MSG_BOX("Hochi Create Failed");
         return nullptr;
     }
 
     return pNPC;
 }
 
-void CMCRabbit::Free()
+void CHochi::Free()
 {
     Engine::CGameObject::Free();
 }

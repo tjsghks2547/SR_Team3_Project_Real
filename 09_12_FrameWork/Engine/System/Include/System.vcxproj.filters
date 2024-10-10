@@ -98,6 +98,9 @@
     <ClInclude Include="..\..\Header\InputDev.h">
       <Filter>04. InputDev</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Client\Include\Resource.h">
+      <Filter>05. ResourceMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Header\Export_System.inl">

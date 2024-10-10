@@ -18,11 +18,10 @@ public:
 	HRESULT		Ready_Texture(const list<_tchar*> pPathList);
 	void		Set_Texture(const _uint& iIndex = 0);
 	vector<IDirect3DBaseTexture9*> Get_Texture() { return m_vecTexture; }
-	
 
 private:
 	vector<IDirect3DBaseTexture9*>		 m_vecTexture;
-	
+
 public:
 	static  CTexture* Create(LPDIRECT3DDEVICE9 pGraphicDev, const _tchar* pPath, TEXTUREID eType, const _uint& iCnt = 1);
 	static  CTexture* Create(LPDIRECT3DDEVICE9 pGraphicDev, const list<_tchar*> pPathList);

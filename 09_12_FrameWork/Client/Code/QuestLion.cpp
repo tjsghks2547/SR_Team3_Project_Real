@@ -21,7 +21,15 @@ HRESULT CQuestLion::Ready_GameObject()
     m_pAnimatorCom->CreateAnimation(L"Lion", m_pNPCTex, _vec2(0.f, 0.f), _vec2(128.f, 128.f), _vec2(128.f, 0.f), 0.15f, 3);
 
     m_tInfo.pName = L"막시무스";
-    m_tInfo.pContent = L"왕의 자리에 도전하고 싶은가? 용기가 있다면 언제든 도전해라. 성공한다면 그에 맞는 보상을 주지.";
+    m_tInfo.pContent = L"사라진 증표가 어딨는지 궁금하다고....? 투기장의 킹이 된다면 그의 맞는 대우와 위치를 알려주지.........";
+
+    m_tQuestInfo.pQuestTitle = L"투기장의 킹 되기";
+    m_tQuestInfo.pQuestContent = L"투기장의 킹이 되면 그의 맞는 대우와 증표의 위치를 알려준다고 한다. 투기장의 킹이 되어보자.";
+
+    _vec3 vMarkPos = m_pTransformCom->m_vInfo[INFO_POS];
+    vMarkPos.y += 35.f;
+    m_pMarkTransformCom->m_vInfo[INFO_POS] = vMarkPos;
+    m_pMarkTransformCom->m_vScale = { 15.f, 17.f, 20.f };
 
     return S_OK;
 
@@ -38,6 +46,13 @@ _int CQuestLion::Update_GameObject(const _float& fTimeDelta)
 
     _int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
+    if (!m_bQuestClear && m_bQuestAccept)
+    {
+        if (m_pPlayer->Get_HonorScore() >= 100)
+        {
+            m_bQuestSucess = true;
+        }
+    }
     Add_RenderGroup(RENDER_ALPHA, this);
 
     return iExit;
@@ -55,13 +70,58 @@ void CQuestLion::Render_GameObject()
     m_pAnimatorCom->Play(L"Lion", true);
     m_pAnimatorCom->render();
     m_pColliderCom->Render_Buffer();
+
+    if (!m_bQuestClear)
+    {
+        m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pMarkTransformCom->Get_WorldMatrix());
+
+        if (!m_bQuestAccept)
+        {
+            m_pGraphicDev->SetTexture(0, m_pTex[EXCLAMATION]);
+            m_pMarkAnimatorCom->Play(L"ExclamMarkAnim", true);
+            m_pMarkAnimatorCom->render();
+            return;
+        }
+        if (m_bQuestSucess)
+        {
+            m_pGraphicDev->SetTexture(0, m_pTex[YELLOWQUEST]);
+            m_pMarkAnimatorCom->Play(L"YellowQuestAnim", true);
+            m_pMarkAnimatorCom->render();
+            return;
+        }
+
+        m_pGraphicDev->SetTexture(0, m_pTex[GRAYQUEST]);
+        m_pMarkAnimatorCom->Play(L"GrayQuestAnim", true);
+        m_pMarkAnimatorCom->render();
+
+    }
 }
 
 void CQuestLion::OnCollision(CGameObject* _pOther)
 {
+    if (_pOther->GetObjectKey() != L"Player")
+        return;
+
     if (Engine::GetKeyDown(DIK_S))
     {
         m_bConversation = m_bConversation ? false : true;
+
+        if (!m_bConversation)
+        {
+            if (!m_bQuestAccept)
+            {
+                m_bConversation = m_bConversation ? false : true;
+                // 여기에 new퀘스트 UI 띄우기
+                m_bQuestAccept = true; // 조건 문 뒤에 true로 바꿔줌.
+                m_pQuestUI->Add_Quest(m_tQuestInfo);
+
+                m_pQuestAcceptUI->CallQuestAcceptUI(true);
+                m_pQuestAcceptUI->Set_Text(m_tQuestInfo);
+                //m_pInterButton->CallButton(true); // 대화중이 아닐 때 버튼 활성화
+
+                return;
+            }
+        }
 
         if (m_bConversation)
         {
@@ -69,6 +129,17 @@ void CQuestLion::OnCollision(CGameObject* _pOther)
 
             m_pTextBox->Set_Text(m_tInfo); //대화창 텍스트 세팅
             m_pTextBox->CallTextBox(true); //대화창 호출
+
+            // 최초에는 기본 퀘스트 말풍을 보여줘야해서 아이템을 가지고 있더라도 false 상태로 출력하기 위해
+            //if (!m_bQuestClear && m_bQuestAccept)
+            if (m_bQuestSucess)
+            {
+                m_bQuestClear = true;
+                m_tInfo.pContent = L"정말 투기장의 킹이 되셨군요...!!!! 킹님..!! '사라진 증표' 는 항구의 '서쪽 편에 있는 천둥 뱀장어' 가 가지고 있다는 소문을 들었습니다요..!!!";
+                m_pTextBox->Set_Text(m_tInfo); //대화창 텍스트 세팅
+                m_pQuestUI->Get_QuestArray()->pop_back();
+            }
+
         }
     }
 

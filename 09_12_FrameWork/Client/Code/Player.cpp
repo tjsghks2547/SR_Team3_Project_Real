@@ -26,8 +26,9 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_bPassAble(true)
     , m_vColPlayerPos(0.f, 0.f, 0.f)
     , m_vColliderPos(0.f, 0.f, 0.f)
-    // UI 관련 초기화
 
+    // 민지 초기화
+    , m_iHonorScore(0.f) //1010 민지
     , m_iPlayerCoin(10000), m_bInven(false), m_bQuest(false), m_bStoreVisit(false)
 
 {
