@@ -46,6 +46,18 @@ _int CStage::Update_Scene(const _float& fTimeDelta)
 		return 0;
 	}
 
+	if (GetAsyncKeyState('9') & 0x8000)
+	{
+		Engine::CScene* pStage2 = CArenaStage::Create(m_pGraphicDev);
+		NULL_CHECK_RETURN(pStage2, -1);
+
+
+		FAILED_CHECK_RETURN(Engine::Set_Scene(pStage2), E_FAIL);
+		//pStage2->init(); // 맵툴에서 가져온 오브젝트들을 위해 사용 
+
+		return 0;
+	}
+
 	return iExit;
 }
 
@@ -234,6 +246,14 @@ HRESULT CStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 	pGameObject = CTestObject::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Test_Object", pGameObject), E_FAIL);
+
+
+	//1010
+	pGameObject = CGrass::Create(m_pGraphicDev);	
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Grass", pGameObject), E_FAIL);
+	dynamic_cast<CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(350.f, 20.f, 180.f);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pGameObject);	
 
 #pragma region Pipe Game
 

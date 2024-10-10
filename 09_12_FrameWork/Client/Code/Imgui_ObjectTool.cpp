@@ -779,6 +779,49 @@ void CImgui_ObjectTool::ShowObjectWindow()
 			m_strCurObjectName = L"Jungle_Tile";
 		};
 
+
+		if (ImGui::ImageButton("Statue_3", m_vecObjectTexture[73], imageSize))
+		{
+			m_sCurTextureData =  L"Statue_3";
+			m_sCurTextureKey =   L"Statue_3";
+			m_strCurObjectName = L"Statue_3";
+		};
+
+		if (ImGui::ImageButton("Statue_5", m_vecObjectTexture[74], imageSize))
+		{
+			m_sCurTextureData =  L"Statue_5";
+			m_sCurTextureKey =   L"Statue_5";
+			m_strCurObjectName = L"Statue_5";
+		};
+
+		if (ImGui::ImageButton("Statue_7", m_vecObjectTexture[75], imageSize))
+		{
+			m_sCurTextureData = L"Statue_7";
+			m_sCurTextureKey = L"Statue_7";
+			m_strCurObjectName = L"Statue_7";
+		};
+
+		if (ImGui::ImageButton("Statue_11", m_vecObjectTexture[76], imageSize))
+		{
+			m_sCurTextureData = L"Statue_11";
+			m_sCurTextureKey = L"Statue_11";
+			m_strCurObjectName = L"Statue_11";
+		};
+
+		if (ImGui::ImageButton("Statue_9", m_vecObjectTexture[77], imageSize))
+		{
+			m_sCurTextureData = L"Statue_9";
+			m_sCurTextureKey = L"Statue_9";
+			m_strCurObjectName = L"Statue_9";
+		};
+
+		if (ImGui::ImageButton("Statue_1", m_vecObjectTexture[78], imageSize))
+		{
+			m_sCurTextureData = L"Statue_1";
+			m_sCurTextureKey = L"Statue_1";
+			m_strCurObjectName = L"Statue_1";
+		};
+
 		//일단 오브젝트 생성해보기 
 		ImGui::End();
 

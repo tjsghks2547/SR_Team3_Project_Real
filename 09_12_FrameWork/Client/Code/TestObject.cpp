@@ -92,4 +92,5 @@ CTestObject* CTestObject::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CTestObject::Free()
 {
+	Engine::CGameObject::Free();	
 }

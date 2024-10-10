@@ -1,38 +1,57 @@
 #pragma once
 #include "GameObject.h"
-
+#include "BossHPBar.h"
 enum class Electriceel_STATE
 {
-	OUT_9,
-	OUT_11,
-	OUT_12,
-	OUT_1,
-	OUT_3,
+	OUT_9_SHOT,
+	OUT_11_SHOT,
+	OUT_12_SHOT,	
+	OUT_1_SHOT,	
+	OUT_3_WATERFALL,	
 
-	IDLE_12,
-	IDLE_1,
-	IDLE_3,
-	IDLE_9,
-	IDLE_11,
-
-	IN_9,
-	IN_11,
-	IN_12,
-	IN_1,
-	IN_3,
+	IDLE_12_SHOT,
+	IDLE_1_SHOT,
+	IDLE_3_WATERFALL,
+	IDLE_9_SHOT,
+	IDLE_11_SHOT,
 
 	PROJECT_SHOT_12,
 	PROJECT_SHOT_1,
-	PROJECT_SHOT_3,
+	PROJECT_WATERFALL_3,	
 	PROJECT_SHOT_9,
 	PROJECT_SHOT_11,
+
+	IN_9,	
+	IN_11,	
+	IN_12,	
+	IN_1,	
+	IN_3,	
+
+	
+	OUT_12_MAGIC,	
+	OUT_9_MAGIC,	
+	OUT_11_MAGIC,	
+	OUT_1_MAGIC,	
+	OUT_3_MAGIC,
+
+	IDLE_12_MAGIC,
+	IDLE_1_MAGIC,
+	IDLE_3_MAGIC,
+	IDLE_9_MAGIC,
+	IDLE_11_MAGIC,
+
+	PROJECT_MAGIC_12,
+	PROJECT_MAGIC_1,
+	PROJECT_MAGIC_3,
+	PROJECT_MAGIC_9,
+	PROJECT_MAGIC_11,
+
 
 
 
 	ATTACK,
 
 };
-
 
 
 BEGIN(Engine)
@@ -71,9 +90,13 @@ private:
 	Electriceel_STATE m_ePreState;
 
 	ULONGLONG dwtime;	
+	ULONGLONG dwtimeShot;
 	Engine::CAnimator2* m_pAnimatorCom;
 	Engine::CTransform* m_pTransformCom;
 	Engine::CCollider* m_pBoundBox;
+
+	CBossHPBar* m_pBossHPBar;
+	CBossHPBar::BOSS_INFO m_tInfo;	
 
 public:
 	static CElectriceelBoss* Create(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -95,6 +118,10 @@ private:
 		HRESULT hr = D3DXCreateTextureFromFileA(d3dDevice, filePath, outTexture);
 		return SUCCEEDED(hr);
 	}
+
+	int  m_iCount;
+	int  m_iBulletCount; 
+	int  m_iWaterFallCount;
 
 };
 

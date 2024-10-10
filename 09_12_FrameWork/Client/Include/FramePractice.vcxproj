@@ -181,6 +181,7 @@
     <ClInclude Include="..\Header\ElectriceelBoss.h" />
     <ClInclude Include="..\Header\ElectriceelBossMap.h" />
     <ClInclude Include="..\Header\ElectriceelBossStage.h" />
+    <ClInclude Include="..\Header\ElectriceelBullet.h" />
     <ClInclude Include="..\Header\ElectricEffect.h" />
     <ClInclude Include="..\Header\EnkyHat.h" />
     <ClInclude Include="..\Header\EquipHat.h" />
@@ -192,6 +193,8 @@
     <ClInclude Include="..\Header\FirePit.h" />
     <ClInclude Include="..\Header\FlowerGlow.h" />
     <ClInclude Include="..\Header\FrontDoor.h" />
+    <ClInclude Include="..\Header\Grass.h" />
+    <ClInclude Include="..\Header\GrassEffect.h" />
     <ClInclude Include="..\Header\ImGuiManger.h" />
     <ClInclude Include="..\Header\Imgui_ObjectTool.h" />
     <ClInclude Include="..\Header\Imgui_Terrain.h" />
@@ -352,6 +355,7 @@
     <ClCompile Include="..\Code\ElectriceelBoss.cpp" />
     <ClCompile Include="..\Code\ElectriceelBossMap.cpp" />
     <ClCompile Include="..\Code\ElectriceelBossStage.cpp" />
+    <ClCompile Include="..\Code\ElectriceelBullet.cpp" />
     <ClCompile Include="..\Code\ElectricEffect.cpp" />
     <ClCompile Include="..\Code\EnkyHat.cpp" />
     <ClCompile Include="..\Code\EquipHat.cpp" />
@@ -363,6 +367,8 @@
     <ClCompile Include="..\Code\FirePit.cpp" />
     <ClCompile Include="..\Code\FlowerGlow.cpp" />
     <ClCompile Include="..\Code\FrontDoor.cpp" />
+    <ClCompile Include="..\Code\Grass.cpp" />
+    <ClCompile Include="..\Code\GrassEffect.cpp" />
     <ClCompile Include="..\Code\ImGuiManger.cpp" />
     <ClCompile Include="..\Code\Imgui_ObjectTool.cpp" />
     <ClCompile Include="..\Code\Imgui_Terrain.cpp" />

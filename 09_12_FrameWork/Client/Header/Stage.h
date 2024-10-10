@@ -57,9 +57,11 @@
 #include "TestCol.h"
 #include "TestCol2.h"
 #include "MonsterSlimeFast.h"
+#include "ArenaStage.h"
 
 //9월 27일 애니메이션 테스트
 #include "TestObject.h"
+#include "Grass.h"
 
 
 class CStage : public Engine::CScene

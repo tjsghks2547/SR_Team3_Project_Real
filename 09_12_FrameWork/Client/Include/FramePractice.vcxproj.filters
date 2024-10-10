@@ -356,7 +356,6 @@
     <Filter Include="02. GameObject\11. UI\99. ButtonUI\Close">
       <UniqueIdentifier>{6f8deab9-d5c6-4401-a897-1732e73ed1d7}</UniqueIdentifier>
     </Filter>
-
     <Filter Include="02. GameObject\01. Entity\03. ArenaMonster">
       <UniqueIdentifier>{a32b11f1-d861-46ba-bc8e-f82e8050a0fa}</UniqueIdentifier>
     </Filter>
@@ -419,6 +418,12 @@
     </Filter>
     <Filter Include="02. GameObject\14.ElectriceelBoss\Bullet">
       <UniqueIdentifier>{ad03d4cc-b74b-4a88-9128-f5ac226eb2ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\16.Grass">
+      <UniqueIdentifier>{d2bf4d8e-0696-4d2a-bd20-7811a239b90f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\16.Grass\GrassEffect">
+      <UniqueIdentifier>{5b6bb41a-b9a3-4391-b1cd-95498b1bd885}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -919,7 +924,7 @@
     </ClInclude>
     <ClInclude Include="..\Header\BossHPBar.h">
       <Filter>02. GameObject\11. UI\08. BossUI</Filter>
-    </ClInclude>   
+    </ClInclude>
     <ClInclude Include="..\Header\SunTempleStage.h">
       <Filter>01. Scene\06. SunTempleStage</Filter>
     </ClInclude>
@@ -937,6 +942,15 @@
     </ClInclude>
     <ClInclude Include="..\Header\WaterFall.h">
       <Filter>02. GameObject\14.ElectriceelBoss\WaterFall</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ElectriceelBullet.h">
+      <Filter>02. GameObject\14.ElectriceelBoss\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Grass.h">
+      <Filter>02. GameObject\16.Grass</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\GrassEffect.h">
+      <Filter>02. GameObject\16.Grass\GrassEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1428,7 +1442,7 @@
     </ClCompile>
     <ClCompile Include="..\Code\BossHPBar.cpp">
       <Filter>02. GameObject\11. UI\08. BossUI</Filter>
-    </ClCompile>  
+    </ClCompile>
     <ClCompile Include="..\Code\SunTempleStage.cpp">
       <Filter>01. Scene\06. SunTempleStage</Filter>
     </ClCompile>
@@ -1446,6 +1460,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\WaterFall.cpp">
       <Filter>02. GameObject\14.ElectriceelBoss\WaterFall</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ElectriceelBullet.cpp">
+      <Filter>02. GameObject\14.ElectriceelBoss\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Grass.cpp">
+      <Filter>02. GameObject\16.Grass</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\GrassEffect.cpp">
+      <Filter>02. GameObject\16.Grass\GrassEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

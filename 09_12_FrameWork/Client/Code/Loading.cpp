@@ -79,6 +79,7 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_ArenaMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map/ArenaMap.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_SunTempleMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map/SunTempleMap.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_TownMap", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Map/TownMap.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Electric_Bullet", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/ElectriceelBoss/Plant_Bullet_BlueRed.png", TEX_NORMAL)), E_FAIL);
 
 
 
@@ -183,9 +184,8 @@ _uint CLoading::Loading_Stage()
 
 	//EFFECT
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Electriceel", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/ElectriceelBoss/Sprite_ThunderVertical.png", TEX_NORMAL)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Attack_Area", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Object/Sprite_AttackTargetSingle.png", TEX_NORMAL)), E_FAIL);	
-
-
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Attack_Area", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Object/Sprite_AttackTargetSingle.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Attack_Line", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Object/Sprite_MoonBossMothFlyLine1.png", TEX_NORMAL)), E_FAIL);	
 
 	CResMgr::GetInstance()->init();
 	//TEST ≥Ù¿Ã ∏  

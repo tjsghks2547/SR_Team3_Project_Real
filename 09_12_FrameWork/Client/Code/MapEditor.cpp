@@ -141,16 +141,16 @@ HRESULT CMapEditor::Ready_Layer_Environment(const _tchar* pLayerTag)
 
 
 	//¼¼°è ½ÉÀå ¸Ê
-	//pGameObject = CWorldHeartMap::Create(m_pGraphicDev);		
-	//NULL_CHECK_RETURN(pGameObject, E_FAIL);	
-	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"WorldHeartMap", pGameObject), E_FAIL);		
-	//pGameObject->SetObjectKey(L"Map");		
-	//pGameObject->SetTextureKey(L"Map");	
+	pGameObject = CWorldHeartMap::Create(m_pGraphicDev);		
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);	
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Map", pGameObject), E_FAIL);		
+	pGameObject->SetObjectKey(L"Map");		
+	pGameObject->SetTextureKey(L"Map");	
 
 	// Á¤±Û Æ÷·¹½ºÆ® ¸Ê 
 	//pGameObject = CJungleForestMap::Create(m_pGraphicDev);
 	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MoonForestMap", pGameObject), E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Map", pGameObject), E_FAIL);
 	//pGameObject->SetObjectKey(L"Map");
 	//pGameObject->SetTextureKey(L"Map");
 
@@ -159,7 +159,7 @@ HRESULT CMapEditor::Ready_Layer_Environment(const _tchar* pLayerTag)
 	//´Þ½£ ¸Ê
 	//pGameObject = CMoonForestMap::Create(m_pGraphicDev);	
 	//NULL_CHECK_RETURN(pGameObject, E_FAIL);	
-	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MoonForestMap", pGameObject), E_FAIL);	
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Map", pGameObject), E_FAIL);	
 	//pGameObject->SetObjectKey(L"Map");	
 	//pGameObject->SetTextureKey(L"Map");	
 
@@ -180,11 +180,11 @@ HRESULT CMapEditor::Ready_Layer_Environment(const _tchar* pLayerTag)
 	//pGameObject->SetTextureKey(L"Map");	
 
 	//ÅÂ¾ç ½ÅÀü ¸Ê 
-	pGameObject = CSunTempleMap::Create(m_pGraphicDev);		
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);		
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Map", pGameObject), E_FAIL);		
-	pGameObject->SetObjectKey(L"Map");		
-	pGameObject->SetTextureKey(L"Map");	
+	//pGameObject = CSunTempleMap::Create(m_pGraphicDev);		
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);		
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Map", pGameObject), E_FAIL);		
+	//pGameObject->SetObjectKey(L"Map");		
+	//pGameObject->SetTextureKey(L"Map");	
 		
 	m_mapLayer.insert({ pLayerTag, pLayer });		
 		

@@ -420,7 +420,35 @@ void CObject::Render_GameObject()
 		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[72]);
 	}
 
+	else if (m_strTextureKey == L"Statue_3")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[73]);
+	}
 
+	else if (m_strTextureKey == L"Statue_5")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[74]);
+	}
+
+	else if (m_strTextureKey == L"Statue_7")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[75]);
+	}
+
+	else if (m_strTextureKey == L"Statue_11")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[76]);
+	}
+
+	else if (m_strTextureKey == L"Statue_9")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[77]);
+	}
+
+	else if (m_strTextureKey == L"Statue_1")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[78]);
+	}
 
 	m_pBufferCom->Render_Buffer();
 

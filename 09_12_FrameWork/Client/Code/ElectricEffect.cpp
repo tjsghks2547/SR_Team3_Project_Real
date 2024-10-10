@@ -46,7 +46,7 @@ _int CElectricEffect::Update_GameObject(const _float& fTimeDelta)
 
     else
     {
-        m_pAnimatorCom->Play(L"Attack_Area", true);
+        //m_pAnimatorCom->Play(L"Attack_Area", true);
     }
 
     Add_RenderGroup(RENDER_ALPHA, this);    
