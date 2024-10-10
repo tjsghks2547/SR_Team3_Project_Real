@@ -22,7 +22,7 @@ HRESULT CGrass::Ready_GameObject()
 
 	m_pAnimatorCom->CreateAnimation(L"Grass_Move", m_pTex, _vec2(0.f, 0.f), _vec2(171.f, 256.f), _vec2(171.f, 0.f), 0.1f, 4);
 	m_pAnimatorCom->CreateAnimation(L"Grass_Stop", m_pTex, _vec2(0.f, 0.f), _vec2(171.f, 256.f), _vec2(171.f, 0.f), 0.1f, 0);
-	m_pAnimatorCom2->CreateAnimation(L"Grass_Effect", pEffectTexture1, _vec2(0.f, 0.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.08f, 7);
+	//m_pAnimatorCom2->CreateAnimation(L"Grass_Effect", pEffectTexture1, _vec2(0.f, 0.f), _vec2(512.f, 512.f), _vec2(512.f, 0.f), 0.08f, 7);
 
 
 	m_pAnimatorCom->Play(L"Grass_Stop", true);	

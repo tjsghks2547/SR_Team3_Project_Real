@@ -58,7 +58,7 @@ void CCow::Render_GameObject()
 
 void CCow::OnCollision(CGameObject* _pOther)
 {
-    if (_pOther->GetObjectKey() != L"PlayerInteractionBox")
+    if (_pOther->GetObjectKey() != L"Player")
         return;
 
     if (Engine::GetKeyDown(DIK_S))

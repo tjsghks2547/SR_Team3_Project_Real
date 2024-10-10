@@ -27,6 +27,9 @@
 #include "Rock.h"
 #include "FrontDoor.h"
 #include "Trigger.h"
+#include "Dochi.h"
+#include "Hochi.h"
+#include "CCheerRabbit.h"
 
 class CJungleForestStage :public CScene
 {

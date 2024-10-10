@@ -171,6 +171,8 @@ HRESULT CJungleForestStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Player", pGameObject), E_FAIL);
     CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PLAYER, pGameObject);
     static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(1400.f, 18.f, 300.f);
+    pGameObject->SetObjectKey(L"Player");
+
 
     pGameObject = CPlayerInteractionBox::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
@@ -183,6 +185,21 @@ HRESULT CJungleForestStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
     dynamic_cast<CPlayerInteractionBox*>(InteractionObj)->SetPlayer(
         dynamic_cast<CPlayer*>(PlayerObj));
 
+    pGameObject = CDochi::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Dochi", pGameObject), E_FAIL);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+
+    pGameObject = CHochi::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Hochi", pGameObject), E_FAIL);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+
+
+    pGameObject = CCheerRabbit::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CheerRabbit", pGameObject), E_FAIL);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
 
 #pragma region Crystal Puzzle
     _float fOffsetX = 700;

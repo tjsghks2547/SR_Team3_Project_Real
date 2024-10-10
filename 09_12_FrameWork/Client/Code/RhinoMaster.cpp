@@ -21,7 +21,7 @@ HRESULT CRhinoMaster::Ready_GameObject()
     m_pAnimatorCom->CreateAnimation(L"NoArm", m_pNPCTex, _vec2(0.f, 0.f), _vec2(128.f, 128.f), _vec2(128.f, 0.f), 0.15f, 3);
 
     m_tInfo.pName = L"외팔이";
-    m_tInfo.pContent = L"내가 잡아온 '거대 사막뿔소'로 대전 상대를 변경 해주지....";
+    m_tInfo.pContent = L"내 팔을 앗아간 '거대 사막뿔소'로 대전 상대로 지정 시켜주마.";
 
     return S_OK;
 }
@@ -60,6 +60,9 @@ void CRhinoMaster::Render_GameObject()
 
 void CRhinoMaster::OnCollision(CGameObject* _pOther)
 {
+    if (_pOther->GetObjectKey() != L"Player")
+        return;
+
     if (Engine::GetKeyDown(DIK_S))
     {
         m_bConversation = m_bConversation ? false : true;
@@ -70,6 +73,7 @@ void CRhinoMaster::OnCollision(CGameObject* _pOther)
 
             m_pTextBox->Set_Text(m_tInfo); //대화창 텍스트 세팅
             m_pTextBox->CallTextBox(true); //대화창 호출
+            m_pRabbit->Set_Monster(CMCRabbit::RHINO);
         }
     }
 

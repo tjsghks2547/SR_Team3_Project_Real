@@ -177,6 +177,7 @@
     <ClInclude Include="..\Header\Crystal.h" />
     <ClInclude Include="..\Header\CrystalPuzzle.h" />
     <ClInclude Include="..\Header\Define.h" />
+    <ClInclude Include="..\Header\Dochi.h" />
     <ClInclude Include="..\Header\DynamicCamera.h" />
     <ClInclude Include="..\Header\ElectriceelBoss.h" />
     <ClInclude Include="..\Header\ElectriceelBossMap.h" />
@@ -195,6 +196,7 @@
     <ClInclude Include="..\Header\FrontDoor.h" />
     <ClInclude Include="..\Header\Grass.h" />
     <ClInclude Include="..\Header\GrassEffect.h" />
+    <ClInclude Include="..\Header\Hochi.h" />
     <ClInclude Include="..\Header\ImGuiManger.h" />
     <ClInclude Include="..\Header\Imgui_ObjectTool.h" />
     <ClInclude Include="..\Header\Imgui_Terrain.h" />
@@ -232,6 +234,7 @@
     <ClInclude Include="..\Header\MusicStatue.h" />
     <ClInclude Include="..\Header\Net.h" />
     <ClInclude Include="..\Header\NoteStatue.h" />
+    <ClInclude Include="..\Header\Nue.h" />
     <ClInclude Include="..\Header\PickUpButton.h" />
     <ClInclude Include="..\Header\Pig.h" />
     <ClInclude Include="..\Header\PlantOrb.h" />
@@ -267,6 +270,7 @@
     <ClInclude Include="..\Header\Ray.h" />
     <ClInclude Include="..\Header\ResMgr.h" />
     <ClInclude Include="..\Header\Rhino.h" />
+    <ClInclude Include="..\Header\RhinoEffect.h" />
     <ClInclude Include="..\Header\RhinoMaster.h" />
     <ClInclude Include="..\Header\RhinoStone.h" />
     <ClInclude Include="..\Header\Rock.h" />
@@ -305,7 +309,9 @@
     <ClInclude Include="..\Header\Trigger.h" />
     <ClInclude Include="..\Header\WaterFall.h" />
     <ClInclude Include="..\Header\WeightComparator.h" />
+    <ClInclude Include="..\Header\WhiteBird.h" />
     <ClInclude Include="..\Header\WorldHeartStage.h" />
+    <ClInclude Include="CCheerRabbit.h" />
     <ClInclude Include="WorldHeartMap.h" />
     <ClInclude Include="FramePractice.h" />
     <ClInclude Include="framework.h" />
@@ -351,6 +357,7 @@
     <ClCompile Include="..\Code\Cow.cpp" />
     <ClCompile Include="..\Code\Crystal.cpp" />
     <ClCompile Include="..\Code\CrystalPuzzle.cpp" />
+    <ClCompile Include="..\Code\Dochi.cpp" />
     <ClCompile Include="..\Code\DynamicCamera.cpp" />
     <ClCompile Include="..\Code\ElectriceelBoss.cpp" />
     <ClCompile Include="..\Code\ElectriceelBossMap.cpp" />
@@ -369,6 +376,7 @@
     <ClCompile Include="..\Code\FrontDoor.cpp" />
     <ClCompile Include="..\Code\Grass.cpp" />
     <ClCompile Include="..\Code\GrassEffect.cpp" />
+    <ClCompile Include="..\Code\Hochi.cpp" />
     <ClCompile Include="..\Code\ImGuiManger.cpp" />
     <ClCompile Include="..\Code\Imgui_ObjectTool.cpp" />
     <ClCompile Include="..\Code\Imgui_Terrain.cpp" />
@@ -405,6 +413,7 @@
     <ClCompile Include="..\Code\MusicStatue.cpp" />
     <ClCompile Include="..\Code\Net.cpp" />
     <ClCompile Include="..\Code\NoteStatue.cpp" />
+    <ClCompile Include="..\Code\Nue.cpp" />
     <ClCompile Include="..\Code\Penguin.cpp" />
     <ClCompile Include="..\Code\PickUpButton.cpp" />
     <ClCompile Include="..\Code\Pig.cpp" />
@@ -440,6 +449,7 @@
     <ClCompile Include="..\Code\Ray.cpp" />
     <ClCompile Include="..\Code\ResMgr.cpp" />
     <ClCompile Include="..\Code\Rhino.cpp" />
+    <ClCompile Include="..\Code\RhinoEffect.cpp" />
     <ClCompile Include="..\Code\RhinoMaster.cpp" />
     <ClCompile Include="..\Code\RhinoStone.cpp" />
     <ClCompile Include="..\Code\Rock.cpp" />
@@ -477,8 +487,10 @@
     <ClCompile Include="..\Code\Trigger.cpp" />
     <ClCompile Include="..\Code\WaterFall.cpp" />
     <ClCompile Include="..\Code\WeightComparator.cpp" />
+    <ClCompile Include="..\Code\WhiteBird.cpp" />
     <ClCompile Include="..\Code\WorldHeartStage.cpp" />
     <ClCompile Include="..\Header\ItemSelector.cpp" />
+    <ClCompile Include="CCheerRabbit.cpp" />
     <ClCompile Include="WorldHeartMap.cpp" />
     <ClCompile Include="FramePractice.cpp" />
     <ClCompile Include="imgui.cpp">

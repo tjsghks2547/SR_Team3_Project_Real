@@ -17,13 +17,13 @@ HRESULT CMCRabbit::Ready_GameObject()
     SetObjectType(OBJ_TYPE::TALK_ABLE);
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
-    m_eMonster = RHINO;
+    m_eMonster = NUM_END;
 
     D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/RabbitNPC.png", &m_pNPCTex);
     m_pAnimatorCom->CreateAnimation(L"NPCRabbit", m_pNPCTex, _vec2(0.f, 0.f), _vec2(128.f, 128.f), _vec2(128.f, 0.f), 0.15f, 1);
 
     m_tInfo.pName = L"중계를 즐기는 토끼";
-    m_tInfo.pContent = L"지금 선택한 상대와 결투를 시작합니다!!!!!!!!!!!!!!!!거절은 거절한다!!!!";
+    m_tInfo.pContent = L"아직 전투 상대를 선택하시지 않았군여!!!                  선택 후에 다시 말걸어주세여!!!!!!!!!!!";
 
     return S_OK;
 }
@@ -64,6 +64,8 @@ void CMCRabbit::Render_GameObject()
 
 void CMCRabbit::OnCollision(CGameObject* _pOther)
 {
+    if (_pOther->GetObjectKey() != L"Player")
+        return;
 
     if (Engine::GetKeyDown(DIK_S))
     {
@@ -72,6 +74,9 @@ void CMCRabbit::OnCollision(CGameObject* _pOther)
         if (m_bConversation)
         {
             m_pInterButton->CallButton(false); // 대화 중일 경우 버튼 출력이 필요 없음!!!!
+           
+            if (m_eMonster != NUM_END)
+                m_tInfo.pContent = L"선택한 상대와 결투를 시작합니다!!!!!!!!!!!!!!!!        거절은 거절한다!!!!";
 
             m_pTextBox->Set_Text(m_tInfo); //대화창 텍스트 세팅
             m_pTextBox->CallTextBox(true); //대화창 호출
@@ -79,7 +84,8 @@ void CMCRabbit::OnCollision(CGameObject* _pOther)
 
         if (!m_bConversation)
         {
-            Create_Monster();
+            if(m_eMonster != NUM_END)
+                Create_Monster();
         }
 
     }
@@ -132,6 +138,9 @@ void CMCRabbit::Create_Monster()
         m_pRhino->LateReady_GameObject();
         
         m_pPlayer->SetPlayerPos(vPlayerPos);
+    default:
+        m_tInfo.pContent = L"아직 대전 상대를 고르지 않았군여?!?!?!!?!??! 선택 후 다시 말 걸어주세여!!!!!";
+        break;
     }
 }
 

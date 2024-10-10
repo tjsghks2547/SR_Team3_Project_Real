@@ -425,6 +425,24 @@
     <Filter Include="02. GameObject\16.Grass\GrassEffect">
       <UniqueIdentifier>{5b6bb41a-b9a3-4391-b1cd-95498b1bd885}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\01. Entity\03. ArenaMonster\Rhino\Effect">
+      <UniqueIdentifier>{81d4fdd4-c876-49f5-aab1-8b7b4187743f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. NPC\00. QuestNPC\09. Nue">
+      <UniqueIdentifier>{ad330c6b-8a00-40a0-85f8-4d16961d999c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. NPC\00. QuestNPC\10. Dochi">
+      <UniqueIdentifier>{727132ce-50fb-470b-9425-003261ca3501}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. NPC\00. QuestNPC\11. CheerRabbit">
+      <UniqueIdentifier>{01bfee3a-805b-458c-80cc-af7fc2532226}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. NPC\00. QuestNPC\12. Hochi">
+      <UniqueIdentifier>{324c5786-b897-4fc0-8d7a-505cd0af0b02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. NPC\00. QuestNPC\13. WhiteBird">
+      <UniqueIdentifier>{4d9ae85b-8b0c-4522-b129-94cbe2b23cf7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -952,6 +970,24 @@
     <ClInclude Include="..\Header\GrassEffect.h">
       <Filter>02. GameObject\16.Grass\GrassEffect</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\RhinoEffect.h">
+      <Filter>02. GameObject\01. Entity\03. ArenaMonster\Rhino</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Nue.h">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\09. Nue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Dochi.h">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\10. Dochi</Filter>
+    </ClInclude>
+    <ClInclude Include="CCheerRabbit.h">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\11. CheerRabbit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Hochi.h">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\12. Hochi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\WhiteBird.h">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\13. WhiteBird</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FramePractice.cpp">
@@ -1469,6 +1505,24 @@
     </ClCompile>
     <ClCompile Include="..\Code\GrassEffect.cpp">
       <Filter>02. GameObject\16.Grass\GrassEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\RhinoEffect.cpp">
+      <Filter>02. GameObject\01. Entity\03. ArenaMonster\Rhino</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Nue.cpp">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\09. Nue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Dochi.cpp">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\10. Dochi</Filter>
+    </ClCompile>
+    <ClCompile Include="CCheerRabbit.cpp">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\11. CheerRabbit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Hochi.cpp">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\12. Hochi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\WhiteBird.cpp">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\13. WhiteBird</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
