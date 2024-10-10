@@ -3,7 +3,7 @@
 #include "Export_Utility.h"
 
 CColorStone::CColorStone(LPDIRECT3DDEVICE9 pGraphicDev)
-	: Engine::CGameObject(pGraphicDev), m_iImageID(1), m_pComStone(nullptr), m_bIsLift(0)
+	: Engine::CGameObject(pGraphicDev), m_iImageID(1), m_pComStone(nullptr), m_bIsLift(false)
 {
 }
 
@@ -14,17 +14,17 @@ CColorStone::~CColorStone()
 HRESULT CColorStone::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 14.f, 14.f, 14.f };	
+	m_pTransformCom->m_vScale = { 16.f, 16.f, 16.f };	
 	int type = OBJ_TYPE::LIFT_ABLE + OBJ_TYPE::PUSH_ABLE;
-	SetObjectType(type);
-	m_eTag = TAG_STONE;
-	m_vecTexture.resize(6);
+	SetObjectType(type); 
+	m_eTag = TAG_STONE; 
+	m_vecTexture.resize(6); 
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_JellyPushableCyan.png", &m_vecTexture[0]);
-	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_JellyPushableMagenta.png", &m_vecTexture[1]);
-	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_JellyPushableYellow.png", &m_vecTexture[2]);
-	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_JellyPushableBlue.png", &m_vecTexture[3]);
-	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_JellyPushableGreen.png", &m_vecTexture[4]);
-	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_JellyPushableRed.png", &m_vecTexture[5]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_JellyPushableYellow.png", &m_vecTexture[1]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_JellyPushableMagenta.png", &m_vecTexture[2]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_JellyPushableGreen.png", &m_vecTexture[3]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_JellyPushableBlue.png", &m_vecTexture[4]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_JellyPushableRed.png", &m_vecTexture[5]);	
 
 	return S_OK;
 }
@@ -63,6 +63,24 @@ void CColorStone::Render_GameObject()
 
 void CColorStone::OnCollision(CGameObject* _pOther)
 {
+	if (Engine::GetKeyDown(DIK_S))
+	{
+		if (_pOther->GetObjectKey() != L"PlayerInteractionBox")
+			return;
+
+		if (m_pComStone == nullptr)
+			return;
+
+		_vec3 vPos;
+		m_pTransformCom->Get_Info(INFO_POS, &vPos);
+		m_bIsLift = true;
+		m_iImageID = m_iImageID - static_cast<CColorStone*>(m_pComStone)->Get_ImageID() - 2;
+		m_pTransformCom->m_vScale = { 16.f, 16.f, 16.f };
+		static_cast<Engine::CTransform*>(m_pComStone->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vPos.x, 14.f, vPos.z + 15.f);
+		m_pComStone->Set_Active(true);
+		m_pComStone = nullptr;
+
+	}
 }
 
 void CColorStone::OnCollisionEnter(CGameObject* _pOther)
@@ -72,10 +90,10 @@ void CColorStone::OnCollisionEnter(CGameObject* _pOther)
 
 	if (_pOther->Get_Tag() == TAG_STONE) {
 		if (static_cast<CColorStone*>(_pOther)->Get_ImageID() == m_iImageID ||
-			static_cast<CColorStone*>(_pOther)->Is_Combined())
+			static_cast<CColorStone*>(_pOther)->Is_Combined() || static_cast<CColorStone*>(_pOther)->Is_Lifted())
 			return;
 
-		if (!_pOther->Is_Active() || m_pComStone != nullptr)
+		if (!_pOther->Is_Active() || m_pComStone != nullptr || m_bIsLift)
 			return;
 
 		m_iImageID = m_iImageID + static_cast<CColorStone*>(_pOther)->Get_ImageID() + 2;
@@ -88,24 +106,17 @@ void CColorStone::OnCollisionEnter(CGameObject* _pOther)
 		_pOther->Set_Active(false);
 		m_pComStone = _pOther;
 	}
-
-	//if (_pOther->Get_Tag() == TAG_PLAYER) {
-	//	if (m_pComStone == nullptr)
-	//		return;
-
-	//	_vec3 vPos;
-	//	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	//	m_iImageID = m_iImageID - static_cast<CColorStone*>(m_pComStone)->Get_ImageID() - 2;
-	//	m_pTransformCom->m_vScale = { 14.f, 14.f, 14.f };
-	//	static_cast<Engine::CTransform*>(m_pComStone->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vPos.x, 14.f, vPos.z + 5.f);
-	//	m_pComStone->Set_Active(true);
-	//	m_pComStone = nullptr;
-	//}
 }
 
 void CColorStone::OnCollisionExit(CGameObject* _pOther)
 {
+	if (_pOther->GetObjectKey() != L"PlayerInteractionBox")
+		return;
 
+	if (m_bIsLift) {
+		m_bIsLift = false;
+		return;
+	}
 }
 
 HRESULT CColorStone::Add_Component()

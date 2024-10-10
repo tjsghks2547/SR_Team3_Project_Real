@@ -36,8 +36,7 @@ private:
 
 private:
 	Engine::CRcTex* m_pBufferCom;
-	Engine::CTexture* m_pTextureCom;
-	Engine::CTexture* m_pBucketTextureCom;	
+	Engine::CTexture* m_pTextureCom;	
 	Engine::CTransform* m_pTransformCom;
 	Engine::CTransform* m_pTexTransformCom;
 	Engine::CTransform* m_pBucketTransformCom;
@@ -53,7 +52,11 @@ private:
 	_bool m_bIndicator;
 	_bool m_bIsActivate;
 	_float m_fPullDuration;
+	_float m_fTime;
+	_int m_iTargetID;
+	_int m_iImageID;
 	CGameObject* m_pStone;
+	vector<IDirect3DTexture9*> m_vecTexture;
 
 protected:
 	CPlayer* m_CPlayer;
@@ -68,10 +71,3 @@ private:
 private:
 	virtual void Free();
 };
-
-/*
-	투석기.. 
-	
-	버켓, 버켓 콜라이더.
-
-*/

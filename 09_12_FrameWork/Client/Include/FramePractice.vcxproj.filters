@@ -446,6 +446,12 @@
     <Filter Include="02. GameObject\01. Entity\02. Monster\MothMage">
       <UniqueIdentifier>{831f216f-51ef-495a-bf06-f1cfd98cccd5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\Match Puzzle">
+      <UniqueIdentifier>{cad937e1-b2f3-4c2f-93c8-e68cba6b0134}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Puzzle\Match Puzzle\Color Bug Statue">
+      <UniqueIdentifier>{2eeca80c-438b-4be1-8b0c-b3e75b2cc1f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -1003,6 +1009,12 @@
     <ClInclude Include="..\Header\PlayerBalloonFly.h">
       <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\ColorBugStatue.h">
+      <Filter>02. GameObject\09. Puzzle\Match Puzzle\Color Bug Statue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\MatchPuzzle.h">
+      <Filter>02. GameObject\09. Puzzle\Match Puzzle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FramePractice.cpp">
@@ -1550,6 +1562,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\PlayerBalloonFly.cpp">
       <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ColorBugStatue.cpp">
+      <Filter>02. GameObject\09. Puzzle\Match Puzzle\Color Bug Statue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MatchPuzzle.cpp">
+      <Filter>02. GameObject\09. Puzzle\Match Puzzle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

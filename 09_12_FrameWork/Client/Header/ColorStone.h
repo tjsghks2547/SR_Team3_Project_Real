@@ -29,6 +29,7 @@ public:
 	void Set_ImageID(_int _iId) { m_iImageID = _iId; }
 	_int Get_ImageID() { return m_iImageID; }
 	_bool Is_Combined() { return m_pComStone == nullptr ? false : true; }
+	_bool Is_Lifted() { return m_bIsLift; }
 
 private:
 	HRESULT    Add_Component();

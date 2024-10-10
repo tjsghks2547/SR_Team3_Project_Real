@@ -3,7 +3,8 @@
 #include "PlayerInteractionBox.h"
 #include "ExamineButton.h"
 #include "CloseButton.h"
-#include "GameObject.h"
+#include "InteractionButton.h"
+#include "PuzzleObject.h"
 
 BEGIN(Engine)
 
@@ -15,7 +16,7 @@ class CCollider;
 
 END
 
-class CPipeBoard :public Engine::CGameObject
+class CPipeBoard :public Engine::CPuzzleObject
 {
 private:
 	explicit CPipeBoard(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -31,6 +32,10 @@ public:
 	virtual void OnCollisionEnter(CGameObject* _pOther);
 	virtual void OnCollisionExit(CGameObject* _pOther);
 	virtual void SetPlayer(CPlayer* _Player) { m_CPlayer = _Player; }
+	void Match_Puzzle() override;
+
+public:
+	void Push_StoneBlock(CGameObject* _pObj, _int _iIndex) { m_vecStoneBlocks[_iIndex].push_back(_pObj); }
 
 private:	
 	HRESULT    Add_Component();
@@ -38,7 +43,8 @@ private:
 	void	On_Exit();
 	void	Reset_Connected();
 	void	Check_Connected(CGameObject* _pPipe, _int _eID);
-	void Key_Input(const _float& fTimeDelta);
+	void	On_Connected(_int _iPipeID);
+	void	Key_Input(const _float& fTimeDelta);
 
 private:	
 	Engine::CRcTex* m_pBufferCom;
@@ -51,7 +57,9 @@ private:
 private:
 	_bool m_bIsInteracting;
 	CExamineButton* m_pExamineButton;
+	CInteractionButton* m_pIntButton;
 	CCloseButton* m_pCloseButton;
+	vector<CGameObject*> m_vecStoneBlocks[5];
 
 protected:
 	CPlayer* m_CPlayer;

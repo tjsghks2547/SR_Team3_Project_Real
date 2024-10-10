@@ -48,6 +48,8 @@ private:
 	vector<IDirect3DTexture9*> m_vecTexture;	
 	CGameObject* m_pLeftPedestal;
 	CGameObject* m_pRightPedestal;
+	_float m_fTime;
+	_int m_iTargetID;	
 	_int m_iImageID;
 
 private:

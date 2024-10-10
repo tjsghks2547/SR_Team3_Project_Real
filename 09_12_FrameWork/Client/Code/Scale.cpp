@@ -4,7 +4,7 @@
 #include "Export_Utility.h"
 
 CScale::CScale(LPDIRECT3DDEVICE9 pGraphicDev)
-	: Engine::CPuzzleObject(pGraphicDev), m_iImageID(0)
+	: Engine::CPuzzleObject(pGraphicDev), m_iImageID(6), m_iTargetID(6), m_fTime(0)
 {
 }
 
@@ -18,10 +18,23 @@ HRESULT CScale::Ready_GameObject()
 	m_pTransformCom->m_vScale = { 80.f, 60.f, 0.f };
 	m_pLeftCompTransformCom->m_vScale = { 25.f, 25.f, 15.f };
 	m_pRightCompTransformCom->m_vScale = { 25.f, 25.f, 15.f };
-	m_vecTexture.resize(3);
-	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Scale_Balanced.png", &m_vecTexture[0]);
-	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Scale_Left_Anim05.png", &m_vecTexture[1]);
-	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Scale_Right_Anim05.png", &m_vecTexture[2]);	
+	m_vecTexture.resize(13);	
+
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Scale_Anim/Scale_Left_Anim05.png", &m_vecTexture[0]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Scale_Anim/Scale_Left_Anim04.png", &m_vecTexture[1]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Scale_Anim/Scale_Left_Anim03.png", &m_vecTexture[2]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Scale_Anim/Scale_Left_Anim02.png", &m_vecTexture[3]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Scale_Anim/Scale_Left_Anim01.png", &m_vecTexture[4]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Scale_Anim/Scale_Left_Anim00.png", &m_vecTexture[5]);
+
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Scale_Anim/Scale_Balanced.png", &m_vecTexture[6]);
+
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Scale_Anim/Scale_Right_Anim00.png", &m_vecTexture[7]);	
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Scale_Anim/Scale_Right_Anim01.png", &m_vecTexture[8]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Scale_Anim/Scale_Right_Anim02.png", &m_vecTexture[9]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Scale_Anim/Scale_Right_Anim03.png", &m_vecTexture[10]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Scale_Anim/Scale_Right_Anim04.png", &m_vecTexture[11]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Scale_Anim/Scale_Right_Anim05.png", &m_vecTexture[12]);
 
 	return S_OK;
 }
@@ -33,6 +46,27 @@ _int CScale::Update_GameObject(const _float& fTimeDelta)
 
 	m_pLeftPedestal->Update_GameObject(fTimeDelta);
 	m_pRightPedestal->Update_GameObject(fTimeDelta);
+
+	//m_fTime += fTimeDelta;
+	//if (m_fTime > 0.5f )
+	//{
+	//	m_iImageID++;
+	//	m_iImageID %= 12;
+	//	m_fTime = 0;
+	//}
+
+	if (m_iImageID != m_iTargetID) {
+		m_fTime += fTimeDelta;
+
+		if (m_fTime >= 0.01f) {
+			if (m_iTargetID < m_iImageID)
+				m_iImageID--;
+			else if (m_iTargetID > m_iImageID)
+				m_iImageID++;
+
+			m_fTime = 0;
+		}
+	}
 
 	return iExit;
 }
@@ -149,9 +183,9 @@ void CScale::Match_Puzzle()
 	int iSour = static_cast<CStonePedestal*>(m_pRightPedestal)->Get_StoneID();
 
 	if (iTemp == -1 || iSour == -1) {
-		m_iImageID = 0;
+		m_iTargetID = 6;
 		return;
 	}		
-
-	m_iImageID = iTemp > iSour ? 1 : 2;
+	
+	m_iTargetID = iTemp > iSour ? 0 : 12;
 }

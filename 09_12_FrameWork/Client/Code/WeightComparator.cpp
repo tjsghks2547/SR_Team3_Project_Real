@@ -2,10 +2,11 @@
 #include "StonePedestal.h"
 #include "WeightComparator.h"
 #include "Stone.h"
+#include "StoneBlock.h"
 #include "Export_Utility.h"
 
 CWeightComparator::CWeightComparator(LPDIRECT3DDEVICE9 pGraphicDev)
-	: Engine::CPuzzleObject(pGraphicDev), m_iImageID(0)
+	: Engine::CPuzzleObject(pGraphicDev), m_iImageID(0), m_fTime(0), m_iTargetID(0)
 {
 }
 
@@ -18,9 +19,11 @@ HRESULT CWeightComparator::Ready_GameObject()
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 	m_pTransformCom->m_vScale = { 120.f, 25.f, 0.f };
 	m_pTransformCom->Rotation(ROT_X, 90.f * 3.14159265359f / 180.f);
-	m_vecTexture.resize(2);
-	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Weight_Comparator_empty.png", &m_vecTexture[0]);
-	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Weight_Comparator_Clear.png", &m_vecTexture[1]);
+	m_vecTexture.resize(4);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Weight_Comparator_Anim/Weight_Comparator_empty.png", &m_vecTexture[0]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Weight_Comparator_Anim/Weight_Comparator_Anim00.png", &m_vecTexture[1]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Weight_Comparator_Anim/Weight_Comparator_Anim01.png", &m_vecTexture[2]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Weight_Comparator_Anim/Weight_Comparator_Anim02.png", &m_vecTexture[3]);	
 
 	return S_OK;
 }
@@ -36,6 +39,23 @@ _int CWeightComparator::Update_GameObject(const _float& fTimeDelta)
 		iter->Update_GameObject(fTimeDelta);
 	
 	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
+
+	if (m_iImageID != m_iTargetID) {
+		m_fTime += fTimeDelta;
+
+		if (m_fTime >= .5f) {
+			if (m_iTargetID < m_iImageID)
+				m_iImageID--;
+			else if (m_iTargetID > m_iImageID)
+				m_iImageID++;
+
+			m_fTime = 0;
+		}
+
+		if(m_iImageID == 3)
+			for (int i = 0; i < m_vecStoneBlocks.size(); ++i)
+				static_cast<CStoneBlock*>(m_vecStoneBlocks[i])->Move_StoneBlock();
+	}
 
 	return iExit;
 }
@@ -90,6 +110,10 @@ void CWeightComparator::Init(_float _fX, _float _fZ)
 
 void CWeightComparator::Puzzle_Clear()
 {
+	m_iTargetID = 3;
+
+	for (int i = 0; i < m_vecStones.size(); ++i)
+		static_cast<CStone*>(m_vecStones[i])->SetObjectType(NOTPASS_ABLE);
 }
 
 HRESULT CWeightComparator::Add_Component()
@@ -145,5 +169,5 @@ void CWeightComparator::Match_Puzzle()
 			return;
 	}
 	
-	m_iImageID = 1;
+	Puzzle_Clear();
 }

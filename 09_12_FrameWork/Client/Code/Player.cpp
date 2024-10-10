@@ -15,6 +15,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_bIsDiagonal(false)
     , m_bFixPlayerDir(false)
     , m_bSwingTrigger(false)
+    , m_bIsInteracting(false)
     , m_objInteractionBox(nullptr)
     , m_objInteracting(nullptr)
     , m_fMoveSpeed(0.f)
@@ -356,7 +357,7 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
         m_bInven = false;
     }
 
-    if (m_bInven || m_bQuest)
+    if (m_bInven || m_bQuest || m_bIsInteracting)
     {
         Engine::Get_Layer(L"Layer_GameLogic")->SetGameState(GAMESTATE_UIOPEN);
         return;
