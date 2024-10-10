@@ -58,6 +58,9 @@ void CKnightDog::Render_GameObject()
 
 void CKnightDog::OnCollision(CGameObject* _pOther)
 {
+    if (_pOther->GetObjectKey() != L"Player")
+        return;
+
     if (Engine::GetKeyDown(DIK_S))
     {
         m_bConversation = m_bConversation ? false : true;
