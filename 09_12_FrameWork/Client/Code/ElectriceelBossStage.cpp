@@ -192,7 +192,7 @@ HRESULT CElectriceelBossStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
     pGameObject = CStone::Create(m_pGraphicDev);    
     NULL_CHECK_RETURN(pGameObject, E_FAIL); 
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Stone0", pGameObject), E_FAIL);  
-    static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(500.f, 10.f, 500.f);
+    static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(500.f, 21.f, 500.f);
     pGameObject->SetObjectKey(L"Stone0");
 
     pGameObject = CPlayerInteractionBox::Create(m_pGraphicDev); 

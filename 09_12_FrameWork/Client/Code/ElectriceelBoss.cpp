@@ -167,7 +167,9 @@ _int CElectriceelBoss::Update_GameObject(const _float& fTimeDelta)
         pGameObject = CStone::Create(m_pGraphicDev);    
         NULL_CHECK_RETURN(pGameObject, E_FAIL); 
         mapLayer[L"Layer_GameLogic"]->Add_GameObject(L"Stone0", pGameObject);
-        static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(500.f, 10.f, 500.f);    
+        static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(500.f, 21.f, 500.f);   
+        pGameObject->SetObjectKey(L"Stone0");
+        pGameObject->SetObjectType(OBJ_TYPE::PUSH_ABLE);
     }
 
 

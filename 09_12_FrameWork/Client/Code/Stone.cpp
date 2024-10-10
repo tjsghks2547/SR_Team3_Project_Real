@@ -169,8 +169,10 @@ CStone* CStone::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 		MSG_BOX("pPipeBoard Create Failed");
 		return nullptr;
 	}
+
 	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pCrystal);
 	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PUZZLE, pCrystal);
+
 	return pCrystal;
 }
 
