@@ -49,7 +49,7 @@ HRESULT CTexture::Ready_Texture(const _tchar* pPath, TEXTUREID eType, const int&
     return S_OK;
 }
 
-HRESULT CTexture::Ready_Texture(const list<_tchar*> pPathList)
+HRESULT CTexture::Ready_Texture(list<const _tchar*> pPathList)
 {
     m_vecTexture.reserve(pPathList.size());
 
@@ -89,7 +89,7 @@ CTexture* CTexture::Create(LPDIRECT3DDEVICE9 pGraphicDev, const _tchar* pPath, T
     return pTexture;
 }
 
-CTexture* CTexture::Create(LPDIRECT3DDEVICE9 pGraphicDev, const list<_tchar*> pPathList)
+CTexture* CTexture::Create(LPDIRECT3DDEVICE9 pGraphicDev, list<const _tchar*> pPathList)
 {
     CTexture* pTexture = new CTexture(pGraphicDev);
 

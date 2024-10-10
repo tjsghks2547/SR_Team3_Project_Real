@@ -12,6 +12,7 @@
 #include "PlayerRolling.h"
 #include "PlayerHurt.h"
 #include "PlayerPickUp.h"
+#include "PlayerBalloonFly.h"
 #include "EquipHat.h"
 #include "Export_Utility.h"
 
@@ -211,6 +212,9 @@ public:
 
 	void			SetEquipHat(CEquipHat* _equipHat) { m_equipHat = _equipHat; }
 	CEquipHat* GetEquipHat() { return m_equipHat; }
+
+	void			SetNextSceneOn() { m_bNextStage = true; }
+	_bool			IsNextSceneOn() { return m_bNextStage; }
 	//조명 예시 
 	HRESULT			SetUp_Material();
 
@@ -270,7 +274,7 @@ private:
 	_bool		m_bQuest;
 	_bool		m_bStoreVisit;
 	_bool		m_bIsInteracting;
-
+	_bool		m_bNextStage = false;
 public:
 	static CPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 

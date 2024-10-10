@@ -80,7 +80,7 @@ void CMonsterSlimeFast::LateReady_GameObject()
 
     CGameObject* HPBar = CMonsterHPUI::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(HPBar, );
-    FAILED_CHECK_RETURN(m_pLayer->Add_GameObject(L"MonsterHP_UI", HPBar), );
+    FAILED_CHECK_RETURN(m_pLayer->Add_GameObject(L"SlimeFastMonsterHP_UI", HPBar), );
 
 
     static_cast<CMonsterHPUI*>(HPBar)->SetMonster(this);

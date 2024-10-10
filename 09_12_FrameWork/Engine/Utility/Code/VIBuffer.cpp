@@ -105,6 +105,26 @@ void CVIBuffer::SetTextureScale(float fScaleSize)
 	m_pVB->Unlock();
 }
 
+void CVIBuffer::SetTexturePos(float fPos)
+{
+	VTXTEX* pVertex = NULL;
+	m_pVB->Lock(0, 0, (void**)&pVertex, 0);
+
+	pVertex[0].vPosition.x += fPos;
+	pVertex[0].vPosition.y += fPos;
+
+	pVertex[1].vPosition.x += fPos;
+	pVertex[1].vPosition.y += fPos;
+
+	pVertex[2].vPosition.x += fPos;
+	pVertex[2].vPosition.y += fPos;
+
+	pVertex[3].vPosition.x += fPos;
+	pVertex[3].vPosition.y += fPos;
+
+	m_pVB->Unlock();
+}
+
 void CVIBuffer::Free()
 {
 	Safe_Release(m_pIB);

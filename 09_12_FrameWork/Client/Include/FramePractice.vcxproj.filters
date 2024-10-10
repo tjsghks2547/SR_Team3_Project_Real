@@ -443,6 +443,9 @@
     <Filter Include="02. GameObject\12. NPC\00. QuestNPC\13. WhiteBird">
       <UniqueIdentifier>{4d9ae85b-8b0c-4522-b129-94cbe2b23cf7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\01. Entity\02. Monster\MothMage">
+      <UniqueIdentifier>{831f216f-51ef-495a-bf06-f1cfd98cccd5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -988,6 +991,18 @@
     <ClInclude Include="..\Header\WhiteBird.h">
       <Filter>02. GameObject\12. NPC\00. QuestNPC\13. WhiteBird</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\MonsterMothMage.h">
+      <Filter>02. GameObject\01. Entity\02. Monster\MothMage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\MonsterMothMageBullet.h">
+      <Filter>02. GameObject\01. Entity\02. Monster\MothMage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\MonsterMothMageOrb.h">
+      <Filter>02. GameObject\01. Entity\02. Monster\MothMage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PlayerBalloonFly.h">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FramePractice.cpp">
@@ -1523,6 +1538,18 @@
     </ClCompile>
     <ClCompile Include="..\Code\WhiteBird.cpp">
       <Filter>02. GameObject\12. NPC\00. QuestNPC\13. WhiteBird</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MonsterMothMage.cpp">
+      <Filter>02. GameObject\01. Entity\02. Monster\MothMage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MonsterMothMageBullet.cpp">
+      <Filter>02. GameObject\01. Entity\02. Monster\MothMage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MonsterMothMageOrb.cpp">
+      <Filter>02. GameObject\01. Entity\02. Monster\MothMage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PlayerBalloonFly.cpp">
+      <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
