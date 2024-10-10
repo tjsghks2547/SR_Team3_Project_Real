@@ -156,9 +156,16 @@ HRESULT CStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PLAYER, pGameObject);
 	pGameObject->SetObjectKey(L"PlayerInteractionBox");
 
+	pGameObject = CSwingEffect::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SwingEffect", pGameObject), E_FAIL);
+
 	CGameObject* PlayerObj = pLayer->Get_GameObject(L"Layer_GameLogic", L"Player");
 	CGameObject* InteractionObj = pLayer->Get_GameObject(L"Layer_GameLogic", L"PlayerInteractionBox");
 	dynamic_cast<CPlayerInteractionBox*>(InteractionObj)->SetPlayer(
+		dynamic_cast<CPlayer*>(PlayerObj));
+	CGameObject* SwingEffect = pLayer->Get_GameObject(L"Layer_GameLogic", L"SwingEffect");
+	dynamic_cast<CSwingEffect*>(SwingEffect)->SetPlayer(
 		dynamic_cast<CPlayer*>(PlayerObj));
 
 	//0926

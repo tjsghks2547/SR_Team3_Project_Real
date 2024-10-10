@@ -10,7 +10,7 @@ void PlayerPickUp::Enter()
         SetComponent();
 
     (dynamic_cast<CPlayer*>(m_CGameObject))->FixPlayerDir(OBJDIR_FRONT);
-    (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(PLAYERSTATE::PLY_DANCE);
+    (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(PLAYERSTATE::PLY_PICKUP);
     (dynamic_cast<CPlayer*>(m_CGameObject))->FixCurPlayerDir(true);
 }
 
@@ -19,7 +19,7 @@ void PlayerPickUp::Update(const _float& fTimeDelta)
     if (m_pAnimationCom->IsAnimationEnd())
     {
         m_pAnimationCom->SetAnimationPause(true);
-        
+
     }
 
     if (Engine::GetKeyDown(CONTROLKEY::PLY_PICKUPKEY))

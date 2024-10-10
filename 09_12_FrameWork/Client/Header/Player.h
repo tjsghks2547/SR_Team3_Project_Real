@@ -117,6 +117,8 @@ public:
 	void			SetInteractionBox(CGameObject* _obj) { m_objInteractionBox = _obj; }
 	CGameObject* GetInteractingObj() { return m_objInteracting; }
 	void			SetInteractingObj(CGameObject* _obj) { m_objInteracting = _obj; }
+	CGameObject* GetLiftObj() { return m_objLiftObject; }
+	void			SetLiftObj(CGameObject* _obj) { m_objLiftObject = _obj; }
 
 	// 플레이어가 지금 이동중인 방향을 리턴합니다.
 	_vec3			GetPlayerDirVector() { return m_vPlayerDir; }
@@ -154,7 +156,7 @@ public:
 	void			DisableDiagonal() { m_bIsDiagonal = false; }
 	// 물체랑 부딪혀도 통과할 수 있는지 판단합니다. 리턴값이 false 플레이어가 움직이지 않습니다.
 	_bool			GetPassAble() { return m_bPassAble; }
-
+	void			SetPassAble(_bool value) { m_bPassAble = value; }
 	// 플레이어 상태를 아이템 획득 모션으로 변경합니다.
 	void			ChangePickUpState();
 
@@ -259,6 +261,8 @@ private:
 
 	CGameObject* m_objInteractionBox;  // 상호작용할 박스
 	CGameObject* m_objInteracting;     // 그 박스와 충돌 중인 오브젝트
+	CGameObject* m_objLiftObject;
+
 	CEquipHat* m_equipHat;
 	//민지
 	CBuffUI* m_BuffArray[2];

@@ -36,7 +36,7 @@ void CBranch::LateReady_GameObject()
 
 _int CBranch::Update_GameObject(const _float& fTimeDelta)
 {
-	if (m_pPlayer->GetPlayerState() == PLAYERSTATE::PLY_DANCE &&
+	if (m_pPlayer->GetPlayerState() == PLAYERSTATE::PLY_PICKUP &&
 		m_pPlayer->GetAnimationComp()->IsAnimationEnd())
 	{
 		m_pItemUI->CallItemUI(true);

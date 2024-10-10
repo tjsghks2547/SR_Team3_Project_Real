@@ -29,9 +29,9 @@ HRESULT CMonsterMothMage::Ready_GameObject()
 
     m_tMonsterHP.iCurHP = 3;
     m_tMonsterHP.iMaxHP = 3;
-    m_fMoveSpeed = 30.f;
+    m_fMoveSpeed = 10.f;
 
-    
+
     return S_OK;
 }
 
@@ -93,19 +93,14 @@ _int CMonsterMothMage::Update_GameObject(const _float& fTimeDelta)
         }
 
         DurationInvincible(fTimeDelta);
-        
-        
-        
+
+
+
         Engine::CGameObject::Update_GameObject(fTimeDelta);
     }
 
     Add_RenderGroup(RENDER_ALPHA, this);
-    if (Engine::GetKeyDown(DIK_SPACE))
-    {
-        num++;
-        if (num == 8)
-            num = 0;
-    }
+
     return 0;
 }
 
@@ -134,7 +129,7 @@ void CMonsterMothMage::Render_GameObject()
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
-    if(m_bIsAttack)
+    if (m_bIsAttack)
         m_pTextureCom->Set_Texture(1);
     else
         m_pTextureCom->Set_Texture(0);
@@ -142,29 +137,42 @@ void CMonsterMothMage::Render_GameObject()
     switch (m_iDirIndex)
     {
     case 0:
-        if (m_bIsAttack) m_pAnimatorCom->Play(L"AttackFront", true);
-        else m_pAnimatorCom->Play(L"MoveFront", true);
+        if (m_bIsAttack)
+            m_pAnimatorCom->Play(L"AttackFront", false);
+        else
+            m_pAnimatorCom->Play(L"MoveFront", true);
         break;
     case 1:
-        m_pAnimatorCom->Play(L"MoveFrontRight", true);
+        if (m_bIsAttack)
+            m_pAnimatorCom->Play(L"AttackFrontRight", false);
+        else
+            m_pAnimatorCom->Play(L"MoveFrontRight", true);
         break;
     case 2:
-        m_pAnimatorCom->Play(L"MoveRight", true);
+        if (m_bIsAttack)
+            m_pAnimatorCom->Play(L"AttackRight", false);
+        else
+            m_pAnimatorCom->Play(L"MoveRight", true);
         break;
     case 3:
-        m_pAnimatorCom->Play(L"MoveBackRight", true);
+        if (m_bIsAttack) m_pAnimatorCom->Play(L"AttackBackRight", false);
+        else m_pAnimatorCom->Play(L"MoveBackRight", true);
         break;
     case 4:
-        m_pAnimatorCom->Play(L"MoveBack", true);
+        if (m_bIsAttack) m_pAnimatorCom->Play(L"AttackBack", false);
+        else m_pAnimatorCom->Play(L"MoveBack", true);
         break;
     case 5:
-        m_pAnimatorCom->Play(L"MoveBackLeft", true);
+        if (m_bIsAttack) m_pAnimatorCom->Play(L"AttackBackLeft", false);
+        else m_pAnimatorCom->Play(L"MoveBackLeft", true);
         break;
     case 6:
-        m_pAnimatorCom->Play(L"MoveLeft", true);
+        if (m_bIsAttack) m_pAnimatorCom->Play(L"AttackLeft", false);
+        else m_pAnimatorCom->Play(L"MoveLeft", true);
         break;
     case 7:
-        m_pAnimatorCom->Play(L"MoveFrontLeft", true);
+        if (m_bIsAttack) m_pAnimatorCom->Play(L"AttackFrontLeft", false);
+        else m_pAnimatorCom->Play(L"MoveFrontLeft", true);
         break;
     default:
         break;
@@ -178,7 +186,6 @@ void CMonsterMothMage::Render_GameObject()
 
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);  // 이거 설정안해주면 안됨 전역적으로 장치세팅이 저장되기 때문에
     m_pGraphicDev->SetTexture(0, NULL);  // 이거 설정안해주면 그대로 텍스처 나옴 이것도 마찬가지로 전역적으로 장치세팅이 되므로
-
 
 }
 
@@ -332,11 +339,15 @@ _bool CMonsterMothMage::CheckPlayerDistance()
 void CMonsterMothMage::AttackPlayer()
 {
     if (m_pAnimatorCom->GetAnimation()->IsFinish())
-        m_bIsAttack = false;
-
-    
-    if (m_pAnimatorCom->GetAnimation()->GetCurrentFrm() == 4)
     {
+        m_bIsAttack = false;
+        m_bIsShot = false;
+        m_pAnimatorCom->GetAnimation()->SetFrame(0);
+        return;
+    }
+    if (m_pAnimatorCom->GetAnimation()->GetCurrentFrm() == 4 && !m_bIsShot)
+    {
+        m_bIsShot = true;
         bulletCount++;
         _tchar* objectName = new _tchar[32];
         swprintf(objectName, 32, L"MonsterMothMageProj%d", bulletCount);
