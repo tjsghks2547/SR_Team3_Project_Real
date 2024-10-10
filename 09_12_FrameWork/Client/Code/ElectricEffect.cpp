@@ -31,6 +31,7 @@ HRESULT CElectricEffect::Ready_GameObject()
     //m_pTransformCom->Set_Pos(500.f, 120.f, 500.f);
     //m_pTransformCom->m_vScale = { 35.f, 100.f, 20.f }; 
 
+   
     dwtime = GetTickCount64();  
     return S_OK;
 }

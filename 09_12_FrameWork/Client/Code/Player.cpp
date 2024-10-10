@@ -64,6 +64,7 @@ HRESULT CPlayer::Ready_GameObject()
     //m_pGraphicDev->SetLight(0, &tLightInfo);    
     //m_pGraphicDev->LightEnable(0, TRUE);    
 
+   
 
     return S_OK;
 }
