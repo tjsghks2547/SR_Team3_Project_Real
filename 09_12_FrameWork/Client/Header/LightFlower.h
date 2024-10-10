@@ -25,6 +25,7 @@ public:
 public:
 	void Set_Glow(CGameObject* _pObj) { m_pGlow = _pObj; }
 	void Set_Pedestal(CGameObject* _pObj) { m_pPedestal = _pObj; }
+	void Init_Pos(_float _fX, _float _fZ);
 	void Match_Puzzle() override;
 
 private:
@@ -33,13 +34,18 @@ private:
 private:
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTexture* m_pTextureCom;
-	Engine::CTransform* m_pTransformCom;
+	Engine::CTransform* m_pTransformCom;	
+	Engine::CTransform* m_pRootTransformCom;
 	Engine::CCollider* m_pBoundBox;
 
 public:
 	static CLightFlower* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
+	vector<IDirect3DTexture9*> m_vecTexture;
+	_int m_iImageID;
+	_float m_fTime;
+	_int m_iTargetID;
 	CGameObject* m_pGlow;
 	CGameObject* m_pPedestal;
 
