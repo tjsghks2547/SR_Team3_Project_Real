@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "ExamineButton.h"
+#include "../Header/ExamineButton.h"
 
 CExamineButton::CExamineButton(LPDIRECT3DDEVICE9 pGraphicDev)
 	:Engine::CGameObject(pGraphicDev), m_bCall(false)
@@ -54,7 +54,7 @@ HRESULT CExamineButton::Add_Component()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 	m_pTransformCom->m_vScale = { 100.5f, 40.f, 0.2f };
-	m_pTransformCom->Set_Pos(500.f, 400.f, 1.f);
+	m_pTransformCom->Set_Pos(500.f, -250.f, 1.f);
 
 	return S_OK;
 }

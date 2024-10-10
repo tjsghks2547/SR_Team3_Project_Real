@@ -2,11 +2,13 @@
 #include "PipeBoard.h"
 #include "Pipe.h"
 #include "BoardCursor.h"
+#include "StoneBlock.h"
 #include "Player.h"
+
 #include "Export_Utility.h"
 
 CPipeBoard::CPipeBoard(LPDIRECT3DDEVICE9 pGraphicDev)
-    : Engine::CGameObject(pGraphicDev), m_bIsInteracting(false), m_pExamineButton(nullptr), m_pCloseButton(nullptr)
+    : Engine::CPuzzleObject(pGraphicDev), m_bIsInteracting(false), m_pIntButton(nullptr), m_pExamineButton(nullptr), m_pCloseButton(nullptr)
 {
 }
 
@@ -17,7 +19,7 @@ CPipeBoard::~CPipeBoard()
 HRESULT CPipeBoard::Ready_GameObject()
 {
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->Set_Pos(1000.f, 0.1f, 850.f);
+	m_pTransformCom->Set_Pos(1000.f, 20.1f, 875.f);
 	m_pTransformCom->m_vScale = { 120.f, 20.f, 120.f };
 	SetObjectType(NOTPASS_ABLE);
 
@@ -36,23 +38,27 @@ HRESULT CPipeBoard::Ready_GameObject()
 
 void CPipeBoard::LateReady_GameObject()
 {
-	if (!m_pExamineButton) //Interaction
+	if (m_pExamineButton == nullptr)
 	{
 		m_pExamineButton = CExamineButton::Create(m_pGraphicDev);
 		NULL_CHECK_RETURN(m_pExamineButton);
 	}
-	if (!m_pCloseButton) //Interaction
+	if (m_pCloseButton == nullptr)
 	{
 		m_pCloseButton = CCloseButton::Create(m_pGraphicDev);
 		NULL_CHECK_RETURN(m_pCloseButton);
 	}
+	if (m_pIntButton == nullptr)
+	{
+		m_pIntButton = CInteractionButton::Create(m_pGraphicDev);
+		NULL_CHECK_RETURN(m_pIntButton);
+	}
+
 }
 
 _int CPipeBoard::Update_GameObject(const _float& fTimeDelta)
 {
 	Add_RenderGroup(RENDER_ALPHA, this);
-	m_pCloseButton->Update_GameObject(fTimeDelta);
-	m_pExamineButton->Update_GameObject(fTimeDelta);
 	Key_Input(fTimeDelta);
 
 	if (m_pPipeBoardCom->m_bIsPipeSpawned == false && m_pPipeBoardCom->m_iCurPipeCount < 9) {
@@ -101,8 +107,7 @@ _int CPipeBoard::Update_GameObject(const _float& fTimeDelta)
 		pMapLayer[L"Layer_GameLogic"]->Add_GameObject(L"Pipe3", pGameObject);
 		vPos = { vBasePos.x, vBasePos.y + 0.2f, vBasePos.z - 24.5f};
 		vRot = { 0.f, 90.f, 0.f };
-		dynamic_cast<CPipe*>(pGameObject)->Initialize_Pipe_Option(FLOW_LEFT, FLOW_UP, FLOW_RIGHT, FLOW_END, true, 0, vPos, vRot);
-		static_cast<CPipe*>(pGameObject)->Set_PipeID(3);
+		dynamic_cast<CPipe*>(pGameObject)->Initialize_Pipe_Option(FLOW_LEFT, FLOW_UP, FLOW_RIGHT, FLOW_END, true, 0, vPos, vRot);		
 		dynamic_cast<CPipeCom*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Pipe"))->m_bIsConnected = true;
 		m_pPipeBoardCom->m_pStatingPipe = pGameObject;
 		m_pPipeBoardCom->m_vecBoardGrid[31] = pGameObject;
@@ -113,7 +118,7 @@ _int CPipeBoard::Update_GameObject(const _float& fTimeDelta)
 		vPos = { vBasePos.x - 49.f, vBasePos.y + 0.2f, vBasePos.z - 49.f };
 		vRot = { 0.f, 180.f, 0.f };
 		dynamic_cast<CPipe*>(pGameObject)->Initialize_Pipe_Option(FLOW_UP, FLOW_END, FLOW_END, FLOW_END, true, 2, vPos, vRot);
-		static_cast<CPipe*>(pGameObject)->Set_PipeID(4);
+		static_cast<CPipe*>(pGameObject)->Set_PipeID(3);
 		m_pPipeBoardCom->m_vecBoardGrid[36] = pGameObject;
 
 		pGameObject = CPipe::Create(m_pGraphicDev);
@@ -122,7 +127,7 @@ _int CPipeBoard::Update_GameObject(const _float& fTimeDelta)
 		vPos = { vBasePos.x + 49.f, vBasePos.y + 0.2f, vBasePos.z - 49.f };
 		vRot = { 0.f, 180.f,  -180.f };
 		dynamic_cast<CPipe*>(pGameObject)->Initialize_Pipe_Option(FLOW_UP, FLOW_END, FLOW_END, FLOW_END, true, 2, vPos, vRot);
-		static_cast<CPipe*>(pGameObject)->Set_PipeID(5);
+		static_cast<CPipe*>(pGameObject)->Set_PipeID(4);
 		m_pPipeBoardCom->m_vecBoardGrid[40] = pGameObject;
 
 		// Movable Blocks
@@ -158,15 +163,15 @@ _int CPipeBoard::Update_GameObject(const _float& fTimeDelta)
 		NULL_CHECK_RETURN(pMapLayer[L"Layer_GameLogic"], E_FAIL);
 		Engine::CGameObject* pGameObject = nullptr;
 		_vec3 vBasePos, vPos, vRot;
-		m_pTransformCom->Get_Info(INFO_POS, &vBasePos);
+		vBasePos = { 1000.f, 0.2f, 875.f };		
 
 		pGameObject = CPipe::Create(m_pGraphicDev);
 		NULL_CHECK_RETURN(pGameObject, E_FAIL);
 		pMapLayer[L"Layer_GameLogic"]->Add_GameObject(L"Pipe9", pGameObject);
-		vPos = { vBasePos.x + 24.9f, vBasePos.y + 0.2f, vBasePos.z - 37.5f };
+		vPos = { vBasePos.x - 73.5f, 0.4f, vBasePos.z - 73.5f };
 		vRot = { 0.f, 0.f, 0.f };
 		dynamic_cast<CPipe*>(pGameObject)->Initialize_Pipe_Option(FLOW_LEFT, FLOW_RIGHT, FLOW_END, FLOW_END, false, 4, vPos, vRot);
-		m_pPipeBoardCom->m_vecBoardGrid[47] = pGameObject;
+		m_pPipeBoardCom->m_vecBoardGrid[42] = pGameObject;
 
 		m_pPipeBoardCom->m_bIsPipeSpawned = true;
 	}
@@ -175,15 +180,15 @@ _int CPipeBoard::Update_GameObject(const _float& fTimeDelta)
 		NULL_CHECK_RETURN(pMapLayer[L"Layer_GameLogic"], E_FAIL);
 		Engine::CGameObject* pGameObject = nullptr;
 		_vec3 vBasePos, vPos, vRot;
-		m_pTransformCom->Get_Info(INFO_POS, &vBasePos);
+		vBasePos = { 1000.f, 0.2f, 875.f };
 
 		pGameObject = CPipe::Create(m_pGraphicDev);
 		NULL_CHECK_RETURN(pGameObject, E_FAIL);
 		pMapLayer[L"Layer_GameLogic"]->Add_GameObject(L"Pipe10", pGameObject);
-		vPos = { vBasePos.x - 36.9f, vBasePos.y + 0.2f, vBasePos.z - 25.f };
+		vPos = { vBasePos.x + 73.5f, 0.4f, vBasePos.z };
 		vRot = { 0.f, 90.f, 0.f };
 		dynamic_cast<CPipe*>(pGameObject)->Initialize_Pipe_Option(FLOW_UP, FLOW_DOWN, FLOW_END, FLOW_END, false, 4, vPos, vRot);
-		m_pPipeBoardCom->m_vecBoardGrid[35] = pGameObject;
+		m_pPipeBoardCom->m_vecBoardGrid[27] = pGameObject;
 		m_pPipeBoardCom->m_bIsPipeSpawned = true;
 	}
 	else if (m_pPipeBoardCom->m_bIsPipeSpawned == false && m_pPipeBoardCom->m_iCurPipeCount < 12) {
@@ -191,20 +196,23 @@ _int CPipeBoard::Update_GameObject(const _float& fTimeDelta)
 		NULL_CHECK_RETURN(pMapLayer[L"Layer_GameLogic"], E_FAIL);
 		Engine::CGameObject* pGameObject = nullptr;
 		_vec3 vBasePos, vPos, vRot;
-		m_pTransformCom->Get_Info(INFO_POS, &vBasePos);
+		vBasePos = { 1000.f, 0.2f, 875.f };
 
 		pGameObject = CPipe::Create(m_pGraphicDev);
 		NULL_CHECK_RETURN(pGameObject, E_FAIL);
 		pMapLayer[L"Layer_GameLogic"]->Add_GameObject(L"Pipe11", pGameObject);
-		vPos = { vBasePos.x - 36.9f, vBasePos.y + 0.2f, vBasePos.z - 25.f };
+		vPos = { vBasePos.x - 73.5f, 0.4f, vBasePos.z + 49.f };
 		vRot = { 0.f, 90.f, 0.f };
 		dynamic_cast<CPipe*>(pGameObject)->Initialize_Pipe_Option(FLOW_LEFT, FLOW_UP, FLOW_END, FLOW_END, false, 5, vPos, vRot);
-		m_pPipeBoardCom->m_vecBoardGrid[35] = pGameObject;
+		m_pPipeBoardCom->m_vecBoardGrid[7] = pGameObject;
 		m_pPipeBoardCom->m_bIsPipeSpawned = true;
 	}
 	
 	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
+	m_pCloseButton->Update_GameObject(fTimeDelta);
+	m_pExamineButton->Update_GameObject(fTimeDelta);
+	m_pIntButton->Update_GameObject(fTimeDelta);
 	return iExit;
 }
 
@@ -224,6 +232,7 @@ void CPipeBoard::Render_GameObject()
 	m_pBoundBox->Ready_Buffer();
 
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+
 }
 
 void CPipeBoard::OnCollision(CGameObject* _pOther)
@@ -231,15 +240,17 @@ void CPipeBoard::OnCollision(CGameObject* _pOther)
 	if (_pOther->Get_Tag() != TAG_PLAYER)
 		return;	
 
-	if (m_bIsInteracting) {
-		m_pExamineButton->CallButton(false);
-		m_pCloseButton->CallButton(true);
-	}		
-	else {
+	if (!m_bIsInteracting) {
+		//m_pIntButton->CallButton(true);
 		m_pExamineButton->CallButton(true);
 		m_pCloseButton->CallButton(false);
 	}
-		
+	else {
+		//m_pIntButton->CallButton(true);
+		m_pExamineButton->CallButton(false);
+		m_pCloseButton->CallButton(true);
+
+	}
 	if (Engine::GetKeyDown(DIK_S))
 	{
 		if (!m_bIsInteracting) {			
@@ -259,11 +270,13 @@ void CPipeBoard::OnCollision(CGameObject* _pOther)
 
 void CPipeBoard::OnCollisionEnter(CGameObject* _pOther)
 {
-
+	
 }
 
 void CPipeBoard::OnCollisionExit(CGameObject* _pOther)
 {	
+	m_pExamineButton->CallButton(false);
+	m_pCloseButton->CallButton(false);
 }
 
 HRESULT CPipeBoard::Add_Component()
@@ -339,6 +352,7 @@ void CPipeBoard::Check_Connected(CGameObject* _pSender, _int _eID)
 
 	if (_pSender != m_pPipeBoardCom->m_pStatingPipe && obj->m_bIsFixed == true) {
 		obj->m_bIsConnected = true;
+		On_Connected(static_cast<CPipe*>(m_pPipeBoardCom->m_vecBoardGrid[_eID])->Get_PipeID());
 		return;
 	}
 	
@@ -380,21 +394,37 @@ void CPipeBoard::Check_Connected(CGameObject* _pSender, _int _eID)
 	obj->m_bIsConnected = true;
 }
 
+void CPipeBoard::On_Connected(_int _iPipeID)
+{
+	switch (_iPipeID)
+	{
+	case 0:
+		for (int i = 0; i < m_vecStoneBlocks[0].size(); i++)		
+			static_cast<CStoneBlock*>(m_vecStoneBlocks[0][i])->Move_StoneBlockOnce();
+		break;
+	case 1:
+		for (int i = 0; i < m_vecStoneBlocks[1].size(); i++)
+			static_cast<CStoneBlock*>(m_vecStoneBlocks[1][i])->Move_StoneBlockOnce();		
+		break;
+	case 2:
+		for (int i = 0; i < m_vecStoneBlocks[2].size(); i++)
+			static_cast<CStoneBlock*>(m_vecStoneBlocks[2][i])->Move_StoneBlockOnce();
+		break;
+	case 3:
+		for (int i = 0; i < m_vecStoneBlocks[3].size(); i++)
+			static_cast<CStoneBlock*>(m_vecStoneBlocks[3][i])->Move_StoneBlockOnce();		
+		break;
+	case 4:
+		for (int i = 0; i < m_vecStoneBlocks[4].size(); i++)
+			static_cast<CStoneBlock*>(m_vecStoneBlocks[4][i])->Move_StoneBlockOnce();
+		break;
+	default:
+		break;
+	}
+}
+
 void CPipeBoard::Key_Input(const _float& fTimeDelta)
 {
-	//if (Engine::GetKeyUp(DIK_2))
-	//{
-	//	m_pPipeBoardCom->m_iCurPipeCount++;
-	//	m_pPipeBoardCom->m_bIsPipeSpawned = false;
-	//}
-
-	//if (Engine::GetKeyUp(DIK_1)) {
-	//	if (m_bIsInteracting)
-	//		On_Exit();
-	//	else
-	//		On_Interacted();
-	//}
-
 	if (!m_bIsInteracting)
 		return;	
 
@@ -405,11 +435,11 @@ void CPipeBoard::Key_Input(const _float& fTimeDelta)
 
 		_vec3 vBasePos;
 		static_cast<Engine::CTransform*>(m_pPipeBoardCom->m_pCursor->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Get_Info(INFO_POS, &vBasePos);
-		static_cast<Engine::CTransform*>(m_pPipeBoardCom->m_pCursor->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vBasePos.x, 0.51f, vBasePos.z + 24.5f);
+		static_cast<Engine::CTransform*>(m_pPipeBoardCom->m_pCursor->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vBasePos.x, 0.61f, vBasePos.z + 24.5f);
 		m_pPipeBoardCom->m_iCursorID -= m_pPipeBoardCom->m_iGridSizeZ;
 
 		if (m_pPipeBoardCom->m_pPickedPipe != nullptr)
-			static_cast<Engine::CTransform*>(m_pPipeBoardCom->m_pPickedPipe->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vBasePos.x, 0.5f, vBasePos.z + 24.5f);
+			static_cast<Engine::CTransform*>(m_pPipeBoardCom->m_pPickedPipe->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vBasePos.x, 0.6f, vBasePos.z + 24.5f);
 
 	}
 
@@ -420,11 +450,11 @@ void CPipeBoard::Key_Input(const _float& fTimeDelta)
 
 		_vec3 vBasePos;
 		static_cast<Engine::CTransform*>(m_pPipeBoardCom->m_pCursor->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Get_Info(INFO_POS, &vBasePos);
-		static_cast<Engine::CTransform*>(m_pPipeBoardCom->m_pCursor->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vBasePos.x, 0.51f, vBasePos.z - 24.5f);
+		static_cast<Engine::CTransform*>(m_pPipeBoardCom->m_pCursor->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vBasePos.x, 0.61f, vBasePos.z - 24.5f);
 		m_pPipeBoardCom->m_iCursorID += m_pPipeBoardCom->m_iGridSizeZ;
 
 		if (m_pPipeBoardCom->m_pPickedPipe != nullptr)
-			static_cast<Engine::CTransform*>(m_pPipeBoardCom->m_pPickedPipe->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vBasePos.x, 0.5f, vBasePos.z - 24.5f);
+			static_cast<Engine::CTransform*>(m_pPipeBoardCom->m_pPickedPipe->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vBasePos.x, 0.6f, vBasePos.z - 24.5f);
 	}
 
 	if (Engine::GetKeyUp(DIK_LEFT))
@@ -434,11 +464,11 @@ void CPipeBoard::Key_Input(const _float& fTimeDelta)
 
 		_vec3 vBasePos;
 		static_cast<Engine::CTransform*>(m_pPipeBoardCom->m_pCursor->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Get_Info(INFO_POS, &vBasePos);
-		static_cast<Engine::CTransform*>(m_pPipeBoardCom->m_pCursor->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vBasePos.x - 24.5f, 0.51f, vBasePos.z);
+		static_cast<Engine::CTransform*>(m_pPipeBoardCom->m_pCursor->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vBasePos.x - 24.5f, 0.61f, vBasePos.z);
 		m_pPipeBoardCom->m_iCursorID--;
 
 		if (m_pPipeBoardCom->m_pPickedPipe != nullptr) {			
-			static_cast<Engine::CTransform*>(m_pPipeBoardCom->m_pPickedPipe->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vBasePos.x - 24.5f, 0.5f, vBasePos.z);
+			static_cast<Engine::CTransform*>(m_pPipeBoardCom->m_pPickedPipe->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vBasePos.x - 24.5f, 0.6f, vBasePos.z);
 		}		
 	}
 
@@ -453,7 +483,7 @@ void CPipeBoard::Key_Input(const _float& fTimeDelta)
 		m_pPipeBoardCom->m_iCursorID++;
 
 		if (m_pPipeBoardCom->m_pPickedPipe != nullptr)
-			static_cast<Engine::CTransform*>(m_pPipeBoardCom->m_pPickedPipe->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vBasePos.x + 24.5f, 0.5f, vBasePos.z);
+			static_cast<Engine::CTransform*>(m_pPipeBoardCom->m_pPickedPipe->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vBasePos.x + 24.5f, 0.6f, vBasePos.z);
 	}
 
 	if (Engine::GetKeyUp(DIK_S))
@@ -503,4 +533,10 @@ CPipeBoard* CPipeBoard::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 void CPipeBoard::Free()
 {
 	Engine::CGameObject::Free();
+}
+
+void CPipeBoard::Match_Puzzle()
+{
+	m_pPipeBoardCom->m_iCurPipeCount++;
+	m_pPipeBoardCom->m_bIsPipeSpawned = false;
 }

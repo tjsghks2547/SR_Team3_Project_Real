@@ -216,7 +216,7 @@ HRESULT CWorldHearStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 #pragma region Crystal Puzzle
 	_float fOffsetX = 1000;
 	_float fOffsetZ = 850;
-
+/*
 #pragma region Catapult Puzzle
 
 	pGameObject = CCatapult::Create(m_pGraphicDev);
@@ -436,7 +436,7 @@ HRESULT CWorldHearStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX + (30.f * 5), 16.f, fOffsetZ + (30.f * 12));
 
 #pragma endregion
-
+*/
 
 #pragma endregion
 

@@ -46,7 +46,7 @@ HRESULT CCloseButton::Add_Component()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
-	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_ExamineButton"));
+	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_CloseButton"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_STATIC].insert({ L"Com_Texture",pComponent });
 
@@ -54,7 +54,7 @@ HRESULT CCloseButton::Add_Component()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 	m_pTransformCom->m_vScale = { 100.5f, 40.f, 0.2f };
-	m_pTransformCom->Set_Pos(500.f, 400.f, 1.f);
+	m_pTransformCom->Set_Pos(500.f, -250.f, 1.f);
 
 	return S_OK;
 }
