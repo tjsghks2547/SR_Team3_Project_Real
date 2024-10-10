@@ -12,7 +12,7 @@ void PlayerLiftMove::Enter()
     (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(
         PLAYERSTATE::PLY_LIFTMOVE);
 
-    m_fMoveSpeed = 20.f;
+    m_fMoveSpeed = 50.f;
     (dynamic_cast<CPlayer*>(m_CGameObject))->SetMoveSpeed(m_fMoveSpeed);
 }
 

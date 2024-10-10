@@ -27,7 +27,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_bPassAble(true)
     , m_vColPlayerPos(0.f, 0.f, 0.f)
     , m_vColliderPos(0.f, 0.f, 0.f)
-
+    , m_objLiftObject(nullptr)
     // 민지 초기화
     , m_iHonorScore(0.f) //1010 민지
     , m_iPlayerCoin(10000), m_bInven(false), m_bQuest(false), m_bStoreVisit(false)
@@ -98,7 +98,7 @@ void CPlayer::LateReady_GameObject()
 _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 {
     if (Get_Layer(L"Layer_GameLogic")->GetGameState() == GAMESTATE_NONE ||
-        GetPlayerState() == PLAYERSTATE::PLY_DANCE)
+        GetPlayerState() == PLAYERSTATE::PLY_PICKUP)
     {
         m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
         NULL_CHECK_RETURN(m_pInven, 0);
@@ -126,13 +126,13 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
     if (Get_Layer(L"Layer_GameLogic")->GetGameState() == GAMESTATE_NONE ||
-        GetPlayerState() == PLAYERSTATE::PLY_DANCE)
+        GetPlayerState() == PLAYERSTATE::PLY_PICKUP)
     {
         SetPlayerDirection();
 
         m_pAnimationCom->Update_Component(fTimeDelta);
 
-        //DurationInvincible(fTimeDelta);
+        DurationInvincible(fTimeDelta);
 
         Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
     }
@@ -205,7 +205,8 @@ void CPlayer::Render_GameObject()
 
 void CPlayer::OnCollisionEnter(CGameObject* _pOther)
 {
-    if (_pOther->IncludingType(OBJ_TYPE::NOTPASS_ABLE))
+    if (_pOther->IncludingType(OBJ_TYPE::NOTPASS_ABLE) &&
+        m_objLiftObject != _pOther)
     {
         m_bPassAble = false;
         m_pTransformCom->Get_Info(INFO_POS, &m_vColPlayerPos);

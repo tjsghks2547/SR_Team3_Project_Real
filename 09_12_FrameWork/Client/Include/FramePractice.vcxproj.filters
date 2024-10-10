@@ -446,11 +446,9 @@
     <Filter Include="02. GameObject\01. Entity\02. Monster\MothMage">
       <UniqueIdentifier>{831f216f-51ef-495a-bf06-f1cfd98cccd5}</UniqueIdentifier>
     </Filter>
-
     <Filter Include="02. GameObject\14.ElectriceelBoss\ThrowStone">
       <UniqueIdentifier>{371aa46c-6590-49d3-a026-482d30917d2c}</UniqueIdentifier>
-	</Filter>
-
+    </Filter>
     <Filter Include="02. GameObject\09. Puzzle\Match Puzzle">
       <UniqueIdentifier>{cad937e1-b2f3-4c2f-93c8-e68cba6b0134}</UniqueIdentifier>
     </Filter>
@@ -1014,17 +1012,17 @@
     <ClInclude Include="..\Header\PlayerBalloonFly.h">
       <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
     </ClInclude>
-
     <ClInclude Include="..\Header\ThrowStone.h">
       <Filter>02. GameObject\14.ElectriceelBoss\ThrowStone</Filter>
-	</ClInclude>
-
+    </ClInclude>
     <ClInclude Include="..\Header\ColorBugStatue.h">
       <Filter>02. GameObject\09. Puzzle\Match Puzzle\Color Bug Statue</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\MatchPuzzle.h">
       <Filter>02. GameObject\09. Puzzle\Match Puzzle</Filter>
-
+    </ClInclude>
+    <ClInclude Include="..\Header\SwingEffect.h">
+      <Filter>02. GameObject\01. Entity\01. Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1574,17 +1572,17 @@
     <ClCompile Include="..\Code\PlayerBalloonFly.cpp">
       <Filter>02. GameObject\01. Entity\01. Player\State</Filter>
     </ClCompile>
-
     <ClCompile Include="..\Code\ThrowStone.cpp">
       <Filter>02. GameObject\14.ElectriceelBoss\ThrowStone</Filter>
-	</ClCompile>
-
+    </ClCompile>
     <ClCompile Include="..\Code\ColorBugStatue.cpp">
       <Filter>02. GameObject\09. Puzzle\Match Puzzle\Color Bug Statue</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\MatchPuzzle.cpp">
       <Filter>02. GameObject\09. Puzzle\Match Puzzle</Filter>
-
+    </ClCompile>
+    <ClCompile Include="..\Code\SwingEffect.cpp">
+      <Filter>02. GameObject\01. Entity\01. Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

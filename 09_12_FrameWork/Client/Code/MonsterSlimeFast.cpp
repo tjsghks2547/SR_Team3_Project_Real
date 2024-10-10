@@ -6,7 +6,7 @@
 CMonsterSlimeFast::CMonsterSlimeFast(LPDIRECT3DDEVICE9 pGraphicDev)
     :CMonster(pGraphicDev)
     , m_HPBar(nullptr)
-    
+
 {
 }
 
@@ -22,42 +22,42 @@ HRESULT CMonsterSlimeFast::Ready_GameObject()
     int type = OBJ_TYPE::DESTROY_ABLE + OBJ_TYPE::HURT_ABLE;
     SetObjectType(type);
 
-   // D3DXCreateTextureFromFile(m_pGraphicDev, 
-   //     L"../Bin/Resource/Texture/Monster/Sprite_MonsterTrashBig.png", &m_pTexture);
+    // D3DXCreateTextureFromFile(m_pGraphicDev, 
+    //     L"../Bin/Resource/Texture/Monster/Sprite_MonsterTrashBig.png", &m_pTexture);
 
     vector<IDirect3DBaseTexture9*> textComp = m_pTextureCom->Get_Texture();
 
-    m_pAnimatorCom->CreateAnimation(L"MoveFront", 
+    m_pAnimatorCom->CreateAnimation(L"MoveFront",
         (IDirect3DTexture9*)textComp[0], _vec2(0.f, 0.f),
-      _vec2(582.f, 582.f), _vec2(582.f, 0.f), 0.2f, 5);
+        _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.2f, 4);
 
     m_pAnimatorCom->CreateAnimation(L"MoveFrontRight",
-        (IDirect3DTexture9*)textComp[0], _vec2(582.f * 4, 0.f),
-        _vec2(582.f, 582.f), _vec2(582.f, 582.f), 0.2f, 5);
+        (IDirect3DTexture9*)textComp[0], _vec2(0.f, 256.f),
+        _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.2f, 4);
 
     m_pAnimatorCom->CreateAnimation(L"MoveRight",
-        (IDirect3DTexture9*)textComp[0], _vec2(582.f * 2, 582.f),
-        _vec2(582.f, 582.f), _vec2(582.f, 582.f), 0.2f, 5);
+        (IDirect3DTexture9*)textComp[0], _vec2(0.f, 256.f * 2),
+        _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.2f, 4);
 
     m_pAnimatorCom->CreateAnimation(L"MoveBackRight",
-        (IDirect3DTexture9*)textComp[0], _vec2(582.f, 582.f * 2),
-        _vec2(582.f, 582.f), _vec2(582.f, 582.f), 0.2f, 5);
+        (IDirect3DTexture9*)textComp[0], _vec2(0.f, 256.f * 3),
+        _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.2f, 4);
 
     m_pAnimatorCom->CreateAnimation(L"MoveBack",
-        (IDirect3DTexture9*)textComp[0], _vec2(0.f, 582.f * 3),
-        _vec2(582.f, 582.f), _vec2(582.f, 582.f), 0.2f, 5);
+        (IDirect3DTexture9*)textComp[0], _vec2(0.f, 256.f * 4),
+        _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.2f, 4);
 
     m_pAnimatorCom->CreateAnimation(L"MoveBackLeft",
-        (IDirect3DTexture9*)textComp[0], _vec2(582.f * 4, 582.f * 3),
-        _vec2(582.f, 582.f), _vec2(582.f, 582.f), 0.2f, 5);
+        (IDirect3DTexture9*)textComp[0], _vec2(0.f, 256.f * 5),
+        _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.2f, 4);
 
     m_pAnimatorCom->CreateAnimation(L"MoveLeft",
-        (IDirect3DTexture9*)textComp[0], _vec2(582.f * 3, 582.f * 4),
-        _vec2(582.f, 582.f), _vec2(582.f, 582.f), 0.2f, 5);
+        (IDirect3DTexture9*)textComp[0], _vec2(0.f, 256.f * 6),
+        _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.2f, 4);
 
     m_pAnimatorCom->CreateAnimation(L"MoveFrontLeft",
-        (IDirect3DTexture9*)textComp[0], _vec2(582.f, 582.f * 5),
-        _vec2(582.f, 582.f), _vec2(582.f, 582.f), 0.2f, 5);
+        (IDirect3DTexture9*)textComp[0], _vec2(0.f, 256.f * 7),
+        _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.2f, 4);
 
     m_tMonsterHP.iCurHP = 3;
     m_tMonsterHP.iMaxHP = 3;
@@ -98,7 +98,7 @@ _int CMonsterSlimeFast::Update_GameObject(const _float& fTimeDelta)
             m_activation = false;
             CGameObject* pGameObject = CBranch::Create(m_pGraphicDev);
             NULL_CHECK_RETURN(pGameObject, E_FAIL);
-            
+
             _vec3 dropPos;
             dynamic_cast<CTransform*>(Get_Component(ID_DYNAMIC, L"Com_Transform")
                 )->Get_Info(INFO_POS, &dropPos);
@@ -107,7 +107,7 @@ _int CMonsterSlimeFast::Update_GameObject(const _float& fTimeDelta)
             FAILED_CHECK_RETURN(
                 Get_Layer(L"Layer_GameLogic")->Add_GameObject(L"Item_Branch", pGameObject), 0);
             CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pGameObject);
-            
+
             dynamic_cast<CBranch*>(pGameObject)->LateReady_GameObject();
             return 0;
         }
@@ -141,7 +141,7 @@ void CMonsterSlimeFast::Render_GameObject()
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
     m_pTextureCom->Set_Texture();
-    /*switch (num)
+    switch (m_iDirIndex)
     {
     case 0:
         m_pAnimatorCom->Play(L"MoveFront", true);
@@ -169,8 +169,7 @@ void CMonsterSlimeFast::Render_GameObject()
         break;
     default:
         break;
-    }*/
-    m_pAnimatorCom->Play(L"MoveFront", true);
+    }
     m_pAnimatorCom->render();
 
     //m_pTextureCom->Set_Texture(MONSTER);

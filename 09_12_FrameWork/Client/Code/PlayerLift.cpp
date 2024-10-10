@@ -10,6 +10,7 @@ void PlayerLift::Enter()
         SetComponent();
 
     timeElapsed = 0.f;
+    dynamic_cast<CPlayer*>(m_CGameObject)->SetPassAble(true);
     switch (m_iStateCount)
     {
     case 0: // 오브젝트를 들 때
@@ -21,6 +22,7 @@ void PlayerLift::Enter()
             colObj->Get_Component(ID_DYNAMIC, L"Com_Transform"));
         colObjTransform->Get_Info(INFO_POS, &vColPos);
 
+        (dynamic_cast<CPlayer*>(m_CGameObject))->SetLiftObj(colObj);
         break;
     case 1: // 오브젝트를 들고 있을 때
         (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(
@@ -32,23 +34,26 @@ void PlayerLift::Enter()
 
         _vec3  vPlayerDir = (dynamic_cast<CPlayer*>(m_CGameObject))->GetPlayerDirVector2();
 
-        if (vPlayerDir.z == 1)
+        if (vPlayerDir.z > 0)
             vDownPos.z += 30;
-        else if (vPlayerDir.z == -1)
+        else if (vPlayerDir.z < 0)
             vDownPos.z -= 30;
         else
         {
-            if (vPlayerDir.x == 1)
+            if (vPlayerDir.x > 0)
                 vDownPos.x += 30;
-            else if (vPlayerDir.x == -1)
+            else if (vPlayerDir.x < 0)
                 vDownPos.x -= 30;
         }
 
+        vDownPos.y -= 10;
         // colObj = dynamic_cast<CPlayer*>(m_CGameObject)->GetInteractingObj();
         colObjTransform = dynamic_cast<CTransform*>(
             colObj->Get_Component(ID_DYNAMIC, L"Com_Transform"));
         (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(
             PLAYERSTATE::PLY_LIFTEND);
+
+        (dynamic_cast<CPlayer*>(m_CGameObject))->SetLiftObj(nullptr);
         break;
     }
 

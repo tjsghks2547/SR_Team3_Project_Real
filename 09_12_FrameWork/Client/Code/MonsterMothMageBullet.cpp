@@ -20,10 +20,12 @@ HRESULT CMonsterMothMageBullet::Ready_GameObject()
 
     int type = OBJ_TYPE::HURT_ABLE;
     SetObjectType(type);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(
+        GROUP_TYPE::MONSTER, this);
 
-    
+
     m_fMoveSpeed = 0.5f;
-   // m_vShotDir = m_vToPlayerDir;
+    m_vShotDir = m_vToPlayerDir;
 
     return S_OK;
 }
@@ -57,7 +59,7 @@ _int CMonsterMothMageBullet::Update_GameObject(const _float& fTimeDelta)
 
         CTransform* transform =
             dynamic_cast<CTransform*>(Get_Component(ID_DYNAMIC, L"Com_Transform"));
-      //  transform->Move_Pos(&m_vShotDir, fTimeDelta, m_fMoveSpeed);
+        transform->Move_Pos(&m_vShotDir, fTimeDelta, m_fMoveSpeed);
 
         Engine::CGameObject::Update_GameObject(fTimeDelta);
     }
@@ -85,7 +87,7 @@ void CMonsterMothMageBullet::Render_GameObject()
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
     m_pTextureCom->Set_Texture(3);
-    
+
     m_pAnimatorCom->Play(L"Move1", true);
     m_pAnimatorCom->render();
 
@@ -110,10 +112,7 @@ void CMonsterMothMageBullet::OnCollision(CGameObject* _pOther)
     m_CPlayer = dynamic_cast<CPlayerInteractionBox*>(_pOther)->GetPlayer();
     if (m_CPlayer->GetSwingTrigger() && !m_bInvincible)
     {
-        m_vKnockBackDir = m_CPlayer->GetPlayerDirVector2();
-        m_bKnockBackTrigger = true;
-        m_bInvincible = true;
-        SetMonsterCurHP(-1);
+        //   int a = 10;
     }
 }
 

@@ -44,7 +44,7 @@ private:
 	_bool m_bIsAttack = false;
 
 	int bulletCount = 0;
-	
+	_bool m_bIsShot = false;
 private:
 	void  SetIdleAnimation();
 	void  SetAttackAnimation();

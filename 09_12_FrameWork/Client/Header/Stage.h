@@ -5,6 +5,7 @@
 
 #include "Player.h"
 #include "PlayerInteractionBox.h"
+#include "SwingEffect.h"
 #include "Monster.h"
 #include "DefaultUI.h"
 #include "InvenUI.h"
