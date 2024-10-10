@@ -4,7 +4,7 @@
 #include "Export_Utility.h"
 
 CCatapult::CCatapult(LPDIRECT3DDEVICE9 pGraphicDev)
-	: Engine::CGameObject(pGraphicDev), m_pStone(nullptr), m_bIndicator(false), m_fPullDuration(0)
+	: Engine::CGameObject(pGraphicDev), m_pStone(nullptr), m_bIndicator(false), m_fPullDuration(0), m_iImageID(0), m_iTargetID(0), m_fTime(0)
 {
 }
 
@@ -19,11 +19,19 @@ HRESULT CCatapult::Ready_GameObject()
 	SetObjectType(PUSH_ABLE);
 	m_pTransformCom->m_vScale = { 20.f, 20.f, 20.f };
 	m_pTexTransformCom->m_vScale = { 15.f, 15.f, 15.f };
-	m_pBucketTransformCom->m_vScale = { 11.f, 11.f, 11.f };
+	m_pBucketTransformCom->m_vScale = { 21.f, 31.f, 0.f };
 	m_pInTransformCom->m_vScale = { 17.f, 17.f, 0.f };	
 	m_pTexTransformCom->Rotation(ROT_X, 90.f * 3.14159265359f / 180.f);
 	m_pBucketTransformCom->Rotation(ROT_X, 90.f * 3.14159265359f / 180.f);
 	m_pInTransformCom->Rotation(ROT_X, 90.f * 3.14159265359f / 180.f);
+
+	m_vecTexture.resize(6);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Catapult_Anim/Sprite_Catapult_Anim00.png", &m_vecTexture[0]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Catapult_Anim/Sprite_Catapult_Anim01.png", &m_vecTexture[1]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Catapult_Anim/Sprite_Catapult_Anim02.png", &m_vecTexture[2]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Catapult_Anim/Sprite_Catapult_Anim03.png", &m_vecTexture[3]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Catapult_Anim/Sprite_Catapult_Anim04.png", &m_vecTexture[4]);	
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Catapult_Anim/Sprite_Catapult_Anim04.png", &m_vecTexture[5]);
 	return S_OK;
 }
 
@@ -45,6 +53,22 @@ _int CCatapult::Update_GameObject(const _float& fTimeDelta)
 		StoneTrasnform->Move_Pos(&vMovePos, fTimeDelta, 10.f);
 	}
 
+	if (m_iImageID != m_iTargetID) {
+		m_fTime += fTimeDelta;
+
+		if (m_fTime >= 0.05f) {
+			if (m_iTargetID < m_iImageID)
+				m_iImageID--;
+			else if (m_iTargetID > m_iImageID)
+				m_iImageID++;
+
+			m_fTime = 0;
+		}
+
+		if (m_iImageID == 5)
+			m_iTargetID = 0;
+	}
+
 	return iExit;
 }
 
@@ -56,15 +80,15 @@ void CCatapult::LateUpdate_GameObject(const _float& fTimeDelta)
 		_vec3 vPos;
 		m_pBucketTransformCom->Get_Info(INFO_POS, &vPos);
 		vPos.y = 21.f;
-		vPos.z -= 13.f;
+		vPos.z -= 23.f;
 		static_cast<Engine::CTransform*>(m_pStone->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vPos);
 	}
 
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	m_pTexTransformCom->Set_Pos(vPos.x, .1f, vPos.z);
-	m_pBucketTransformCom->Set_Pos(vPos.x, 9.f, vPos.z - 5.f);
-	m_pInTransformCom->Set_Pos(vPos.x, 0.1f, vPos.z + 255.f);
+	m_pBucketTransformCom->Set_Pos(vPos.x, 9.f, vPos.z + 5.f);
+	m_pInTransformCom->Set_Pos(vPos.x, 0.1f, vPos.z + 245.f);
 
 }
 
@@ -79,7 +103,7 @@ void CCatapult::Render_GameObject()
 	m_pBufferCom->Render_Buffer();
 
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pBucketTransformCom->Get_WorldMatrix());
-	m_pBucketTextureCom->Set_Texture();
+	m_pGraphicDev->SetTexture(0, m_vecTexture[m_iImageID]);
 	m_pBufferCom->Render_Buffer();
 
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pInTransformCom->Get_WorldMatrix());
@@ -93,24 +117,9 @@ void CCatapult::Render_GameObject()
 
 void CCatapult::OnCollision(CGameObject* _pOther)
 {
-
-	//if (Engine::GetKeyDown(DIK_A)) {
-
-	//	if (_pOther->Get_Tag() == TAG_PLAYER) {			
-
-	//		if (m_pStone == nullptr)
-	//			return;
-
-	//		static_cast<CStone*>(m_pStone)->SetObjectType(PUSH_ABLE);
-	//		static_cast<CStone*>(m_pStone)->Launch();
-	//		m_pStone = nullptr;
-	//	}
-	//}
-
 	if (_pOther->GetObjectKey() != L"PlayerInteractionBox") {
 		return;
-	}
-		
+	}		
 
 	m_CPlayer = dynamic_cast<CPlayerInteractionBox*>(_pOther)->GetPlayer();	
 	if (m_CPlayer->GetSwingTrigger() && !m_bIsActivate)
@@ -124,15 +133,14 @@ void CCatapult::OnCollision(CGameObject* _pOther)
 		m_pStone = nullptr;
 		m_bIsActivate = true;
 		m_bIndicator = false;
+
+		m_iTargetID = 5;
 	}
 
 }
 
 void CCatapult::OnCollisionEnter(CGameObject* _pOther)
 {
-	//if (_pOther->Get_Tag() == TAG_PLAYER) {
-	//	m_bIndicator = true;
-	//}
 
 	if (_pOther->Get_Tag() == TAG_STONE) {
 		if (m_pStone != nullptr)
@@ -173,10 +181,6 @@ HRESULT CCatapult::Add_Component()
 	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_CatapultBase"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
-
-	pComponent = m_pBucketTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_CatapultBucket"));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	m_mapComponent[ID_STATIC].insert({ L"Com_BucketTexture", pComponent });
 
 	pComponent = m_pInTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Catapult_Indicator"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);

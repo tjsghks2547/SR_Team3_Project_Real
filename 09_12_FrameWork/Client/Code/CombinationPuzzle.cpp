@@ -21,8 +21,7 @@ HRESULT CCombinationPuzzle::Ready_GameObject()
 }
 
 _int CCombinationPuzzle::Update_GameObject(const _float& fTimeDelta)	
-{
-	Key_Input(fTimeDelta);
+{	
 	m_vecCombination.push_back(0);
 	m_vecCombination.push_back(1);
 	m_vecCombination.push_back(2);
@@ -54,24 +53,6 @@ CCombinationPuzzle* CCombinationPuzzle::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	return pCombinationPuzzle;
 }
 
-void CCombinationPuzzle::Key_Input(const _float& fTimeDelta)
-{
-	//if (Engine::GetKeyUp(DIK_6))
-	//{
-	//	static_cast<CCombinationStatue*>(m_vecStatues[0])->On_Collision();	
-	//}
-
-	//if (Engine::GetKeyUp(DIK_7))
-	//{
-	//	static_cast<CCombinationStatue*>(m_vecStatues[1])->On_Collision();
-	//}
-
-	//if (Engine::GetKeyUp(DIK_8))
-	//{
-	//	static_cast<CCombinationStatue*>(m_vecStatues[2])->On_Collision();
-	//}
-}
-
 void CCombinationPuzzle::Check_Matched()
 {
 	for (int i = 0; i < m_iStatueCount; ++i) {
@@ -81,8 +62,7 @@ void CCombinationPuzzle::Check_Matched()
 
 	for (int i = 0; i < m_vecStoneBlocks.size(); ++i)
 	{
-		static_cast<CStoneBlock*>(m_vecStoneBlocks[i])->Move_StoneBlock();
-		static_cast<CStoneBlockHole*>(m_vecStoneBlocksHoles[i])->Set_ImageID(1);
+		static_cast<CStoneBlock*>(m_vecStoneBlocks[i])->Move_StoneBlock();	
 	}
 }
 

@@ -62,6 +62,9 @@ void PlayerPush::Key_Input(const _float& fTimeDelta)
         m_pTransformCom->Move_Pos(
             D3DXVec3Normalize(&vLook, &vLook), fTimeDelta, m_fMoveSpeed);
 
+        if (colObj == nullptr)
+            return;
+
         dynamic_cast<CTransform*>(
             colObj->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Move_Pos(
                 D3DXVec3Normalize(&vLook, &vLook), fTimeDelta, m_fMoveSpeed);
@@ -76,6 +79,9 @@ void PlayerPush::Key_Input(const _float& fTimeDelta)
         m_pTransformCom->Move_Pos(D3DXVec3Normalize(
             &vLook, &vLook), fTimeDelta, -m_fMoveSpeed);
 
+        if (colObj == nullptr)
+            return;
+
         dynamic_cast<CTransform*>(
             colObj->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Move_Pos(
                 D3DXVec3Normalize(&vLook, &vLook), fTimeDelta, -m_fMoveSpeed);
@@ -87,6 +93,9 @@ void PlayerPush::Key_Input(const _float& fTimeDelta)
     {
         m_pTransformCom->Move_Pos(D3DXVec3Normalize(
             &vRight, &vRight), fTimeDelta, -m_fMoveSpeed);
+
+        if (colObj == nullptr)
+            return;
 
         dynamic_cast<CTransform*>(
             colObj->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Move_Pos(
@@ -100,6 +109,9 @@ void PlayerPush::Key_Input(const _float& fTimeDelta)
     {
         m_pTransformCom->Move_Pos(D3DXVec3Normalize(
             &vRight, &vRight), fTimeDelta, m_fMoveSpeed);
+
+        if (colObj == nullptr)
+            return;
 
         dynamic_cast<CTransform*>(
             colObj->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Move_Pos(

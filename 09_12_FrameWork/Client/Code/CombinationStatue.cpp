@@ -15,7 +15,8 @@ CCombinationStatue::~CCombinationStatue()
 HRESULT CCombinationStatue::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 16.f, 18.f, 16.f };
+	m_pTransformCom->m_vScale = { 16.f, 20.f, 16.f };
+	SetObjectType(OBJ_TYPE::NOTPASS_ABLE);
 	m_vecTexture.resize(3);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_MonkeyStatue_Ear.png", &m_vecTexture[0]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_MonkeyStatue_Eye.png", &m_vecTexture[1]);
@@ -47,12 +48,33 @@ void CCombinationStatue::Render_GameObject()
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 
-void CCombinationStatue::On_Collision()
+void CCombinationStatue::OnCollision(CGameObject* _pOther)
 {
-	m_iImageID++;
-	m_iImageID %= 3;
-	static_cast<CCombinationPuzzle*>(m_pGroup)->Check_Matched();
+	if (_pOther->GetObjectKey() != L"PlayerInteractionBox")
+		return;
+
+	m_CPlayer = dynamic_cast<CPlayerInteractionBox*>(_pOther)->GetPlayer();
+	if (m_CPlayer->GetSwingTrigger() && !m_bIsActivate)
+	{
+		m_bIsActivate = true;
+		m_iImageID++;
+		m_iImageID %= 3;
+		static_cast<CCombinationPuzzle*>(m_pGroup)->Check_Matched();
+	}
 }
+
+void CCombinationStatue::OnCollisionEnter(CGameObject* _pOther)
+{
+}
+
+void CCombinationStatue::OnCollisionExit(CGameObject* _pOther)
+{
+	if (_pOther->GetObjectKey() != L"PlayerInteractionBox")
+		return;
+
+	m_bIsActivate = false;
+}
+
 
 HRESULT CCombinationStatue::Add_Component()
 {
@@ -69,6 +91,11 @@ HRESULT CCombinationStatue::Add_Component()
 	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
+
+	pComponent = m_pBoundBox = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	m_pBoundBox->SetGameObjectPtr(this);
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collider", pComponent });
 
 	return S_OK;
 }

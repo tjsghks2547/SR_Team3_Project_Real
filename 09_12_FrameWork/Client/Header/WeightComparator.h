@@ -20,9 +20,11 @@ public:
 	virtual   _int      Update_GameObject(const _float& fTimeDelta);
 	virtual   void	    LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual   void      Render_GameObject();
+	void Match_Puzzle() override;
 
 public:
 	void Init(_float _fX, _float _fZ);
+	void Add_StoneBlock(CGameObject* _pObj) { m_vecStoneBlocks.push_back(_pObj); }
 	void Puzzle_Clear();
 
 private:
@@ -38,7 +40,10 @@ public:
 
 private:	
 	_int m_iImageID;
+	_float m_fTime;
+	_int m_iTargetID;
 	vector<IDirect3DTexture9*> m_vecTexture;
+	vector<CGameObject*> m_vecStoneBlocks;
 	vector<CGameObject*> m_vecPedestals;
 	vector<CGameObject*> m_vecStones;
 
@@ -51,7 +56,4 @@ private:
 
 private:
 	virtual void Free();
-
-	// CPuzzleObject을(를) 통해 상속됨
-	void Match_Puzzle() override;
 };

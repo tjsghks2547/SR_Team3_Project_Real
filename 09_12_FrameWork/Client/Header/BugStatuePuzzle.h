@@ -1,7 +1,7 @@
 #pragma once
-#include "GameObject.h"
+#include "PuzzleObject.h"
 
-class CBugStatuePuzzle :public Engine::CGameObject
+class CBugStatuePuzzle :public Engine::CPuzzleObject
 {
 private:
 	explicit CBugStatuePuzzle(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -12,14 +12,12 @@ public:
 	virtual   _int      Update_GameObject(const _float& fTimeDelta);
 	virtual   void	    LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual   void      Render_GameObject();
+	void Match_Puzzle() override;
 
 public:
 	static CBugStatuePuzzle* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Add_Statue(CGameObject* _pStatue) { m_vecStatues.push_back(_pStatue); m_iStatueCount++; }
-	void Add_StoneBlock(CGameObject* _pBlock) { m_vecStoneBlocks.push_back(_pBlock); }
-	void Add_StoneBlockHole(CGameObject* _pBlockHole) { m_vecStoneBlocksHoles.push_back(_pBlockHole); }
-	void Check_Matched();
-	void Key_Input(const _float& fTimeDelta);
+	void Add_StoneBlock(CGameObject* _pBlock) { m_vecStoneBlocks.push_back(_pBlock); }	
 
 private:
 	_bool m_bIsMatched;
@@ -29,5 +27,5 @@ private:
 	vector<CGameObject*> m_vecStoneBlocksHoles;
 
 private:
-	virtual void Free();
+	virtual void Free();		
 };

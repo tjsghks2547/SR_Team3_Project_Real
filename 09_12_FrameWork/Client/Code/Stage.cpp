@@ -690,6 +690,8 @@ HRESULT CStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 	//static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(45.f + fOffsetX, 0.05f, fOffsetZ - 100.5f);
 #pragma endregion
 
+
+
 	m_mapLayer.insert({ pLayerTag, pLayer });
 
 	return S_OK;

@@ -14,7 +14,7 @@ CStoneBlockHole::~CStoneBlockHole()
 HRESULT CStoneBlockHole::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 20.f, 20.f, 0.f };
+	m_pTransformCom->m_vScale = { 18.f, 18.f, 0.f };
 	m_iImageID = 0;
 	m_pTransformCom->Rotation(ROT_X, 90.f * 3.14159265359f / 180.f);
 	m_vecTexture.resize(2);

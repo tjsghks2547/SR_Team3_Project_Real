@@ -99,11 +99,6 @@ void CStonePedestal::Init(_float _fX, _float _fZ)
 	m_pTexTransformCom->Set_Pos(_fX, .2f, _fZ);
 }
 
-void CStonePedestal::Pull()
-{
-
-}
-
 HRESULT CStonePedestal::Add_Component()
 {
 	CComponent* pComponent = NULL;

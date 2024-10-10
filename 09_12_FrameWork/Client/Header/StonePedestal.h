@@ -30,8 +30,7 @@ public:
 	void Set_Group(CGameObject* _pObj) { m_pGroup = _pObj; }
 	CGameObject* Get_Stone() { return m_pCollided; }
 	_int Get_StoneID() { return m_pCollided == nullptr ? -1 : static_cast<CStone*>(m_pCollided)->Get_StoneID(); }
-	void Init(_float _fX, _float _fZ);
-	void Pull();
+	void Init(_float _fX, _float _fZ);	
 
 private:
 	HRESULT    Add_Component();	

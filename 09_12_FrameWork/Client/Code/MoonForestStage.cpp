@@ -191,11 +191,114 @@ HRESULT CMoonForestStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 	CGameObject* InteractionObj = pLayer->Get_GameObject(L"Layer_GameLogic", L"PlayerInteractionBox");
 	dynamic_cast<CPlayerInteractionBox*>(InteractionObj)->SetPlayer(
 		dynamic_cast<CPlayer*>(PlayerObj));
-	
+	_float fOffsetX = 400;
+	_float fOffsetZ = 400;
+
+#pragma region Match Puzzle
+
+	pGameObject = CMatchPuzzle::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CMatchPuzzle_00", pGameObject), E_FAIL);
+	CMatchPuzzle* pMatchPuzzle = static_cast<CMatchPuzzle*>(pGameObject);
+	pMatchPuzzle->Push_Combination(5);
+	pMatchPuzzle->Push_Combination(3);
+	pMatchPuzzle->Push_Combination(4);
+
+	pGameObject = CColorBugStatue::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ColorBugStatue_00", pGameObject), E_FAIL);
+	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX + 100.f, 35.f, fOffsetZ + 100.f);
+	static_cast<CColorBugStatue*>(pGameObject)->Set_ImageID(2);
+
+	pGameObject = CColorBugStatue::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ColorBugStatue_01", pGameObject), E_FAIL);
+	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX, 35.f, fOffsetZ + 40.f);
+	static_cast<CColorBugStatue*>(pGameObject)->Set_ImageID(0);
+
+	pGameObject = CColorBugStatue::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ColorBugStatue_02", pGameObject), E_FAIL);
+	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX + 200.f, 35.f, fOffsetZ + 40.f);
+	static_cast<CColorBugStatue*>(pGameObject)->Set_ImageID(1);
+
+	pGameObject = CStonePedestal::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Match_CStonePedestal_00", pGameObject), E_FAIL);
+	static_cast<CStonePedestal*>(pGameObject)->Init(fOffsetX + 100.f, fOffsetZ + 20.f);
+	static_cast<CStonePedestal*>(pGameObject)->Set_Group(pMatchPuzzle);
+	pMatchPuzzle->Add_Pedestals(pGameObject);
+
+	pGameObject = CStonePedestal::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Match_CStonePedestal_01", pGameObject), E_FAIL);
+	static_cast<CStonePedestal*>(pGameObject)->Init(fOffsetX, fOffsetZ);
+	static_cast<CStonePedestal*>(pGameObject)->Set_Group(pMatchPuzzle);
+	pMatchPuzzle->Add_Pedestals(pGameObject);
+
+	pGameObject = CStonePedestal::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Match_CStonePedestal_02", pGameObject), E_FAIL);
+	static_cast<CStonePedestal*>(pGameObject)->Init(fOffsetX + 200.f, fOffsetZ);
+	static_cast<CStonePedestal*>(pGameObject)->Set_Group(pMatchPuzzle);
+	pMatchPuzzle->Add_Pedestals(pGameObject);
+
+	pGameObject = CStoneBlock::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Match_StoneBlock_00", pGameObject), E_FAIL);
+	static_cast<CStoneBlock*>(pGameObject)->Init(fOffsetX + 117.f, fOffsetZ + 250, true);
+	static_cast<CStoneBlock*>(pGameObject)->Set_ImageID(1);
+	pMatchPuzzle->Add_StoneBlock(pGameObject);
+
+	pGameObject = CStoneBlock::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Match_StoneBlock_02", pGameObject), E_FAIL);
+	static_cast<CStoneBlock*>(pGameObject)->Init(fOffsetX + 82.f, fOffsetZ + 250, true);
+	static_cast<CStoneBlock*>(pGameObject)->Set_ImageID(1);
+	pMatchPuzzle->Add_StoneBlock(pGameObject);
+
+	pGameObject = CColorStone::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ColorStone_00", pGameObject), E_FAIL);
+	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX + 50.f, 15.f, fOffsetZ - 80.f);
+	static_cast<CColorStone*>(pGameObject)->Set_ImageID(0);
+
+	pGameObject = CColorStone::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ColorStone_01", pGameObject), E_FAIL);
+	static_cast<CColorStone*>(pGameObject)->Set_ImageID(1);
+	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX + 100.f, 20.f, fOffsetZ - 80.f);
+
+	pGameObject = CColorStone::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ColorStone_02", pGameObject), E_FAIL);
+	static_cast<CColorStone*>(pGameObject)->Set_ImageID(2);
+	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX + 150.f, 20.f, fOffsetZ - 80.f);
+
+	pGameObject = CColorStone::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ColorStone_03", pGameObject), E_FAIL);
+	static_cast<CColorStone*>(pGameObject)->Set_ImageID(0);
+	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX + 50.f, 20.f, fOffsetZ - 160.f);
+
+	pGameObject = CColorStone::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ColorStone_04", pGameObject), E_FAIL);
+	static_cast<CColorStone*>(pGameObject)->Set_ImageID(1);
+	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX + 100.f, 20.f, fOffsetZ - 160.f);
+
+	pGameObject = CColorStone::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ColorStone_05", pGameObject), E_FAIL);
+	static_cast<CColorStone*>(pGameObject)->Set_ImageID(2);
+	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX + 150.f, 20.f, fOffsetZ - 160.f);
+
+
+#pragma endregion
 #pragma region Stone Puzzle
 
-	_float fOffsetX = 400;
-	_float fOffsetZ = 230;
+	//_float fOffsetX = 400;
+	//_float fOffsetZ = 230;
 
 	//pGameObject = CMonkeyStatue::Create(m_pGraphicDev);
 	//NULL_CHECK_RETURN(pGameObject, E_FAIL);

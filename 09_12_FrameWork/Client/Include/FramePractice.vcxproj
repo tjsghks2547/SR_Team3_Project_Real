@@ -167,6 +167,7 @@
     <ClInclude Include="..\Header\BugStatuePuzzle.h" />
     <ClInclude Include="..\Header\Catapult.h" />
     <ClInclude Include="..\Header\CloseButton.h" />
+    <ClInclude Include="..\Header\ColorBugStatue.h" />
     <ClInclude Include="..\Header\ColorStone.h" />
     <ClInclude Include="..\Header\CombinationPuzzle.h" />
     <ClInclude Include="..\Header\CombinationStatue.h" />
@@ -217,6 +218,7 @@
     <ClInclude Include="..\Header\Map.h" />
     <ClInclude Include="..\Header\MapCamera.h" />
     <ClInclude Include="..\Header\MapEditor.h" />
+    <ClInclude Include="..\Header\MatchPuzzle.h" />
     <ClInclude Include="..\Header\MCRabbit.h" />
     <ClInclude Include="..\Header\MiddleFruit.h" />
     <ClInclude Include="..\Header\MiddleHerb.h" />
@@ -353,6 +355,7 @@
     <ClCompile Include="..\Code\BugStatuePuzzle.cpp" />
     <ClCompile Include="..\Code\Catapult.cpp" />
     <ClCompile Include="..\Code\CloseButton.cpp" />
+    <ClCompile Include="..\Code\ColorBugStatue.cpp" />
     <ClCompile Include="..\Code\ColorStone.cpp" />
     <ClCompile Include="..\Code\CombinationPuzzle.cpp" />
     <ClCompile Include="..\Code\CombinationStatue.cpp" />
@@ -401,6 +404,7 @@
     <ClCompile Include="..\Code\Map.cpp" />
     <ClCompile Include="..\Code\MapCamera.cpp" />
     <ClCompile Include="..\Code\MapEditor.cpp" />
+    <ClCompile Include="..\Code\MatchPuzzle.cpp" />
     <ClCompile Include="..\Code\MCRabbit.cpp" />
     <ClCompile Include="..\Code\MiddleFruit.cpp" />
     <ClCompile Include="..\Code\MiddleHerb.cpp" />

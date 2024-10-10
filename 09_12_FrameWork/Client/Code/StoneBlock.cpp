@@ -3,7 +3,7 @@
 #include "Export_Utility.h"
 
 CStoneBlock::CStoneBlock(LPDIRECT3DDEVICE9 pGraphicDev)
-	: Engine::CGameObject(pGraphicDev), m_bIsMove(false), m_bIsUp(true), m_fMoveTime(0), m_iHoleImageID(0), m_iImageID(0)
+	: Engine::CGameObject(pGraphicDev), m_bIsMove(false), m_bIsUp(true), m_fMoveTime(0), m_iHoleImageID(0), m_iImageID(0), m_bActiceOnce(false)
 {
 }
 
@@ -16,14 +16,16 @@ HRESULT CStoneBlock::Ready_GameObject()
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 	SetObjectType(OBJ_TYPE::NOTPASS_ABLE);
 	m_pTransformCom->m_vScale = { 14.f, 14.f, 14.f };	
-	m_vecTexture.resize(5);
+	m_vecTexture.resize(7);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_StoneBlock.png", &m_vecTexture[0]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_StoneBlockOnce.png", &m_vecTexture[1]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_StoneBlockOnce_Clear.png", &m_vecTexture[2]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_OceanStoneBlockOnce.png", &m_vecTexture[3]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_OceanStoneBlockOnce_Clear.png", &m_vecTexture[4]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_StoneBlockOnce_Sun.png", &m_vecTexture[5]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_StoneBlockOnce_Sun_Clear.png", &m_vecTexture[6]);
 
-	m_pHoleTransformCom->m_vScale = { 18.f, 18.f, 0.f };
+	m_pHoleTransformCom->m_vScale = { 16.f, 16.f, 0.f };
 	m_pHoleTransformCom->Rotation(ROT_X, 90.f * 3.14159265359f / 180.f);
 	m_vecHoleTexture.resize(2);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_StoneBlock_Hole.png", &m_vecHoleTexture[0]);
@@ -52,8 +54,8 @@ _int CStoneBlock::Update_GameObject(const _float& fTimeDelta)
 			m_iHoleImageID = m_bIsUp? 0 : 1;
 		}
 
-		if (m_fMoveTime > 1.f) {
-			m_bIsMove = false;			
+		if (m_fMoveTime >= 0.9f) {
+			m_bIsMove = false;
 		}
 	}
 
@@ -110,7 +112,7 @@ void CStoneBlock::Init(_float _fX, _float _fZ, _bool _bIsUp)
 	fTempY = _bIsUp ? 13.5f : -14.f;
 	m_iHoleImageID = _bIsUp ? 0 : 1;
 	m_pTransformCom->Set_Pos(_fX, fTempY, _fZ);
-	m_pHoleTransformCom->Set_Pos(_fX, 0.1f, _fZ + 10.5f);
+	m_pHoleTransformCom->Set_Pos(_fX, 0.2f, _fZ + 10.5f);
 	m_bIsUp = _bIsUp;
 }
 
