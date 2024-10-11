@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "MCRabbit.h"
-
+#include "FightUI.h"
 CMCRabbit::CMCRabbit(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CQuestNPC(pGraphicDev), m_pRhino(nullptr)
+    :CQuestNPC(pGraphicDev), m_pRhino(nullptr)
 {
 }
 
@@ -74,7 +74,7 @@ void CMCRabbit::OnCollision(CGameObject* _pOther)
         if (m_bConversation)
         {
             m_pInterButton->CallButton(false); // 대화 중일 경우 버튼 출력이 필요 없음!!!!
-           
+
             if (m_eMonster != NUM_END)
                 m_tInfo.pContent = L"선택한 상대와 결투를 시작합니다!!!!!!!!!!!!!!!!        거절은 거절한다!!!!";
 
@@ -84,8 +84,13 @@ void CMCRabbit::OnCollision(CGameObject* _pOther)
 
         if (!m_bConversation)
         {
-            if(m_eMonster != NUM_END)
+            if (m_eMonster != NUM_END)
+            {
                 Create_Monster();
+                CFightUI* pFightUI = dynamic_cast<CFightUI*>(Engine::Get_GameObject(L"Layer_UI", L"Fight_UI"));
+                NULL_CHECK_RETURN(pFightUI);
+                pFightUI->CallFight();
+            }
         }
 
     }
@@ -136,7 +141,7 @@ void CMCRabbit::Create_Monster()
     case RHINO:
         m_pRhino->Set_Create();
         m_pRhino->LateReady_GameObject();
-        
+
         m_pPlayer->SetPlayerPos(vPlayerPos);
     default:
         m_tInfo.pContent = L"아직 대전 상대를 고르지 않았군여?!?!?!!?!??! 선택 후 다시 말 걸어주세여!!!!!";

@@ -8,6 +8,7 @@
 
 #include "DefaultUI.h"
 #include "StoreUI.h"
+#include "MapName.h"
 #include "InvenUI.h"
 #include "QuickSlot.h"
 #include "Object.h"

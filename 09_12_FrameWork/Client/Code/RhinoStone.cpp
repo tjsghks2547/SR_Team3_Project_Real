@@ -3,13 +3,14 @@
 #include "ctime"
 #include "Rhino.h"
 #include "Player.h"
+#include "StoneEffect.h"
 
 Engine::_uint CRhinoStone::m_iStaticID = 0;
 
 CRhinoStone::CRhinoStone(LPDIRECT3DDEVICE9 pGraphicDev)
 	:Engine::CGameObject(pGraphicDev)
 	, m_bPosSet(false), m_bRotation(false)
-	, m_fTime(0), m_bDead(false)
+	, m_fTime(0), m_bDead(false), m_iNum(0)
 {
 }
 
@@ -33,9 +34,10 @@ HRESULT CRhinoStone::Ready_GameObject()
 
 	SetObjectType(OBJ_TYPE::DESTROY_ABLE);
 
+	_float	fFrameTime = 1.f / 6.f; // 1초에 6번 돌리기 
 	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/ArenaMonster/RhinoStone.png", &m_pStoneTex);
-	m_pAnimatorCom->CreateAnimation(L"RhinoStoneAppear", m_pStoneTex, _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.1428f, 6);
-	m_pAnimatorCom->CreateAnimation(L"RhinoStoneDestroy", m_pStoneTex, _vec2(0.f, 256.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.1428f, 6);
+	m_pAnimatorCom->CreateAnimation(L"RhinoStoneAppear", m_pStoneTex, _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), fFrameTime, 6);
+	m_pAnimatorCom->CreateAnimation(L"RhinoStoneDestroy", m_pStoneTex, _vec2(0.f, 256.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), fFrameTime, 6);
 	m_pAnimatorCom->CreateAnimation(L"RhinoStoneSurvive", m_pStoneTex, _vec2(1536.f, 0.f), _vec2(256.f, 256.f), _vec2(0.f, 0.f), 0.5f, 0);
 
 	return S_OK;
@@ -76,9 +78,105 @@ _int CRhinoStone::Update_GameObject(const _float& fTimeDelta)
 		//m_pTransformCom->m_vInfo[INFO_POS].z = fZ;
 	}
 
-	int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
+	map<const _tchar*, CLayer*>& pMapLayer = Engine::Get_CurScenePtr()->GetLayerMapPtr();
 
-	return iExit;
+	switch (m_eState)
+	{
+	case STONE_TARGET: // 타겟 지정
+		if (!m_bRotation) // 회전 안했다면.
+		{
+			m_pTransformCom->Rotation(ROT_X, 80.f);
+			m_pTransformCom->m_vInfo[INFO_POS].y = 10.f;
+			m_bRotation = true;
+		}
+		if (m_fTime >= 2.4f)
+		{
+			m_eState = STONE_APPEAR; // 돌생성애니 
+			m_fTime = 0.f; // 시간 리셋
+
+			//이펙
+			wstring* Effect_Name = new wstring;
+			*Effect_Name = L"Stone_Effect" + to_wstring(10 + m_iNum);
+
+			CStoneEffect* pStoneEffect = CStoneEffect::Create(m_pGraphicDev);
+			pMapLayer[L"Layer_GameLogic"]->Add_GameObject((*Effect_Name).c_str(), pStoneEffect);
+			pStoneEffect->name = Effect_Name->c_str();
+
+			_vec3 vEffectPos = m_pTransformCom->m_vInfo[INFO_POS];
+			vEffectPos.y -= 2.f;
+			vEffectPos.z -= 1.f;
+			dynamic_cast<CTransform*>(pStoneEffect->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vEffectPos);
+		}
+		break;
+
+	case STONE_APPEAR: // 돌생성
+		if (m_bRotation) // 회전 했다면 원래대로 돌려줌.
+		{
+			m_pTransformCom->Rotation(ROT_X, -80.f);
+			m_pTransformCom->m_vInfo[INFO_POS].y = 47.f;
+			m_bRotation = false;
+		}
+		m_pAnimatorCom->Play(L"RhinoStoneAppear", false); // 애니 실행
+		if (m_pAnimatorCom->GetAnimation()->IsFinish())
+		{
+			//이펙
+			wstring* Effect_Name = new wstring;
+			*Effect_Name = L"Stone_Effect" + to_wstring(20 + m_iNum);
+
+			CStoneEffect* pStoneEffect = CStoneEffect::Create(m_pGraphicDev);
+			pMapLayer[L"Layer_GameLogic"]->Add_GameObject((*Effect_Name).c_str(), pStoneEffect);
+			pStoneEffect->name = Effect_Name->c_str();
+
+			_vec3 vEffectPos = m_pTransformCom->m_vInfo[INFO_POS];
+			vEffectPos.y -= 2.f;
+			vEffectPos.z -= 1.f;
+			dynamic_cast<CTransform*>(pStoneEffect->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vEffectPos);
+
+			m_eState = STONE_SURVIVE; // 살아남은 돌
+			m_fTime = 0.f; // 시간 리쏐
+			m_pAnimatorCom->GetAnimation()->SetFrame(0);
+		}
+		break;
+
+	case STONE_SURVIVE:
+		m_pAnimatorCom->Play(L"RhinoStoneSurvive", true); // 그냥 하나만 출력임
+		//m_fTime = 0.f;
+		break;
+
+	case STONE_BROKEN:
+	{
+		m_pAnimatorCom->Play(L"RhinoStoneDestroy", false); // 충돌 브로큰 할거
+		int dlatl = m_pAnimatorCom->GetAnimation()->GetCurrentFrm();
+		int temp = 0;
+		if (dlatl == 0)
+			temp -= 1;
+		else if (dlatl == 1)
+			temp += 1;
+		else if (dlatl == 2)
+			temp += 2;
+		else if (dlatl == 3)
+			temp += 3;
+		else if (dlatl == 4)
+			temp += 4;
+		else if (dlatl == 5)
+			temp += 5;
+		else if (dlatl == 6)
+			temp += 6;
+		else if (dlatl == 7)
+			temp += 7;
+
+		if (m_pAnimatorCom->GetAnimation()->IsFinish())
+		{
+			m_pAnimatorCom->GetAnimation()->SetFrame(0);
+			m_eState = STONE_DEAD; // 상태를 죽음으로...
+			m_fTime = 0.f;
+		}
+		break;
+
+	}
+	}
+
+	return Engine::CGameObject::Update_GameObject(fTimeDelta);
 }
 
 void CRhinoStone::LateUpdate_GameObject(const _float& fTimeDelta)
@@ -92,74 +190,29 @@ void CRhinoStone::Render_GameObject()
 		return;
 
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	//월드행렬 가져옴
 
 	switch (m_eState)
 	{
 	case STONE_TARGET: // 타겟 지정
-		if (!m_bRotation) // 회전 안했다면.
-		{
-			m_pTransformCom->Rotation(ROT_X, 80.f);
-			m_pTransformCom->m_vInfo[INFO_POS].y = 10.f;
-			m_bRotation = true;
-		}
 		//얘는 애니가 아니고 텍스쳐라서 일케 해줘야함.
 		m_pTextureCom->Set_Texture();
 		m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); // 컬링 ㄴㄴ
 		m_pBufferCom->Render_Buffer();
 		m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 		m_pColliderCom->Render_Buffer();
-
-		if (m_fTime >= 3.f) // 3초 후
-		{
-			m_eState = STONE_APPEAR; // 돌생성애니 
-			m_fTime = 0.f; // 시간 리셋
-		}
-		return;// (여기 들어올 경우 여기까지만하고 리턴 시킴)
-
+		break;
 	case STONE_APPEAR: // 돌생성
-		if (m_bRotation) // 회전 했다면 원래대로 돌려줌.
-		{
-			m_pTransformCom->Rotation(ROT_X, -80.f);
-			m_pTransformCom->m_vInfo[INFO_POS].y = 43.f;
-			m_bRotation = false;
-		}
-		m_pAnimatorCom->Play(L"RhinoStoneAppear", false); // 애니 실행
-		if (m_pAnimatorCom->GetAnimation()->IsFinish())
-		{
-			m_pAnimatorCom->SetAnimationFrame(L"RhinoStoneAppear", 0);
-			m_fTime = 0.f; // 시간 리쏐
-			m_eState = STONE_SURVIVE; // 살아남은 돌
-		}
-		break;
-
 	case STONE_SURVIVE:
-		m_pAnimatorCom->Play(L"RhinoStoneSurvive", true); // 그냥 하나만 출력임
-		m_fTime = 0.f;
-		break;
-
 	case STONE_BROKEN:
-		m_pAnimatorCom->Play(L"RhinoStoneDestroy", false); // 충돌 브로큰 할거
-		if (m_pAnimatorCom->GetAnimation()->IsFinish())
-		{
-			m_pAnimatorCom->SetAnimationFrame(L"RhinoStoneDestroy", 0);
-			m_eState = STONE_DEAD; // 상태를 죽음으로
-			m_bPosSet = false;
-			//m_bRotation = false;
-			m_fTime = 0.f;
-			return;
-		}
+
+		m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); // 컬링 ㄴㄴ
+		m_pGraphicDev->SetTexture(0, m_pStoneTex);
+		m_pAnimatorCom->render();
+		m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW); // 컬링다시 ㅇㅇ
+		m_pColliderCom->Render_Buffer();
+
+		break;
 	}
-
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); // 컬링 ㄴㄴ
-
-	m_pGraphicDev->SetTexture(0, m_pStoneTex);
-	m_pAnimatorCom->render();
-
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW); // 컬링다시 ㅇㅇ
-
-	m_pColliderCom->Render_Buffer();
-
 }
 
 void CRhinoStone::OnCollision(CGameObject* _pOther)
@@ -172,10 +225,14 @@ void CRhinoStone::OnCollision(CGameObject* _pOther)
 
 	if (_pOther->GetObjectKey() == L"Rhino")
 	{
+		Set_Dead(); // 타임 : 0, State : 브로큰
 		m_pRhino->Set_CurHP(-100);
-		m_bPosSet = false;
-		m_eState = STONE_BROKEN;
 		m_pRhino->Set_Stun();
+		m_pRhino->Set_Time(); // 0초
+
+		// 여기에 상태를 명확하게 BROKEN으로 설정해부기 ㅠ
+		//m_fTime = 0.f;
+		//m_eState = STONE_BROKEN;
 	}
 
 	if (_pOther->GetObjectKey() == L"Player")
@@ -204,8 +261,8 @@ HRESULT CRhinoStone::Add_Component()
 	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
-	m_pTransformCom->m_vScale = { 60.f, 60.f, 30.f };
-	m_pTransformCom->m_vInfo[INFO_POS] = { 0.f, 43.f, 0.0f };
+	m_pTransformCom->m_vScale = { 60.f, 60.f, 10.f };
+	m_pTransformCom->m_vInfo[INFO_POS] = { 0.f, 50.f, 0.1f };
 
 	pComponent = m_pColliderCom = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);

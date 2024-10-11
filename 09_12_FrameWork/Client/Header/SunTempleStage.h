@@ -9,6 +9,7 @@
 #include "DefaultUI.h"
 #include "StoreUI.h"
 #include "InvenUI.h"
+#include "MapName.h"
 #include "QuickSlot.h"
 #include "Object.h"
 

@@ -1,14 +1,16 @@
 #include "pch.h"
 #include "Rhino.h"
 #include "RhinoEffect.h"
+#include "VictoryUI.h"
 
 CRhino::CRhino(LPDIRECT3DDEVICE9 pGraphicDev)
     :CArenaMonster(pGraphicDev)
     , m_fTime(0), m_fSpeed(2.f), m_bStoneAppear(false)
+    , m_fNextEffectTime(0), m_iEffectCount(0), m_iStoneCnt(10)
 {
     m_tInfo.pBossName = L"거대 사막뿔소";
-    m_tInfo.iMaxHP = 100;
-    m_tInfo.iCurHP = 100;
+    m_tInfo.iMaxHP = 300;
+    m_tInfo.iCurHP = 300;
 }
 
 CRhino::~CRhino()
@@ -53,8 +55,8 @@ HRESULT CRhino::Ready_GameObject()
     m_pAnimatorCom->CreateAnimation(L"RhinoRunRB", m_pRunTex, _vec2(768.f, 768.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.15f, 2);
 
     D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/ArenaMonster/RhinoJump.png", &m_pAppearTex);
-    m_pAnimatorCom->CreateAnimation(L"RhinoLand", m_pAppearTex, _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.25f, 3);
-    m_pAnimatorCom->CreateAnimation(L"RhinoJump", m_pAppearTex, _vec2(0.f, 256.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.25f, 3);
+    m_pAnimatorCom->CreateAnimation(L"RhinoLand", m_pAppearTex, _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.1f, 3);
+    m_pAnimatorCom->CreateAnimation(L"RhinoJump", m_pAppearTex, _vec2(0.f, 256.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.1f, 3);
     m_pAnimatorCom->CreateAnimation(L"RhinoSky", m_pAppearTex, _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 2.0f, 0);
 
     m_pAnimatorCom->Play(L"RhinoLand", true); // 등장씬~
@@ -73,7 +75,7 @@ void CRhino::LateReady_GameObject()
     NULL_CHECK_RETURN(m_pBossHPBar);
     m_pBossHPBar->Init_BossInfo(&m_tInfo);
 
-    for (size_t i = 0; i < 10; i++)
+    for (size_t i = 0; i < m_iStoneCnt; i++)
     {
         m_pRhinoStone[i] = dynamic_cast<CRhinoStone*>(CRhinoStone::Create(m_pGraphicDev));
         NULL_CHECK_RETURN(m_pRhinoStone[i]);
@@ -81,9 +83,10 @@ void CRhino::LateReady_GameObject()
         m_pRhinoStone[i]->SetObjectKey(L"RhinoStone");
     }
 
-    for (size_t i = 0; i < 10; i++)
+    for (size_t i = 0; i < m_iStoneCnt; i++)
     {
         m_pRhinoStone[i]->LateReady_GameObject();
+        m_pRhinoStone[i]->Set_EffectNumber(i);
     }
 }
 
@@ -98,7 +101,11 @@ _int CRhino::Update_GameObject(const _float& fTimeDelta)
         m_pPlayer->Set_HonorScore(100);
         m_pPlayer->SetPlayerPos(_vec3(500.f, 20.f, 800.f));
 
-        for (size_t i = 0; i < 10; i++)
+        CVictoryUI* pUI = dynamic_cast<CVictoryUI*>(Engine::Get_GameObject(L"Layer_UI", L"Victory_UI"));
+        NULL_CHECK_RETURN(pUI, 0);
+        pUI->CallVictory();
+
+        for (size_t i = 0; i < m_iStoneCnt; i++)
         {
             m_pRhinoStone[i]->Set_ActiveNone();
         }
@@ -111,7 +118,7 @@ _int CRhino::Update_GameObject(const _float& fTimeDelta)
 
     RhinoState_Update(fTimeDelta); // 상태 업데이트 + 애니
 
-    for (size_t i = 0; i < 10; i++)
+    for (size_t i = 0; i < m_iStoneCnt; i++)
     {
         m_pRhinoStone[i]->Update_GameObject(fTimeDelta);
     }
@@ -132,7 +139,7 @@ void CRhino::LateUpdate_GameObject(const _float& fTimeDelta)
     }
     Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
 
-    for (size_t i = 0; i < 10; i++)
+    for (size_t i = 0; i < m_iStoneCnt; i++)
     {
         m_pRhinoStone[i]->LateUpdate_GameObject(fTimeDelta);
     }
@@ -185,11 +192,6 @@ void CRhino::OnCollision(CGameObject* _pOther)
         m_pPlayer->SetPlayerCurHP(-1);
         m_pPlayer->IsInvincible();
     }
-
-    //if (_pOther->GetObjectKey() == L"RhinoStone")
-    //{
-    //    m_eState = RHINO_STUN;
-    //}
 
     return;
 }
@@ -263,6 +265,47 @@ void CRhino::RhinoState_Update(_float fTimeDelta)
             m_eState = RHINO_STOMPING; // 발구르기
             m_fTime = 0.0f;
             m_pAnimatorCom->GetAnimation()->SetFrame(0);
+
+            //이펙1
+            wstring* Effect_Name = new wstring;
+            *Effect_Name = L"Rhino_Effect" + to_wstring(30);
+
+            CRhinoEffect* pRhinoEffect = CRhinoEffect::Create(m_pGraphicDev);
+            pMapLayer[L"Layer_GameLogic"]->Add_GameObject((*Effect_Name).c_str(), pRhinoEffect);
+            pRhinoEffect->name = Effect_Name->c_str();
+
+            _vec3 vEffectPos = m_pTransformCom->m_vInfo[INFO_POS];
+            vEffectPos.x += 30.f;
+            vEffectPos.y -= 10.f;
+            vEffectPos.z -= 1.f;
+            dynamic_cast<CTransform*>(pRhinoEffect->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vEffectPos);
+
+            //이펙2
+            wstring* Effect_Name1 = new wstring;
+            *Effect_Name1 = L"Rhino_Effect" + to_wstring(31);
+
+            CRhinoEffect* pRhinoEffect1 = CRhinoEffect::Create(m_pGraphicDev);
+            pMapLayer[L"Layer_GameLogic"]->Add_GameObject((*Effect_Name1).c_str(), pRhinoEffect1);
+            pRhinoEffect1->name = Effect_Name1->c_str();
+
+            vEffectPos = m_pTransformCom->m_vInfo[INFO_POS];
+            vEffectPos.x -= 30.f;
+            vEffectPos.y -= 10.f;
+            vEffectPos.z -= 1.f;
+            dynamic_cast<CTransform*>(pRhinoEffect1->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vEffectPos);
+
+            //이펙2
+            wstring* Effect_Name2 = new wstring;
+            *Effect_Name2 = L"Rhino_Effect" + to_wstring(32);
+
+            CRhinoEffect* pRhinoEffect2 = CRhinoEffect::Create(m_pGraphicDev);
+            pMapLayer[L"Layer_GameLogic"]->Add_GameObject((*Effect_Name2).c_str(), pRhinoEffect2);
+            pRhinoEffect2->name = Effect_Name2->c_str();
+
+            vEffectPos = m_pTransformCom->m_vInfo[INFO_POS];
+            vEffectPos.y -= 10.f;
+            vEffectPos.z -= 1.f;
+            dynamic_cast<CTransform*>(pRhinoEffect2->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vEffectPos);
         }
         break;
 
@@ -270,11 +313,39 @@ void CRhino::RhinoState_Update(_float fTimeDelta)
         m_pTransformCom->m_vInfo[INFO_POS].y = 50.f;
         Stomping_Ani();
 
+        // 0.5초마다 발동하기 위한 변수
+        //if (m_fTime >= m_fNextEffectTime && m_iEffectCount < 6)
+        if (m_fTime >= m_fNextEffectTime && m_iEffectCount < 12)
+        {
+            // 이펙트를 발생시키는 부분
+            wstring* Effect_Name = new wstring;
+            *Effect_Name = L"Rhino_Effect" + to_wstring(35 + m_iEffectCount);
+
+            CRhinoEffect* pRhinoEffect = CRhinoEffect::Create(m_pGraphicDev);
+            pMapLayer[L"Layer_GameLogic"]->Add_GameObject((*Effect_Name).c_str(), pRhinoEffect);
+            pRhinoEffect->name = Effect_Name->c_str();
+
+            _vec3 vEffectPos = m_pTransformCom->m_vInfo[INFO_POS];
+            vEffectPos.y -= 10.f;
+            vEffectPos.z -= 1.f;
+            dynamic_cast<CTransform*>(pRhinoEffect->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vEffectPos);
+
+            // 타이머 및 카운트 업데이트
+            m_iEffectCount++;
+            m_fNextEffectTime += 0.25f;  // 다음 이펙트 타이밍을 0.5초 후로 설정
+            //m_fNextEffectTime += 0.5f;  // 다음 이펙트 타이밍을 0.5초 후로 설정
+        }
+
         if (m_fTime >= 3.0f) // 3초 지나면
         {
             m_eState = RHINO_RUNNING; // 들이박기
             m_fTime = 0.0f;
             m_pAnimatorCom->GetAnimation()->SetFrame(0);
+
+            // 상태 초기화
+            m_iEffectCount = 0; // 발동 횟수 초기화
+            m_fNextEffectTime = 0.25f;  // 다음 상태에서도 0.5초 간격 유지
+            //m_fNextEffectTime = 0.5f;  // 다음 상태에서도 0.5초 간격 유지
         }
         break;
 
@@ -282,18 +353,50 @@ void CRhino::RhinoState_Update(_float fTimeDelta)
         m_pTransformCom->m_vInfo[INFO_POS].y = 55.f;
         Running_Ani();
 
-        if (m_fTime >= 3.0f && m_pRhinoStone[9]->Get_Dead()) // 마지막 돌이 부서졌는지 확인
+        //if (m_fTime >= m_fNextEffectTime && m_iEffectCount < 5)
+        if (m_fTime >= m_fNextEffectTime && m_iEffectCount < 10)
+        {
+            // 이펙트를 발생시키는 부분
+            wstring* Effect_Name = new wstring;
+            *Effect_Name = L"Rhino_Effect" + to_wstring(40 + m_iEffectCount);
+
+            CRhinoEffect* pRhinoEffect = CRhinoEffect::Create(m_pGraphicDev);
+            pMapLayer[L"Layer_GameLogic"]->Add_GameObject((*Effect_Name).c_str(), pRhinoEffect);
+            pRhinoEffect->name = Effect_Name->c_str();
+
+            _vec3 vEffectPos = m_pTransformCom->m_vInfo[INFO_POS];
+            vEffectPos.y -= 10.f;
+            vEffectPos.z -= 50.f;
+            dynamic_cast<CTransform*>(pRhinoEffect->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vEffectPos);
+
+            // 타이머 및 카운트 업데이트
+            m_iEffectCount++;
+            m_fNextEffectTime += 0.25f;  // 다음 이펙트 타이밍을 0.5초 후로 설정
+            //m_fNextEffectTime += 0.5f;  // 다음 이펙트 타이밍을 0.5초 후로 설정
+        }
+
+        if (m_fTime >= 3.0f && m_pRhinoStone[1]->Get_Dead()) // 마지막 돌이 부서졌는지 확인
+            //if (m_fTime >= 3.0f && m_pRhinoStone[9]->Get_Dead()) // 마지막 돌이 부서졌는지 확인
         {
             m_eState = RHINO_JUMP; // 부서졌다면 점프로 넘어가기
             m_fTime = 0.0f;
             m_pAnimatorCom->GetAnimation()->SetFrame(0);
+            // 상태 초기화
+            m_iEffectCount = 0; // 발동 횟수 초기화
+            //m_fNextEffectTime = 0.5f;  // 다음 상태에서도 0.5초 간격 유지
+            m_fNextEffectTime = 0.25f;  // 다음 상태에서도 0.5초 간격 유지
 
         }
-        else if (m_fTime >= 3.0f && !m_pRhinoStone[9]->Get_Dead())
+        else if (m_fTime >= 3.0f && !m_pRhinoStone[1]->Get_Dead())
+            //else if (m_fTime >= 3.0f && !m_pRhinoStone[9]->Get_Dead())
         {
-            m_pAnimatorCom->GetAnimation()->SetFrame(0);
             m_eState = RHINO_STOMPING; // 아니면 다시 발구르러 가기
             m_fTime = 0.0f;
+            m_pAnimatorCom->GetAnimation()->SetFrame(0);
+            // 상태 초기화
+            m_iEffectCount = 0; // 발동 횟수 초기화
+            m_fNextEffectTime = 0.25f;  // 다음 상태에서도 0.5초 간격 유지
+            //m_fNextEffectTime = 0.5f;  // 다음 상태에서도 0.5초 간격 유지
         }
         break;
 
@@ -301,15 +404,57 @@ void CRhino::RhinoState_Update(_float fTimeDelta)
         m_pAnimatorCom->Play(L"RhinoJump", false); // 점프(1회만 출력 / false)
         if (m_pAnimatorCom->GetAnimation()->IsFinish())
         {
+            m_fTime = 0.f;
             m_eState = RHINO_SKY; // 착지
             m_pAnimatorCom->GetAnimation()->SetFrame(0);
+            //이펙1
+            wstring* Effect_Name = new wstring;
+            *Effect_Name = L"Rhino_Effect" + to_wstring(30);
+
+            CRhinoEffect* pRhinoEffect = CRhinoEffect::Create(m_pGraphicDev);
+            pMapLayer[L"Layer_GameLogic"]->Add_GameObject((*Effect_Name).c_str(), pRhinoEffect);
+            pRhinoEffect->name = Effect_Name->c_str();
+
+            _vec3 vEffectPos = m_pTransformCom->m_vInfo[INFO_POS];
+            vEffectPos.x += 30.f;
+            vEffectPos.y -= 10.f;
+            vEffectPos.z -= 1.f;
+            dynamic_cast<CTransform*>(pRhinoEffect->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vEffectPos);
+
+            //이펙2
+            wstring* Effect_Name1 = new wstring;
+            *Effect_Name1 = L"Rhino_Effect" + to_wstring(31);
+
+            CRhinoEffect* pRhinoEffect1 = CRhinoEffect::Create(m_pGraphicDev);
+            pMapLayer[L"Layer_GameLogic"]->Add_GameObject((*Effect_Name1).c_str(), pRhinoEffect1);
+            pRhinoEffect1->name = Effect_Name1->c_str();
+
+            vEffectPos = m_pTransformCom->m_vInfo[INFO_POS];
+            vEffectPos.x -= 30.f;
+            vEffectPos.y -= 10.f;
+            vEffectPos.z -= 1.f;
+            dynamic_cast<CTransform*>(pRhinoEffect1->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vEffectPos);
+
+            //이펙2
+            wstring* Effect_Name2 = new wstring;
+            *Effect_Name2 = L"Rhino_Effect" + to_wstring(32);
+
+            CRhinoEffect* pRhinoEffect2 = CRhinoEffect::Create(m_pGraphicDev);
+            pMapLayer[L"Layer_GameLogic"]->Add_GameObject((*Effect_Name2).c_str(), pRhinoEffect2);
+            pRhinoEffect2->name = Effect_Name2->c_str();
+
+            vEffectPos = m_pTransformCom->m_vInfo[INFO_POS];
+            vEffectPos.y -= 10.f;
+            vEffectPos.z -= 1.f;
+            dynamic_cast<CTransform*>(pRhinoEffect2->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vEffectPos);
         }
 
         if (m_bStoneAppear) // 이미 생성했으면. 
             break;
 
-        for (size_t i = 0; i < 10; i++) // 스톤 타겟 잡는 애니 + 돌부서짐 + 하나만 남기 업데이트 
+        for (size_t i = 0; i < m_iStoneCnt; i++) // 스톤 타겟 잡는 애니 + 돌부서짐 + 하나만 남기 업데이트 
         {
+            m_pRhinoStone[i]->Set_PosAble();
             m_pRhinoStone[i]->Set_Appear();
         }
         m_bStoneAppear = true;
@@ -335,12 +480,12 @@ void CRhino::RhinoState_Update(_float fTimeDelta)
             m_fTime = 0.0f;
             m_pAnimatorCom->GetAnimation()->SetFrame(0);
 
-            for (size_t i = 0; i < 9; i++)
+            for (size_t i = 0; i < m_iStoneCnt - 1; i++)
             {
                 m_pRhinoStone[i]->Set_Dead(); // 나머지 9개 죽인 척 하기
             }
-            
-            //이펙
+
+            //이펙1
             wstring* Effect_Name = new wstring;
             *Effect_Name = L"Rhino_Effect" + to_wstring(30);
 
@@ -350,10 +495,36 @@ void CRhino::RhinoState_Update(_float fTimeDelta)
 
             _vec3 vEffectPos = m_pTransformCom->m_vInfo[INFO_POS];
             vEffectPos.x += 30.f;
-            vEffectPos.y += 30.f;
-            vEffectPos.z += 1.f;
+            vEffectPos.y -= 10.f;
+            vEffectPos.z -= 1.f;
             dynamic_cast<CTransform*>(pRhinoEffect->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vEffectPos);
 
+            //이펙2
+            wstring* Effect_Name1 = new wstring;
+            *Effect_Name1 = L"Rhino_Effect" + to_wstring(31);
+
+            CRhinoEffect* pRhinoEffect1 = CRhinoEffect::Create(m_pGraphicDev);
+            pMapLayer[L"Layer_GameLogic"]->Add_GameObject((*Effect_Name1).c_str(), pRhinoEffect1);
+            pRhinoEffect1->name = Effect_Name1->c_str();
+
+            vEffectPos = m_pTransformCom->m_vInfo[INFO_POS];
+            vEffectPos.x -= 30.f;
+            vEffectPos.y -= 10.f;
+            vEffectPos.z -= 1.f;
+            dynamic_cast<CTransform*>(pRhinoEffect1->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vEffectPos);
+
+            //이펙2
+            wstring* Effect_Name2 = new wstring;
+            *Effect_Name2 = L"Rhino_Effect" + to_wstring(32);
+
+            CRhinoEffect* pRhinoEffect2 = CRhinoEffect::Create(m_pGraphicDev);
+            pMapLayer[L"Layer_GameLogic"]->Add_GameObject((*Effect_Name2).c_str(), pRhinoEffect2);
+            pRhinoEffect2->name = Effect_Name2->c_str();
+
+            vEffectPos = m_pTransformCom->m_vInfo[INFO_POS];
+            vEffectPos.y -= 10.f;
+            vEffectPos.z -= 1.f;
+            dynamic_cast<CTransform*>(pRhinoEffect2->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vEffectPos);
         }
         break;
 
@@ -370,7 +541,6 @@ void CRhino::RhinoState_Update(_float fTimeDelta)
 
 void CRhino::Running_Ani()
 {
-    //m_pTransformCom->m_vInfo[INFO_POS] += (m_vLookDir * m_fSpeed);
     m_pTransformCom->m_vInfo[INFO_POS] += m_vLookDir * m_fSpeed;
 
     // 달리기 애니메이션 재생
