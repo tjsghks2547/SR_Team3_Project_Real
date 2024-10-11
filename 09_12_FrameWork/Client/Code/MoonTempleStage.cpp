@@ -9,10 +9,13 @@ CMoonTempleStage::CMoonTempleStage(LPDIRECT3DDEVICE9 pGraphicDev)
 
 CMoonTempleStage::~CMoonTempleStage()
 {
+
 }
 
 HRESULT CMoonTempleStage::Ready_Scene()
 {
+	PlayVideo(g_hWnd, L"../Bin/Resource/Video/CutScene_23_MoonTempleEntrance.wmv");
+
 	FAILED_CHECK_RETURN(Ready_Layer_Environmnet(L"Layer_Environment"), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_GameLogic(L"Layer_GameLogic"), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);

@@ -19,7 +19,7 @@ CElectriceelBoss::CElectriceelBoss(LPDIRECT3DDEVICE9 pGraphicDev)
 
     m_tInfo.pBossName = L"ÃµµÕ ¹ìÀå¾î";
     m_tInfo.iMaxHP = 10;
-    m_tInfo.iCurHP = 5;
+    m_tInfo.iCurHP = 10;
 }
 
 CElectriceelBoss::~CElectriceelBoss()
