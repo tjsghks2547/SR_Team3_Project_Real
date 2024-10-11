@@ -37,12 +37,15 @@ public:
 
 	void			RhinoState_Update(_float fTimeDelta);
 
+	void			Set_Time() { m_fTime = 0.f; }
 	void			Set_Stun() { m_eState = RHINO_STUN; }
 	void			Set_CurHP(_int _iSetHP) { m_tInfo.iCurHP += _iSetHP; }
 private:
 	HRESULT			Add_Component();
 
 private:
+	_int		m_iStoneCnt;
+
 	_vec3		m_vLookDir;
 
 	_float		m_fSpeed;
@@ -50,6 +53,9 @@ private:
 	_float		m_fTime;
 
 	RhinoState  m_eState;
+
+	_float		m_fNextEffectTime;
+	_float		m_iEffectCount;
 
 	_bool		m_bStoneAppear;
 	CBossHPBar* m_pBossHPBar;

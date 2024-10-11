@@ -121,6 +121,9 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_BossHPBar", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/BossBar.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_BossHPBack", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/BossBack.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_ExamineButton", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/ExamineButton.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_FightUI", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/Fight.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_VictoryUI", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/Victory.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MapName", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/MapName.png", TEX_NORMAL)), E_FAIL);
 	//Item
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_ExploreHat", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/Explore.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_PartyHat", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/PartyHat.png", TEX_NORMAL)), E_FAIL);

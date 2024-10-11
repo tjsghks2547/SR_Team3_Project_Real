@@ -6,6 +6,7 @@
 #include "Town.h"
 
 #include "DefaultUI.h"
+#include "MapName.h"
 #include "InvenUI.h"
 #include "QuickSlot.h"
 #include "Object.h"

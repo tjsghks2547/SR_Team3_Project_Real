@@ -455,6 +455,12 @@
     <Filter Include="02. GameObject\09. Puzzle\Match Puzzle\Color Bug Statue">
       <UniqueIdentifier>{2eeca80c-438b-4be1-8b0c-b3e75b2cc1f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\11. UI\09. ArenaUI">
+      <UniqueIdentifier>{f08f9e86-87cb-4da7-adc7-39258a7f1f36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\11. UI\10. MapUI">
+      <UniqueIdentifier>{d7e9b50e-c244-4b8b-beba-437b0d353476}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -982,9 +988,6 @@
     <ClInclude Include="..\Header\GrassEffect.h">
       <Filter>02. GameObject\16.Grass\GrassEffect</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\RhinoEffect.h">
-      <Filter>02. GameObject\01. Entity\03. ArenaMonster\Rhino</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\Nue.h">
       <Filter>02. GameObject\12. NPC\00. QuestNPC\09. Nue</Filter>
     </ClInclude>
@@ -1023,6 +1026,21 @@
     </ClInclude>
     <ClInclude Include="..\Header\SwingEffect.h">
       <Filter>02. GameObject\01. Entity\01. Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\MapName.h">
+      <Filter>02. GameObject\11. UI\10. MapUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\VictoryUI.h">
+      <Filter>02. GameObject\11. UI\09. ArenaUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\FightUI.h">
+      <Filter>02. GameObject\11. UI\09. ArenaUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\StoneEffect.h">
+      <Filter>02. GameObject\01. Entity\03. ArenaMonster\Rhino\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\RhinoEffect.h">
+      <Filter>02. GameObject\01. Entity\03. ArenaMonster\Rhino\Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1542,9 +1560,6 @@
     <ClCompile Include="..\Code\GrassEffect.cpp">
       <Filter>02. GameObject\16.Grass\GrassEffect</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\RhinoEffect.cpp">
-      <Filter>02. GameObject\01. Entity\03. ArenaMonster\Rhino</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\Nue.cpp">
       <Filter>02. GameObject\12. NPC\00. QuestNPC\09. Nue</Filter>
     </ClCompile>
@@ -1583,6 +1598,21 @@
     </ClCompile>
     <ClCompile Include="..\Code\SwingEffect.cpp">
       <Filter>02. GameObject\01. Entity\01. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MapName.cpp">
+      <Filter>02. GameObject\11. UI\10. MapUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\VictoryUI.cpp">
+      <Filter>02. GameObject\11. UI\09. ArenaUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\FightUI.cpp">
+      <Filter>02. GameObject\11. UI\09. ArenaUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\StoneEffect.cpp">
+      <Filter>02. GameObject\01. Entity\03. ArenaMonster\Rhino\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\RhinoEffect.cpp">
+      <Filter>02. GameObject\01. Entity\03. ArenaMonster\Rhino\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

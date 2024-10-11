@@ -192,6 +192,7 @@
     <ClInclude Include="..\Header\ExpressMonkey.h" />
     <ClInclude Include="..\Header\ExpressTicket.h" />
     <ClInclude Include="..\Header\FenceThorn.h" />
+    <ClInclude Include="..\Header\FightUI.h" />
     <ClInclude Include="..\Header\FirePit.h" />
     <ClInclude Include="..\Header\FlowerGlow.h" />
     <ClInclude Include="..\Header\FrontDoor.h" />
@@ -218,6 +219,7 @@
     <ClInclude Include="..\Header\Map.h" />
     <ClInclude Include="..\Header\MapCamera.h" />
     <ClInclude Include="..\Header\MapEditor.h" />
+    <ClInclude Include="..\Header\MapName.h" />
     <ClInclude Include="..\Header\MatchPuzzle.h" />
     <ClInclude Include="..\Header\MCRabbit.h" />
     <ClInclude Include="..\Header\MiddleFruit.h" />
@@ -296,6 +298,7 @@
     <ClInclude Include="..\Header\Stone.h" />
     <ClInclude Include="..\Header\StoneBlock.h" />
     <ClInclude Include="..\Header\StoneBlockHole.h" />
+    <ClInclude Include="..\Header\StoneEffect.h" />
     <ClInclude Include="..\Header\StoneHole.h" />
     <ClInclude Include="..\Header\StonePedestal.h" />
     <ClInclude Include="..\Header\StoreNPC.h" />
@@ -315,6 +318,7 @@
     <ClInclude Include="..\Header\Town.h" />
     <ClInclude Include="..\Header\TownStage.h" />
     <ClInclude Include="..\Header\Trigger.h" />
+    <ClInclude Include="..\Header\VictoryUI.h" />
     <ClInclude Include="..\Header\WaterFall.h" />
     <ClInclude Include="..\Header\WeightComparator.h" />
     <ClInclude Include="..\Header\WhiteBird.h" />
@@ -380,6 +384,7 @@
     <ClCompile Include="..\Code\ExpressMonkey.cpp" />
     <ClCompile Include="..\Code\ExpressTicket.cpp" />
     <ClCompile Include="..\Code\FenceThorn.cpp" />
+    <ClCompile Include="..\Code\FightUI.cpp" />
     <ClCompile Include="..\Code\FirePit.cpp" />
     <ClCompile Include="..\Code\FlowerGlow.cpp" />
     <ClCompile Include="..\Code\FrontDoor.cpp" />
@@ -405,6 +410,7 @@
     <ClCompile Include="..\Code\Map.cpp" />
     <ClCompile Include="..\Code\MapCamera.cpp" />
     <ClCompile Include="..\Code\MapEditor.cpp" />
+    <ClCompile Include="..\Code\MapName.cpp" />
     <ClCompile Include="..\Code\MatchPuzzle.cpp" />
     <ClCompile Include="..\Code\MCRabbit.cpp" />
     <ClCompile Include="..\Code\MiddleFruit.cpp" />
@@ -482,6 +488,7 @@
     <ClCompile Include="..\Code\Stone.cpp" />
     <ClCompile Include="..\Code\StoneBlock.cpp" />
     <ClCompile Include="..\Code\StoneBlockHole.cpp" />
+    <ClCompile Include="..\Code\StoneEffect.cpp" />
     <ClCompile Include="..\Code\StoneHole.cpp" />
     <ClCompile Include="..\Code\StonePedestal.cpp" />
     <ClCompile Include="..\Code\StoreNPC.cpp" />
@@ -501,6 +508,7 @@
     <ClCompile Include="..\Code\Town.cpp" />
     <ClCompile Include="..\Code\TownStage.cpp" />
     <ClCompile Include="..\Code\Trigger.cpp" />
+    <ClCompile Include="..\Code\VictoryUI.cpp" />
     <ClCompile Include="..\Code\WaterFall.cpp" />
     <ClCompile Include="..\Code\WeightComparator.cpp" />
     <ClCompile Include="..\Code\WhiteBird.cpp" />

@@ -37,8 +37,15 @@ public:
 
 	virtual			void			OnCollision(CGameObject* _pOther);
 
+	void			Set_PosAble() { m_bPosSet = false; }
+	void			Set_EffectNumber(_int _Num) { m_iNum = _Num; }
 	void			Set_Appear() { m_eState = STONE_TARGET; m_fTime = 0; }
-	void			Set_Dead() { m_eState = STONE_BROKEN; m_fTime = 0; }
+	void			Set_Dead()
+	{
+		m_eState = STONE_BROKEN;
+		m_fTime = 0;
+		//m_pAnimatorCom->GetAnimation()->SetFrame(0); //Å×½ºÆ®
+	}
 	_bool 			Get_Dead() { return m_eState == STONE_DEAD ? true : false; }
 	void			Set_ActiveNone() { m_bDead = true; }
 private:
@@ -58,6 +65,7 @@ private:
 	_bool		m_bRotation;
 
 	_bool		m_bDead;
+	_int		m_iNum;
 public:
 	static CRhinoStone* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 

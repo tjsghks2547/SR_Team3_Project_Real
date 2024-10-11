@@ -6,6 +6,7 @@
 #include "DefaultUI.h"
 #include "InvenUI.h"
 #include "QuestUI.h"
+#include "MapName.h"
 #include "QuickSlot.h"
 #include "Object.h"
 #include "Nue.h"

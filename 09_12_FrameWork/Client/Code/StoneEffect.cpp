@@ -1,54 +1,54 @@
 #include "pch.h"
-#include "RhinoEffect.h"
+#include "StoneEffect.h"
 #include "ResMgr.h" 
 #include "Export_Utility.h"
 
-CRhinoEffect::CRhinoEffect(LPDIRECT3DDEVICE9 pGraphicDev)
+CStoneEffect::CStoneEffect(LPDIRECT3DDEVICE9 pGraphicDev)
     :Engine::CGameObject(pGraphicDev)
     , name(L"")
     , m_bEffect(false)
 {
 }
 
-CRhinoEffect::~CRhinoEffect()
+CStoneEffect::~CStoneEffect()
 {
 }
 
-HRESULT CRhinoEffect::Ready_GameObject()
+HRESULT CStoneEffect::Ready_GameObject()
 {
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-    IDirect3DTexture9* pEffectTexture1 = CResMgr::GetInstance()->GetEffectTexture()[30];
+    IDirect3DTexture9* pEffectTexture1 = CResMgr::GetInstance()->GetEffectTexture()[32];
 
     // D3DXCreateTextureFromFile 제거하고, 리소스 매니저에서 텍스처를 가져오는 방식으로 변경
     //m_pTex = CResMgr::GetInstance()->GetEffectTexture()[30];
     m_pTex = pEffectTexture1;
 
     // 애니메이션 추가
-    m_pAnimatorCom->CreateAnimation(L"RhinoDust", m_pTex, _vec2(0.f, 0.f), _vec2(128.f, 128.f), _vec2(128.f, 128.f), 0.25f, 3);
+    m_pAnimatorCom->CreateAnimation(L"StoneDust", m_pTex, _vec2(0.f, 0.f), _vec2(128.f, 128.f), _vec2(128.f, 128.f), 0.25f, 3);
     //m_pAnimatorCom->CreateAnimation(L"RhinoDust", pEffectTexture1, _vec2(0.f, 0.f), _vec2(128.f, 128.f), _vec2(128.f, 128.f), 0.1f, 7);
-    m_pAnimatorCom->Play(L"RhinoDust", false);
+    m_pAnimatorCom->Play(L"StoneDust", false);
 
     return S_OK;
+
 }
 
-_int CRhinoEffect::Update_GameObject(const _float& fTimeDelta)
+_int CStoneEffect::Update_GameObject(const _float& fTimeDelta)
 {
     Add_RenderGroup(RENDER_TRANSLUCNET, this);
     return Engine::CGameObject::Update_GameObject(fTimeDelta);
 }
 
-void CRhinoEffect::LateUpdate_GameObject(const _float& fTimeDelta)
+void CStoneEffect::LateUpdate_GameObject(const _float& fTimeDelta)
 {
     Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
-void CRhinoEffect::Render_GameObject()
+void CStoneEffect::Render_GameObject()
 {
-
     //m_pGraphicDev->SetTexture(0, m_pTex);
-    //m_pAnimatorCom->Play(L"RhinoDust", false);
+//m_pAnimatorCom->Play(L"RhinoDust", false);
 
-    // 애니메이션이 끝났는지 확인하고, 끝나면 객체를 제거
+// 애니메이션이 끝났는지 확인하고, 끝나면 객체를 제거
     if (m_pAnimatorCom->GetAnimation()->IsFinish())
     {
         Engine::CGameObject::Free();
@@ -79,12 +79,13 @@ void CRhinoEffect::Render_GameObject()
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
     //m_pGraphicDev->SetTexture(0, m_pTex);
-    m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetEffectTexture()[30]);
+    m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetEffectTexture()[32]);
     m_pAnimatorCom->render();
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+
 }
 
-HRESULT CRhinoEffect::Add_Component()
+HRESULT CStoneEffect::Add_Component()
 {
     CComponent* pComponent = NULL;
 
@@ -107,23 +108,24 @@ HRESULT CRhinoEffect::Add_Component()
     m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
 
     return S_OK;
+
 }
 
-CRhinoEffect* CRhinoEffect::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CStoneEffect* CStoneEffect::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-    CRhinoEffect* pRhinoEffect = new CRhinoEffect(pGraphicDev);
+    CStoneEffect* pStoneEffect = new CStoneEffect(pGraphicDev);
 
-    if (FAILED(pRhinoEffect->Ready_GameObject()))
+    if (FAILED(pStoneEffect->Ready_GameObject()))
     {
-        Safe_Release(pRhinoEffect);
-        MSG_BOX("RhinoEffect Create Failed");
+        Safe_Release(pStoneEffect);
+        MSG_BOX("pStoneEffect Create Failed");
         return nullptr;
     }
 
-    return pRhinoEffect;
+    return pStoneEffect;
 }
 
-void CRhinoEffect::Free()
+void CStoneEffect::Free()
 {
     Engine::CGameObject::Free();
 }
