@@ -32,6 +32,9 @@ HRESULT CElectriceelBoss::Ready_GameObject()
 
     m_vecTexture.resize(10);
 
+    // 사운드 다 멈추기 
+    StopAll();
+
 
     //12시,1시,3시,9시 방향  InOut 텍스처
     D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/ElectriceelBoss/Sprite_HarborElectricEel_InOut1.png", &m_vecTexture[0]);
@@ -106,7 +109,7 @@ HRESULT CElectriceelBoss::Ready_GameObject()
 _int CElectriceelBoss::Update_GameObject(const _float& fTimeDelta)
 {
    
-    Add_RenderGroup(RENDER_ALPHA, this);       
+    Add_RenderGroup(RENDER_ALPHA, this);          
 
     Electriceel_STATE patterns[] =
     {
@@ -247,10 +250,12 @@ void CElectriceelBoss::update_animation()
     if (m_eCurState == Electriceel_STATE::PROJECT_MAGIC_12)  
     {   
         m_pAnimatorCom->Play(L"PROJECT_MAGIC_12", false);
+        
         //map<const _tchar*, CLayer*>& pMapLayer = Engine::Get_CurScenePtr()->GetLayerMapPtr();
-
+          
         if(m_pAnimatorCom->GetAnimation()->GetCurrentFrm() == 0 && m_iCount ==0)
         {
+             
             wstring* Effect_Name = new wstring;
             *Effect_Name = L"Electric_Effect" + to_wstring(7);  
 
@@ -259,6 +264,7 @@ void CElectriceelBoss::update_animation()
             pElectricEffect->name = Effect_Name->c_str();   
             dynamic_cast<CTransform*>(pElectricEffect->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(rand() % 200 + 400.f, 1.f, rand() % 200 + 400.f);
             CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER_EFFECT, pElectricEffect);
+            
             m_iCount++;
         }
 
@@ -272,6 +278,7 @@ void CElectriceelBoss::update_animation()
             pElectricEffect->name = Effect_Name->c_str();
             dynamic_cast<CTransform*>(pElectricEffect->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(rand() % 200 + 400.f, 1.f, rand() % 200 + 400.f);
             CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER_EFFECT, pElectricEffect);
+            
             m_iCount++;
         }
 
@@ -285,6 +292,7 @@ void CElectriceelBoss::update_animation()
             pElectricEffect->name = Effect_Name->c_str();
             dynamic_cast<CTransform*>(pElectricEffect->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(rand() % 200 + 400.f, 1.f, rand() % 200 + 400.f);
             CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER_EFFECT, pElectricEffect);
+            
             m_iCount++;
 
         }
@@ -299,6 +307,7 @@ void CElectriceelBoss::update_animation()
             pElectricEffect->name = Effect_Name->c_str();
             dynamic_cast<CTransform*>(pElectricEffect->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(rand() % 200 + 400.f, 1.f, rand() % 200 + 400.f);
             CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER_EFFECT, pElectricEffect);
+            
             m_iCount++;
 
         }
@@ -313,6 +322,7 @@ void CElectriceelBoss::update_animation()
             pElectricEffect->name = Effect_Name->c_str();
             dynamic_cast<CTransform*>(pElectricEffect->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(rand() % 200 + 400.f, 1.f, rand() % 200 + 400.f);
             CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER_EFFECT, pElectricEffect);
+            
             m_iCount++;
 
         }
@@ -333,6 +343,7 @@ void CElectriceelBoss::update_animation()
                 dynamic_cast<CTransform*>(pElectricEffect->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(rand() % 200 + 400.f, 1.f, rand() % 200 + 400.f);
 
                 CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER_EFFECT, pElectricEffect);
+               
             }
 
             m_pAnimatorCom->GetAnimation()->SetFrame(0); 
@@ -393,7 +404,7 @@ void CElectriceelBoss::update_animation()
             pElectriceelBullet->SetBulletDir(_vec3(0.f - 0.15f * m_iBulletCount, 0.f, -1.f + 0.15f * m_iBulletCount));
             CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER_EFFECT, pElectriceelBullet);
             m_iBulletCount++;
-
+            Play_Sound(L"SFX_530_ElectricEel_Shoot.wav", SOUND_ElectricEel, 1.f);
             dwtimeShot = GetTickCount64();
         }
         m_pAnimatorCom->Play(L"PROJECT_SHOT_1", false);
@@ -458,7 +469,7 @@ void CElectriceelBoss::update_animation()
             pElectriceelBullet->SetBulletDir(_vec3(0.f + 0.15f * m_iBulletCount, 0.f, -1.f + 0.15f * m_iBulletCount));
             CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER_EFFECT, pElectriceelBullet);
             m_iBulletCount++;
-
+            Play_Sound(L"SFX_530_ElectricEel_Shoot.wav", SOUND_EFFECT, 1.f);    
             dwtimeShot = GetTickCount64();
         }
 
@@ -791,6 +802,7 @@ void CElectriceelBoss::Render_GameObject()
         break;
     case Electriceel_STATE::OUT_12_MAGIC:
         m_pGraphicDev->SetTexture(0, m_vecTexture[0]);
+        Play_Sound(L"SFX_531_ElectricEel_DiveOut.wav", SOUND_ElectricEel, 1.f);
         break;
     case Electriceel_STATE::OUT_1_MAGIC:
         m_pGraphicDev->SetTexture(0, m_vecTexture[0]);
@@ -799,18 +811,23 @@ void CElectriceelBoss::Render_GameObject()
         m_pGraphicDev->SetTexture(0, m_vecTexture[0]);
         break;
     case Electriceel_STATE::OUT_9_WATERFALL:
+        Play_Sound(L"SFX_531_ElectricEel_DiveOut.wav", SOUND_ElectricEel, 1.f);
         m_pGraphicDev->SetTexture(0, m_vecTexture[0]);
         break;
     case Electriceel_STATE::OUT_11_SHOT:
+        Play_Sound(L"SFX_531_ElectricEel_DiveOut.wav", SOUND_ElectricEel, 1.f); 
         m_pGraphicDev->SetTexture(0, m_vecTexture[1]);
         break;
     case Electriceel_STATE::OUT_1_SHOT:
         m_pGraphicDev->SetTexture(0, m_vecTexture[0]);
+        Play_Sound(L"SFX_531_ElectricEel_DiveOut.wav", SOUND_ElectricEel, 1.f); 
         break;
     case Electriceel_STATE::OUT_3_WATERFALL:
+        Play_Sound(L"SFX_531_ElectricEel_DiveOut.wav", SOUND_ElectricEel, 1.f); 
         m_pGraphicDev->SetTexture(0, m_vecTexture[0]);
         break;
     case Electriceel_STATE::IDLE_9_WATERFALL:   
+        
         m_pGraphicDev->SetTexture(0, m_vecTexture[2]);
         break;
     case Electriceel_STATE::IDLE_1_SHOT:
@@ -839,21 +856,26 @@ void CElectriceelBoss::Render_GameObject()
         break;
 
     case Electriceel_STATE::IN_12:
+        //Play_Sound(L"SFX_532_ElectricEel_DiveIn.wav", SOUND_ElectricEel, 1.f);  
         m_pGraphicDev->SetTexture(0, m_vecTexture[0]);
         break;
     case Electriceel_STATE::IN_1:
+        //Play_Sound(L"SFX_532_ElectricEel_DiveIn.wav", SOUND_ElectricEel, 1.f);
         m_pGraphicDev->SetTexture(0, m_vecTexture[0]);
         break;
 
     case Electriceel_STATE::IN_3:
+        //Play_Sound(L"SFX_532_ElectricEel_DiveIn.wav", SOUND_ElectricEel, 1.f);
         m_pGraphicDev->SetTexture(0, m_vecTexture[0]);
         break;
 
     case Electriceel_STATE::IN_9:   
+        //Play_Sound(L"SFX_532_ElectricEel_DiveIn.wav", SOUND_ElectricEel, 1.f);
         m_pGraphicDev->SetTexture(0, m_vecTexture[0]);
         break;
 
     case Electriceel_STATE::IN_11:
+        //Play_Sound(L"SFX_532_ElectricEel_DiveIn.wav", SOUND_ElectricEel, 1.f);
         m_pGraphicDev->SetTexture(0, m_vecTexture[1]);
         break;
         
@@ -942,6 +964,7 @@ void CElectriceelBoss::OnCollisionEnter(CGameObject* _pOther)
 {
     if(dynamic_cast<CStone*>(_pOther)->GetObjectKey() == L"Stone0")
     {
+        Play_Sound(L"SFX_533_ElectricEel_Damage.wav", SOUND_ElectricEel_Collision, 1.f);    
         --m_tInfo.iCurHP;
     }
 

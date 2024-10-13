@@ -13,9 +13,13 @@ CTownStage::~CTownStage()
 
 HRESULT CTownStage::Ready_Scene()
 {
+
     FAILED_CHECK_RETURN(Ready_Layer_Environmnet(L"Layer_Environment"), E_FAIL);
     FAILED_CHECK_RETURN(Ready_Layer_GameLogic(L"Layer_GameLogic"), E_FAIL);
     FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
+
+	StopAll();
+	Engine::PlayBGM(L"BGM_33_HarborTown.wav", 1.f);	
 
     return S_OK;
 }
@@ -50,10 +54,10 @@ void CTownStage::Render_Scene()
 
 void CTownStage::init()
 {
-	/*Engine::CLayer* pLayer = CLayer::Create();
+	Engine::CLayer* pLayer = CLayer::Create();
 
 	DWORD bytesRead = 1;
-	HANDLE hFile = CreateFile(L"../Map/MoonTempleReal3.txt", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	HANDLE hFile = CreateFile(L"../Map/harborReal.txt", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
 		if (hFile != INVALID_HANDLE_VALUE) {
@@ -116,9 +120,9 @@ void CTownStage::init()
 
 
 			}
-			CloseHandle(hFile);
+			CloseHandle(hFile);	
 		}
-	}*/
+	}
 }
 
 HRESULT CTownStage::Ready_LightInfo()

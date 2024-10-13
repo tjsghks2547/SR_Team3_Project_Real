@@ -23,7 +23,8 @@ HRESULT CLogo::Ready_Scene()
 
 	FAILED_CHECK_RETURN(Ready_Layer_Environment(L"Layer_Environment"), E_FAIL);
 
-
+	//사운드 정지 및 동영상 재생 
+	StopAll();
 	PlayVideo(g_hWnd, L"../Bin/Resource/Video/CutScene_0_BabyOguWakeUp.wmv");	
 
 	return S_OK;

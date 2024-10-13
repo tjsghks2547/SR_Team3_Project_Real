@@ -456,6 +456,102 @@ void CObject::Render_GameObject()
 		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[78]);
 	}
 
+	else if (m_strTextureKey == L"MoonTempleTile")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[79]);
+	}
+
+	else if (m_strTextureKey == L"House1")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[80]);
+	}
+
+	else if (m_strTextureKey == L"House2")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[81]);
+	}
+
+	else if (m_strTextureKey == L"House3")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[82]);
+	}
+
+	else if (m_strTextureKey == L"WaterFall")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[83]);
+	}
+
+	else if (m_strTextureKey == L"Grass_Object")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[84]);
+	}
+
+	else if (m_strTextureKey == L"Green_Pillar")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[85]);
+	}
+
+	else if (m_strTextureKey == L"harbor_Statue")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[86]);
+	}
+
+	else if (m_strTextureKey == L"harbor_Statue_2")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[87]);
+	}
+
+	else if (m_strTextureKey == L"House4")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[88]);
+	}
+
+	else if (m_strTextureKey == L"Umbrella_one")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[89]);
+	}
+
+
+	else if (m_strTextureKey == L"Umbrella_two")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[90]);
+	}
+
+	else if (m_strTextureKey == L"Umbrella_three")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[91]);
+	}
+
+	else if (m_strTextureKey == L"Umbrella_Chair")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[92]);
+	}
+
+	else if (m_strTextureKey == L"Harbor_Wall")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[93]);
+	}
+
+	else if (m_strTextureKey == L"Light_House")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[94]);
+	}
+
+	else if (m_strTextureKey == L"Harbor_Wall_two")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[95]);
+	}
+
+	else if (m_strTextureKey == L"Ship")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[96]);
+	}
+
+	else if (m_strTextureKey == L"Arena_Entrance")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[97]);
+	}
+
 	m_pBufferCom->Render_Buffer();
 
 	//맵툴 작성시 끄기 
