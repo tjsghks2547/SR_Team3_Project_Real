@@ -19,7 +19,7 @@ HRESULT CPartyHat::Ready_GameObject()
 		PARTY,
 		 L"파티 모자",
 		 L"파티하기 좋은 모자. 파티닷! 끼 - 얏 - 하 - !",
-		0, 1 };
+		100, 1 };
 
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 

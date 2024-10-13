@@ -109,6 +109,7 @@ _int CMonsterSlimeFast::Update_GameObject(const _float& fTimeDelta)
             CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pGameObject);
 
             dynamic_cast<CBranch*>(pGameObject)->LateReady_GameObject();
+
             return 0;
         }
 

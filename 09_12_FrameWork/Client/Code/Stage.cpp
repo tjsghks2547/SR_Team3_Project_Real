@@ -21,7 +21,7 @@ HRESULT CStage::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
 
 	Engine::StopSound(SOUND_BGM);
-	//Engine::PlayBGM(L"BGM_1_CentralArea.wav", 1.f);
+	Engine::PlayBGM(L"BGM_1_CentralArea.wav", 0.8f);
 	//Play_Sound(L"BGM_19_TutorialAmbience.wav", SOUND_EFFECT, 1.f);
 
 	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
@@ -199,9 +199,17 @@ HRESULT CStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_Branch", pGameObject), E_FAIL);
 	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pGameObject);*/
 
+	pGameObject = CHeartFruit::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	_vec3 ItemPos = { 300.f, 20.f, 700.f };
+	dynamic_cast<CHeartFruit*>(pGameObject)->Set_Pos(_vec3{ 300.f, 20.f, 700.f });
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"HeartFruit", pGameObject), E_FAIL);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pGameObject);
+
+
 	pGameObject = CExpressTicket::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	_vec3 ItemPos = { 330.f, 20.f, 700.f };
+	ItemPos = { 330.f, 20.f, 700.f };
 	dynamic_cast<CExpressTicket*>(pGameObject)->Set_DropItem(ItemPos);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_ExpressTicket", pGameObject), E_FAIL);
 	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pGameObject);
@@ -737,6 +745,10 @@ HRESULT CStage::Ready_Layer_UI(const _tchar* pLayerTag)
 	pGameObject = CStoreUI::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Store_UI", pGameObject), E_FAIL);
+
+	pGameObject = CAddHP::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"AddHP_UI", pGameObject), E_FAIL);
 
 	m_mapLayer.insert({ pLayerTag, pLayer });
 

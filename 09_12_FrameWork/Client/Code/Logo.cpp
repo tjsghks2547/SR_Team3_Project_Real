@@ -23,7 +23,6 @@ HRESULT CLogo::Ready_Scene()
 
 	FAILED_CHECK_RETURN(Ready_Layer_Environment(L"Layer_Environment"), E_FAIL);
 
-
 	PlayVideo(g_hWnd, L"../Bin/Resource/Video/CutScene_0_BabyOguWakeUp.wmv");	
 
 	return S_OK;

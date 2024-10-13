@@ -94,6 +94,8 @@ _int CRhinoStone::Update_GameObject(const _float& fTimeDelta)
 			m_eState = STONE_APPEAR; // 돌생성애니 
 			m_fTime = 0.f; // 시간 리셋
 
+			Engine::Play_Sound(L"SFX_332_StoneSpike_Ready.wav", SOUND_EFFECT, 2.f);
+
 			//이펙
 			wstring* Effect_Name = new wstring;
 			*Effect_Name = L"Stone_Effect" + to_wstring(10 + m_iNum);
@@ -140,7 +142,7 @@ _int CRhinoStone::Update_GameObject(const _float& fTimeDelta)
 
 	case STONE_SURVIVE:
 		m_pAnimatorCom->Play(L"RhinoStoneSurvive", true); // 그냥 하나만 출력임
-		//m_fTime = 0.f;
+		m_fTime = 0.f;
 		break;
 
 	case STONE_BROKEN:

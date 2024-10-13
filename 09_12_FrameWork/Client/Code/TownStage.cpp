@@ -17,6 +17,9 @@ HRESULT CTownStage::Ready_Scene()
     FAILED_CHECK_RETURN(Ready_Layer_GameLogic(L"Layer_GameLogic"), E_FAIL);
     FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
 
+	Engine::StopSound(SOUND_BGM);
+	Engine::PlayBGM(L"BGM_55_HarborArena.wav", 0.8f);
+
     return S_OK;
 }
 
@@ -178,8 +181,23 @@ HRESULT CTownStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_SeaLion", pGameObject), E_FAIL);
 	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
 
+	pGameObject = CHarborcat::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_HarborCat", pGameObject), E_FAIL);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
 	m_mapLayer.insert({ pLayerTag, pLayer });
 
+	pGameObject = CHarborMeer::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_HarborMeerCat", pGameObject), E_FAIL);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+	m_mapLayer.insert({ pLayerTag, pLayer });
+
+	pGameObject = CPanda::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Panda", pGameObject), E_FAIL);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+	m_mapLayer.insert({ pLayerTag, pLayer });
 	return S_OK;
 }
 

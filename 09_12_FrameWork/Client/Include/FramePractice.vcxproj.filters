@@ -461,6 +461,21 @@
     <Filter Include="02. GameObject\11. UI\10. MapUI">
       <UniqueIdentifier>{d7e9b50e-c244-4b8b-beba-437b0d353476}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\12. NPC\01. StoreNPC\01. HarborCat">
+      <UniqueIdentifier>{e6f1b24d-648c-4137-a13d-f4132e568a84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. NPC\01. StoreNPC\02. HarborMeer">
+      <UniqueIdentifier>{3e0e5881-9516-46af-821a-809d44d0ba1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. NPC\01. StoreNPC\03. Panda">
+      <UniqueIdentifier>{821f5064-e02b-4ec2-bbd2-7b803f150b5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\10. Item\04. Special">
+      <UniqueIdentifier>{2554bee2-3e4a-4ce4-9b6d-c62f0577176d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\11. UI\00. DefaultUI\Effect">
+      <UniqueIdentifier>{c42dfaa9-63e5-4c4c-833f-525ccc2b957a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -1042,6 +1057,21 @@
     <ClInclude Include="..\Header\RhinoEffect.h">
       <Filter>02. GameObject\01. Entity\03. ArenaMonster\Rhino\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Harborcat.h">
+      <Filter>02. GameObject\12. NPC\01. StoreNPC\01. HarborCat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\HarborMeer.h">
+      <Filter>02. GameObject\12. NPC\01. StoreNPC\02. HarborMeer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Panda.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\HeartFruit.h">
+      <Filter>02. GameObject\10. Item\04. Special</Filter>
+    </ClInclude>
+    <ClInclude Include="AddHP.h">
+      <Filter>02. GameObject\11. UI\00. DefaultUI\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FramePractice.cpp">
@@ -1613,6 +1643,21 @@
     </ClCompile>
     <ClCompile Include="..\Code\RhinoEffect.cpp">
       <Filter>02. GameObject\01. Entity\03. ArenaMonster\Rhino\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Harborcat.cpp">
+      <Filter>02. GameObject\12. NPC\01. StoreNPC\01. HarborCat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\HarborMeer.cpp">
+      <Filter>02. GameObject\12. NPC\01. StoreNPC\02. HarborMeer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Panda.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\HeartFruit.cpp">
+      <Filter>02. GameObject\10. Item\04. Special</Filter>
+    </ClCompile>
+    <ClCompile Include="AddHP.cpp">
+      <Filter>02. GameObject\11. UI\00. DefaultUI\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

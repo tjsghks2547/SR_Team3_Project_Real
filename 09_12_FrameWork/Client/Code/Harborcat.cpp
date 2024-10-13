@@ -1,36 +1,36 @@
 #include "pch.h"
-#include "SeaLion.h"
+#include "Harborcat.h"
 
-CSeaLion::CSeaLion(LPDIRECT3DDEVICE9 pGraphicDev)
+CHarborcat::CHarborcat(LPDIRECT3DDEVICE9 pGraphicDev)
     :CStoreNPC(pGraphicDev)
 {
 }
 
-CSeaLion::~CSeaLion()
+CHarborcat::~CHarborcat()
 {
 }
 
-HRESULT CSeaLion::Ready_GameObject()
+HRESULT CHarborcat::Ready_GameObject()
 {
     CStoreNPC::Ready_GameObject();
 
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
-    D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/SeaLion.png", &m_pTex);
-    m_pAnimatorCom->CreateAnimation(L"SeaLion", m_pTex, _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.12f, 7);
+    D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/HarborCat.png", &m_pTex);
+    m_pAnimatorCom->CreateAnimation(L"HarborCat", m_pTex, _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.12f, 3);
 
-    m_tInfo.pName = L"꼬치 바다사자";
-    m_tInfo.pContent = L"생선꼬치 마싯어요. 사주새요.";
+    m_tInfo.pName = L"항구 고양이";
+    m_tInfo.pContent = L"제가 입던 옷을 파라요.";
 
     return S_OK;
 }
 
-void CSeaLion::LateReady_GameObject()
+void CHarborcat::LateReady_GameObject()
 {
     CStoreNPC::LateReady_GameObject();
 }
 
-_int CSeaLion::Update_GameObject(const _float& fTimeDelta)
+_int CHarborcat::Update_GameObject(const _float& fTimeDelta)
 {
     CStoreNPC::Update_GameObject(fTimeDelta);
 
@@ -45,32 +45,35 @@ _int CSeaLion::Update_GameObject(const _float& fTimeDelta)
     Add_RenderGroup(RENDER_ALPHA, this);
 
     return iExit;
+
 }
 
-void CSeaLion::LateUpdate_GameObject(const _float& fTimeDelta)
+void CHarborcat::LateUpdate_GameObject(const _float& fTimeDelta)
 {
     for (size_t i = 0; i < m_ItemArray.size(); i++)
     {
         m_ItemArray[i]->LateUpdate_GameObject(fTimeDelta);
     }
     Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
+
 }
 
-void CSeaLion::Render_GameObject()
+void CHarborcat::Render_GameObject()
 {
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
     m_pGraphicDev->SetTexture(0, m_pTex);
-    m_pAnimatorCom->Play(L"SeaLion", true);
+    m_pAnimatorCom->Play(L"HarborCat", true);
     m_pAnimatorCom->render();
     m_pColliderCom->Render_Buffer();
 
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pShopTransformCom->Get_WorldMatrix());
     m_pTextureCom->Set_Texture();
     m_pBufferCom->Render_Buffer();
+
 }
 
-void CSeaLion::OnCollision(CGameObject* _pOther)
+void CHarborcat::OnCollision(CGameObject* _pOther)
 {
     if (_pOther->GetObjectKey() != L"Player")
         return;
@@ -96,17 +99,12 @@ void CSeaLion::OnCollision(CGameObject* _pOther)
             // 여기에 UIbool true + 아이템 세팅
             m_bStoreOn = true;
 
-            CItem* pItem = dynamic_cast<CCookSmallFish*>(CCookSmallFish::Create(m_pGraphicDev));
+            CItem* pItem = dynamic_cast<CMohican*>(CMohican::Create(m_pGraphicDev));
             NULL_CHECK_RETURN(pItem);
             pItem->LateReady_GameObject();
             m_ItemArray.push_back(pItem);
 
-            pItem = dynamic_cast<CCookMiddleFish*>(CCookMiddleFish::Create(m_pGraphicDev));
-            NULL_CHECK_RETURN(pItem);
-            pItem->LateReady_GameObject();
-            m_ItemArray.push_back(pItem);
-
-            pItem = dynamic_cast<CCookBigFish*>(CCookBigFish::Create(m_pGraphicDev));
+            pItem = dynamic_cast<CPartyHat*>(CPartyHat::Create(m_pGraphicDev));
             NULL_CHECK_RETURN(pItem);
             pItem->LateReady_GameObject();
             m_ItemArray.push_back(pItem);
@@ -134,18 +132,19 @@ void CSeaLion::OnCollision(CGameObject* _pOther)
         m_pInterButton->CallButton(true); // 대화중이 아닐 때 버튼 활성화
         // 대화하기[S]
     }
+
 }
 
-void CSeaLion::OnCollisionEnter(CGameObject* _pOther)
+void CHarborcat::OnCollisionEnter(CGameObject* _pOther)
 {
 }
 
-void CSeaLion::OnCollisionExit(CGameObject* _pOther)
+void CHarborcat::OnCollisionExit(CGameObject* _pOther)
 {
     m_pInterButton->CallButton(false); // 대화 중일 경우 버튼 출력이 필요 없음!!!!
 }
 
-HRESULT CSeaLion::Add_Component()
+HRESULT CHarborcat::Add_Component()
 {
     CComponent* pComponent = NULL;
 
@@ -154,15 +153,15 @@ HRESULT CSeaLion::Add_Component()
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
-    pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_FishShop"));
+    pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_HatMarket"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
-    m_mapComponent[ID_STATIC].insert({ L"Com_TextureFishShop", pComponent });
+    m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
 
     pComponent = m_pShopTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
-    m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformFishShop", pComponent });
-    m_pShopTransformCom->m_vScale = { 30.f, 30.f, 30.f };
-    m_pShopTransformCom->Set_Pos(630.f, 30.f, 229.f);
+    m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformHatShop", pComponent });
+    m_pShopTransformCom->m_vScale = { 100.f, 50.f, 30.f };
+    m_pShopTransformCom->Set_Pos(230.f, 60.f, 600.f);
 
     //-여기까지 텍스쳐-
 
@@ -173,8 +172,8 @@ HRESULT CSeaLion::Add_Component()
     pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
-    m_pTransformCom->m_vScale = { 20.f, 20.f, 30.f };
-    m_pTransformCom->Set_Pos(630.f, 25.f, 230.f);
+    m_pTransformCom->m_vScale = { 30.f, 30.f, 30.f };
+    m_pTransformCom->Set_Pos(237.f, 40.f, 601.f);
 
     pComponent = m_pColliderCom = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
@@ -182,23 +181,25 @@ HRESULT CSeaLion::Add_Component()
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collider", pComponent });
 
     return S_OK;
+
 }
 
-CSeaLion* CSeaLion::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CHarborcat* CHarborcat::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-    CSeaLion* pNPC = new CSeaLion(pGraphicDev);
+    CHarborcat* pNPC = new CHarborcat(pGraphicDev);
 
     if (FAILED(pNPC->Ready_GameObject()))
     {
         Safe_Release(pNPC);
-        MSG_BOX("SeaLion Create Failed");
+        MSG_BOX("Harborcat Create Failed");
         return nullptr;
     }
 
     return pNPC;
+
 }
 
-void CSeaLion::Free()
+void CHarborcat::Free()
 {
     Engine::CGameObject::Free();
 }

@@ -1,13 +1,11 @@
 #pragma once
-#include "StoreNPC.h"
-//#include "TextBox.h"
 #include "Export_Utility.h"
-
-class CSeaLion : public CStoreNPC
+#include "StoreNPC.h"
+class CPanda : public CStoreNPC
 {
 private:
-	explicit CSeaLion(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual	 ~CSeaLion();
+	explicit CPanda(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual	 ~CPanda();
 
 public:
 	virtual   HRESULT   Ready_GameObject();
@@ -24,9 +22,10 @@ private:
 	HRESULT    Add_Component();
 
 public:
-	static CSeaLion* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CPanda* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 	virtual void Free();
+
 };
 

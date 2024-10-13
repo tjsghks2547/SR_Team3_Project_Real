@@ -52,6 +52,7 @@ private:
 
 	_float		m_fTime;
 
+	RhinoState  m_ePrevState;
 	RhinoState  m_eState;
 
 	_float		m_fNextEffectTime;

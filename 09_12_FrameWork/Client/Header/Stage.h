@@ -10,6 +10,7 @@
 #include "DefaultUI.h"
 #include "InvenUI.h"
 #include "QuickSlot.h"
+#include "HeartFruit.h"
 #include "ExpressMonkey.h"
 #include "SeaLion.h"
 #include "Sheep.h"
@@ -65,6 +66,8 @@
 #include "TestObject.h"
 #include "Grass.h"
 
+//πŒ¡ˆ ¿”Ω√
+#include "AddHP.h"
 
 class CStage : public Engine::CScene
 {

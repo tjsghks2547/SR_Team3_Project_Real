@@ -113,6 +113,8 @@ void CStoreSelector::Key_Input(const _float& fTimeDelta)
 
     if (Engine::GetKeyDown(DIK_DOWN))
     {
+        Engine::Play_Sound(L"SFX_70_UISlotMediumMove.wav", SOUND_EFFECT, 0.3);
+
         if (m_iCurIdx >= 10)
             return;
         m_iCurIdx += 5;
@@ -122,24 +124,32 @@ void CStoreSelector::Key_Input(const _float& fTimeDelta)
 
     if (Engine::GetKeyDown(DIK_UP))
     {
+        Engine::Play_Sound(L"SFX_70_UISlotMediumMove.wav", SOUND_EFFECT, 0.3);
+
         m_iCurIdx -= 5;
         if (m_iCurIdx < 0)
             m_iCurIdx = -5;
     }
     if (Engine::GetKeyDown(DIK_LEFT))
     {
+        Engine::Play_Sound(L"SFX_70_UISlotMediumMove.wav", SOUND_EFFECT, 0.3);
+
         if (m_iCurIdx % 5 == 0)
             return;
         --m_iCurIdx;
     }
     if (Engine::GetKeyDown(DIK_RIGHT))
     {
+        Engine::Play_Sound(L"SFX_70_UISlotMediumMove.wav", SOUND_EFFECT, 0.3);
+
         if (m_iCurIdx % 5 == 4)
             return;
         ++m_iCurIdx;
     }
     if (Engine::GetKeyDown(DIK_D)) // ´Ý±â
     {
+        Engine::Play_Sound(L"SFX_120_UINormalClose.wav", SOUND_EFFECT, 0.3);
+
         m_iCurIdx = -5;
     }
 
@@ -148,9 +158,14 @@ void CStoreSelector::Key_Input(const _float& fTimeDelta)
         _int    iPrice = m_pItem->Get_ItemInfo().iPrice;
         if (m_pPlayer->GetPlayerCoin() >= iPrice)
         {
+            Engine::Play_Sound(L"SFX_504_ItemDrop.wav", SOUND_EFFECT, 0.8f);
+            
             m_pInven->Add_Item(m_pItem);
             m_pPlayer->SetPlayerCoin(-iPrice);
+            return;
         }
+        Engine::Play_Sound(L"SFX_306_UIFail.wav", SOUND_EFFECT, 0.8f);
+
         // ++ÇÃ·¹ÀÌ¾î¿¡¼­ µ·µµ »©
     }
 

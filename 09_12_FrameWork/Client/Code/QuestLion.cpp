@@ -21,10 +21,10 @@ HRESULT CQuestLion::Ready_GameObject()
     m_pAnimatorCom->CreateAnimation(L"Lion", m_pNPCTex, _vec2(0.f, 0.f), _vec2(128.f, 128.f), _vec2(128.f, 0.f), 0.15f, 3);
 
     m_tInfo.pName = L"막시무스";
-    m_tInfo.pContent = L"사라진 증표가 어딨는지 궁금하다고....? 투기장의 킹이 된다면 그의 맞는 대우와 위치를 알려주지.........";
+    m_tInfo.pContent = L"<사라진 증표>가 어딨는지 궁금하다고....? 투기장의 왕이 된다면 그의 맞는 대우와 위치를 알려주지.........";
 
-    m_tQuestInfo.pQuestTitle = L"투기장의 킹 되기";
-    m_tQuestInfo.pQuestContent = L"투기장의 킹이 되면 그의 맞는 대우와 증표의 위치를 알려준다고 한다. 투기장의 킹이 되어보자.";
+    m_tQuestInfo.pQuestTitle = L"투기장의 왕 되기";
+    m_tQuestInfo.pQuestContent = L"말투가 조금 기분 나쁘다..! 투기장의 왕이 되면 <그의 맞는 대우>와 <증표의 위치>를 알려준다고 한다. 투기장의 왕이 되어보자.";
 
     _vec3 vMarkPos = m_pTransformCom->m_vInfo[INFO_POS];
     vMarkPos.y += 35.f;
@@ -132,14 +132,22 @@ void CQuestLion::OnCollision(CGameObject* _pOther)
 
             // 최초에는 기본 퀘스트 말풍을 보여줘야해서 아이템을 가지고 있더라도 false 상태로 출력하기 위해
             //if (!m_bQuestClear && m_bQuestAccept)
+            if (m_bQuestClear)
+            {
+                m_tInfo.pContent = L"주군....<물의 증표>는 서쪽 편에 있는 <천둥 뱀장어>가 가지고 있다는 소문을 들었습니다요..!!!";
+                m_pTextBox->Set_Text(m_tInfo); //대화창 텍스트 세팅
+                return;
+            }
+
             if (m_bQuestSucess)
             {
+                Engine::Play_Sound(L"SFX_446_QuestClear.wav", SOUND_EFFECT, 1.5f);
+
                 m_bQuestClear = true;
-                m_tInfo.pContent = L"정말 투기장의 킹이 되셨군요...!!!! 킹님..!! '사라진 증표' 는 항구의 '서쪽 편에 있는 천둥 뱀장어' 가 가지고 있다는 소문을 들었습니다요..!!!";
+                m_tInfo.pContent = L"정말 투기장의 탑이 되셨군요...!!!! 저의 주군이 되셨습니다..!!!!!";
                 m_pTextBox->Set_Text(m_tInfo); //대화창 텍스트 세팅
                 m_pQuestUI->Get_QuestArray()->pop_back();
             }
-
         }
     }
 

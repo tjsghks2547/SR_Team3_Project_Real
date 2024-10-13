@@ -5,6 +5,7 @@ BEGIN(Engine)
 
 class CTexture;
 class CAnimator2;
+class CAnimation2;
 class CTransform;
 class CRcTex;
 
