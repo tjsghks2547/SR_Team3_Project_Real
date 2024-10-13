@@ -12,6 +12,8 @@ void PlayerPickUp::Enter()
     (dynamic_cast<CPlayer*>(m_CGameObject))->FixPlayerDir(OBJDIR_FRONT);
     (dynamic_cast<CPlayer*>(m_CGameObject))->SetPlayerState(PLAYERSTATE::PLY_PICKUP);
     (dynamic_cast<CPlayer*>(m_CGameObject))->FixCurPlayerDir(true);
+
+    Engine::Play_Sound(L"SFX_147_OguItemAdd.wav", SOUND_EFFECT, 0.7);
 }
 
 void PlayerPickUp::Update(const _float& fTimeDelta)

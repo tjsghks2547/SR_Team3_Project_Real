@@ -123,7 +123,7 @@ void CHeartFruit::OnCollision(CGameObject* _pOther)
 
 		m_bDead = true;
 		m_pPlayer->SetPlayerMaxHP(1);
-		Engine::Play_Sound(L"SFX_147_OguItemAdd.wav", SOUND_EFFECT, 0.7);
+		//Engine::Play_Sound(L"SFX_147_OguItemAdd.wav", SOUND_EFFECT, 0.7);
 		m_pEffect->Call_AddHP();
 	}
 }

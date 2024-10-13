@@ -331,12 +331,14 @@ void CDynamicCamera::ResetZoom(_float fDuration)
 }
 
 ///////////////////////////////////////////////////////////////////////////
-void CDynamicCamera::ShakeMove(_float fDuration)
+void CDynamicCamera::ShakeMove(_float fDuration, _float fAmplitude, _float fFrequeny)
 {
     if (m_bShakeTrigger)
         return;
 
     shakeTimer = shakeDuration = fDuration;
+    shakeAmplitude = fAmplitude;
+    shakeFrequency = fFrequeny;
     m_bShakeTrigger = true;
     m_fPrevShakeAtYPos = m_vAt.y;
 }
@@ -345,16 +347,11 @@ void CDynamicCamera::ShakeMoveTrigger(const _float& fTimeDelta)
 {
     if (shakeTimer > 0.0f)
     {
-        // 흔들림의 경과 시간 계산
         elapsedTime += fTimeDelta;
-
-        // 사인 함수를 사용한 상하 진동 계산
         float offsetY = shakeAmplitude * sinf(elapsedTime * shakeFrequency * 2.0f * 3.141592f);  // 사인 함수 적용
 
-        // 새로운 카메라 위치 설정
         m_vAt.y += offsetY;
 
-        // 진동 타이머 감소
         shakeTimer -= fTimeDelta;
 
         shakeAmplitude -= 0.01f;

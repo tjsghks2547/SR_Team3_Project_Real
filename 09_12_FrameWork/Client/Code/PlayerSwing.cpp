@@ -13,6 +13,8 @@ void PlayerSwing::Enter()
 
     m_pAnimationCom->SetTextureScale(1.5f);
     (dynamic_cast<CPlayer*>(m_CGameObject))->FixCurPlayerDir(true);
+
+    Engine::Play_Sound(L"SFX_0_Swing1_1.wav", SOUND_EFFECT, 0.7f);
 }
 
 void PlayerSwing::Update(const _float& fTimeDelta)
@@ -23,6 +25,8 @@ void PlayerSwing::Update(const _float& fTimeDelta)
     if (m_pAnimationCom->GetCurrentFrame() >= 2)
         dynamic_cast<CPlayer*>(m_CGameObject)->SetSwingTrigger(true);
 
+    if (m_pAnimationCom->GetCurrentFrame() == 6)
+        Engine::Play_Sound(L"SFX_2_Swing2_1.wav", SOUND_EFFECT, 0.7f);
 }
 
 void PlayerSwing::Exit()

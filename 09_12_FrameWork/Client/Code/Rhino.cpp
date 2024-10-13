@@ -169,6 +169,8 @@ void CRhino::Render_GameObject()
         }
         pCurrentTex = m_pAppearTex;
         Engine::Play_Sound(L"SFX_495_RhinoSmash_Land.wav", SOUND_EFFECT, 0.8f);
+        dynamic_cast<CDynamicCamera*>(m_pPlayer->GetCamera()
+            )->ShakeMove(0.3f, 0.2f, 25.f);
         break;
     case RHINO_JUMP:
         if (m_ePrevState == m_eState)

@@ -14,11 +14,19 @@ void PlayerDash::Enter()
     m_fMoveSpeed = 100.f;
     (dynamic_cast<CPlayer*>(m_CGameObject))->SetMoveSpeed(m_fMoveSpeed);
     m_fMoveDuration = 0.f;
+    m_fDuration = 0.4f;
     m_bZoomOutTrigger = false;
 }
 
 void PlayerDash::Update(const _float& fTimeDelta)
 {
+    m_fDuration += fTimeDelta;
+    if (m_fDuration > 0.7f)
+    {
+        m_fDuration = 0.f;
+        Engine::Play_Sound(L"SFX_7_Run_Ground_1.wav", SOUND_EFFECT, 0.3);
+    }
+
     if (!Engine::GetKeyPress(CONTROLKEY::PLY_UPKEY) &&
         !Engine::GetKeyPress(CONTROLKEY::PLY_DOWNKEY) &&
         !Engine::GetKeyPress(CONTROLKEY::PLY_LEFTKEY) &&

@@ -32,6 +32,7 @@ private:
 	static PlayerDash* m_instance;
 	float m_fMoveSpeed;
 	float m_fMoveDuration;
+	float m_fDuration;
 	bool m_bZoomOutTrigger;
 
 private:
