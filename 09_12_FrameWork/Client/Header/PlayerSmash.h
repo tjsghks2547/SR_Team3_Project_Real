@@ -30,6 +30,8 @@ public:
     void SetStateCount(int _iType) { m_iStateCount = _iType; }
 private:
     static PlayerSmash* m_instance;
+    float m_fDuration = 0;
+    int m_iSmashLevel = 0;
 
 private:
     int m_iStateCount = 0;

@@ -16,10 +16,19 @@ void PlayerMove::Enter()
     float fItemMoveSpeed = (dynamic_cast<CPlayer*>(m_CGameObject))->GetItemMoveSpeed();
     m_fMoveSpeed += fItemMoveSpeed;
 
+    m_fDuration = 0.7f;
+
 }
 
 void PlayerMove::Update(const _float& fTimeDelta)
 {
+    m_fDuration += fTimeDelta;
+    if (m_fDuration > 1.f)
+    {
+        m_fDuration = 0.f;
+        Engine::Play_Sound(L"SFX_4_Walk_Ground_1.wav", SOUND_EFFECT, 0.3);
+    }
+
     if (!Engine::GetKeyPress(CONTROLKEY::PLY_UPKEY) &&
         !Engine::GetKeyPress(CONTROLKEY::PLY_DOWNKEY) &&
         !Engine::GetKeyPress(CONTROLKEY::PLY_LEFTKEY) &&
