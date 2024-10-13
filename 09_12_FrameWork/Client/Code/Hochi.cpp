@@ -2,7 +2,7 @@
 #include "Hochi.h"
 
 CHochi::CHochi(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CQuestNPC(pGraphicDev)
+    :CQuestNPC(pGraphicDev)
 {
 }
 
@@ -21,7 +21,7 @@ HRESULT CHochi::Ready_GameObject()
     m_pAnimatorCom->CreateAnimation(L"Hochi", m_pNPCTex, _vec2(0.f, 0.f), _vec2(128.f, 128.f), _vec2(128.f, 0.f), 0.12f, 5);
 
     m_tInfo.pName = L"È£Ä¡";
-    m_tInfo.pContent = L"ÀÌ ¾È¿¡¼­´Â ¾Ë½ö´Þ½öÇÑ ³¿»õ°¡ ³ª.....´í½º!!!!!!!!!!!";
+    m_tInfo.pContent = L"ÀÌ ¾È¿¡¼­´Â ¾Ë½ö´Þ½öÇÏ°í À§ÇèÇÑ ³¿»õ°¡ ³ª..... ´í½º!!!!!!!!!!!";
 
     return S_OK;
 }
@@ -102,7 +102,7 @@ HRESULT CHochi::Add_Component()
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
     m_pTransformCom->m_vScale = { 25.f, 25.f, 30.f };
-    m_pTransformCom->Set_Pos(880.f, 30.f, 1900.f);
+    m_pTransformCom->Set_Pos(640.f, 30.f, 1880.f);
 
     pComponent = m_pColliderCom = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);

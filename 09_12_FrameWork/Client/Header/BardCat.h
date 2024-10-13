@@ -1,12 +1,12 @@
 #pragma once
-#include "TextBox.h"
 #include "QuestNPC.h"
-#include "CGodEffect.h"
-class CWhiteBird : public CQuestNPC
+#include "TextBox.h"
+
+class CBardCat : public CQuestNPC
 {
 private:
-	explicit CWhiteBird(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual	 ~CWhiteBird();
+	explicit CBardCat(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual	 ~CBardCat();
 
 public:
 	virtual   HRESULT   Ready_GameObject();
@@ -22,15 +22,12 @@ public:
 private:
 	HRESULT    Add_Component();
 
-private:
-	CGodEffect* m_pGodEffect;
-
+	enum CAT_STATE { CAT_IDLE, CAT_SONG };
 public:
-	static CWhiteBird* Create(LPDIRECT3DDEVICE9 pGraphicDev);
-	static _bool	g_bQuestClear;
-	static _bool	g_bQuestAccept;
+	static CBardCat* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+
 private:
 	virtual void Free();
-	_bool			   m_bDead;
+	CAT_STATE m_eState;
 };
 

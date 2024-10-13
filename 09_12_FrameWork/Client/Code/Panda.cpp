@@ -165,7 +165,7 @@ HRESULT CPanda::Add_Component()
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformHatShop", pComponent });
     m_pShopTransformCom->m_vScale = { 30.f, 30.f, 30.f };
-    m_pShopTransformCom->Set_Pos(345.f, 30.f, 460.f);
+    m_pShopTransformCom->Set_Pos(645.f, 30.f, 550.f);
 
     //-여기까지 텍스쳐-
 
@@ -177,7 +177,7 @@ HRESULT CPanda::Add_Component()
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
     m_pTransformCom->m_vScale = { 30.f, 30.f, 30.f };
-    m_pTransformCom->Set_Pos(300.f, 20.f, 461.f);
+    m_pTransformCom->Set_Pos(600.f, 20.f, 551.f);
 
     pComponent = m_pColliderCom = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);

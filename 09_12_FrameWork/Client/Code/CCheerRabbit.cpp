@@ -1,37 +1,37 @@
 #include "pch.h"
-#include "Dochi.h"
+#include "CCheerRabbit.h"
 
-CDochi::CDochi(LPDIRECT3DDEVICE9 pGraphicDev)
+CCheerRabbit::CCheerRabbit(LPDIRECT3DDEVICE9 pGraphicDev)
     :CQuestNPC(pGraphicDev)
 {
 }
 
-CDochi::~CDochi()
+CCheerRabbit::~CCheerRabbit()
 {
 }
 
-HRESULT CDochi::Ready_GameObject()
+HRESULT CCheerRabbit::Ready_GameObject()
 {
     CQuestNPC::Ready_GameObject();
 
     SetObjectType(OBJ_TYPE::TALK_ABLE);
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
-    D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/Dochi.png", &m_pNPCTex);
-    m_pAnimatorCom->CreateAnimation(L"Dochi", m_pNPCTex, _vec2(0.f, 0.f), _vec2(128.f, 128.f), _vec2(128.f, 0.f), 0.12f, 7);
+    D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/CheerRabbit.png", &m_pNPCTex);
+    m_pAnimatorCom->CreateAnimation(L"JumpRabbit", m_pNPCTex, _vec2(0.f, 0.f), _vec2(128.f, 128.f), _vec2(128.f, 0.f), 0.12f, 3);
 
-    m_tInfo.pName = L"도치";
-    m_tInfo.pContent = L"용사만이 이 문을 열 수 있다네!!!! 용사님을 기다리는 댄스!!!!!!";
+    m_tInfo.pName = L"댄싱 토끼";
+    m_tInfo.pContent = L"용사만이 이 문을 열 수 있다네!!!! 용사님을 부르는 댄스!!!!!!";
 
     return S_OK;
 }
 
-void CDochi::LateReady_GameObject()
+void CCheerRabbit::LateReady_GameObject()
 {
     CQuestNPC::LateReady_GameObject();
 }
 
-_int CDochi::Update_GameObject(const _float& fTimeDelta)
+_int CCheerRabbit::Update_GameObject(const _float& fTimeDelta)
 {
     CQuestNPC::Update_GameObject(fTimeDelta);
 
@@ -42,21 +42,21 @@ _int CDochi::Update_GameObject(const _float& fTimeDelta)
     return iExit;
 }
 
-void CDochi::LateUpdate_GameObject(const _float& fTimeDelta)
+void CCheerRabbit::LateUpdate_GameObject(const _float& fTimeDelta)
 {
     Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
-void CDochi::Render_GameObject()
+void CCheerRabbit::Render_GameObject()
 {
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
     m_pGraphicDev->SetTexture(0, m_pNPCTex);
-    m_pAnimatorCom->Play(L"Dochi", true);
+    m_pAnimatorCom->Play(L"JumpRabbit", true);
     m_pAnimatorCom->render();
     m_pColliderCom->Render_Buffer();
 }
 
-void CDochi::OnCollision(CGameObject* _pOther)
+void CCheerRabbit::OnCollision(CGameObject* _pOther)
 {
     if (_pOther->GetObjectKey() != L"Player")
         return;
@@ -81,16 +81,16 @@ void CDochi::OnCollision(CGameObject* _pOther)
     }
 }
 
-void CDochi::OnCollisionEnter(CGameObject* _pOther)
+void CCheerRabbit::OnCollisionEnter(CGameObject* _pOther)
 {
 }
 
-void CDochi::OnCollisionExit(CGameObject* _pOther)
+void CCheerRabbit::OnCollisionExit(CGameObject* _pOther)
 {
     m_pInterButton->CallButton(false);
 }
 
-HRESULT CDochi::Add_Component()
+HRESULT CCheerRabbit::Add_Component()
 {
     CComponent* pComponent = NULL;
 
@@ -102,7 +102,7 @@ HRESULT CDochi::Add_Component()
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
     m_pTransformCom->m_vScale = { 15.f, 15.f, 30.f };
-    m_pTransformCom->Set_Pos(910.f, 25.f, 1000.f);
+    m_pTransformCom->Set_Pos(580.f, 25.f, 1000.f);
 
     pComponent = m_pColliderCom = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
@@ -113,21 +113,21 @@ HRESULT CDochi::Add_Component()
     return S_OK;
 }
 
-CDochi* CDochi::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CCheerRabbit* CCheerRabbit::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-    CDochi* pNPC = new CDochi(pGraphicDev);
+    CCheerRabbit* pNPC = new CCheerRabbit(pGraphicDev);
 
     if (FAILED(pNPC->Ready_GameObject()))
     {
         Safe_Release(pNPC);
-        MSG_BOX("Dochi Create Failed");
+        MSG_BOX("CheerRabbit Create Failed");
         return nullptr;
     }
 
     return pNPC;
 }
 
-void CDochi::Free()
+void CCheerRabbit::Free()
 {
     Engine::CGameObject::Free();
 }

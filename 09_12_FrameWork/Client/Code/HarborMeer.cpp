@@ -97,17 +97,17 @@ void CHarborMeer::OnCollision(CGameObject* _pOther)
             // 여기에 UIbool true + 아이템 세팅
             m_bStoreOn = true;
 
-            CItem* pItem = dynamic_cast<CSmallHerb*>(CSmallHerb::Create(m_pGraphicDev));
+            CItem* pItem = dynamic_cast<CSmallRoot*>(CSmallRoot::Create(m_pGraphicDev));
             NULL_CHECK_RETURN(pItem);
             pItem->LateReady_GameObject();
             m_ItemArray.push_back(pItem);
 
-            pItem = dynamic_cast<CMiddleHerb*>(CMiddleHerb::Create(m_pGraphicDev));
+            pItem = dynamic_cast<CMiddleRoot*>(CMiddleRoot::Create(m_pGraphicDev));
             NULL_CHECK_RETURN(pItem);
             pItem->LateReady_GameObject();
             m_ItemArray.push_back(pItem);
 
-            pItem = dynamic_cast<CBigHerb*>(CBigHerb::Create(m_pGraphicDev));
+            pItem = dynamic_cast<CBigRoot*>(CBigRoot::Create(m_pGraphicDev));
             NULL_CHECK_RETURN(pItem);
             pItem->LateReady_GameObject();
             m_ItemArray.push_back(pItem);
@@ -164,7 +164,7 @@ HRESULT CHarborMeer::Add_Component()
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformHatShop", pComponent });
     m_pShopTransformCom->m_vScale = { 100.f, 50.f, 30.f };
-    m_pShopTransformCom->Set_Pos(530.f, 60.f, 600.f);
+    m_pShopTransformCom->Set_Pos(530.f, 60.f, 850.f);
 
     //-여기까지 텍스쳐-
 
@@ -176,7 +176,7 @@ HRESULT CHarborMeer::Add_Component()
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
     m_pTransformCom->m_vScale = { 30.f, 30.f, 30.f };
-    m_pTransformCom->Set_Pos(528.5f, 40.f, 601.f);
+    m_pTransformCom->Set_Pos(528.5f, 40.f, 851.f);
 
     pComponent = m_pColliderCom = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);

@@ -476,6 +476,15 @@
     <Filter Include="02. GameObject\11. UI\00. DefaultUI\Effect">
       <UniqueIdentifier>{c42dfaa9-63e5-4c4c-833f-525ccc2b957a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\12. NPC\00. QuestNPC\14. God">
+      <UniqueIdentifier>{e957ac78-951b-4b41-bea9-18d5bd4e1e8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. NPC\00. QuestNPC\15. BardCat">
+      <UniqueIdentifier>{d90a1aae-b8af-489f-b1e0-f184eb6c9965}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. NPC\00. QuestNPC\16. Mouse">
+      <UniqueIdentifier>{3e14780a-f6cf-4f50-a1fb-0ef9a5363120}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -1009,9 +1018,6 @@
     <ClInclude Include="..\Header\Dochi.h">
       <Filter>02. GameObject\12. NPC\00. QuestNPC\10. Dochi</Filter>
     </ClInclude>
-    <ClInclude Include="CCheerRabbit.h">
-      <Filter>02. GameObject\12. NPC\00. QuestNPC\11. CheerRabbit</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\Hochi.h">
       <Filter>02. GameObject\12. NPC\00. QuestNPC\12. Hochi</Filter>
     </ClInclude>
@@ -1063,14 +1069,29 @@
     <ClInclude Include="..\Header\HarborMeer.h">
       <Filter>02. GameObject\12. NPC\01. StoreNPC\02. HarborMeer</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\Panda.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\HeartFruit.h">
       <Filter>02. GameObject\10. Item\04. Special</Filter>
     </ClInclude>
     <ClInclude Include="AddHP.h">
       <Filter>02. GameObject\11. UI\00. DefaultUI\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CGodEffect.h">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\14. God</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\God.h">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\14. God</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMouse.h">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\16. Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCheerRabbit.h">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\11. CheerRabbit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\BardCat.h">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\15. BardCat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Panda.h">
+      <Filter>02. GameObject\12. NPC\01. StoreNPC\03. Panda</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1596,9 +1617,6 @@
     <ClCompile Include="..\Code\Dochi.cpp">
       <Filter>02. GameObject\12. NPC\00. QuestNPC\10. Dochi</Filter>
     </ClCompile>
-    <ClCompile Include="CCheerRabbit.cpp">
-      <Filter>02. GameObject\12. NPC\00. QuestNPC\11. CheerRabbit</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\Hochi.cpp">
       <Filter>02. GameObject\12. NPC\00. QuestNPC\12. Hochi</Filter>
     </ClCompile>
@@ -1650,14 +1668,29 @@
     <ClCompile Include="..\Code\HarborMeer.cpp">
       <Filter>02. GameObject\12. NPC\01. StoreNPC\02. HarborMeer</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Panda.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\HeartFruit.cpp">
       <Filter>02. GameObject\10. Item\04. Special</Filter>
     </ClCompile>
     <ClCompile Include="AddHP.cpp">
       <Filter>02. GameObject\11. UI\00. DefaultUI\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CGodEffect.cpp">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\14. God</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\God.cpp">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\14. God</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMouse.cpp">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\16. Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCheerRabbit.cpp">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\11. CheerRabbit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\BardCat.cpp">
+      <Filter>02. GameObject\12. NPC\00. QuestNPC\15. BardCat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Panda.cpp">
+      <Filter>02. GameObject\12. NPC\01. StoreNPC\03. Panda</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,12 +1,12 @@
 #pragma once
-#include "TextBox.h"
 #include "QuestNPC.h"
-#include "CGodEffect.h"
-class CWhiteBird : public CQuestNPC
+#include "TextBox.h"
+
+class CGod : public CQuestNPC
 {
 private:
-	explicit CWhiteBird(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual	 ~CWhiteBird();
+	explicit CGod(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual	 ~CGod();
 
 public:
 	virtual   HRESULT   Ready_GameObject();
@@ -19,18 +19,20 @@ public:
 	virtual   void		OnCollisionEnter(CGameObject* _pOther);
 	virtual   void		OnCollisionExit(CGameObject* _pOther);
 
+	void		Call_God() { m_bCall = true; }
 private:
+	enum GODSTATE { GOD_IN1, GOD_IN2, GOD_IN3, GOD_IDLE1, GOD_IDLE2, GOD_IDLE3 };
+
 	HRESULT    Add_Component();
 
-private:
-	CGodEffect* m_pGodEffect;
-
 public:
-	static CWhiteBird* Create(LPDIRECT3DDEVICE9 pGraphicDev);
-	static _bool	g_bQuestClear;
-	static _bool	g_bQuestAccept;
+	static CGod* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+
 private:
 	virtual void Free();
-	_bool			   m_bDead;
+	IDirect3DTexture9* m_pComeTex;
+
+	_bool	  m_bCall;
+	GODSTATE  m_eState;
 };
 
