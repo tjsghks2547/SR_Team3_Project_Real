@@ -46,7 +46,8 @@ _int CStoneHole::Update_GameObject(const _float& fTimeDelta)
 		if (m_fPullDuration >= .5f) {
 			m_pCollided->Set_Active(false);
 			m_bIsActive = false;
-			m_iImageID = 1;
+			m_iImageID = 1;			
+			Play_Sound(L"SFX_43_StonePushable_Fall.wav", SOUND_EFFECT, 1.f);
 		}
 	}
 

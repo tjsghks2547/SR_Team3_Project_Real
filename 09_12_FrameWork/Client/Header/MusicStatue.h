@@ -49,6 +49,7 @@ private:
 	_bool m_bIsClear;
 	_bool m_bIsActivate;
 	_int m_iCurNote;
+	_float m_fActiveTime;
 	vector<_int> m_vecKeyOrder;
 	vector<CGameObject*> m_vecFirePits;
 	vector<CGameObject*> m_vecStoneBlocks;

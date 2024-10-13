@@ -4,7 +4,7 @@
 #include "Export_Utility.h"
 
 CBreakableStone::CBreakableStone(LPDIRECT3DDEVICE9 pGraphicDev)
-	: Engine::CGameObject(pGraphicDev), m_iStoneID(0)
+	: Engine::CGameObject(pGraphicDev), m_iImageID(0), m_fTime(0), m_iTargetID(0)
 {
 }
 
@@ -14,8 +14,19 @@ CBreakableStone::~CBreakableStone()
 
 HRESULT CBreakableStone::Ready_GameObject()
 {
-	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);		
+	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 	SetObjectType(NOTPASS_ABLE);
+
+	m_vecTexture.resize(8);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/BreakableStone_Anim/Sprite_StoneBreakable_Destroy_00.png", &m_vecTexture[0]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/BreakableStone_Anim/Sprite_StoneBreakable_Destroy_01.png", &m_vecTexture[1]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/BreakableStone_Anim/Sprite_StoneBreakable_Destroy_02.png", &m_vecTexture[2]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/BreakableStone_Anim/Sprite_StoneBreakable_Destroy_03.png", &m_vecTexture[3]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/BreakableStone_Anim/Sprite_StoneBreakable_Destroy_04.png", &m_vecTexture[4]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/BreakableStone_Anim/Sprite_StoneBreakable_Destroy_05.png", &m_vecTexture[5]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/BreakableStone_Anim/Sprite_StoneBreakable_Destroy_06.png", &m_vecTexture[6]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/BreakableStone_Anim/Sprite_StoneBreakable_Destroy_07.png", &m_vecTexture[7]);
+
 
 	m_pTransformCom->m_vScale = { 16.f, 16.f, 16.f };
 	return S_OK;
@@ -27,6 +38,22 @@ _int CBreakableStone::Update_GameObject(const _float& fTimeDelta)
 		return 0;
 
 	Add_RenderGroup(RENDER_ALPHA, this);
+
+
+	if (m_iImageID != m_iTargetID) {
+		m_fTime += fTimeDelta;
+
+		if (m_fTime >= 0.02f) {
+			if (m_iTargetID > m_iImageID)
+				m_iImageID++;
+
+			if (m_iImageID == m_iTargetID)
+				m_bIsActive = false;
+
+			m_fTime = 0;
+		}
+	}
+
 	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
 	return iExit;
@@ -47,7 +74,7 @@ void CBreakableStone::Render_GameObject()
 
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	m_pTextureCom->Set_Texture();
+	m_pGraphicDev->SetTexture(0, m_vecTexture[m_iImageID]);
 	m_pBufferCom->Render_Buffer();
 	m_pBoundBox->Render_Buffer();
 
@@ -60,8 +87,10 @@ void CBreakableStone::OnCollisionEnter(CGameObject* _pOther)
 		if (static_cast<CStone*>(_pOther)->Is_Launched() == false)
 			return;
 
-		_pOther->Set_Active(false);
-		m_bIsActive = false;
+		static_cast<CStone*>(_pOther)->Break();
+		m_iTargetID = 7;
+		Play_Sound(L"SFX_41_Catapult_StoneHit.wav", SOUND_EFFECT, 1.f);
+		Play_Sound(L"SFX_681_StoneBreakableDestroy.wav", SOUND_SURROUNDING, 1.f);
 	}
 }
 
@@ -72,10 +101,6 @@ HRESULT CBreakableStone::Add_Component()
 	pComponent = m_pBufferCom = dynamic_cast<CRcTex*>(Engine::Clone_Proto(L"Proto_RcTex"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
-
-	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_BreakableStone"));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
 
 	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);

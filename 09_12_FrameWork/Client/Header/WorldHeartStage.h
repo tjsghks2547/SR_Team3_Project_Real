@@ -12,10 +12,7 @@
 #include "QuickSlot.h"
 #include "Object.h"
 
-#include "CrystalPuzzle.h"
-#include "Crystal.h"
-#include "PressBlock.h"
-
+#include "B52Bomber.h"
 
 #include "WhiteBird.h"
 #include "God.h"

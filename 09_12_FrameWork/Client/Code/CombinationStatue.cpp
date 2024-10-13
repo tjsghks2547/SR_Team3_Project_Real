@@ -4,7 +4,7 @@
 #include "Export_Utility.h"
 
 CCombinationStatue::CCombinationStatue(LPDIRECT3DDEVICE9 pGraphicDev)
-	: Engine::CGameObject(pGraphicDev), m_iImageID(0)
+	: Engine::CGameObject(pGraphicDev), m_iImageID(0), m_fActiveTime(0)
 {
 }
 
@@ -28,6 +28,17 @@ HRESULT CCombinationStatue::Ready_GameObject()
 _int CCombinationStatue::Update_GameObject(const _float& fTimeDelta)
 {
 	Add_RenderGroup(RENDER_ALPHA, this);
+
+	if (m_bIsActivate) {
+		m_fActiveTime += fTimeDelta;
+
+		if (m_fActiveTime >= 1.f)
+		{
+			m_bIsActivate = false;
+			m_fActiveTime = 0;
+		}
+	}
+
 	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
 	return iExit;
@@ -59,6 +70,7 @@ void CCombinationStatue::OnCollision(CGameObject* _pOther)
 		m_bIsActivate = true;
 		m_iImageID++;
 		m_iImageID %= 3;
+		Play_Sound(L"SFX_22_StoneGateMove.wav", SOUND_EFFECT, 1.f);
 		static_cast<CCombinationPuzzle*>(m_pGroup)->Check_Matched();
 	}
 }

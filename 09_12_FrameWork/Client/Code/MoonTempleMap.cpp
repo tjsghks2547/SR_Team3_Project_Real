@@ -17,7 +17,7 @@ HRESULT CMoonTempleMap::Ready_GameObject()
    
 
      
-    m_pGraphicDev->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_XRGB(50, 50, 50));  // 어두운 주변광 설정
+    //m_pGraphicDev->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_XRGB(50, 50, 50));  // 어두운 주변광 설정
 
     return S_OK;
 }
@@ -40,7 +40,7 @@ void CMoonTempleMap::Render_GameObject()
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
     //테스트
-    FAILED_CHECK_RETURN(SetUp_Material(), );    
+    //FAILED_CHECK_RETURN(SetUp_Material(), );    
 
     m_pTextureCom->Set_Texture(0);
 

@@ -69,11 +69,6 @@ void CStoneBlock::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CStoneBlock::Render_GameObject()
 {	
-	if (CManagement::GetInstance()->m_imap_stage == 2)
-	{
-		m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
-	}
-
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	m_pGraphicDev->SetTexture(0, m_vecTexture[m_iImageID]);
@@ -84,14 +79,7 @@ void CStoneBlock::Render_GameObject()
 	m_pGraphicDev->SetTexture(0, m_vecHoleTexture[m_iHoleImageID]);
 	m_pBufferCom->Render_Buffer();
 
-	if (CManagement::GetInstance()->m_imap_stage == 2)
-	{
-		m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, false);
-	}
-
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
-
-
 }
 
 HRESULT CStoneBlock::Add_Component()
@@ -142,6 +130,30 @@ CStoneBlock* CStoneBlock::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pStoneBlock);
 	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PUZZLE, pStoneBlock);
 	return pStoneBlock;
+}
+
+void CStoneBlock::Move_StoneBlock()
+{
+	m_bIsMove = true;
+	m_bIsUp = m_bIsUp == true ? false : true;
+	m_fTargetPos = m_bIsUp == true ? _vec3{ 0.f, 13.5f, 0.f } : _vec3{ 0.f, -14.5f, 0.f };
+	m_iHoleImageID = 0;
+	m_fMoveTime = 0;
+}
+
+void CStoneBlock::Move_StoneBlockOnce()
+{
+	if (m_bActiceOnce)
+		return;
+
+	m_bActiceOnce = true;
+	m_bIsMove = true;
+	m_bIsUp = false;
+	m_fTargetPos = _vec3{ 0.f, -14.5f, 0.f };
+	m_iHoleImageID = 0;
+	m_fMoveTime = 0;
+
+	Play_Sound(L"SFX_168_GateOnceOff.wav", SOUND_EFFECT, 1.f);
 }
 
 void CStoneBlock::Free()

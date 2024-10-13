@@ -50,11 +50,15 @@ _int CWeightComparator::Update_GameObject(const _float& fTimeDelta)
 				m_iImageID++;
 
 			m_fTime = 0;
+			Play_Sound(L"SFX_119_MazePuzzlePieceAdd.wav", SOUND_EFFECT, 1.f);
 		}
 
-		if(m_iImageID == 3)
+		if (m_iImageID == 3) {
 			for (int i = 0; i < m_vecStoneBlocks.size(); ++i)
 				static_cast<CStoneBlock*>(m_vecStoneBlocks[i])->Move_StoneBlock();
+			
+			Play_Sound(L"SFX_168_GateOnceOff.wav", SOUND_SURROUNDING, 1.f);
+		}			
 	}
 
 	return iExit;

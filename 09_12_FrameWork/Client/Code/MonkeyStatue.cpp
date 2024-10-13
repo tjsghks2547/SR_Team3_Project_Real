@@ -55,7 +55,7 @@ void CMonkeyStatue::OnCollision(CGameObject* _pOther)
 	{
 		Active_StoneBlock();
 		m_bIsActivate = true;
-		//Play_Sound()
+		Play_Sound(L"SFX_22_StoneGateMove.wav", SOUND_EFFECT, 1.f);
 	}
 }
 

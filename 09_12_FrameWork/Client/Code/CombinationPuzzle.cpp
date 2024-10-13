@@ -22,8 +22,8 @@ HRESULT CCombinationPuzzle::Ready_GameObject()
 
 _int CCombinationPuzzle::Update_GameObject(const _float& fTimeDelta)	
 {	
-	m_vecCombination.push_back(0);
 	m_vecCombination.push_back(1);
+	m_vecCombination.push_back(0);
 	m_vecCombination.push_back(2);
 
 	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);	
@@ -63,6 +63,7 @@ void CCombinationPuzzle::Check_Matched()
 	for (int i = 0; i < m_vecStoneBlocks.size(); ++i)
 	{
 		static_cast<CStoneBlock*>(m_vecStoneBlocks[i])->Move_StoneBlock();	
+		Play_Sound(L"SFX_168_GateOnceOff.wav", SOUND_EFFECT, 1.f);
 	}
 }
 
