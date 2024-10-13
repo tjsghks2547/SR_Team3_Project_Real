@@ -25,6 +25,7 @@ namespace Engine
 	{
 		SOUND_BGM,
 		SOUND_EFFECT,
+		SOUND_MOREEFFECT,
 		SOUND_SURROUNDING,
 		SOUND_ElectricEel,	
 		SOUND_ElectricEel_Collision,

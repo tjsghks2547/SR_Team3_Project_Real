@@ -198,6 +198,24 @@ HRESULT CWorldHearStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 	dynamic_cast<CBranch*>(pGameObject)->Set_DropItem(ItemPos);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_Branch", pGameObject), E_FAIL);
 	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pGameObject);
+
+
+	pGameObject = CMouse::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Mouse", pGameObject), E_FAIL);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+
+
+	pGameObject = CGod::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	//dynamic_cast<CGod*>(pGameObject)->Call_God();
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"God", pGameObject), E_FAIL);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+
+	pGameObject = CGodEffect::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"GodEffect", pGameObject), E_FAIL);
+
 #pragma endregion
 
 #pragma region Crystal Puzzle

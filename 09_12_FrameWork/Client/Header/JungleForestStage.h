@@ -31,6 +31,7 @@
 #include "Dochi.h"
 #include "Hochi.h"
 #include "CCheerRabbit.h"
+#include "BardCat.h"
 
 
 

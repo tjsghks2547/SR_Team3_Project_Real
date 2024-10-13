@@ -18,7 +18,9 @@
 
 
 #include "WhiteBird.h"
-
+#include "God.h"
+#include "CGodEffect.h"
+#include "CMouse.h"
 
 
 //여기다 넣을 오브젝트들 다 include하기

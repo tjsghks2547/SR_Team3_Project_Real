@@ -1,37 +1,42 @@
 #include "pch.h"
-#include "CCheerRabbit.h"
+#include "BardCat.h"
 
-CCheerRabbit::CCheerRabbit(LPDIRECT3DDEVICE9 pGraphicDev)
+CBardCat::CBardCat(LPDIRECT3DDEVICE9 pGraphicDev)
     :CQuestNPC(pGraphicDev)
 {
 }
 
-CCheerRabbit::~CCheerRabbit()
+CBardCat::~CBardCat()
 {
 }
 
-HRESULT CCheerRabbit::Ready_GameObject()
+HRESULT CBardCat::Ready_GameObject()
 {
     CQuestNPC::Ready_GameObject();
 
     SetObjectType(OBJ_TYPE::TALK_ABLE);
+
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
-    D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/CheerRabbit.png", &m_pNPCTex);
-    m_pAnimatorCom->CreateAnimation(L"JumpRabbit", m_pNPCTex, _vec2(0.f, 0.f), _vec2(128.f, 128.f), _vec2(128.f, 0.f), 0.12f, 3);
+    D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/BardCat.png", &m_pNPCTex);
+    m_pAnimatorCom->CreateAnimation(L"BardCatIdle", m_pNPCTex, _vec2(0.f, 0.f), _vec2(128.f, 128.f), _vec2(128.f, 0.f), 0.12f, 5);
+    m_pAnimatorCom->CreateAnimation(L"BardCatSong", m_pNPCTex, _vec2(0.f, 128.f), _vec2(128.f, 128.f), _vec2(128.f, 0.f), 0.12f, 7);
 
-    m_tInfo.pName = L"댄싱 토끼";
-    m_tInfo.pContent = L"문 좀 열어줘 댄스!!!!!!!!!!";
+    m_tInfo.pName = L"음유시인";
+    m_tInfo.pContent = L"저 문을 열고 들어오다니..! 당신이 용사님이시군요!!!!!!! 용사님을 위해 만든 노래가 있어요! 아직 가사는 없지만 들어주세요!!";
+
+    m_eState = CAT_IDLE;
 
     return S_OK;
+
 }
 
-void CCheerRabbit::LateReady_GameObject()
+void CBardCat::LateReady_GameObject()
 {
     CQuestNPC::LateReady_GameObject();
 }
 
-_int CCheerRabbit::Update_GameObject(const _float& fTimeDelta)
+_int CBardCat::Update_GameObject(const _float& fTimeDelta)
 {
     CQuestNPC::Update_GameObject(fTimeDelta);
 
@@ -40,30 +45,46 @@ _int CCheerRabbit::Update_GameObject(const _float& fTimeDelta)
     Add_RenderGroup(RENDER_ALPHA, this);
 
     return iExit;
+
 }
 
-void CCheerRabbit::LateUpdate_GameObject(const _float& fTimeDelta)
+void CBardCat::LateUpdate_GameObject(const _float& fTimeDelta)
 {
     Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
-void CCheerRabbit::Render_GameObject()
+void CBardCat::Render_GameObject()
 {
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+
+    switch (m_eState)
+    {
+    case CAT_IDLE:
+        m_pAnimatorCom->Play(L"BardCatIdle", true);
+        break;
+
+    case CAT_SONG:
+        m_pAnimatorCom->Play(L"BardCatSong", true);
+        break;
+    }
     m_pGraphicDev->SetTexture(0, m_pNPCTex);
-    m_pAnimatorCom->Play(L"JumpRabbit", true);
     m_pAnimatorCom->render();
     m_pColliderCom->Render_Buffer();
+
 }
 
-void CCheerRabbit::OnCollision(CGameObject* _pOther)
+void CBardCat::OnCollision(CGameObject* _pOther)
 {
     if (_pOther->GetObjectKey() != L"Player")
         return;
 
+    // [S]버튼 출력.
+    // [S]버튼 클릭 시 텍스트박스 출력 + 텍스트 출력
     if (Engine::GetKeyDown(DIK_S))
     {
         m_bConversation = m_bConversation ? false : true;
+        // 대화중일때 S를 누르면 대화종료
+        // 대화중이 아닐때 S를 누르면 대화시작
 
         if (m_bConversation)
         {
@@ -71,6 +92,17 @@ void CCheerRabbit::OnCollision(CGameObject* _pOther)
 
             m_pTextBox->Set_Text(m_tInfo); //대화창 텍스트 세팅
             m_pTextBox->CallTextBox(true); //대화창 호출
+            //if (m_eState == CAT_SONG)
+            //{
+
+            //}
+        }
+        if (!m_bConversation)
+        {
+            m_eState = CAT_SONG;
+            Engine::StopSound(SOUND_BGM);
+            Engine::PlayBGM(L"BGM_79_BardSongNoVocal.wav", 0.8f);
+            return;
         }
     }
 
@@ -81,16 +113,22 @@ void CCheerRabbit::OnCollision(CGameObject* _pOther)
     }
 }
 
-void CCheerRabbit::OnCollisionEnter(CGameObject* _pOther)
+void CBardCat::OnCollisionEnter(CGameObject* _pOther)
 {
 }
 
-void CCheerRabbit::OnCollisionExit(CGameObject* _pOther)
+void CBardCat::OnCollisionExit(CGameObject* _pOther)
 {
+    if (m_eState == CAT_SONG)
+    {
+        m_eState = CAT_IDLE;
+        Engine::StopSound(SOUND_BGM);
+        Engine::PlayBGM(L"BGM_3_JungleAreaField1.wav", 0.8f);
+    }
     m_pInterButton->CallButton(false);
 }
 
-HRESULT CCheerRabbit::Add_Component()
+HRESULT CBardCat::Add_Component()
 {
     CComponent* pComponent = NULL;
 
@@ -101,8 +139,8 @@ HRESULT CCheerRabbit::Add_Component()
     pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
-    m_pTransformCom->m_vScale = { 15.f, 15.f, 30.f };
-    m_pTransformCom->Set_Pos(580.f, 25.f, 1000.f);
+    m_pTransformCom->m_vScale = { 25.f, 25.f, 30.f };
+    m_pTransformCom->Set_Pos(880.f, 30.f, 1880.f);
 
     pComponent = m_pColliderCom = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
@@ -113,21 +151,21 @@ HRESULT CCheerRabbit::Add_Component()
     return S_OK;
 }
 
-CCheerRabbit* CCheerRabbit::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CBardCat* CBardCat::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-    CCheerRabbit* pNPC = new CCheerRabbit(pGraphicDev);
+    CBardCat* pNPC = new CBardCat(pGraphicDev);
 
     if (FAILED(pNPC->Ready_GameObject()))
     {
         Safe_Release(pNPC);
-        MSG_BOX("CheerRabbit Create Failed");
+        MSG_BOX("CBardCat Create Failed");
         return nullptr;
     }
 
     return pNPC;
 }
 
-void CCheerRabbit::Free()
+void CBardCat::Free()
 {
     Engine::CGameObject::Free();
 }
