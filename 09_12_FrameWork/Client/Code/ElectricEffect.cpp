@@ -40,9 +40,10 @@ _int CElectricEffect::Update_GameObject(const _float& fTimeDelta)
 {
     if (dwtime + 1000 < GetTickCount64())
     {
-
+        Play_Sound(L"SFX_499_ThunderAttack.wav", SOUND_EFFECT, 1.f);
         m_pAnimatorCom->Play(L"Lighting_Y", false); 
         m_bEffect = true;
+        dwtime = GetTickCount64();
     }
 
     else
@@ -71,6 +72,7 @@ void CElectricEffect::Render_GameObject()
             m_pTransformCom->Rotation(ROT_X, 90 * 3.14f / 180.f);
             m_pTransformCom->m_vScale = { 35.f, 10.f, 20.f };
             m_iCount++;
+            
         }
 
         m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
@@ -88,6 +90,7 @@ void CElectricEffect::Render_GameObject()
 
     if(m_pAnimatorCom->GetAnimation()->IsFinish())
     {
+        
         Engine::CGameObject::Free();
         map<const _tchar*, CLayer*>& mapLayer = CManagement::GetInstance()->GetCurScenePtr()->GetLayerMapPtr();
         //그니깐 레이어에서 삭제해줘야한다는것. 

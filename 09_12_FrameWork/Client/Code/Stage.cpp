@@ -21,7 +21,8 @@ HRESULT CStage::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
 
 	Engine::StopSound(SOUND_BGM);
-	Engine::PlayBGM(L"BGM_1_CentralArea.wav", 0.8f);
+	Engine::PlayBGM(L"BGM_1_CentralArea.wav", 1.f);
+
 	//Play_Sound(L"BGM_19_TutorialAmbience.wav", SOUND_EFFECT, 1.f);
 
 	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
@@ -41,7 +42,7 @@ _int CStage::Update_Scene(const _float& fTimeDelta)
 
 
 		FAILED_CHECK_RETURN(Engine::Set_Scene(pStage2), E_FAIL);
-		//pStage2->init(); // ¸ÊÅø¿¡¼­ °¡Á®¿Â ¿ÀºêÁ§Æ®µéÀ» À§ÇØ »ç¿ë 
+		//pStage2->init(); // ë§µíˆ´ì—ì„œ ê°€ì ¸ì˜¨ ì˜¤ë¸Œì íŠ¸ë“¤ì„ ìœ„í•´ ì‚¬ìš© 
 
 		return 0;
 	}
@@ -53,7 +54,7 @@ _int CStage::Update_Scene(const _float& fTimeDelta)
 
 
 		FAILED_CHECK_RETURN(Engine::Set_Scene(pStage2), E_FAIL);
-		//pStage2->init(); // ¸ÊÅø¿¡¼­ °¡Á®¿Â ¿ÀºêÁ§Æ®µéÀ» À§ÇØ »ç¿ë 
+		//pStage2->init(); // ë§µíˆ´ì—ì„œ ê°€ì ¸ì˜¨ ì˜¤ë¸Œì íŠ¸ë“¤ì„ ìœ„í•´ ì‚¬ìš© 
 
 		return 0;
 	}
@@ -116,7 +117,7 @@ HRESULT CStage::Ready_Layer_Environmnet(const _tchar* pLayerTag)
 	//NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"StartMap", pGameObject), E_FAIL);
 	// 
-	//¿©±â´Ù°¡ ¸Ê ¿ÀºêÁ§Æ®µé ³Ö±â ÆÄÀÏ ÀÐ¾î¿À´Â±â´É 
+	//ì—¬ê¸°ë‹¤ê°€ ë§µ ì˜¤ë¸Œì íŠ¸ë“¤ ë„£ê¸° íŒŒì¼ ì½ì–´ì˜¤ëŠ”ê¸°ëŠ¥ 
 	m_mapLayer.insert({ pLayerTag, pLayer });
 
 	return S_OK;
@@ -240,7 +241,7 @@ HRESULT CStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 
 	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER, pGameObject);
 
-	// 1003 µ¿¿µ ÀÏ¹Ý¸ó½ºÅÍ
+	// 1003 ë™ì˜ ì¼ë°˜ëª¬ìŠ¤í„°
 	pGameObject = CMonsterSlimeFast::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonsterSlimeFast", pGameObject), E_FAIL);
@@ -789,7 +790,7 @@ void CStage::init()
 			WCHAR buffer[256] = { 0 };	
 			bytesRead = 100;
 
-			//¿ÀºêÁ§Æ®Å° (¿ÀºêÁ§Æ® ÀÌ¸§)
+			//ì˜¤ë¸Œì íŠ¸í‚¤ (ì˜¤ë¸Œì íŠ¸ ì´ë¦„)
 			if (!ReadFile(hFile, buffer, 100, &bytesRead, NULL))
 			{
 				MSG_BOX("FAILED TO READ TextrueKey");
@@ -808,7 +809,7 @@ void CStage::init()
 			WCHAR buffer2[256] = { 0 };	
 			bytesRead = 100;
 
-			//ÅØ½ºÃ³Å° (ÅØ½ºÃ³ ÀÌ¸§)
+			//í…ìŠ¤ì²˜í‚¤ (í…ìŠ¤ì²˜ ì´ë¦„)
 			if (!ReadFile(hFile, buffer2, 100, &bytesRead, NULL))
 			{
 				MSG_BOX("FAILED TO READ TextrueKey");
@@ -864,7 +865,7 @@ void CStage::init()
 
 			pGameObject->SetTextureKey((*pTextureWstring).c_str());
 
-			//  Áö±Ý ½ÅÀÌ º¯°æÀÌ ¾ÈµÅ¼­ startSceneÀ» °¡Á®¿Í¼­ ¹®Á¦ ¹ß»ý 
+			//  ì§€ê¸ˆ ì‹ ì´ ë³€ê²½ì´ ì•ˆë¼ì„œ startSceneì„ ê°€ì ¸ì™€ì„œ ë¬¸ì œ ë°œìƒ 
 
 
 
@@ -873,12 +874,12 @@ void CStage::init()
 
 			CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER, pGameObject);
 
-			// ¿Ö ¸øÃ£´Â°ÅÁö?;;; ¾Æ ½Ã¹ß ¾ÆÁ÷µµ ½ÅÀÌ ¾È¹Ù²ï°Å¿´À½  ÀÌ°Å Ã£´Â ±âÁØÀÌ ÇöÀç½Å±âÁØÀÌ¿´À½.
+			// ì™œ ëª»ì°¾ëŠ”ê±°ì§€?;;; ì•„ ì‹œë°œ ì•„ì§ë„ ì‹ ì´ ì•ˆë°”ë€ê±°ì˜€ìŒ  ì´ê±° ì°¾ëŠ” ê¸°ì¤€ì´ í˜„ìž¬ì‹ ê¸°ì¤€ì´ì˜€ìŒ.
 			CTransform* pTransform = dynamic_cast<CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_GameLogic", (*pObjectName).c_str(), L"Com_Transform"));
 			//pTransform->ForGetWorldMaxtrix() = worldmatrix;
 
-			////È¸Àü°ª¸¸ ÀÌÁ¦ ³Ö¾îÁÖ¸é µÊ ( Å©±â -> ÀÚÀü -> ÀÌµ¿ ) ¼ø¼­·Î  ¾Æ ½Ã¹ß º´½Å°°ÀÌ ¿ùµå¸ÅÆ®¸¯½º¸¦ ³Ö¾î¢Z³×;;
-			// ¿ùµå¸ÅÆ®¸¯½º¿¡ ³Ö±â ÀüÀÇ Å©±â°ªÀ» ³Ö¾îÁà¾ßÇÏ³× 
+			////íšŒì „ê°’ë§Œ ì´ì œ ë„£ì–´ì£¼ë©´ ë¨ ( í¬ê¸° -> ìžì „ -> ì´ë™ ) ìˆœì„œë¡œ  ì•„ ì‹œë°œ ë³‘ì‹ ê°™ì´ ì›”ë“œë§¤íŠ¸ë¦­ìŠ¤ë¥¼ ë„£ì–´Zë„¤;;
+			// ì›”ë“œë§¤íŠ¸ë¦­ìŠ¤ì— ë„£ê¸° ì „ì˜ í¬ê¸°ê°’ì„ ë„£ì–´ì¤˜ì•¼í•˜ë„¤ 
 			pTransform->m_vScale = { Sclae_vec3.x,Sclae_vec3.y,Sclae_vec3.z };
 			pTransform->Rotation(ROT_X, Rotation_vec3.x * 3.14f / 180.f);
 			pTransform->Rotation(ROT_Y, Rotation_vec3.y * 3.14f / 180.f);
@@ -892,7 +893,7 @@ void CStage::init()
 	}
 	
 
-	//9¿ù25ÀÏ Ãæµ¹°ü·Ã
+	//9ì›”25ì¼ ì¶©ëŒê´€ë ¨
 	CCollisionMgr::GetInstance()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);
 	CCollisionMgr::GetInstance()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::OBJECT);
 	CCollisionMgr::GetInstance()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::NPC);
