@@ -68,7 +68,7 @@ void CSunTempleStage::init()
     Engine::CLayer* pLayer = CLayer::Create();
 
     DWORD bytesRead = 1;
-    HANDLE hFile = CreateFile(L"../Map/SunTempleReal3.txt", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+    HANDLE hFile = CreateFile(L"../Map/SunTempleReal5.txt", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
     if (hFile != INVALID_HANDLE_VALUE)
     {
         if (hFile != INVALID_HANDLE_VALUE) {

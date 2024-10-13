@@ -182,18 +182,18 @@ HRESULT CMapEditor::Ready_Layer_Environment(const _tchar* pLayerTag)
 	//pGameObject->SetTextureKey(L"Map");	
 
 	//ÅÂ¾ç ½ÅÀü ¸Ê 
-	//pGameObject = CSunTempleMap::Create(m_pGraphicDev);		
-	//NULL_CHECK_RETURN(pGameObject, E_FAIL);		
-	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Map", pGameObject), E_FAIL);		
-	//pGameObject->SetObjectKey(L"Map");		
-	//pGameObject->SetTextureKey(L"Map");	
+	pGameObject = CSunTempleMap::Create(m_pGraphicDev);		
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);		
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Map", pGameObject), E_FAIL);		
+	pGameObject->SetObjectKey(L"Map");		
+	pGameObject->SetTextureKey(L"Map");	
 
 	// Ç×±¸ ¸Ê 
-	pGameObject = CTown::Create(m_pGraphicDev);	
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);	
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Map", pGameObject), E_FAIL);	
-	pGameObject->SetObjectKey(L"Map");	
-	pGameObject->SetTextureKey(L"Map");	
+	//pGameObject = CTown::Create(m_pGraphicDev);	
+	//NULL_CHECK_RETURN(pGameObject, E_FAIL);	
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Map", pGameObject), E_FAIL);	
+	//pGameObject->SetObjectKey(L"Map");	
+	//pGameObject->SetTextureKey(L"Map");	
 
 
 
