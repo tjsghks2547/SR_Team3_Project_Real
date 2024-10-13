@@ -21,9 +21,13 @@ HRESULT CElectriceelBossStage::Ready_Scene()
     Engine::StopSound(SOUND_BGM);   
     Engine::PlayBGM(L"BGM_65_OceanFinalBossFight.wav", 1.f);       
 
-
 	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 
+	return S_OK;
+}
+
+void CElectriceelBossStage::LateReady_Scene()
+{
     CLayer* layer = Engine::Get_Layer(L"Layer_GameLogic");
     CPlayer* player = dynamic_cast<CPlayer*>(
         Get_GameObject(L"Layer_GameLogic", L"Player"));
@@ -32,7 +36,10 @@ HRESULT CElectriceelBossStage::Ready_Scene()
         player->Get_Component(ID_DYNAMIC, L"Com_Transform")
         )->Set_Pos(500.f, 30.f, 550.f);
 
-	return S_OK;
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PLAYER, player);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PLAYER, player->GetInteractionBox());
+
+    Engine::CScene::LateReady_Scene();
 }
 
 _int CElectriceelBossStage::Update_Scene(const _float& fTimeDelta)
@@ -45,7 +52,7 @@ _int CElectriceelBossStage::Update_Scene(const _float& fTimeDelta)
         NULL_CHECK_RETURN(pStage3, -1);
 
         FAILED_CHECK_RETURN(Engine::Set_Scene(pStage3), E_FAIL);
-        //pStage3->init(); // 맵툴에서 가져온 오브젝트들을 위해 사용   
+        //pStage3->init(); // 맵툴?�서 가?�온 ?�브?�트?�을 ?�해 ?�용   
 
         return 0;
     }
@@ -83,7 +90,7 @@ void CElectriceelBossStage::init()
     //
     //            if (!ReadFile(hFile, objData, sizeof(ObjectData), &bytesRead, NULL))
     //            {
-    //                MSG_BOX("읽기 오류");
+    //                MSG_BOX("?�기 ?�류");
     //            };
     //
     //            if (bytesRead == 0)
@@ -148,20 +155,6 @@ HRESULT CElectriceelBossStage::Ready_Layer_Environmnet(const _tchar* pLayerTag)
 
     Engine::CGameObject* pGameObject = nullptr;
 
-    _vec3 Eye = { 0.f, 0.f, 0.f };
-    _vec3 At = { 0.f, 1.f, 1.f };
-    _vec3 Up = { 0.f, 1.f, 0.f };
-
-    pGameObject = CDynamicCamera::Create(m_pGraphicDev, &Eye, &At, &Up);
-
-    NULL_CHECK_RETURN(pGameObject, E_FAIL);
-    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"DynamicCamera", pGameObject), E_FAIL);
-
-    
-    //GameObject = CSkyBox::Create(m_pGraphicDev);          
-    NULL_CHECK_RETURN(pGameObject, E_FAIL);
-    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SkyBox", pGameObject), E_FAIL);
-
     m_mapLayer.insert({ pLayerTag, pLayer });
 
     return S_OK;
@@ -180,12 +173,6 @@ HRESULT CElectriceelBossStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ElectriceelBossMap", pGameObject), E_FAIL);
 
 
-    pGameObject = CPlayer::Create(m_pGraphicDev);
-    NULL_CHECK_RETURN(pGameObject, E_FAIL);
-    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Player", pGameObject), E_FAIL);
-    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PLAYER, pGameObject);
-    pGameObject->SetObjectKey(L"Player");
-
     pGameObject = CElectriceelBoss::Create(m_pGraphicDev);  
     NULL_CHECK_RETURN(pGameObject, E_FAIL);     
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ElectriceelBoss", pGameObject), E_FAIL);
@@ -198,17 +185,7 @@ HRESULT CElectriceelBossStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
     static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(500.f, 21.f, 500.f);
     pGameObject->SetObjectKey(L"Stone0");
 
-    pGameObject = CPlayerInteractionBox::Create(m_pGraphicDev); 
-    NULL_CHECK_RETURN(pGameObject, E_FAIL);
-    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PlayerInteractionBox", pGameObject), E_FAIL);
-    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PLAYER, pGameObject);
-    pGameObject->SetObjectKey(L"PlayerInteractionBox");
 
-    CGameObject* PlayerObj = pLayer->Get_GameObject(L"Layer_GameLogic", L"Player");
-    CGameObject* InteractionObj = pLayer->Get_GameObject(L"Layer_GameLogic", L"PlayerInteractionBox");
-    dynamic_cast<CPlayerInteractionBox*>(InteractionObj)->SetPlayer(
-        dynamic_cast<CPlayer*>(PlayerObj));
-    //폭포 웨이브
     //pGameObject = CWaterFall::Create(m_pGraphicDev);    
     //NULL_CHECK_RETURN(pGameObject, E_FAIL);
     //FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"WaterFall", pGameObject), E_FAIL);
@@ -226,18 +203,6 @@ HRESULT CElectriceelBossStage::Ready_Layer_UI(const _tchar* pLayerTag)
     pGameObject = CDefaultUI::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Default_UI", pGameObject), E_FAIL);
-
-    pGameObject = CInvenUI::Create(m_pGraphicDev);
-    NULL_CHECK_RETURN(pGameObject, E_FAIL);
-    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Inven_UI", pGameObject), E_FAIL);
-
-    pGameObject = CQuickSlot::Create(m_pGraphicDev);
-    NULL_CHECK_RETURN(pGameObject, E_FAIL);
-    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"QuickSlot_UI", pGameObject), E_FAIL);
-
-    pGameObject = CQuestUI::Create(m_pGraphicDev);
-    NULL_CHECK_RETURN(pGameObject, E_FAIL);
-    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Quest_UI", pGameObject), E_FAIL);
 
     pGameObject = CPowerUI::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);

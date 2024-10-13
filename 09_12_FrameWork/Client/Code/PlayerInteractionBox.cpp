@@ -18,6 +18,7 @@ HRESULT CPlayerInteractionBox::Ready_GameObject()
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
     m_pTransformCom->m_vScale = { 5.f, 5.f, 5.f };
 
+    m_bDontDestroy = true;
     return S_OK;
 }
 

@@ -18,6 +18,7 @@ CItemSelector::~CItemSelector()
 
 HRESULT CItemSelector::Ready_GameObject()
 {
+	m_bDontDestroy = true;
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
 	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/UI/ItemCursorUI.png", &m_pTex);

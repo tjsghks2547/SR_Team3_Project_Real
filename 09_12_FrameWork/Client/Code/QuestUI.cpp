@@ -14,6 +14,7 @@ CQuestUI::~CQuestUI()
 
 HRESULT CQuestUI::Ready_GameObject()
 {
+    m_bDontDestroy = true;
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
     m_fViewZ = 0.9f;
@@ -32,6 +33,8 @@ HRESULT CQuestUI::Ready_GameObject()
 
 void CQuestUI::LateReady_GameObject()
 {
+    Engine::Add_RenderGroup(RENDER_UI, this); // 이거 넣어야 다음 씬에도 들어가지더라..
+
     m_pCursor = dynamic_cast<CQuestCursor*>(CQuestCursor::Create(m_pGraphicDev));
     NULL_CHECK_RETURN(m_pCursor);
 
