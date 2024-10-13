@@ -21,6 +21,7 @@ public:
 	virtual   void      Render_GameObject();
 
 	void	  CallName() { m_bCall = true; m_fElapsedTime = 0; }
+	void	  Set_Time(_float _iTime) { m_SettingTime = _iTime; }
 	void	  Set_MapName(const _tchar* _Name) { m_pName = _Name; }
 	void	  Hide_MapName();
 private:
@@ -34,7 +35,7 @@ private:
 	const _tchar* m_pName;
 	_bool	m_bCall;
 	_float	m_fElapsedTime;
-
+	_float  m_SettingTime;
 public:
 	static CMapName* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 

@@ -6,11 +6,11 @@
 CRhino::CRhino(LPDIRECT3DDEVICE9 pGraphicDev)
     :CArenaMonster(pGraphicDev)
     , m_fTime(0), m_fSpeed(2.f), m_bStoneAppear(false)
-    , m_fNextEffectTime(0), m_iEffectCount(0), m_iStoneCnt(10)
+    , m_fNextEffectTime(0), m_iEffectCount(0), m_iStoneCnt(6)
 {
     m_tInfo.pBossName = L"거대 사막뿔소";
-    m_tInfo.iMaxHP = 300;
-    m_tInfo.iCurHP = 100;
+    m_tInfo.iMaxHP = 600;
+    m_tInfo.iCurHP = 600;
 }
 
 CRhino::~CRhino()
@@ -97,7 +97,7 @@ _int CRhino::Update_GameObject(const _float& fTimeDelta)
 
     if (m_tInfo.iCurHP <= 0)
     {
-        Engine::Play_Sound(L"Yell2.mp3", SOUND_EFFECT, 0.2f);
+        Engine::Play_Sound(L"Yell2.mp3", SOUND_RHINO, 0.2f);
 
         m_bCreate = false;
         m_pPlayer->Set_HonorScore(100);
@@ -168,7 +168,7 @@ void CRhino::Render_GameObject()
             break;
         }
         pCurrentTex = m_pAppearTex;
-        Engine::Play_Sound(L"SFX_495_RhinoSmash_Land.wav", SOUND_EFFECT, 0.8f);
+        Engine::Play_Sound(L"SFX_495_RhinoSmash_Land.wav", SOUND_RHINO, 0.8f);
         dynamic_cast<CDynamicCamera*>(m_pPlayer->GetCamera()
             )->ShakeMove(0.3f, 0.2f, 25.f);
         break;
@@ -179,7 +179,7 @@ void CRhino::Render_GameObject()
             break;
         }
         pCurrentTex = m_pAppearTex;
-        Engine::Play_Sound(L"SFX_494_RhinoSmash_Jump.wav", SOUND_EFFECT, 0.8f);
+        Engine::Play_Sound(L"SFX_494_RhinoSmash_Jump.wav", SOUND_RHINO, 0.8f);
         break;
     case RHINO_SKY:
         pCurrentTex = m_pAppearTex;
@@ -199,7 +199,7 @@ void CRhino::Render_GameObject()
             break;
         }
         pCurrentTex = m_pRunTex;
-        Engine::Play_Sound(L"SFX_254_Rhino_Rush.wav", SOUND_EFFECT, 0.8f);
+        Engine::Play_Sound(L"SFX_254_Rhino_Rush.wav", SOUND_RHINO, 0.8f);
         break;
     case RHINO_STUN:
         if (m_ePrevState == m_eState)
@@ -208,7 +208,7 @@ void CRhino::Render_GameObject()
             break;
         }
         pCurrentTex = m_pStunTex;
-        Engine::Play_Sound(L"SFX_255_Rhino_Crush.wav", SOUND_EFFECT, 0.8f);
+        Engine::Play_Sound(L"SFX_255_Rhino_Crush.wav", SOUND_RHINO, 0.8f);
         break;
     }
 
@@ -357,7 +357,7 @@ void CRhino::RhinoState_Update(_float fTimeDelta)
         //if (m_fTime >= m_fNextEffectTime && m_iEffectCount < 6)
         if (m_fTime >= m_fNextEffectTime && m_iEffectCount < 12)
         {
-            Engine::Play_Sound(L"SFX_253_Rhino_RushReady.wav", SOUND_EFFECT, 0.8f); // 발구르는 소리
+            Engine::Play_Sound(L"SFX_253_Rhino_RushReady.wav", SOUND_RHINO, 0.8f); // 발구르는 소리
 
             // 이펙트를 발생시키는 부분
             wstring* Effect_Name = new wstring;
@@ -522,10 +522,10 @@ void CRhino::RhinoState_Update(_float fTimeDelta)
             m_fTime = 0.0f;
             m_pAnimatorCom->GetAnimation()->SetFrame(0);
 
-            for (size_t i = 0; i < m_iStoneCnt - 1; i++)
-            {
-                m_pRhinoStone[i]->Set_Dead(); // 나머지 9개 죽인 척 하기
-            }
+            //for (size_t i = 0; i < m_iStoneCnt - 1; i++)
+            //{
+            //    m_pRhinoStone[i]->Set_Dead(); // 나머지 9개 죽인 척 하기
+            //}
 
             //이펙1
             wstring* Effect_Name = new wstring;

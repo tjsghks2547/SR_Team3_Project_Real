@@ -20,12 +20,16 @@ public:
 	virtual   void		OnCollisionEnter(CGameObject* _pOther);
 	virtual   void		OnCollisionExit(CGameObject* _pOther);
 
+	void		Set_Pos(_vec3 _vPos) { m_pTransformCom->m_vInfo[INFO_POS] = _vPos; }
 private:
 	HRESULT    Add_Component();
+	Engine::CTransform* m_pBalloonTransformCom;
 
 public:
 	static CExpressMonkey* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
+	static	_bool g_bQuestClear;
+	static	_bool g_bQuestAccept;
 private:
 	virtual void Free();
 

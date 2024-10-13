@@ -3,7 +3,7 @@
 
 CMapName::CMapName(LPDIRECT3DDEVICE9 pGraphicDev)
     :Engine::CGameObject(pGraphicDev)
-    , m_bCall(false), m_fElapsedTime(0.f)
+    , m_bCall(false), m_fElapsedTime(0.f), m_SettingTime(2.f)
 {
 }
 
@@ -27,7 +27,7 @@ _int CMapName::Update_GameObject(const _float& fTimeDelta)
     Engine::Add_RenderGroup(RENDER_UI, this);
     m_fElapsedTime += fTimeDelta;
 
-    if (m_fElapsedTime >= 2.f)
+    if (m_fElapsedTime >= m_SettingTime)
         m_bCall = false;
 
     return iExit;

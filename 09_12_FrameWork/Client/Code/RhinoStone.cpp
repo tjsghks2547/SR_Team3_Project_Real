@@ -94,7 +94,7 @@ _int CRhinoStone::Update_GameObject(const _float& fTimeDelta)
 			m_eState = STONE_APPEAR; // 돌생성애니 
 			m_fTime = 0.f; // 시간 리셋
 
-			Engine::Play_Sound(L"SFX_332_StoneSpike_Ready.wav", SOUND_EFFECT, 2.f);
+			Engine::Play_Sound(L"SFX_332_StoneSpike_Ready.wav", SOUND_STONE, 2.f);
 
 			//이펙
 			wstring* Effect_Name = new wstring;
@@ -263,7 +263,7 @@ HRESULT CRhinoStone::Add_Component()
 	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
-	m_pTransformCom->m_vScale = { 60.f, 60.f, 10.f };
+	m_pTransformCom->m_vScale = { 60.f, 60.f, 5.f };
 	m_pTransformCom->m_vInfo[INFO_POS] = { 0.f, 50.f, 0.1f };
 
 	pComponent = m_pColliderCom = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));

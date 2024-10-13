@@ -14,6 +14,7 @@
 #include "HarborCat.h"
 #include "HarborMeer.h"
 #include "Panda.h"
+#include "ExpressMonkey.h"
 
 class CTownStage:public CScene
 {

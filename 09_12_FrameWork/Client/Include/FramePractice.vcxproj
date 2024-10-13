@@ -332,6 +332,7 @@
     <ClInclude Include="..\Header\Trigger.h" />
     <ClInclude Include="..\Header\VictoryUI.h" />
     <ClInclude Include="..\Header\WaterFall.h" />
+    <ClInclude Include="..\Header\WaterToken.h" />
     <ClInclude Include="..\Header\WeightComparator.h" />
     <ClInclude Include="..\Header\WhiteBird.h" />
     <ClInclude Include="..\Header\WhitePhosphorus.h" />
@@ -535,6 +536,7 @@
     <ClCompile Include="..\Code\Trigger.cpp" />
     <ClCompile Include="..\Code\VictoryUI.cpp" />
     <ClCompile Include="..\Code\WaterFall.cpp" />
+    <ClCompile Include="..\Code\WaterToken.cpp" />
     <ClCompile Include="..\Code\WeightComparator.cpp" />
     <ClCompile Include="..\Code\WhiteBird.cpp" />
     <ClCompile Include="..\Code\WhitePhosphorus.cpp" />

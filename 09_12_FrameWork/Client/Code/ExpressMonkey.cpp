@@ -1,6 +1,9 @@
 #include "pch.h"
 #include "ExpressMonkey.h"
 
+_bool CExpressMonkey::g_bQuestClear(false);
+_bool CExpressMonkey::g_bQuestAccept(false);
+
 CExpressMonkey::CExpressMonkey(LPDIRECT3DDEVICE9 pGraphicDev)
     :CQuestNPC(pGraphicDev), m_bEnter(false)
 {
@@ -51,9 +54,9 @@ _int CExpressMonkey::Update_GameObject(const _float& fTimeDelta)
 
     _int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
-    if (!m_bQuestClear && m_bQuestAccept)
+    if (!g_bQuestClear && g_bQuestAccept)
     {
-        if (m_pInven->Find_Item(CItem::QUEST, CItem::EXTICKET))        
+        if (m_pInven->Find_Item(CItem::QUEST, CItem::EXTICKET))
         {
             m_bQuestSucess = true;
         }
@@ -76,24 +79,25 @@ void CExpressMonkey::Render_GameObject()
     {
         m_pGraphicDev->SetTexture(0, m_pNPCTex);
         m_pAnimatorCom->Play(L"MonkeyIDLE", true);
-        m_pAnimatorCom->render();
     }
-
-    if (m_bEnter)
+    else
     {
         m_pGraphicDev->SetTexture(0, m_pComeTex);
         m_pAnimatorCom->Play(L"MonkeyEnter", true);
-        m_pAnimatorCom->render();
     }
 
-    //m_pBufferCom->Render_Buffer();
+    m_pAnimatorCom->render();
     m_pColliderCom->Render_Buffer();
 
-    if (!m_bQuestClear)
+    //m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pBalloonTransformCom->Get_WorldMatrix());
+    //m_pTextureCom->Set_Texture();
+    //m_pBufferCom->Render_Buffer();
+
+    if (!g_bQuestClear)
     {
         m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pMarkTransformCom->Get_WorldMatrix());
 
-        if (!m_bQuestAccept)
+        if (!g_bQuestAccept)
         {
             m_pGraphicDev->SetTexture(0, m_pTex[EXCLAMATION]);
             m_pMarkAnimatorCom->Play(L"ExclamMarkAnim", true);
@@ -114,6 +118,7 @@ void CExpressMonkey::Render_GameObject()
 
     }
 
+
 }
 
 void CExpressMonkey::OnCollision(CGameObject* _pOther)
@@ -132,11 +137,11 @@ void CExpressMonkey::OnCollision(CGameObject* _pOther)
         // 대화중이 아닐때 S를 누르면 대화시작
         if (!m_bConversation)
         {
-            if (!m_bQuestAccept)
+            if (!g_bQuestAccept)
             {
                 m_bConversation = m_bConversation ? false : true;
                 // 여기에 new퀘스트 UI 띄우기
-                m_bQuestAccept = true; // 조건 문 뒤에 true로 바꿔줌.
+                g_bQuestAccept = true; // 조건 문 뒤에 true로 바꿔줌.
                 m_pQuestUI->Add_Quest(m_tQuestInfo);
 
                 m_pQuestAcceptUI->CallQuestAcceptUI(true);
@@ -156,7 +161,7 @@ void CExpressMonkey::OnCollision(CGameObject* _pOther)
 
             // 최초에는 기본 퀘스트 말풍을 보여줘야해서 아이템을 가지고 있더라도 false 상태로 출력하기 위해
             //if (!m_bQuestClear && m_bQuestAccept)
-            if (m_bQuestClear)
+            if (g_bQuestClear)
             {
                 m_tInfo.pContent = L"숭숭 익스프레스로 원하는 곳으로 어디든 바로 이동 해봐요!!!";
                 m_pTextBox->Set_Text(m_tInfo); //대화창 텍스트 세팅
@@ -167,7 +172,7 @@ void CExpressMonkey::OnCollision(CGameObject* _pOther)
             {
                 Engine::Play_Sound(L"SFX_446_QuestClear.wav", SOUND_EFFECT, 1.5f);
 
-                m_bQuestClear = true;
+                g_bQuestClear = true;
                 m_tInfo.pContent = L"오..이용권을 가지고 계시는군요............... 숭숭!!! 어디로 이동할까요??";
                 m_pTextBox->Set_Text(m_tInfo); //대화창 텍스트 세팅
                 m_pQuestUI->Get_QuestArray()->pop_back();
@@ -203,13 +208,21 @@ HRESULT CExpressMonkey::Add_Component()
 {
     CComponent* pComponent = NULL;
 
+
     //pComponent = m_pBufferCom = dynamic_cast<CRcTex*>(Engine::Clone_Proto(L"Proto_RcTex"));
     //NULL_CHECK_RETURN(pComponent, E_FAIL);
     //m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
-    //pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_ExpressMonkey"));
+    //pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Balloon"));
     //NULL_CHECK_RETURN(pComponent, E_FAIL);
-    //m_mapComponent[ID_STATIC].insert({ L"Com_Texture",pComponent });
+    //m_mapComponent[ID_STATIC].insert({ L"Com_TextureBalloon",pComponent });
+
+    //pComponent = m_pBalloonTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
+    //NULL_CHECK_RETURN(pComponent, E_FAIL);
+    //m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
+    //m_pBalloonTransformCom->m_vScale = { 30.f, 35.f, 1.f };
+    //m_pBalloonTransformCom->Set_Pos(1030.f, 32.5f, 1005.f);
+
 
     pComponent = m_pAnimatorCom = dynamic_cast<CAnimator2*>(Engine::Clone_Proto(L"Proto_Animator"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
@@ -219,7 +232,7 @@ HRESULT CExpressMonkey::Add_Component()
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
     m_pTransformCom->m_vScale = { 30.f, 30.f, 30.f };
-    m_pTransformCom->Set_Pos(200.f, 30.f, 800.f);
+    m_pTransformCom->Set_Pos(1030.f, 30.f, 1000.f);
 
     pComponent = m_pColliderCom = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);

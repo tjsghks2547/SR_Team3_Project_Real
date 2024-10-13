@@ -31,6 +31,7 @@
 #include "MapName.h"
 #include "QuickSlot.h"
 #include "Object.h"
+#include "ExpressMonkey.h"
 
 class CSunTempleStage : public CScene
 {
