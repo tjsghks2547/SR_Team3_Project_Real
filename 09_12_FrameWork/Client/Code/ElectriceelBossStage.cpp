@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "ElectriceelBossStage.h"
 #include "Export_Utility.h"
+#include "FightUI.h"
 
 
 CElectriceelBossStage::CElectriceelBossStage(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -21,7 +22,11 @@ HRESULT CElectriceelBossStage::Ready_Scene()
     CManagement::GetInstance()->m_imap_stage = 0;
 
     Engine::StopSound(SOUND_BGM);   
-    Engine::PlayBGM(L"BGM_65_OceanFinalBossFight.wav", 1.f);       
+    Engine::PlayBGM(L"BGM_65_OceanFinalBossFight.wav", 0.5f);
+
+    CFightUI* pFightUI = dynamic_cast<CFightUI*>(Engine::Get_GameObject(L"Layer_UI", L"Fight_UI"));
+    //NULL_CHECK_RETURN(pFightUI);
+    pFightUI->CallFight();
 
 	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 
@@ -217,6 +222,12 @@ HRESULT CElectriceelBossStage::Ready_Layer_UI(const _tchar* pLayerTag)
     pGameObject = CStoreUI::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Store_UI", pGameObject), E_FAIL);
+
+
+    pGameObject = CFightUI::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Fight_UI", pGameObject), E_FAIL);
+
 
     m_mapLayer.insert({ pLayerTag, pLayer });
 

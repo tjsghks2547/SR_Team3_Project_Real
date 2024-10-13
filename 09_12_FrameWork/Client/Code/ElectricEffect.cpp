@@ -25,6 +25,7 @@ HRESULT CElectricEffect::Ready_GameObject()
     
     m_pAnimatorCom->CreateAnimation(L"Lighting_Y", pEffectTexture1, _vec2(0.f, 0.f), _vec2(512.f, 1024.f), _vec2(512.f, 0.f), 0.1f, 7);
 
+    //SetObjectType(OBJ_TYPE::HURT_ABLE); 
 
     //m_pAnimatorCom->Play(L"Lighting_Y",false);
 

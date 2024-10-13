@@ -202,10 +202,12 @@
     <ClInclude Include="..\Header\FrontDoor.h" />
     <ClInclude Include="..\Header\God.h" />
     <ClInclude Include="..\Header\Grass.h" />
+    <ClInclude Include="..\Header\Grass2.h" />
     <ClInclude Include="..\Header\GrassEffect.h" />
     <ClInclude Include="..\Header\Harborcat.h" />
     <ClInclude Include="..\Header\HarborMeer.h" />
     <ClInclude Include="..\Header\HeartFruit.h" />
+    <ClInclude Include="..\Header\HitEffect.h" />
     <ClInclude Include="..\Header\Hochi.h" />
     <ClInclude Include="..\Header\ImGuiManger.h" />
     <ClInclude Include="..\Header\Imgui_ObjectTool.h" />
@@ -403,10 +405,12 @@
     <ClCompile Include="..\Code\FrontDoor.cpp" />
     <ClCompile Include="..\Code\God.cpp" />
     <ClCompile Include="..\Code\Grass.cpp" />
+    <ClCompile Include="..\Code\Grass2.cpp" />
     <ClCompile Include="..\Code\GrassEffect.cpp" />
     <ClCompile Include="..\Code\Harborcat.cpp" />
     <ClCompile Include="..\Code\HarborMeer.cpp" />
     <ClCompile Include="..\Code\HeartFruit.cpp" />
+    <ClCompile Include="..\Code\HitEffect.cpp" />
     <ClCompile Include="..\Code\Hochi.cpp" />
     <ClCompile Include="..\Code\ImGuiManger.cpp" />
     <ClCompile Include="..\Code\Imgui_ObjectTool.cpp" />

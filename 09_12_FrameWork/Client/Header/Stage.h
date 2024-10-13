@@ -65,6 +65,7 @@
 //9월 27일 애니메이션 테스트
 #include "TestObject.h"
 #include "Grass.h"
+#include "Grass2.h"
 
 //민지 임시
 #include "AddHP.h"

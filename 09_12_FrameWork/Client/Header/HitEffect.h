@@ -3,17 +3,18 @@
 
 BEGIN(Engine)
 
+
 class CAnimator2;
 class CTransform;
-class CCollider;		
 
-END		
+END
 
-class CGrass : public CGameObject
+class CHitEffect : public Engine::CGameObject
 {
+
 private:
-	explicit CGrass(LPDIRECT3DDEVICE9 pGraphicDev);	
-	virtual ~CGrass();	
+	explicit CHitEffect(LPDIRECT3DDEVICE9 pGraphicDev);	
+	virtual ~CHitEffect();	
 
 public:
 	virtual  HRESULT  Ready_GameObject();
@@ -21,27 +22,29 @@ public:
 	virtual  void     LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual  void     Render_GameObject();
 
+
 private:
 	HRESULT  Add_Component();
-	void     Key_Input(const _float& fTimeDelta);
+	ULONGLONG dwtime;
 
 private:
 	Engine::CAnimator2* m_pAnimatorCom;
-	Engine::CAnimator2* m_pAnimatorCom2;	
 	Engine::CTransform* m_pTransformCom;
-	Engine::CCollider* m_pBoundBox;
 
 
 public:
-	static CGrass* Create(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual	void OnCollision(CGameObject* _pOther);
-	virtual void OnCollisionEnter(CGameObject* _pOther);
+	static CHitEffect* Create(LPDIRECT3DDEVICE9 pGraphicDev);	
 
 private:
 	virtual void Free();
+	IDirect3DTexture9* m_pTexture;
+	bool m_bEffect;
+	int m_iCount;
 
-	IDirect3DTexture9* m_pTex;
 
-	bool   m_bDie;
-	bool m_bonce;
+public:
+	virtual void OnCollision(CGameObject* _pOther);
+	wstring  name;
+
 };
+

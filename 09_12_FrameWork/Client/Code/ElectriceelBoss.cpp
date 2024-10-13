@@ -6,6 +6,8 @@
 #include "ElectriceelBullet.h"
 #include "WaterFall.h"
 #include "Stone.h"
+#include "HitEffect.h"
+
 
 CElectriceelBoss::CElectriceelBoss(LPDIRECT3DDEVICE9 pGraphicDev)
     :Engine::CGameObject(pGraphicDev)
@@ -964,8 +966,22 @@ void CElectriceelBoss::OnCollisionEnter(CGameObject* _pOther)
 {
     if(dynamic_cast<CStone*>(_pOther)->GetObjectKey() == L"Stone0")
     {
-        Play_Sound(L"SFX_533_ElectricEel_Damage.wav", SOUND_ElectricEel_Collision, 1.f);    
+        Play_Sound(L"SFX_533_ElectricEel_Damage.wav", SOUND_ElectricEel_Collision, 1.f);  
         --m_tInfo.iCurHP;
+
+        wstring* Effect_Name = new wstring; 
+        *Effect_Name = L"Hit_Effect";
+
+        map<const _tchar*, CLayer*>& pMapLayer = Engine::Get_CurScenePtr()->GetLayerMapPtr();   
+
+        CHitEffect* pHitEffect = CHitEffect::Create(m_pGraphicDev); 
+        pMapLayer[L"Layer_GameLogic"]->Add_GameObject((*Effect_Name).c_str(), pHitEffect);  
+        pHitEffect->name = Effect_Name->c_str();    
+        _vec3 vPos = { 0.f,0.f,0.f };   
+        m_pTransformCom->Get_Info(INFO_POS, &vPos); 
+        dynamic_cast<CTransform*>(pHitEffect->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vPos.x-1.f, vPos.y-10.f, vPos.z-1.f);
+        CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER_EFFECT, pHitEffect);  
+      
     }
 
 }

@@ -21,11 +21,12 @@ HRESULT CMoonForestStage::Ready_Scene()
     FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
 
 	StopAll();		
-	Engine::PlayBGM(L"BGM_10_MoonForestAmbience.wav", 1.f);	
+	Engine::PlayBGM(L"BGM_10_MoonForestAmbience.wav", 0.5f);
 
 	CManagement::GetInstance()->m_imap_stage = 0;
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 
+	
     return S_OK;
 }
 

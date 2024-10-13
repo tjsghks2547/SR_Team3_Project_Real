@@ -90,7 +90,7 @@ void CStone::Render_GameObject()
 		m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
 	}
 
-	if (dwtime + 3000 < GetTickCount64())
+	if (dwtime + 1500 < GetTickCount64())
 	{
 		Engine::CGameObject::Free();
 		map<const _tchar*, CLayer*>& mapLayer = CManagement::GetInstance()->GetCurScenePtr()->GetLayerMapPtr();

@@ -25,7 +25,7 @@ HRESULT CWorldHearStage::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
 
 	Engine::StopAll();	
-	Engine::PlayBGM(L"BGM_3_JungleAreaField1.wav", 1.f);	
+	Engine::PlayBGM(L"BGM_3_JungleAreaField1.wav", 0.5f);
 
 	CManagement::GetInstance()->m_imap_stage = 0;
 

@@ -29,6 +29,7 @@ HRESULT CWaterFall::Ready_GameObject()
 
 	//m_pTransformCom->Set_Pos(500.f, 100.f, 500.f);
 	//m_pTransformCom->m_vScale = { 50.f, 100.f,10.f };
+	SetObjectType(OBJ_TYPE::HURT_ABLE);	
 
 	m_pTransformCom->m_vScale = { 200.f, 1000.f, 20.f };
 

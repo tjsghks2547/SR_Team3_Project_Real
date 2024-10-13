@@ -45,7 +45,7 @@ _int CSunTempleStage::Update_Scene(const _float& fTimeDelta)
 {
 	if (m_bVideoPlaying == false)
 	{
-		Engine::PlayBGM(L"BGM_8_JungleDungeon.wav", 1.f);	
+		Engine::PlayBGM(L"BGM_8_JungleDungeon.wav", 0.5f);
 		m_bVideoPlaying = true;
 	}
 

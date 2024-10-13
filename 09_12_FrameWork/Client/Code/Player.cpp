@@ -224,10 +224,12 @@ void CPlayer::OnCollisionEnter(CGameObject* _pOther)
             )->Get_Info(INFO_POS, &m_vColliderPos);
     }
 
+    
     if (_pOther->IncludingType(OBJ_TYPE::HURT_ABLE))
     {
-        if (m_bInvincible || !dynamic_cast<CMonster*>(_pOther)->GetActivation())
-            return;
+        
+        if (m_bInvincible || !dynamic_cast<CMonster*>(_pOther)->GetActivation())    
+            return; 
 
         m_pStateControlCom->ChangeState(PlayerHurt::GetInstance(), this);
         //SetPlayerCurHP(-1);

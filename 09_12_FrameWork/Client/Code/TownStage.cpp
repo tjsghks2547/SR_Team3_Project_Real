@@ -21,7 +21,7 @@ HRESULT CTownStage::Ready_Scene()
 	CManagement::GetInstance()->m_imap_stage = 0; 
 
 	StopAll();
-	Engine::PlayBGM(L"BGM_33_HarborTown.wav", 1.f);	
+	Engine::PlayBGM(L"BGM_33_HarborTown.wav", 0.5f);
 
     return S_OK;
 }

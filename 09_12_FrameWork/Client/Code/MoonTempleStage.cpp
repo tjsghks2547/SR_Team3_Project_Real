@@ -63,7 +63,7 @@ _int CMoonTempleStage::Update_Scene(const _float& fTimeDelta)
 	if (m_bVideoPlaying == false)
 	{
 
-		Engine::PlayBGM(L"BGM_11_MoonForestFieldLight_Haze.wav", 1.f);
+		Engine::PlayBGM(L"BGM_11_MoonForestFieldLight_Haze.wav", 0.5f);
 		m_bVideoPlaying = true;
 	}
 

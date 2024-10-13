@@ -22,7 +22,7 @@ HRESULT CJungleForestStage::Ready_Scene()
     CManagement::GetInstance()->m_imap_stage = 0;
 
     Engine::StopAll();  
-    Engine::PlayBGM(L"BGM_4_JungleAreaField2.wav", 1.f);    
+    Engine::PlayBGM(L"BGM_4_JungleAreaField2.wav", 0.5f);
 
 
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
