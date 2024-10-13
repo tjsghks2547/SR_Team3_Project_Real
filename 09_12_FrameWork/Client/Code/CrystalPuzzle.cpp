@@ -50,8 +50,7 @@ void CCrystalPuzzle::Check_Matched()
 	int i = 0;
 	for (auto& iter : m_vecPressBlocks)
 	{
-		if (static_cast<CPressBlock*>(iter)->Get_ImageID() != static_cast<CCrystal*>(m_vecCrystals[i])->Get_ImageID()) {
-			//MSG_BOX("NOT Matched!");
+		if (static_cast<CPressBlock*>(iter)->Get_ImageID() != static_cast<CCrystal*>(m_vecCrystals[i])->Get_ImageID()) {			
 			return;
 		}
 
@@ -59,7 +58,8 @@ void CCrystalPuzzle::Check_Matched()
 	}
 
 	for (auto& iter : m_vecCrystals) {
-		iter->Set_Active(false);
+		static_cast<CCrystal*>(iter)->Break();
+		Play_Sound(L"SFX_29_CrystalBreak.wav", SOUND_EFFECT, 1.f);
 	}		
 	for (auto& iter : m_vecPressBlocks) {
 		static_cast<CPressBlock*>(iter)->Set_Clear(true);

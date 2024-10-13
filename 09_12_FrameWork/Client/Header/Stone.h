@@ -27,6 +27,7 @@ public:
 	void Set_StoneID(_int _iId) { m_iStoneID = _iId; }
 	_int Get_StoneID() { return m_iStoneID; }
 	_bool Is_Launched() { return m_bIsLaunched; }
+	void Break();
 	//void Set_Pushable(OBJ_TYPE _eType) { m_eObjType = _eType; }
 
 private:
@@ -45,9 +46,13 @@ public:
 	void Launch();
 
 private:
-	_bool m_bIsLaunched;	
+	_bool m_bIsLaunched;
+	_bool m_bIsBreak;
 	vector<IDirect3DTexture9*> m_vecTexture;
 	_int m_iStoneID;
+	_int m_iImageID;
+	_int m_iTargetID;
+	_float m_fTime;
 	_vec3 m_vVelocity;	
 
 private:

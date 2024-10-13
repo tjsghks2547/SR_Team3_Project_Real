@@ -154,6 +154,7 @@
     <ClInclude Include="..\Header\ArenaMonster.h" />
     <ClInclude Include="..\Header\ArenaStage.h" />
     <ClInclude Include="..\Header\Audience.h" />
+    <ClInclude Include="..\Header\B52Bomber.h" />
     <ClInclude Include="..\Header\BackGround.h" />
     <ClInclude Include="..\Header\BardCat.h" />
     <ClInclude Include="..\Header\BigFruit.h" />
@@ -333,6 +334,7 @@
     <ClInclude Include="..\Header\WaterFall.h" />
     <ClInclude Include="..\Header\WeightComparator.h" />
     <ClInclude Include="..\Header\WhiteBird.h" />
+    <ClInclude Include="..\Header\WhitePhosphorus.h" />
     <ClInclude Include="..\Header\WorldHeartStage.h" />
     <ClInclude Include="AddHP.h" />
     <ClInclude Include="WorldHeartMap.h" />
@@ -358,6 +360,7 @@
     <ClCompile Include="..\Code\ArenaMonster.cpp" />
     <ClCompile Include="..\Code\ArenaStage.cpp" />
     <ClCompile Include="..\Code\Audience.cpp" />
+    <ClCompile Include="..\Code\B52Bomber.cpp" />
     <ClCompile Include="..\Code\BackGround.cpp" />
     <ClCompile Include="..\Code\BardCat.cpp" />
     <ClCompile Include="..\Code\BigFruit.cpp" />
@@ -534,6 +537,7 @@
     <ClCompile Include="..\Code\WaterFall.cpp" />
     <ClCompile Include="..\Code\WeightComparator.cpp" />
     <ClCompile Include="..\Code\WhiteBird.cpp" />
+    <ClCompile Include="..\Code\WhitePhosphorus.cpp" />
     <ClCompile Include="..\Code\WorldHeartStage.cpp" />
     <ClCompile Include="..\Header\ItemSelector.cpp" />
     <ClCompile Include="AddHP.cpp" />

@@ -40,6 +40,7 @@ void CMatchPuzzle::Puzzle_Clear()
 	for (auto& iter : m_vecStoneBlocks)
 	{
 		static_cast<CStoneBlock*>(iter)->Move_StoneBlock();
+		Play_Sound(L"SFX_168_GateOnceOff.wav", SOUND_EFFECT, 1.f);
 	}
 }
 

@@ -1,6 +1,5 @@
 #pragma once
 #include "GameObject.h"
-//#include "SoundManager.h"
 
 BEGIN(Engine)
 
@@ -24,18 +23,24 @@ public:
 
 public:
 	void Set_ImageID(_int _iID) { m_iImageID = _iID; }
+	void Set_Ignite(_bool _bIgnite) { m_bIsIgnite = _bIgnite; };
+	void Init_Pos(_float _fX, _float _fZ);
 
 private:
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTexture* m_pTextureCom;
-	Engine::CTransform* m_pTransformCom;
+	Engine::CTransform* m_pTransformCom;	
+	Engine::CTransform* m_pFireTransformCom;
 
 private:
 	HRESULT    Add_Component();
 
 private:
 	vector<IDirect3DTexture9*> m_vecTexture;
+	_bool m_bIsIgnite;
 	_int m_iImageID;
+	_int m_iTargetID;
+	_float m_fTime;
 
 public:
 	static CFirePit* Create(LPDIRECT3DDEVICE9 pGraphicDev);

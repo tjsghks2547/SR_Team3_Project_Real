@@ -181,6 +181,8 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Rock", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/puzzle/Rock.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_FrontDoorLeft", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/puzzle/TownFront_Door_Left.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_FrontDoorRight", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/puzzle/TownFront_Door_Right.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_B52", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/puzzle/B_52_Shadow_00.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_FirePit", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/puzzle/Sprite_FirePlace.png", TEX_NORMAL)), E_FAIL);
 
 	//MONSTER
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MonsterTrashBig",

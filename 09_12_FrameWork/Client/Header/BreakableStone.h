@@ -3,7 +3,6 @@
 
 BEGIN(Engine)
 
-class CTexture;
 class CRcTex;
 class CTransform;
 class CCollider;
@@ -21,27 +20,24 @@ public:
 	virtual   _int      Update_GameObject(const _float& fTimeDelta);
 	virtual   void	    LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual   void      Render_GameObject();
-	virtual void OnCollisionEnter(CGameObject* _pOther);	
-
-public:
-	void Set_StoneID(_int _iId) { m_iStoneID = _iId; }
-	_int Get_StoneID() { return m_iStoneID; }	
+	virtual void OnCollisionEnter(CGameObject* _pOther);
 
 private:
 	HRESULT    Add_Component();
 
 private:
 	Engine::CRcTex* m_pBufferCom;
-	Engine::CTexture* m_pTextureCom;
 	Engine::CTransform* m_pTransformCom;
 	Engine::CCollider* m_pBoundBox;
 
 public:
-	static CBreakableStone* Create(LPDIRECT3DDEVICE9 pGraphicDev);	
+	static CBreakableStone* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
-private:	
+private:
 	vector<IDirect3DTexture9*> m_vecTexture;
-	_int m_iStoneID;	
+	_int m_iImageID;
+	_int m_iTargetID;
+	_float m_fTime;
 
 private:
 	bool LoadTextureFromFile(LPDIRECT3DDEVICE9 d3dDevice, const char* filePath, IDirect3DTexture9** outTexture)

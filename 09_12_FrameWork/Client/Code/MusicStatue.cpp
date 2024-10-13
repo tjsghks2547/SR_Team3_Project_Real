@@ -5,7 +5,7 @@
 #include "Export_Utility.h"
 
 CMusicStatue::CMusicStatue(LPDIRECT3DDEVICE9 pGraphicDev)
-	: Engine::CGameObject(pGraphicDev), m_iCurNote(0), m_bIsClear(false)
+	: Engine::CGameObject(pGraphicDev), m_iCurNote(0), m_bIsClear(false), m_fActiveTime(0)
 {
 }
 
@@ -30,6 +30,16 @@ HRESULT CMusicStatue::Ready_GameObject()
 _int CMusicStatue::Update_GameObject(const _float& fTimeDelta)
 {
 	Add_RenderGroup(RENDER_ALPHA, this);		
+
+	if (m_bIsActivate) {
+		m_fActiveTime += fTimeDelta;
+
+		if (m_fActiveTime >= 1.f)
+		{
+			m_bIsActivate = false;
+			m_fActiveTime = 0;
+		}
+	}
 
 	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
@@ -92,8 +102,9 @@ void CMusicStatue::Match_Note(_int _iNote)
 		return;
 	}
 
-	static_cast<CFirePit*>(m_vecFirePits[m_iCurNote])->Set_ImageID(1);
+	static_cast<CFirePit*>(m_vecFirePits[m_iCurNote])->Set_Ignite(true);
 	++m_iCurNote;
+	Play_Sound(L"SFX_360_FireTorchLit.wav", SOUND_SURROUNDING, 1.f);	
 
 	if (m_iCurNote >= m_vecFirePits.size()) {
 		Clear_Puzzle();
@@ -104,7 +115,7 @@ void CMusicStatue::Match_Note(_int _iNote)
 void CMusicStatue::Reset_FirePit()
 {
 	for (auto& iter : m_vecFirePits)
-		static_cast<CFirePit*>(iter)->Set_ImageID(0);
+		static_cast<CFirePit*>(iter)->Set_Ignite(false);
 
 	m_iCurNote = 0;
 }

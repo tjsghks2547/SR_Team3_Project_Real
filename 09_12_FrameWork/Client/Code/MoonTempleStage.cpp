@@ -21,7 +21,7 @@ HRESULT CMoonTempleStage::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_GameLogic(L"Layer_GameLogic"), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
 
-	CManagement::GetInstance()->m_imap_stage = 2;
+	CManagement::GetInstance()->m_imap_stage = 0;
 	// 
 	//D3DLIGHT9		tLightInfo; 
 	//ZeroMemory(&tLightInfo, sizeof(D3DLIGHT9)); 
@@ -203,7 +203,7 @@ HRESULT CMoonTempleStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 
 	fOffsetX = 1000.f;
 	fOffsetZ = 875.f;
-
+	
 #pragma region Pipe Game
 
 	pGameObject = CPipeBoard::Create(m_pGraphicDev);

@@ -86,9 +86,9 @@ void CCatapult::LateUpdate_GameObject(const _float& fTimeDelta)
 
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	m_pTexTransformCom->Set_Pos(vPos.x, .1f, vPos.z);
+	m_pTexTransformCom->Set_Pos(vPos.x, .2f, vPos.z);
 	m_pBucketTransformCom->Set_Pos(vPos.x, 9.f, vPos.z + 5.f);
-	m_pInTransformCom->Set_Pos(vPos.x, 0.1f, vPos.z + 245.f);
+	m_pInTransformCom->Set_Pos(vPos.x, 0.2f, vPos.z + 245.f);
 
 }
 
@@ -133,6 +133,7 @@ void CCatapult::OnCollision(CGameObject* _pOther)
 		m_pStone = nullptr;
 		m_bIsActivate = true;
 		m_bIndicator = false;
+		Play_Sound(L"SFX_32_Catapult_Shoot.wav", SOUND_EFFECT, 1.f);
 
 		m_iTargetID = 5;
 	}
@@ -150,7 +151,8 @@ void CCatapult::OnCollisionEnter(CGameObject* _pOther)
 		int type = OBJ_TYPE::TYPE_NONE;
 		static_cast<CStone*>(m_pStone)->SetObjectType(type);
 		m_fPullDuration = 0;
-		m_bIndicator = true;
+		m_bIndicator = true; 
+		Play_Sound(L"SFX_31_Catapult_Load.wav", SOUND_EFFECT, 1.f);		
 	}
 }
 

@@ -35,37 +35,11 @@ void CRock::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CRock::Render_GameObject()
 {
-
-	if (CManagement::GetInstance()->m_imap_stage == 2)
-	{
-		m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
-	}
-
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	m_pTextureCom->Set_Texture();
-
-	
-	D3DMATERIAL9		tMtrl;	
-	ZeroMemory(&tMtrl, sizeof(D3DMATERIAL9));
-		
-	tMtrl.Diffuse = { 0.5f, 0.5f, 0.5f, 0.5f };	
-	tMtrl.Specular = { 0.5f, 0.5f, 0.5f, 0.5f };
-	tMtrl.Ambient = { 0.3f, 0.3f, 0.3f, 0.3f };	
-
-	tMtrl.Emissive = { 0.3f,0.3f, 0.3f, 0.3f };
-	tMtrl.Power = 0.f;	
-
-	m_pGraphicDev->SetMaterial(&tMtrl);		
-	
 	m_pBufferCom->Render_Buffer();
 	//m_pBoundBox->Render_Buffer();
-
-	if (CManagement::GetInstance()->m_imap_stage == 2)
-	{
-		m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, false);
-	}
-
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 
