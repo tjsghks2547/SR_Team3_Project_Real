@@ -829,7 +829,7 @@ void CStage::init()
 			CTransform* pTransform = dynamic_cast<CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_GameLogic", (*pObjectName).c_str(), L"Com_Transform"));
 			//pTransform->ForGetWorldMaxtrix() = worldmatrix;
 
-			////회전값만 이제 넣어주면 됨 ( 크기 -> 자전 -> 이동 ) 순서로  아 시발 병신같이 월드매트릭스를 넣어Z네;;
+			////회전값만 이제 넣어주면 됨 ( 크기 -> 자전 -> 이동 ) 순서로  아 시발 병신같이 월드매트릭스를 넣어네
 			// 월드매트릭스에 넣기 전의 크기값을 넣어줘야하네 
 			pTransform->m_vScale = { Sclae_vec3.x,Sclae_vec3.y,Sclae_vec3.z };
 			pTransform->Rotation(ROT_X, Rotation_vec3.x * 3.14f / 180.f);

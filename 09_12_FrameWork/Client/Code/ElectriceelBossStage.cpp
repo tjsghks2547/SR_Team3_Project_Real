@@ -36,6 +36,9 @@ void CElectriceelBossStage::LateReady_Scene()
         player->Get_Component(ID_DYNAMIC, L"Com_Transform")
         )->Set_Pos(500.f, 30.f, 550.f);
 
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PLAYER, player);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PLAYER, player->GetInteractionBox());
+
     Engine::CScene::LateReady_Scene();
 }
 
@@ -200,10 +203,6 @@ HRESULT CElectriceelBossStage::Ready_Layer_UI(const _tchar* pLayerTag)
     pGameObject = CDefaultUI::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Default_UI", pGameObject), E_FAIL);
-
-    pGameObject = CQuestUI::Create(m_pGraphicDev);
-    NULL_CHECK_RETURN(pGameObject, E_FAIL);
-    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Quest_UI", pGameObject), E_FAIL);
 
     pGameObject = CPowerUI::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);

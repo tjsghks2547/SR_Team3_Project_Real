@@ -37,6 +37,9 @@ void CMoonForestStage::LateReady_Scene()
 		player->Get_Component(ID_DYNAMIC, L"Com_Transform")
 		)->Set_Pos(500.f, 30.f, 150.f);
 
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PLAYER, player);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PLAYER, player->GetInteractionBox());
+
 	Engine::CScene::LateReady_Scene();
 }
 
@@ -575,10 +578,6 @@ HRESULT CMoonForestStage::Ready_Layer_UI(const _tchar* pLayerTag)
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Default_UI", pGameObject), E_FAIL);
 
-	pGameObject = CQuestUI::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Quest_UI", pGameObject), E_FAIL);
-
 	pGameObject = CPowerUI::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Power_UI", pGameObject), E_FAIL);
@@ -593,7 +592,7 @@ HRESULT CMoonForestStage::Ready_Layer_UI(const _tchar* pLayerTag)
 
 	pGameObject = CMapName::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	dynamic_cast<CMapName*>(pGameObject)->Set_MapName(L"달의 숲");
+	(dynamic_cast<CMapName*>(pGameObject))->Set_MapName(L"MOON");
 	dynamic_cast<CMapName*>(pGameObject)->CallName();
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CMapName", pGameObject), E_FAIL);
 

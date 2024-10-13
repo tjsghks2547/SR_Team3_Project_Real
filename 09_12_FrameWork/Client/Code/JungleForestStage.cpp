@@ -36,8 +36,10 @@ void CJungleForestStage::LateReady_Scene()
         player->Get_Component(ID_DYNAMIC, L"Com_Transform")
         )->Set_Pos(1400.f, 30.f, 300.f);
 
-    Engine::CScene::LateReady_Scene();
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PLAYER, player);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PLAYER, player->GetInteractionBox());
 
+    Engine::CScene::LateReady_Scene();
 
     player->GetCamera()->WalkTo2(_vec3(750.f, 30.f, 400.f)
         , 5.f, _vec3(750.f, 30.f, 1900.f));
@@ -666,10 +668,6 @@ HRESULT CJungleForestStage::Ready_Layer_UI(const _tchar* pLayerTag)
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Default_UI", pGameObject), E_FAIL);
 
-    pGameObject = CQuestUI::Create(m_pGraphicDev);
-    NULL_CHECK_RETURN(pGameObject, E_FAIL);
-    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Quest_UI", pGameObject), E_FAIL);
-
     pGameObject = CPowerUI::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Power_UI", pGameObject), E_FAIL);
@@ -684,7 +682,7 @@ HRESULT CJungleForestStage::Ready_Layer_UI(const _tchar* pLayerTag)
 
     pGameObject = CMapName::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
-    dynamic_cast<CMapName*>(pGameObject)->Set_MapName(L"정글숲");
+    (dynamic_cast<CMapName*>(pGameObject))->Set_MapName(L"JUNGLE");
     dynamic_cast<CMapName*>(pGameObject)->CallName();
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CMapName", pGameObject), E_FAIL);
 

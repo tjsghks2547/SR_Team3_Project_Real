@@ -27,6 +27,12 @@ HRESULT CArenaStage::Ready_Scene()
 
 void CArenaStage::LateReady_Scene()
 {
+    CPlayer* player = dynamic_cast<CPlayer*>(
+        Get_GameObject(L"Layer_GameLogic", L"Player"));
+
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PLAYER, player);
+    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PLAYER, player->GetInteractionBox());
+
     Engine::CScene::LateReady_Scene();
 }
 
@@ -319,10 +325,6 @@ HRESULT CArenaStage::Ready_Layer_UI(const _tchar* pLayerTag)
     pGameObject = CDefaultUI::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Default_UI", pGameObject), E_FAIL);
-
-    pGameObject = CQuestUI::Create(m_pGraphicDev);
-    NULL_CHECK_RETURN(pGameObject, E_FAIL);
-    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Quest_UI", pGameObject), E_FAIL);
 
     pGameObject = CPowerUI::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);

@@ -43,6 +43,9 @@ void CWorldHearStage::LateReady_Scene()
 		player->Get_Component(ID_DYNAMIC, L"Com_Transform")
 		)->Set_Pos(pos);
 
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PLAYER, player);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PLAYER, player->GetInteractionBox());
+
 	Engine::CScene::LateReady_Scene();
 
 	player->GetCamera()->WalkTo2(pos, 10.f, _vec3(1900.f, 180.f, 1700.f));
@@ -149,7 +152,6 @@ void CWorldHearStage::init()
 			CloseHandle(hFile);
 		}
 	}
-
 
 }
 
@@ -439,10 +441,6 @@ HRESULT CWorldHearStage::Ready_Layer_UI(const _tchar* pLayerTag)
 	pGameObject = CDefaultUI::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Default_UI", pGameObject), E_FAIL);
-
-	pGameObject = CQuestUI::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Quest_UI", pGameObject), E_FAIL);
 
 	pGameObject = CPowerUI::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
