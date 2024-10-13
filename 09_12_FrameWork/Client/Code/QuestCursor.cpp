@@ -90,6 +90,7 @@ void CQuestCursor::Key_Input(const _float& fTimeDelta)
 
     if (Engine::GetKeyDown(DIK_DOWN))
     {
+        Engine::Play_Sound(L"SFX_70_UISlotMediumMove.wav", SOUND_EFFECT, 0.3);
         if (m_iCurIdx >= 3)
             return;
         m_iCurIdx += 1;
@@ -97,18 +98,24 @@ void CQuestCursor::Key_Input(const _float& fTimeDelta)
 
     if (Engine::GetKeyDown(DIK_UP))
     {
+        Engine::Play_Sound(L"SFX_70_UISlotMediumMove.wav", SOUND_EFFECT, 0.3);
+
         m_iCurIdx -= 1;
         if (m_iCurIdx < 0)
             m_iCurIdx = -1;
     }
     if (Engine::GetKeyDown(DIK_LEFT))
     {
+        Engine::Play_Sound(L"SFX_70_UISlotMediumMove.wav", SOUND_EFFECT, 0.3);
+
         m_iCurIdx -= 1;
         if (m_iCurIdx < 0)
             m_iCurIdx = -1;
     }
     if (Engine::GetKeyDown(DIK_RIGHT))
     {
+        Engine::Play_Sound(L"SFX_70_UISlotMediumMove.wav", SOUND_EFFECT, 0.3);
+
         if (m_iCurIdx >= 3)
             return;
         m_iCurIdx += 1;

@@ -14,12 +14,19 @@ CMoonTempleStage::~CMoonTempleStage()
 
 HRESULT CMoonTempleStage::Ready_Scene()
 {
+	StopAll();
 	PlayVideo(g_hWnd, L"../Bin/Resource/Video/CutScene_23_MoonTempleEntrance.wmv");
 
 	FAILED_CHECK_RETURN(Ready_Layer_Environmnet(L"Layer_Environment"), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_GameLogic(L"Layer_GameLogic"), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
 
+	Engine::StopSound(SOUND_BGM);
+	Engine::PlayBGM(L"BGM_14_MoonForestFieldHeavy.wav", 0.8f);	
+
+
+
+	// 
 	//D3DLIGHT9		tLightInfo; 
 	//ZeroMemory(&tLightInfo, sizeof(D3DLIGHT9)); 
 	//
@@ -54,6 +61,13 @@ _int CMoonTempleStage::Update_Scene(const _float& fTimeDelta)
 {
 	_int  iExit = Engine::CScene::Update_Scene(fTimeDelta);
 
+	if (m_bVideoPlaying == false)
+	{
+
+		Engine::PlayBGM(L"BGM_11_MoonForestFieldLight_Haze.wav", 1.f);
+		m_bVideoPlaying = true;
+	}
+
 	if (GetAsyncKeyState('M') & 0x8000)
 	{
 		Engine::CScene* pStage3 = CTownStage::Create(m_pGraphicDev);
@@ -82,7 +96,7 @@ void CMoonTempleStage::init()
 	Engine::CLayer* pLayer = CLayer::Create();
 
 	DWORD bytesRead = 1;
-	HANDLE hFile = CreateFile(L"../Map/MoonTempleReal4.txt", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	HANDLE hFile = CreateFile(L"../Map/MoonTempleReal6.txt", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
 		if (hFile != INVALID_HANDLE_VALUE) {

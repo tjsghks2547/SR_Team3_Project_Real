@@ -156,8 +156,17 @@ void CExpressMonkey::OnCollision(CGameObject* _pOther)
 
             // 최초에는 기본 퀘스트 말풍을 보여줘야해서 아이템을 가지고 있더라도 false 상태로 출력하기 위해
             //if (!m_bQuestClear && m_bQuestAccept)
+            if (m_bQuestClear)
+            {
+                m_tInfo.pContent = L"숭숭 익스프레스로 원하는 곳으로 어디든 바로 이동 해봐요!!!";
+                m_pTextBox->Set_Text(m_tInfo); //대화창 텍스트 세팅
+                return;
+            }
+
             if (m_bQuestSucess)
             {
+                Engine::Play_Sound(L"SFX_446_QuestClear.wav", SOUND_EFFECT, 1.5f);
+
                 m_bQuestClear = true;
                 m_tInfo.pContent = L"오..이용권을 가지고 계시는군요............... 숭숭!!! 어디로 이동할까요??";
                 m_pTextBox->Set_Text(m_tInfo); //대화창 텍스트 세팅

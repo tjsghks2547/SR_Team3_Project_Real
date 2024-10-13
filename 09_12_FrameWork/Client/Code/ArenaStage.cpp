@@ -17,6 +17,9 @@ HRESULT CArenaStage::Ready_Scene()
     FAILED_CHECK_RETURN(Ready_Layer_GameLogic(L"Layer_GameLogic"), E_FAIL);
     FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
 
+    Engine::StopSound(SOUND_BGM);
+    Engine::PlayBGM(L"BGM_55_HarborArena.wav", 0.7f);
+
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 
     return S_OK;
@@ -125,8 +128,6 @@ void CArenaStage::init()
             CloseHandle(hFile);
         }
     }
-    //1009¹ÎÁö
-    CCollisionMgr::GetInstance()->CheckGroup(GROUP_TYPE::MONSTER, GROUP_TYPE::OBJECT);
 }
 
 HRESULT CArenaStage::Ready_LightInfo()

@@ -20,7 +20,12 @@ public:
 	virtual   void	    LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual   void      Render_GameObject();
 
-	void	  CallFight() { m_bCall = true; m_fElapsedTime = 0; }
+	void	  CallFight() 
+	{ 
+		m_bCall = true; 
+		m_fElapsedTime = 0;
+		Engine::Play_Sound(L"SFX_502_ArenaIntro.wav", SOUND_EFFECT, 1.f);
+	}
 
 private:
 	HRESULT    Add_Component();

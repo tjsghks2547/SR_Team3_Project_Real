@@ -822,6 +822,146 @@ void CImgui_ObjectTool::ShowObjectWindow()
 			m_strCurObjectName = L"Statue_1";
 		};
 
+		if (ImGui::ImageButton("MoonTempleTile", m_vecObjectTexture[79], imageSize))
+		{
+			m_sCurTextureData =  L"MoonTempleTile";
+			m_sCurTextureKey =   L"MoonTempleTile";
+			m_strCurObjectName = L"MoonTempleTile";
+		};
+
+
+		if (ImGui::ImageButton("House1", m_vecObjectTexture[80], imageSize))
+		{
+			m_sCurTextureData =  L"House1";
+			m_sCurTextureKey =   L"House1";
+			m_strCurObjectName = L"House1";
+		};
+
+		if (ImGui::ImageButton("House2", m_vecObjectTexture[81], imageSize))
+		{
+			m_sCurTextureData =  L"House2";
+			m_sCurTextureKey =   L"House2";
+			m_strCurObjectName = L"House2";
+		};
+
+
+		if (ImGui::ImageButton("House3", m_vecObjectTexture[82], imageSize))
+		{
+			m_sCurTextureData = L"House3";
+			m_sCurTextureKey = L"House3";
+			m_strCurObjectName = L"House3";
+		};
+
+
+		if (ImGui::ImageButton("WaterFall", m_vecObjectTexture[83], imageSize))
+		{
+			m_sCurTextureData =  L"WaterFall";
+			m_sCurTextureKey =   L"WaterFall";
+			m_strCurObjectName = L"WaterFall";
+		};
+
+		if (ImGui::ImageButton("Grass_Object", m_vecObjectTexture[84], imageSize))
+		{
+			m_sCurTextureData =  L"Grass_Object";
+			m_sCurTextureKey =   L"Grass_Object";
+			m_strCurObjectName = L"Grass_Object";
+		};
+
+		if (ImGui::ImageButton("Green_Pillar", m_vecObjectTexture[85], imageSize))
+		{
+			m_sCurTextureData =  L"Green_Pillar";
+			m_sCurTextureKey =   L"Green_Pillar";
+			m_strCurObjectName = L"Green_Pillar";
+		};
+
+		if (ImGui::ImageButton("harbor_Statue", m_vecObjectTexture[86], imageSize))
+		{
+			m_sCurTextureData  = L"harbor_Statue";
+			m_sCurTextureKey   = L"harbor_Statue";
+			m_strCurObjectName = L"harbor_Statue";
+		};
+
+		if (ImGui::ImageButton("harbor_Statue_2", m_vecObjectTexture[87], imageSize))
+		{
+			m_sCurTextureData  = L"harbor_Statue_2";
+			m_sCurTextureKey   = L"harbor_Statue_2";
+			m_strCurObjectName = L"harbor_Statue_2";
+		};
+
+		if (ImGui::ImageButton("House4", m_vecObjectTexture[88], imageSize))
+		{
+			m_sCurTextureData =  L"House4";
+			m_sCurTextureKey =   L"House4";
+			m_strCurObjectName = L"House4";
+		};
+
+
+		if (ImGui::ImageButton("Umbrella_one", m_vecObjectTexture[89], imageSize))
+		{
+			m_sCurTextureData =  L"Umbrella_one";
+			m_sCurTextureKey =   L"Umbrella_one";
+			m_strCurObjectName = L"Umbrella_one";
+		};
+
+		if (ImGui::ImageButton("Umbrella_two", m_vecObjectTexture[90], imageSize))
+		{
+			m_sCurTextureData =  L"Umbrella_two";
+			m_sCurTextureKey =   L"Umbrella_two";
+			m_strCurObjectName = L"Umbrella_two";
+		};
+
+		if (ImGui::ImageButton("Umbrella_three", m_vecObjectTexture[91], imageSize))
+		{
+			m_sCurTextureData =  L"Umbrella_three";
+			m_sCurTextureKey =   L"Umbrella_three";
+			m_strCurObjectName = L"Umbrella_three";
+		};
+
+		if (ImGui::ImageButton("Umbrella_Chair", m_vecObjectTexture[92], imageSize))
+		{
+			m_sCurTextureData =  L"Umbrella_Chair";
+			m_sCurTextureKey =   L"Umbrella_Chair";
+			m_strCurObjectName = L"Umbrella_Chair";
+		};
+
+
+		if (ImGui::ImageButton("Harbor_Wall", m_vecObjectTexture[93], imageSize))
+		{
+			m_sCurTextureData =  L"Harbor_Wall";
+			m_sCurTextureKey =   L"Harbor_Wall";
+			m_strCurObjectName = L"Harbor_Wall";
+		};
+
+
+		if (ImGui::ImageButton("Light_House", m_vecObjectTexture[94], imageSize))
+		{
+			m_sCurTextureData =  L"Light_House";
+			m_sCurTextureKey =   L"Light_House";
+			m_strCurObjectName = L"Light_House";
+		};
+
+		if (ImGui::ImageButton("Harbor_Wall_two", m_vecObjectTexture[95], imageSize))
+		{
+			m_sCurTextureData =  L"Harbor_Wall_two";
+			m_sCurTextureKey =   L"Harbor_Wall_two";
+			m_strCurObjectName = L"Harbor_Wall_two";
+		};
+
+		if (ImGui::ImageButton("Ship", m_vecObjectTexture[96], imageSize))
+		{
+			m_sCurTextureData =  L"Ship";
+			m_sCurTextureKey =   L"Ship";
+			m_strCurObjectName = L"Ship";
+		};
+
+		if (ImGui::ImageButton("Arena_Entrance", m_vecObjectTexture[97], imageSize))
+		{
+			m_sCurTextureData =  L"Arena_Entrance";
+			m_sCurTextureKey =   L"Arena_Entrance";
+			m_strCurObjectName = L"Arena_Entrance";
+		};
+
+
 		//일단 오브젝트 생성해보기 
 		ImGui::End();
 

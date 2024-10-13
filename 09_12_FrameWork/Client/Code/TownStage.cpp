@@ -13,9 +13,13 @@ CTownStage::~CTownStage()
 
 HRESULT CTownStage::Ready_Scene()
 {
+
     FAILED_CHECK_RETURN(Ready_Layer_Environmnet(L"Layer_Environment"), E_FAIL);
     FAILED_CHECK_RETURN(Ready_Layer_GameLogic(L"Layer_GameLogic"), E_FAIL);
     FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
+
+	StopAll();
+	Engine::PlayBGM(L"BGM_33_HarborTown.wav", 1.f);	
 
     return S_OK;
 }
@@ -46,7 +50,7 @@ _int CTownStage::Update_Scene(const _float& fTimeDelta)
         NULL_CHECK_RETURN(pStage3, -1);
 
         FAILED_CHECK_RETURN(Engine::Set_Scene(pStage3), E_FAIL);
-        //pStage3->init(); // ¸ÊÅø¿¡¼­ °¡Á®¿Â ¿ÀºêÁ§Æ®µéÀ» À§ÇØ »ç¿ë   
+        //pStage3->init(); // ë§µíˆ´ì—ì„œ ê°€ì ¸ì˜¨ ì˜¤ë¸Œì íŠ¸ë“¤ì„ ìœ„í•´ ì‚¬ìš©   
 
         return 0;
     }
@@ -65,10 +69,10 @@ void CTownStage::Render_Scene()
 
 void CTownStage::init()
 {
-	/*Engine::CLayer* pLayer = CLayer::Create();
+	Engine::CLayer* pLayer = CLayer::Create();
 
 	DWORD bytesRead = 1;
-	HANDLE hFile = CreateFile(L"../Map/MoonTempleReal3.txt", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	HANDLE hFile = CreateFile(L"../Map/harborReal.txt", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
 		if (hFile != INVALID_HANDLE_VALUE) {
@@ -83,7 +87,7 @@ void CTownStage::init()
 
 				if (!ReadFile(hFile, objData, sizeof(ObjectData), &bytesRead, NULL))
 				{
-					MSG_BOX("ÀÐ±â ¿À·ù");
+					MSG_BOX("ì½ê¸° ì˜¤ë¥˜");
 				};
 
 				if (bytesRead == 0)
@@ -131,9 +135,9 @@ void CTownStage::init()
 
 
 			}
-			CloseHandle(hFile);
+			CloseHandle(hFile);	
 		}
-	}*/
+	}
 }
 
 HRESULT CTownStage::Ready_LightInfo()
@@ -168,8 +172,23 @@ HRESULT CTownStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_SeaLion", pGameObject), E_FAIL);
 	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
 
+	pGameObject = CHarborcat::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_HarborCat", pGameObject), E_FAIL);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
 	m_mapLayer.insert({ pLayerTag, pLayer });
 
+	pGameObject = CHarborMeer::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_HarborMeerCat", pGameObject), E_FAIL);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+	m_mapLayer.insert({ pLayerTag, pLayer });
+
+	pGameObject = CPanda::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Panda", pGameObject), E_FAIL);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+	m_mapLayer.insert({ pLayerTag, pLayer });
 	return S_OK;
 }
 
@@ -201,7 +220,7 @@ HRESULT CTownStage::Ready_Layer_UI(const _tchar* pLayerTag)
 
 	pGameObject = CMapName::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	dynamic_cast<CMapName*>(pGameObject)->Set_MapName(L"Ç×±¸");
+	dynamic_cast<CMapName*>(pGameObject)->Set_MapName(L"í•­êµ¬");
 	dynamic_cast<CMapName*>(pGameObject)->CallName();
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CMapName", pGameObject), E_FAIL);
 

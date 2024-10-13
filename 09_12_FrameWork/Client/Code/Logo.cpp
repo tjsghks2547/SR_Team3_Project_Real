@@ -24,6 +24,9 @@ HRESULT CLogo::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_Environment(L"Layer_Environment"), E_FAIL);
 
 
+	//사운드 정지 및 동영상 재생 
+	StopAll();
+
 	PlayVideo(g_hWnd, L"../Bin/Resource/Video/CutScene_0_BabyOguWakeUp.wmv");	
 
 	return S_OK;
@@ -58,7 +61,7 @@ void CLogo::LateUpdate_Scene(const _float& fTimeDelta)
 void CLogo::Render_Scene()
 {
 	//Engine::CScene::Render_Scene();
-	//DEBUG �� ��� 
+	//DEBUG 용 출력 
 
 	_vec2 position(100, 100);
 

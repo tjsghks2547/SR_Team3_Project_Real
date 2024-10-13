@@ -18,6 +18,10 @@ HRESULT CJungleForestStage::Ready_Scene()
     FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
 
 
+    Engine::StopAll();  
+    Engine::PlayBGM(L"BGM_4_JungleAreaField2.wav", 1.f);    
+
+
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 
     return S_OK;
@@ -50,7 +54,7 @@ _int CJungleForestStage::Update_Scene(const _float& fTimeDelta)
         NULL_CHECK_RETURN(pStage3, -1);
 
         FAILED_CHECK_RETURN(Engine::Set_Scene(pStage3), E_FAIL);
-        //pStage3->init(); // ¸ÊÅø¿¡¼­ °¡Á®¿Â ¿ÀºêÁ§Æ®µéÀ» À§ÇØ »ç¿ë   
+        //pStage3->init(); // ë§µíˆ´ì—ì„œ ê°€ì ¸ì˜¨ ì˜¤ë¸Œì íŠ¸ë“¤ì„ ìœ„í•´ ì‚¬ìš©   
 
         return 0;
     }
@@ -87,7 +91,7 @@ void CJungleForestStage::init()
     
                 if (!ReadFile(hFile, objData, sizeof(ObjectData), &bytesRead, NULL))
                 {
-                    MSG_BOX("ÀÐ±â ¿À·ù");
+                    MSG_BOX("ì½ê¸° ì˜¤ë¥˜");
                 };
     
                 if (bytesRead == 0)
@@ -160,7 +164,7 @@ HRESULT CJungleForestStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 
     Engine::CGameObject* pGameObject = nullptr;
 
-    //¿©±â ¼öÁ¤ÇØ¾ßÇÏ°í
+    //ì—¬ê¸° ìˆ˜ì •í•´ì•¼í•˜ê³ 
     pGameObject = CJungleForestMap::Create(m_pGraphicDev);  
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"JungleForestMap", pGameObject), E_FAIL);
@@ -680,7 +684,7 @@ HRESULT CJungleForestStage::Ready_Layer_UI(const _tchar* pLayerTag)
 
     pGameObject = CMapName::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
-    dynamic_cast<CMapName*>(pGameObject)->Set_MapName(L"Á¤±Û½£");
+    dynamic_cast<CMapName*>(pGameObject)->Set_MapName(L"ì •ê¸€ìˆ²");
     dynamic_cast<CMapName*>(pGameObject)->CallName();
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CMapName", pGameObject), E_FAIL);
 

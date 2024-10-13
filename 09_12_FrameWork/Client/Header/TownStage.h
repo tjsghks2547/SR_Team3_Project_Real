@@ -11,6 +11,9 @@
 #include "QuickSlot.h"
 #include "Object.h"
 #include "SeaLion.h"
+#include "HarborCat.h"
+#include "HarborMeer.h"
+#include "Panda.h"
 
 class CTownStage:public CScene
 {

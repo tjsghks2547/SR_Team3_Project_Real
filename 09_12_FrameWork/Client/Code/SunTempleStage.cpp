@@ -13,12 +13,15 @@ CSunTempleStage::~CSunTempleStage()
 
 HRESULT CSunTempleStage::Ready_Scene()
 {
+	Engine::StopAll();	
 	PlayVideo(g_hWnd, L"../Bin/Resource/Video/CutScene_22_SunTempleEntrance.wmv");
 
     FAILED_CHECK_RETURN(Ready_Layer_Environmnet(L"Layer_Environment"), E_FAIL);
     FAILED_CHECK_RETURN(Ready_Layer_GameLogic(L"Layer_GameLogic"), E_FAIL);
     FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
 
+	Engine::StopSound(SOUND_BGM);
+	Engine::PlayBGM(L"BGM_2_TempleOfTheSun.wav", 0.8f);
 
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 
@@ -39,6 +42,12 @@ void CSunTempleStage::LateReady_Scene()
 
 _int CSunTempleStage::Update_Scene(const _float& fTimeDelta)
 {
+	if (m_bVideoPlaying == false)
+	{
+		Engine::PlayBGM(L"BGM_8_JungleDungeon.wav", 1.f);	
+		m_bVideoPlaying = true;
+	}
+
     _int  iExit = Engine::CScene::Update_Scene(fTimeDelta);
 
 
@@ -73,7 +82,7 @@ void CSunTempleStage::init()
     Engine::CLayer* pLayer = CLayer::Create();
 
     DWORD bytesRead = 1;
-    HANDLE hFile = CreateFile(L"../Map/SunTempleReal.txt", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+    HANDLE hFile = CreateFile(L"../Map/SunTempleReal3.txt", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
     if (hFile != INVALID_HANDLE_VALUE)
     {
         if (hFile != INVALID_HANDLE_VALUE) {

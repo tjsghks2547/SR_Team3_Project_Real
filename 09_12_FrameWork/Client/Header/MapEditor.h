@@ -10,6 +10,7 @@
 #include "ElectriceelBossMap.h"
 #include "ArenaMap.h"
 #include "SunTempleMap.h"
+#include "Town.h"
 
 class CMapEditor : public Engine::CScene
 {

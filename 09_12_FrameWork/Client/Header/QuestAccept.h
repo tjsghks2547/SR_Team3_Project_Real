@@ -23,7 +23,13 @@ public:
 	virtual   void      Render_GameObject();
 
 	void	  Key_Input(const _float& fTimeDelta);
-	void	  CallQuestAcceptUI(_bool _Call) { m_bCall = _Call; }
+	void	  CallQuestAcceptUI(_bool _Call) 
+	{
+		m_bCall = _Call; 
+		Engine::Play_Sound(L"SFX_148_UINormalOpen.wav", SOUND_EFFECT, 0.8);
+		//Engine::Play_Sound(L"SFX_446_QuestClear.wav", SOUND_EFFECT, 0.7);
+
+	}
 	void	  Set_Text(CQuestUI::QUEST_INFO _pNPCInfo) { m_tCopyInfo = _pNPCInfo; }
 	void	  Render_Text();
 private:

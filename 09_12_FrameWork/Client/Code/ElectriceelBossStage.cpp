@@ -18,6 +18,9 @@ HRESULT CElectriceelBossStage::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_GameLogic(L"Layer_GameLogic"), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
 
+  Engine::StopSound(SOUND_BGM);   
+  Engine::PlayBGM(L"BGM_65_OceanFinalBossFight.wav", 1.f);       
+
 	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 
 	return S_OK;
@@ -46,7 +49,7 @@ _int CElectriceelBossStage::Update_Scene(const _float& fTimeDelta)
         NULL_CHECK_RETURN(pStage3, -1);
 
         FAILED_CHECK_RETURN(Engine::Set_Scene(pStage3), E_FAIL);
-        //pStage3->init(); // ∏ ≈¯ø°º≠ ∞°¡Æø¬ ø¿∫Í¡ß∆ÆµÈ¿ª ¿ß«ÿ ªÁøÎ   
+        //pStage3->init(); // ÎßµÌà¥?êÏÑú Í∞Ä?∏Ïò® ?§Î∏å?ùÌä∏?§ÏùÑ ?ÑÌï¥ ?¨Ïö©   
 
         return 0;
     }
@@ -84,7 +87,7 @@ void CElectriceelBossStage::init()
     //
     //            if (!ReadFile(hFile, objData, sizeof(ObjectData), &bytesRead, NULL))
     //            {
-    //                MSG_BOX("¿–±‚ ø¿∑˘");
+    //                MSG_BOX("?ΩÍ∏∞ ?§Î•ò");
     //            };
     //
     //            if (bytesRead == 0)
@@ -147,6 +150,8 @@ HRESULT CElectriceelBossStage::Ready_Layer_Environmnet(const _tchar* pLayerTag)
     Engine::CLayer* pLayer = CLayer::Create();
     NULL_CHECK_RETURN(pLayer, E_FAIL);
 
+    Engine::CGameObject* pGameObject = nullptr;
+
     m_mapLayer.insert({ pLayerTag, pLayer });
 
     return S_OK;
@@ -177,7 +182,7 @@ HRESULT CElectriceelBossStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
     static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(500.f, 21.f, 500.f);
     pGameObject->SetObjectKey(L"Stone0");
 
-    //∆¯∆˜ ø˛¿Ã∫Í
+
     //pGameObject = CWaterFall::Create(m_pGraphicDev);    
     //NULL_CHECK_RETURN(pGameObject, E_FAIL);
     //FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"WaterFall", pGameObject), E_FAIL);

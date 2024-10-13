@@ -26,7 +26,9 @@ namespace Engine
 		SOUND_BGM,
 		SOUND_EFFECT,
 		SOUND_SURROUNDING,
-		MAXCHANNEL
+		SOUND_ElectricEel,	
+		SOUND_ElectricEel_Collision,
+		MAXCHANNEL=32,
 	};
 
 	enum TAG { TAG_PLAYER, TAG_ENEMY, TAG_STONE, TAG_OBJECT, TAG_NONE };

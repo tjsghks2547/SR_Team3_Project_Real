@@ -8,6 +8,8 @@ BEGIN(Engine)
 class CTexture;
 class CRcTex;
 class CTransform;
+class CAnimator2;
+class CAnimation2;
 
 END
 class CInvenUI;
@@ -34,6 +36,7 @@ private:
 
 private:
 	Engine::CRcTex* m_pBufferCom;
+	Engine::CAnimator2* m_pAnimatorCom; //Ãß°¡
 	Engine::CTexture* m_pTextureCom;
 	Engine::CTransform* m_pTransformCom;
 
@@ -55,5 +58,7 @@ public:
 
 private:
 	virtual void Free();
+	IDirect3DTexture9* m_pTex;
+
 };
 

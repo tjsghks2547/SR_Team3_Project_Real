@@ -61,6 +61,8 @@ void CItemUI::Key_Input(const _float& fTimeDelta)
         if (Engine::GetKeyDown(DIK_S))
         {
             //대화내용 리셋
+            Engine::Play_Sound(L"SFX_68_UIBig_Close.wav", SOUND_EFFECT, 0.7);
+
             Engine::Get_Layer(L"Layer_GameLogic")->SetGameState(GAMESTATE_NONE);
             //dynamic_cast<CPlayer*>(_pOther)->ChangeIdleState();
             ZeroMemory(&m_tCopyInfo, 0, sizeof(m_tCopyInfo));

@@ -139,6 +139,8 @@ void CMiddleRoot::Use_Item()
 	NULL_CHECK_RETURN(m_pPlayer);
 
 	m_pPlayer->SetPowerTime(10); //10초 동안 공격력 상승
+	Engine::Play_Sound(L"SFX_785_OguAttackUp.wav", SOUND_EFFECT, 1.f);
+
 	m_tInfo.iItemCount--;
 }
 

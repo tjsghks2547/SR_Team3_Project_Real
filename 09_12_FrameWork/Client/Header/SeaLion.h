@@ -28,7 +28,5 @@ public:
 
 private:
 	virtual void Free();
-
-	IDirect3DTexture9* m_pComeTex;
 };
 

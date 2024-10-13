@@ -72,7 +72,7 @@ void CSeaLion::Render_GameObject()
 
 void CSeaLion::OnCollision(CGameObject* _pOther)
 {
-    if (_pOther->GetObjectKey() != L"PlayerInteractionBox")
+    if (_pOther->GetObjectKey() != L"Player")
         return;
 
     if (Engine::GetKeyDown(DIK_D))

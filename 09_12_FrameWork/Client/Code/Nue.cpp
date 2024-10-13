@@ -169,7 +169,7 @@ HRESULT CNue::Add_Component()
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
     m_pTransformCom->m_vScale = { 20.f, 20.f, 20.f };
-    m_pTransformCom->Set_Pos(1000.f, 20.f, 750.f);
+    m_pTransformCom->Set_Pos(1000.f, 20.f, 1080.f);
 
     pComponent = m_pColliderCom = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);

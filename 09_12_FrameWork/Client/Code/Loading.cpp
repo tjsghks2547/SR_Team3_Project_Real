@@ -60,7 +60,7 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_MoonTempleMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 2.0f, 2.0f)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_ArenaMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 1.0f, 1.0f)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_SunTempleMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 2.0f, 2.0f)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_TownMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 1.0f, 1.0f)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_TownMapTex", Engine::CMapTex::Create(m_pGraphicDev, 1000, 1000, 2.0f, 1.0f)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_SwingEffect1", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Ogu_Move_Motion/Ogu_SwingEffect1.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_SwingEffect2", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Ogu_Move_Motion/Ogu_SwingEffect2.png", TEX_NORMAL)), E_FAIL);
 
@@ -88,6 +88,9 @@ _uint CLoading::Loading_Stage()
 
 	//NPC
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_FishShop", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/FishShop.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_CottonCandyCart", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/Sprite_RandomEncounterMerchantObjects2_CottonCandyCart.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_HatMarket", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/HatMarket.png", TEX_NORMAL)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_ConsumMarket", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/ConsumMarket.png", TEX_NORMAL)), E_FAIL);
 	//UI
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_HPFrame", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/HeartHPFrame_UI2.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_HPBar", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/UI/HPBar.png", TEX_NORMAL)), E_FAIL);
@@ -151,6 +154,9 @@ _uint CLoading::Loading_Stage()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Leaf", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/Leaf.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Net", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/Net.png", TEX_NORMAL)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Ticket", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/ExpressTicket.png", TEX_NORMAL)), E_FAIL);
+
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_HeartFruit", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/Item/Sprite_ItemHeartApple.png", TEX_NORMAL)), E_FAIL);
+
 	//Arena
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_StoneCircle", Engine::CTexture::Create(m_pGraphicDev, L"../Bin/Resource/Texture/ArenaMonster/StoneCircle.png", TEX_NORMAL)), E_FAIL);
 

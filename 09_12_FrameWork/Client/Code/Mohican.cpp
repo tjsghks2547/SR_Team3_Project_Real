@@ -18,7 +18,7 @@ HRESULT CMohican::Ready_GameObject()
 		MOHICAN,
 		 L"모히칸 헤어",
 		 L"강해진 것만 같은 기분이 든다....",
-		0, 1 };
+		100, 1 };
 
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 

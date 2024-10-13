@@ -54,6 +54,8 @@ void CQuestAccept::Key_Input(const _float& fTimeDelta)
     {
         if (Engine::GetKeyDown(DIK_S))
         {
+            Engine::Play_Sound(L"SFX_120_UINormalClose.wav", SOUND_EFFECT, 0.8);
+
             //대화내용 리셋
             ZeroMemory(&m_tCopyInfo, 0, sizeof(m_tCopyInfo));
             m_bCall = false; // 대화창 부르지않음
