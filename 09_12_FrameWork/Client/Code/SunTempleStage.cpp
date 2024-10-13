@@ -13,6 +13,8 @@ CSunTempleStage::~CSunTempleStage()
 
 HRESULT CSunTempleStage::Ready_Scene()
 {
+	PlayVideo(g_hWnd, L"../Bin/Resource/Video/CutScene_22_SunTempleEntrance.wmv");
+
     FAILED_CHECK_RETURN(Ready_Layer_Environmnet(L"Layer_Environment"), E_FAIL);
     FAILED_CHECK_RETURN(Ready_Layer_GameLogic(L"Layer_GameLogic"), E_FAIL);
     FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
@@ -32,6 +34,8 @@ _int CSunTempleStage::Update_Scene(const _float& fTimeDelta)
 
     if (GetAsyncKeyState('B') & 0x8000)
     {
+		
+
         Engine::CScene* pStage3 = CMoonForestStage::Create(m_pGraphicDev);
         NULL_CHECK_RETURN(pStage3, -1);
 

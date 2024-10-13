@@ -405,6 +405,12 @@ void CObject::Render_GameObject()
 		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[68]);
 	}
 
+	else if (m_strTextureKey == L"Pillar")
+	{
+		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[69]);
+	}
+
+
 	else if (m_strTextureKey == L"SunTemple_Entrance")
 	{
 		m_pGraphicDev->SetTexture(0, CResMgr::GetInstance()->GetTexture()[70]);
