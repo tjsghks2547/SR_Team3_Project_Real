@@ -27,6 +27,7 @@ HRESULT CWorldHearStage::Ready_Scene()
 	Engine::StopAll();	
 	Engine::PlayBGM(L"BGM_3_JungleAreaField1.wav", 1.f);	
 
+	CManagement::GetInstance()->m_imap_stage = 0;
 
 	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 

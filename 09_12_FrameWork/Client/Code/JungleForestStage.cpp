@@ -19,6 +19,7 @@ HRESULT CJungleForestStage::Ready_Scene()
     FAILED_CHECK_RETURN(Ready_Layer_GameLogic(L"Layer_GameLogic"), E_FAIL);
     FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
 
+    CManagement::GetInstance()->m_imap_stage = 0;
 
     Engine::StopAll();  
     Engine::PlayBGM(L"BGM_4_JungleAreaField2.wav", 1.f);    
