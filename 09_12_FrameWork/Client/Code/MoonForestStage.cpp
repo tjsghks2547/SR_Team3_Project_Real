@@ -2,6 +2,7 @@
 #include "MoonForestStage.h"
 #include "Export_Utility.h"
 
+
 CMoonForestStage::CMoonForestStage(LPDIRECT3DDEVICE9 pGraphicDev)
     :Engine::CScene(pGraphicDev)
 {
@@ -19,7 +20,7 @@ HRESULT CMoonForestStage::Ready_Scene()
     FAILED_CHECK_RETURN(Ready_Layer_GameLogic(L"Layer_GameLogic"), E_FAIL);
     FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
 
-	Engine::StopSound(SOUND_BGM);
+	StopAll();		
 	Engine::PlayBGM(L"BGM_10_MoonForestAmbience.wav", 1.f);	
 
 
@@ -625,8 +626,8 @@ HRESULT CMoonForestStage::Ready_Layer_UI(const _tchar* pLayerTag)
 
 	pGameObject = CMapName::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	dynamic_cast<CMapName*>(pGameObject)->Set_MapName(L"달의 숲");
-	dynamic_cast<CMapName*>(pGameObject)->CallName();
+	dynamic_cast<CMapName*>(pGameObject)->Set_MapName(L"달의 숲 ");
+	dynamic_cast<CMapName*>(pGameObject)->CallName();	
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CMapName", pGameObject), E_FAIL);
 
 	m_mapLayer.insert({ pLayerTag, pLayer });

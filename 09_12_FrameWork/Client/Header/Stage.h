@@ -68,6 +68,8 @@
 
 //╧наЖ юс╫ц
 #include "AddHP.h"
+#include "MapName.h"
+
 
 class CStage : public Engine::CScene
 {

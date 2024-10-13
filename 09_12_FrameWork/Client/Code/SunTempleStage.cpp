@@ -13,15 +13,13 @@ CSunTempleStage::~CSunTempleStage()
 
 HRESULT CSunTempleStage::Ready_Scene()
 {
-	Engine::StopAll();	
+	StopAll();	
 	PlayVideo(g_hWnd, L"../Bin/Resource/Video/CutScene_22_SunTempleEntrance.wmv");
 
     FAILED_CHECK_RETURN(Ready_Layer_Environmnet(L"Layer_Environment"), E_FAIL);
     FAILED_CHECK_RETURN(Ready_Layer_GameLogic(L"Layer_GameLogic"), E_FAIL);
     FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
 
-	Engine::StopSound(SOUND_BGM);
-	Engine::PlayBGM(L"BGM_2_TempleOfTheSun.wav", 0.8f);
 
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 

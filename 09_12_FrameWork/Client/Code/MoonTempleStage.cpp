@@ -21,11 +21,6 @@ HRESULT CMoonTempleStage::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_GameLogic(L"Layer_GameLogic"), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
 
-	Engine::StopSound(SOUND_BGM);
-	Engine::PlayBGM(L"BGM_14_MoonForestFieldHeavy.wav", 0.8f);	
-
-
-
 	// 
 	//D3DLIGHT9		tLightInfo; 
 	//ZeroMemory(&tLightInfo, sizeof(D3DLIGHT9)); 
