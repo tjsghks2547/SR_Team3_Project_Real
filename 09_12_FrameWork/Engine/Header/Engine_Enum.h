@@ -27,6 +27,7 @@ namespace Engine
 		SOUND_EFFECT,
 		SOUND_MOREEFFECT,
 		SOUND_SURROUNDING,
+		SOUND_NATURAL,
 		SOUND_ElectricEel,	
 		SOUND_ElectricEel_Collision,
 		MAXCHANNEL=32,

@@ -37,7 +37,7 @@ void CSunTempleMap::Render_GameObject()
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
 
-    //FAILED_CHECK_RETURN(SetUp_Material(), );
+    FAILED_CHECK_RETURN(SetUp_Material(), );
     m_pTextureCom->Set_Texture(0);
 
     m_pBufferCom->Render_Buffer();

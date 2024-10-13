@@ -111,6 +111,10 @@ void CStone::Render_GameObject()
 {
 	if (!m_bIsActive)
 		return;
+	if (CManagement::GetInstance()->m_imap_stage == 2)
+	{
+		m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
+	}
 
 	if (dwtime + 1500 < GetTickCount64())
 	{
@@ -150,7 +154,13 @@ void CStone::Render_GameObject()
 	m_pShadowTextureCom->Set_Texture();
 	m_pBufferCom->Render_Buffer();
 
+	if (CManagement::GetInstance()->m_imap_stage == 2)
+	{
+		m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, false);
+	}
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+
+
 }
 
 void CStone::Break()

@@ -325,7 +325,7 @@
     <Filter Include="02. GameObject\07. Map\05.MoonTempleMap">
       <UniqueIdentifier>{8af04f41-de30-4c41-adbb-2497e2f26dad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\03. Terrain" />
+	<Filter Include="02. GameObject\03. Terrain" />
     <Filter Include="02. GameObject\15. EquipHat">
       <UniqueIdentifier>{262a8c01-95e5-4011-b117-31122d515f42}</UniqueIdentifier>
     </Filter>
@@ -485,19 +485,20 @@
     <Filter Include="02. GameObject\12. NPC\00. QuestNPC\16. Mouse">
       <UniqueIdentifier>{3e14780a-f6cf-4f50-a1fb-0ef9a5363120}</UniqueIdentifier>
     </Filter>
-<<<<<<< HEAD
+
     <Filter Include="02. GameObject\16.Grass\Grass2">
       <UniqueIdentifier>{780811af-e5e0-4f85-a3f5-6b643f9c52c8}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. GameObject\14.ElectriceelBoss\HitEffect">
       <UniqueIdentifier>{b01d9519-1bfe-4f18-9c65-6e42898bf3d2}</UniqueIdentifier>
-=======
+	</Filter>
+
     <Filter Include="02. GameObject\09. Puzzle\B-52">
       <UniqueIdentifier>{d78cc999-bf53-483f-b2e8-abfca1659f25}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. GameObject\09. Puzzle\B-52\WP">
       <UniqueIdentifier>{e247168a-aa94-4ea7-8380-c0aa1146d87e}</UniqueIdentifier>
->>>>>>> 3911c7e88a00342dedc3228a520fcc76b03dc9b4
+
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1104,7 +1105,7 @@
     <ClInclude Include="..\Header\Panda.h">
       <Filter>02. GameObject\12. NPC\01. StoreNPC\03. Panda</Filter>
     </ClInclude>
-<<<<<<< HEAD
+
     <ClInclude Include="..\Header\GrassEffect.h">
       <Filter>02. GameObject\16.Grass\GrassEffect</Filter>
     </ClInclude>
@@ -1113,13 +1114,13 @@
     </ClInclude>
     <ClInclude Include="..\Header\HitEffect.h">
       <Filter>02. GameObject\14.ElectriceelBoss\HitEffect</Filter>
-=======
+	</ClInclude>
+
     <ClInclude Include="..\Header\WhitePhosphorus.h">
       <Filter>02. GameObject\09. Puzzle\B-52\WP</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\B52Bomber.h">
       <Filter>02. GameObject\09. Puzzle\B-52</Filter>
->>>>>>> 3911c7e88a00342dedc3228a520fcc76b03dc9b4
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1720,19 +1721,17 @@
     <ClCompile Include="..\Code\Panda.cpp">
       <Filter>02. GameObject\12. NPC\01. StoreNPC\03. Panda</Filter>
     </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="..\Code\Grass2.cpp">
       <Filter>02. GameObject\16.Grass\Grass2</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\HitEffect.cpp">
       <Filter>02. GameObject\14.ElectriceelBoss\HitEffect</Filter>
-=======
+	</ClCompile>
     <ClCompile Include="..\Code\WhitePhosphorus.cpp">
       <Filter>02. GameObject\09. Puzzle\B-52\WP</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\B52Bomber.cpp">
       <Filter>02. GameObject\09. Puzzle\B-52</Filter>
->>>>>>> 3911c7e88a00342dedc3228a520fcc76b03dc9b4
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
