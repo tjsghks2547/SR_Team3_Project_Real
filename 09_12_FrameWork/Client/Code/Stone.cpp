@@ -85,6 +85,10 @@ void CStone::Render_GameObject()
 {
 	if (!m_bIsActive)
 		return;
+	if (CManagement::GetInstance()->m_imap_stage == 2)
+	{
+		m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
+	}
 
 	if (dwtime + 3000 < GetTickCount64())
 	{
@@ -118,11 +122,16 @@ void CStone::Render_GameObject()
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	m_pTextureCom->Set_Texture();
 	m_pBufferCom->Render_Buffer();
-	m_pBoundBox->Render_Buffer();
+	//m_pBoundBox->Render_Buffer();
 
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pShadowTransformCom->Get_WorldMatrix());
 	m_pShadowTextureCom->Set_Texture();
 	m_pBufferCom->Render_Buffer();
+
+	if (CManagement::GetInstance()->m_imap_stage == 2)	
+	{
+		m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, false);	
+	}	
 
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
@@ -155,6 +164,7 @@ HRESULT CStone::Add_Component()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_pBoundBox->SetGameObjectPtr(this);
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collider", pComponent });
+
 
 	return S_OK;
 }

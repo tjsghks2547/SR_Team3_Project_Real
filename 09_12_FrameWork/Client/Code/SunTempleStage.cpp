@@ -20,8 +20,8 @@ HRESULT CSunTempleStage::Ready_Scene()
     FAILED_CHECK_RETURN(Ready_Layer_GameLogic(L"Layer_GameLogic"), E_FAIL);
     FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
 
-
-    m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
+	CManagement::GetInstance()->m_imap_stage = 2;	
+    m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
 
     return S_OK;
 }

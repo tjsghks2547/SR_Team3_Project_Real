@@ -32,12 +32,16 @@ void CSunTempleMap::LateUpdate_GameObject(const float& fTimeDelta)
 
 void CSunTempleMap::Render_GameObject()
 {
+    
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+    m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
 
+    FAILED_CHECK_RETURN(SetUp_Material(), );
     m_pTextureCom->Set_Texture(0);
 
     m_pBufferCom->Render_Buffer();
+    m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, false);
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 
@@ -63,6 +67,18 @@ HRESULT CSunTempleMap::Add_Component()
 
 HRESULT CSunTempleMap::SetUp_Material()
 {
+    D3DMATERIAL9		tMtrl;  
+    ZeroMemory(&tMtrl, sizeof(D3DMATERIAL9));   
+
+    tMtrl.Diffuse = { 0.5f, 0.5f, 0.5f, 0.5f }; 
+    tMtrl.Specular = { 0.5f, 0.5f, 0.5f, 0.5f };    
+    tMtrl.Ambient = { 0.3f, 0.3f, 0.3f, 0.3f }; 
+
+    tMtrl.Emissive = { 0.3f,0.3f, 0.3f, 0.3f }; 
+    tMtrl.Power = 0.f;  
+
+    m_pGraphicDev->SetMaterial(&tMtrl); 
+
     return S_OK;
 }
 

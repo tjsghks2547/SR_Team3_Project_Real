@@ -78,7 +78,7 @@ HRESULT CMoonTempleMap::SetUp_Material()
     tMtrl.Specular = { 0.5f, 0.5f, 0.5f, 0.5f };
     tMtrl.Ambient = { 0.3f, 0.3f, 0.3f, 0.3f };
 
-    tMtrl.Emissive = { 0.1f,0.1f, 0.1f, 0.1f };
+    tMtrl.Emissive = { 0.3f,0.3f, 0.3f, 0.3f };
     tMtrl.Power = 0.f;
 
     m_pGraphicDev->SetMaterial(&tMtrl);

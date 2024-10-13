@@ -23,7 +23,7 @@ HRESULT CMoonForestStage::Ready_Scene()
 	StopAll();		
 	Engine::PlayBGM(L"BGM_10_MoonForestAmbience.wav", 1.f);	
 
-
+	CManagement::GetInstance()->m_imap_stage = 0;
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 
     return S_OK;
