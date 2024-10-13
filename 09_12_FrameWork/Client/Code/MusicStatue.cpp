@@ -104,7 +104,7 @@ void CMusicStatue::Match_Note(_int _iNote)
 
 	static_cast<CFirePit*>(m_vecFirePits[m_iCurNote])->Set_Ignite(true);
 	++m_iCurNote;
-	Play_Sound(L"SFX_360_FireTorchLit.wav", SOUND_SURROUNDING, 1.f);	
+	//Play_Sound(L"SFX_360_FireTorchLit.wav", SOUND_SURROUNDING, 1.f);	
 
 	if (m_iCurNote >= m_vecFirePits.size()) {
 		Clear_Puzzle();

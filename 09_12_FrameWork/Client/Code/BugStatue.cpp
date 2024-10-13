@@ -21,7 +21,7 @@ HRESULT CBugStatue::Ready_GameObject()
 	m_iImageID = 0; 
 	m_vecTexture.resize(4); 
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_BugStatueOnce_Glow.png", &m_vecTexture[0]);
-	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_BugStatueOnces.png", &m_vecTexture[1]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_BugStatueOnce.png", &m_vecTexture[1]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_MonkeyStatue_Cave_Once.png", &m_vecTexture[2]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Sprite_MonkeyStatue_Cave.png", &m_vecTexture[3]);
 

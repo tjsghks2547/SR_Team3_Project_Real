@@ -216,6 +216,11 @@ HRESULT CWorldHearStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"GodEffect", pGameObject), E_FAIL);
 
+	pGameObject = CB52Bomber::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CB52Bomber", pGameObject), E_FAIL);
+	static_cast<CB52Bomber*>(pGameObject)->Pre_CreateShell();
+	//static_cast<CB52Bomber*>(pGameObject)->Set_Player(PlayerObj);
 #pragma endregion
 
 #pragma region Crystal Puzzle

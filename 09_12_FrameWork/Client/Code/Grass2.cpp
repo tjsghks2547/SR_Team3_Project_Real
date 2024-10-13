@@ -19,7 +19,7 @@ HRESULT CGrass2::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
-	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/Object/Grass_Effect2.png", &m_pTex);
+	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/Effect/Grass_Effect2.png", &m_pTex);
 
 	IDirect3DTexture9* pEffectTexture1 = CResMgr::GetInstance()->GetEffectTexture()[3];
 

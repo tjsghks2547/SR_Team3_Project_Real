@@ -69,10 +69,6 @@ void CStoneBlock::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CStoneBlock::Render_GameObject()
 {	
-	if (CManagement::GetInstance()->m_imap_stage == 2)
-	{
-		m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
-	}
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	m_pGraphicDev->SetTexture(0, m_vecTexture[m_iImageID]);
@@ -82,10 +78,7 @@ void CStoneBlock::Render_GameObject()
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	m_pGraphicDev->SetTexture(0, m_vecHoleTexture[m_iHoleImageID]);
 	m_pBufferCom->Render_Buffer();
-	if (CManagement::GetInstance()->m_imap_stage == 2)
-	{
-		m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, false);
-	}
+
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 

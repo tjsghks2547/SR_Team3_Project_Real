@@ -47,6 +47,7 @@
 #include "Trigger.h"
 #include "ColorBugStatue.h"
 #include "MatchPuzzle.h"
+#include "B52Bomber.h"
 
 #include "ElectriceelBossStage.h"
 #include "MoonTempleStage.h"

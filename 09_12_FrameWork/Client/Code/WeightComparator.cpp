@@ -105,11 +105,15 @@ void CWeightComparator::Init(_float _fX, _float _fZ)
 
 		pGameObject = CStone::Create(m_pGraphicDev);
 		static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(_fX + iOffsetX, 15.f, _fZ - 50.f);
-		static_cast<CStone*>(pGameObject)->Set_StoneID(i);
 		m_vecStones.push_back(pGameObject);
 
 		iOffsetX += 60.f;
 	}
+
+	static_cast<CStone*>(m_vecStones[0])->Set_StoneID(1);
+	static_cast<CStone*>(m_vecStones[1])->Set_StoneID(3);
+	static_cast<CStone*>(m_vecStones[2])->Set_StoneID(2);
+	static_cast<CStone*>(m_vecStones[3])->Set_StoneID(4);
 }
 
 void CWeightComparator::Puzzle_Clear()

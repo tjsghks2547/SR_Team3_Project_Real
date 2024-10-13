@@ -175,9 +175,15 @@ HRESULT CMoonForestStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 
 	CGameObject* PlayerObj = pLayer->Get_GameObject(L"Layer_GameLogic", L"Player");
 
+	pGameObject = CB52Bomber::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CB52Bomber", pGameObject), E_FAIL);
+	static_cast<CB52Bomber*>(pGameObject)->Pre_CreateShell();
+	static_cast<CB52Bomber*>(pGameObject)->Set_Player(PlayerObj);
+
 	_float fOffsetX = 400;
 	_float fOffsetZ = 400;
-/*
+
 #pragma region Match Puzzle
 
 	pGameObject = CMatchPuzzle::Create(m_pGraphicDev);
@@ -279,8 +285,7 @@ HRESULT CMoonForestStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 
 
 #pragma endregion
-#pragma region Stone Puzzle
-*/
+
 
     m_mapLayer.insert({ pLayerTag, pLayer });
 
