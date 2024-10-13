@@ -18,6 +18,7 @@ CItemSelector::~CItemSelector()
 
 HRESULT CItemSelector::Ready_GameObject()
 {
+	m_bDontDestroy = true;
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
 	return S_OK;

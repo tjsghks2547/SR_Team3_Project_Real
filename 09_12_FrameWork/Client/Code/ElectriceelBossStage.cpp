@@ -18,9 +18,13 @@ HRESULT CElectriceelBossStage::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_GameLogic(L"Layer_GameLogic"), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
 
-
 	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 
+	return S_OK;
+}
+
+void CElectriceelBossStage::LateReady_Scene()
+{
     CLayer* layer = Engine::Get_Layer(L"Layer_GameLogic");
     CPlayer* player = dynamic_cast<CPlayer*>(
         Get_GameObject(L"Layer_GameLogic", L"Player"));
@@ -29,7 +33,7 @@ HRESULT CElectriceelBossStage::Ready_Scene()
         player->Get_Component(ID_DYNAMIC, L"Com_Transform")
         )->Set_Pos(500.f, 30.f, 550.f);
 
-	return S_OK;
+    Engine::CScene::LateReady_Scene();
 }
 
 _int CElectriceelBossStage::Update_Scene(const _float& fTimeDelta)
@@ -143,22 +147,6 @@ HRESULT CElectriceelBossStage::Ready_Layer_Environmnet(const _tchar* pLayerTag)
     Engine::CLayer* pLayer = CLayer::Create();
     NULL_CHECK_RETURN(pLayer, E_FAIL);
 
-    Engine::CGameObject* pGameObject = nullptr;
-
-    _vec3 Eye = { 0.f, 0.f, 0.f };
-    _vec3 At = { 0.f, 1.f, 1.f };
-    _vec3 Up = { 0.f, 1.f, 0.f };
-
-    pGameObject = CDynamicCamera::Create(m_pGraphicDev, &Eye, &At, &Up);
-
-    NULL_CHECK_RETURN(pGameObject, E_FAIL);
-    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"DynamicCamera", pGameObject), E_FAIL);
-
-
-    //GameObject = CSkyBox::Create(m_pGraphicDev);          
-    NULL_CHECK_RETURN(pGameObject, E_FAIL);
-    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SkyBox", pGameObject), E_FAIL);
-
     m_mapLayer.insert({ pLayerTag, pLayer });
 
     return S_OK;
@@ -177,12 +165,6 @@ HRESULT CElectriceelBossStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ElectriceelBossMap", pGameObject), E_FAIL);
 
 
-    pGameObject = CPlayer::Create(m_pGraphicDev);
-    NULL_CHECK_RETURN(pGameObject, E_FAIL);
-    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Player", pGameObject), E_FAIL);
-    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PLAYER, pGameObject);
-    pGameObject->SetObjectKey(L"Player");
-
     pGameObject = CElectriceelBoss::Create(m_pGraphicDev);  
     NULL_CHECK_RETURN(pGameObject, E_FAIL);     
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ElectriceelBoss", pGameObject), E_FAIL);
@@ -195,16 +177,6 @@ HRESULT CElectriceelBossStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
     static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(500.f, 21.f, 500.f);
     pGameObject->SetObjectKey(L"Stone0");
 
-    pGameObject = CPlayerInteractionBox::Create(m_pGraphicDev); 
-    NULL_CHECK_RETURN(pGameObject, E_FAIL);
-    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PlayerInteractionBox", pGameObject), E_FAIL);
-    CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PLAYER, pGameObject);
-    pGameObject->SetObjectKey(L"PlayerInteractionBox");
-
-    CGameObject* PlayerObj = pLayer->Get_GameObject(L"Layer_GameLogic", L"Player");
-    CGameObject* InteractionObj = pLayer->Get_GameObject(L"Layer_GameLogic", L"PlayerInteractionBox");
-    dynamic_cast<CPlayerInteractionBox*>(InteractionObj)->SetPlayer(
-        dynamic_cast<CPlayer*>(PlayerObj));
     //ÆøÆ÷ ¿þÀÌºê
     //pGameObject = CWaterFall::Create(m_pGraphicDev);    
     //NULL_CHECK_RETURN(pGameObject, E_FAIL);
@@ -223,14 +195,6 @@ HRESULT CElectriceelBossStage::Ready_Layer_UI(const _tchar* pLayerTag)
     pGameObject = CDefaultUI::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Default_UI", pGameObject), E_FAIL);
-
-    pGameObject = CInvenUI::Create(m_pGraphicDev);
-    NULL_CHECK_RETURN(pGameObject, E_FAIL);
-    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Inven_UI", pGameObject), E_FAIL);
-
-    pGameObject = CQuickSlot::Create(m_pGraphicDev);
-    NULL_CHECK_RETURN(pGameObject, E_FAIL);
-    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"QuickSlot_UI", pGameObject), E_FAIL);
 
     pGameObject = CQuestUI::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);

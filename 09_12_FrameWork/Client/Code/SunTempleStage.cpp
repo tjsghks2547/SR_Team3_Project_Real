@@ -25,6 +25,18 @@ HRESULT CSunTempleStage::Ready_Scene()
     return S_OK;
 }
 
+void CSunTempleStage::LateReady_Scene()
+{
+	CPlayer* player = dynamic_cast<CPlayer*>(
+		Get_GameObject(L"Layer_GameLogic", L"Player"));
+
+	dynamic_cast<CTransform*>(
+		player->Get_Component(ID_DYNAMIC, L"Com_Transform")
+		)->Set_Pos(1030.f, 30.f, 180.f);
+
+	Engine::CScene::LateReady_Scene();
+}
+
 _int CSunTempleStage::Update_Scene(const _float& fTimeDelta)
 {
     _int  iExit = Engine::CScene::Update_Scene(fTimeDelta);
@@ -138,18 +150,6 @@ HRESULT CSunTempleStage::Ready_Layer_Environmnet(const _tchar* pLayerTag)
     Engine::CLayer* pLayer = CLayer::Create();  
     NULL_CHECK_RETURN(pLayer, E_FAIL);  
 
-    Engine::CGameObject* pGameObject = nullptr;
-
-    _vec3 Eye = { 0.f, 0.f, 0.f };  
-    _vec3 At = { 0.f, 1.f, 1.f };   
-    _vec3 Up = { 0.f, 1.f, 0.f };   
-
-    pGameObject = CDynamicCamera::Create(m_pGraphicDev, &Eye, &At, &Up);    
-
-    NULL_CHECK_RETURN(pGameObject, E_FAIL); 
-    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"DynamicCamera", pGameObject), E_FAIL); 
-
-
     m_mapLayer.insert({ pLayerTag, pLayer });   
 
     return S_OK;
@@ -168,24 +168,7 @@ HRESULT CSunTempleStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
     NULL_CHECK_RETURN(pGameObject, E_FAIL); 
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SunTempleMap", pGameObject), E_FAIL);   
 
-	pGameObject = CPlayer::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Player", pGameObject), E_FAIL);
-	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PLAYER, pGameObject);
-	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(1030.f, 18.f, 150.f);
-	pGameObject->SetObjectKey(L"Player");
-
-	pGameObject = CPlayerInteractionBox::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PlayerInteractionBox", pGameObject), E_FAIL);
-	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::PLAYER, pGameObject);
-	pGameObject->SetObjectKey(L"PlayerInteractionBox");
-
 	CGameObject* PlayerObj = pLayer->Get_GameObject(L"Layer_GameLogic", L"Player");
-	CGameObject* InteractionObj = pLayer->Get_GameObject(L"Layer_GameLogic", L"PlayerInteractionBox");
-	dynamic_cast<CPlayerInteractionBox*>(InteractionObj)->SetPlayer(
-		dynamic_cast<CPlayer*>(PlayerObj));
-
 
 	_float fOffsetX = 1030;
 	_float fOffsetZ = 500;
@@ -961,17 +944,6 @@ HRESULT CSunTempleStage::Ready_Layer_UI(const _tchar* pLayerTag)
     pGameObject = CDefaultUI::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Default_UI", pGameObject), E_FAIL);
-
-
-    pGameObject = CInvenUI::Create(m_pGraphicDev);
-    NULL_CHECK_RETURN(pGameObject, E_FAIL);
-    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Inven_UI", pGameObject), E_FAIL);
-
-
-    pGameObject = CQuickSlot::Create(m_pGraphicDev);
-    NULL_CHECK_RETURN(pGameObject, E_FAIL);
-    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"QuickSlot_UI", pGameObject), E_FAIL);
-
 
     pGameObject = CQuestUI::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);

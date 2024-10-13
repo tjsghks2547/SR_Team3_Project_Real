@@ -51,8 +51,10 @@ public:
 	void  ResetZoom(_float fDuration);
 
 	void  ShakeMove(_float fDuration);
+	// WalkPos방향으로 duration시간동안 이동합니다.
 	void  WalkTo(_vec3 _vWalkPos, _float _fDuration,
 		_vec3 _vDeparture = _vec3(0, 0, 0));
+	// Destination으로 duration시간동안 이동합니다.
 	void  WalkTo2(_vec3 _vDestination, _float _fDuration,
 		_vec3 _vDeparture = _vec3(0, 0, 0));
 

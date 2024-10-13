@@ -44,6 +44,7 @@ CPlayer::~CPlayer()
 
 HRESULT CPlayer::Ready_GameObject()
 {
+    m_bDontDestroy = true;
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
     //민지 임시 코드
@@ -80,7 +81,7 @@ void CPlayer::LateReady_GameObject()
     NULL_CHECK_RETURN(m_pInven);
 
     m_pQuickSlot = dynamic_cast<CQuickSlot*>(Engine::Get_GameObject(L"Layer_UI", L"QuickSlot_UI"));
-    NULL_CHECK_RETURN(m_pInven);
+    NULL_CHECK_RETURN(m_pQuickSlot);
 
     m_BuffArray[0] = dynamic_cast<CPowerUI*>(Engine::Get_GameObject(L"Layer_UI", L"Power_UI"));
     NULL_CHECK_RETURN(m_BuffArray[0]);
@@ -100,8 +101,8 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
     if (Get_Layer(L"Layer_GameLogic")->GetGameState() == GAMESTATE_NONE ||
         GetPlayerState() == PLAYERSTATE::PLY_PICKUP)
     {
-        m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
-        NULL_CHECK_RETURN(m_pInven, 0);
+        /*m_pInven = dynamic_cast<CInvenUI*>(Engine::Get_GameObject(L"Layer_UI", L"Inven_UI"));
+        NULL_CHECK_RETURN(m_pInven, 0);*/
 
 
         if (m_BuffArray[0]->Get_BuffTime() < m_BuffArray[1]->Get_BuffTime())

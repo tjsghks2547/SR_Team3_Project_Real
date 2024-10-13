@@ -19,6 +19,8 @@ CInvenUI::~CInvenUI()
 
 HRESULT CInvenUI::Ready_GameObject()
 {
+    m_bDontDestroy = true;
+    
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
     // 인벤토리 간격
@@ -32,6 +34,8 @@ HRESULT CInvenUI::Ready_GameObject()
 
 void CInvenUI::LateReady_GameObject()
 {
+    Engine::Add_RenderGroup(RENDER_UI, this); // 이거 넣어야 다음 씬에도 들어가지더라..
+
     m_pPlayer = dynamic_cast<CPlayer*>(Engine::Get_GameObject(L"Layer_GameLogic", L"Player"));
     NULL_CHECK_RETURN(m_pPlayer);
 

@@ -210,8 +210,8 @@ public:
 	_vec3			GetColliderPos() { return m_vColliderPos; }
 	_vec3			GetColPlayerPos() { return m_vColPlayerPos; }
 	////////////////////////////////////////////////////////////////////////////
-	CCamera*		GetCamera() { return m_pCamera; }
-	void			SetCamera(CCamera* _camera) { m_pCamera = _camera; }
+	CDynamicCamera*	GetCamera() { return m_pCamera; }
+	void			SetCamera(CDynamicCamera* _camera) { m_pCamera = _camera; }
 
 	void			SetEquipHat(CEquipHat* _equipHat) { m_equipHat = _equipHat; }
 	CEquipHat* GetEquipHat() { return m_equipHat; }
@@ -234,7 +234,7 @@ private:
 	Engine::CTransform* m_pTransformCom;
 	Engine::CTexture* m_pTextureCom;
 	Engine::CAnimation* m_pAnimationCom;
-	Engine::CCamera* m_pCamera;
+	CDynamicCamera* m_pCamera;
 	Engine::CStateController* m_pStateControlCom;
 	Engine::CCollider* m_pBoundBox;
 

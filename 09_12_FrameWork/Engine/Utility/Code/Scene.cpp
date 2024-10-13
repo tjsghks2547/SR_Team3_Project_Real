@@ -83,6 +83,14 @@ void CScene::LateUpdate_Scene(const _float& fTimeDelta)
 	}
 }
 
+void CScene::DontDestroy_Layer(const _tchar* layerName, map<const _tchar*, CGameObject*> _mapDontDestroy)
+{
+	for (auto& iter : _mapDontDestroy)
+	{
+		Get_Layer(layerName)->Add_GameObject(iter.first, iter.second);
+	}
+}
+
 //void CScene::Render_Scene()
 //{
 //	for (auto& pLayer : m_mapLayer)

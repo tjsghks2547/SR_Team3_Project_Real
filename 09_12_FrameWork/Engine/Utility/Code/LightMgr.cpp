@@ -28,7 +28,7 @@ HRESULT CLightMgr::Ready_Light(LPDIRECT3DDEVICE9 pGraphicDev, const D3DLIGHT9* p
 void CLightMgr::Free()
 {
 
-    for_each(m_LightList.begin(), m_LightList.end(), CDeleteObj());
+    for_each(m_LightList.begin(), m_LightList.end(), CDeleteOther());
     m_LightList.clear();
 
 }
