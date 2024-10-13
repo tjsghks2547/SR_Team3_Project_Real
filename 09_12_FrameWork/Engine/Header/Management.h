@@ -41,6 +41,8 @@ public:
 public: 
 	CScene* GetCurScenePtr() { return m_pScene; }
 
+public:
+	int      m_imap_stage;
 };
 
 END

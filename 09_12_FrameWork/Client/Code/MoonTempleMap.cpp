@@ -17,7 +17,7 @@ HRESULT CMoonTempleMap::Ready_GameObject()
    
 
      
-    //m_pGraphicDev->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_XRGB(50, 50, 50));  // 어두운 주변광 설정
+    m_pGraphicDev->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_XRGB(50, 50, 50));  // 어두운 주변광 설정
 
     return S_OK;
 }
@@ -38,14 +38,14 @@ void CMoonTempleMap::Render_GameObject()
 {
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-    //m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
+    m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
     //테스트
-    //FAILED_CHECK_RETURN(SetUp_Material(), );
+    FAILED_CHECK_RETURN(SetUp_Material(), );    
 
     m_pTextureCom->Set_Texture(0);
 
     m_pBufferCom->Render_Buffer();
-    //m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, false);
+    m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, false);
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 
@@ -78,7 +78,7 @@ HRESULT CMoonTempleMap::SetUp_Material()
     tMtrl.Specular = { 0.5f, 0.5f, 0.5f, 0.5f };
     tMtrl.Ambient = { 0.3f, 0.3f, 0.3f, 0.3f };
 
-    tMtrl.Emissive = { 0.3f,0.3f, 0.3f, 0.3f };
+    tMtrl.Emissive = { 0.1f,0.1f, 0.1f, 0.1f };
     tMtrl.Power = 0.f;
 
     m_pGraphicDev->SetMaterial(&tMtrl);

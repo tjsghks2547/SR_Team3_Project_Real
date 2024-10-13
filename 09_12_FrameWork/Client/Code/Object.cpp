@@ -43,7 +43,11 @@ void CObject::Render_GameObject()
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	//m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
+
+	if (CManagement::GetInstance()->m_imap_stage == 2)
+	{
+		m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
+	}
 
 	if (m_strTextureKey == L"Wall")
 	{
@@ -554,9 +558,17 @@ void CObject::Render_GameObject()
 
 	m_pBufferCom->Render_Buffer();
 
+
+
 	//¸ÊÅø ÀÛ¼º½Ã ²ô±â 
 	//m_pBoundBox->Render_Buffer();
-	//m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, false);
+	// 
+	
+	if (CManagement::GetInstance()->m_imap_stage == 2)
+	{
+		m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, false);
+	}
+
 
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }

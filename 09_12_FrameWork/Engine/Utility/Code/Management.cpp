@@ -9,6 +9,7 @@ IMPLEMENT_SINGLETON(CManagement)
 
 CManagement::CManagement()
 	:m_pScene(nullptr)
+	,m_imap_stage(0)
 {
 
 }
