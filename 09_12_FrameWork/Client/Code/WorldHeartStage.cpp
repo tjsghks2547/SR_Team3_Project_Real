@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "WorldHeartStage.h"
 #include "Export_Utility.h" 
 #include "MoonForestStage.h"
@@ -24,8 +24,8 @@ HRESULT CWorldHearStage::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_GameLogic(L"Layer_GameLogic"), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
 
-	Engine::StopSound(SOUND_BGM);
-	Engine::PlayBGM(L"BGM_3_JungleAreaField1.wav", 1.f);
+	Engine::StopAll();	
+	Engine::PlayBGM(L"BGM_3_JungleAreaField1.wav", 1.f);	
 
 
 	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
@@ -456,7 +456,7 @@ HRESULT CWorldHearStage::Ready_Layer_UI(const _tchar* pLayerTag)
 
 	pGameObject = CMapName::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	dynamic_cast<CMapName*>(pGameObject)->Set_MapName(L"세계의 심장");
+	dynamic_cast<CMapName*>(pGameObject)->Set_MapName(L" 세계의 심장 ");
 	dynamic_cast<CMapName*>(pGameObject)->CallName();
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CMapName", pGameObject), E_FAIL);
 

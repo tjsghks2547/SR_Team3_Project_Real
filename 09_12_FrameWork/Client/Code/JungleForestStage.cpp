@@ -1,6 +1,8 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "JungleForestStage.h"
 #include "Export_Utility.h"
+
+
 
 CJungleForestStage::CJungleForestStage(LPDIRECT3DDEVICE9 pGraphicDev)
     :Engine::CScene(pGraphicDev)
@@ -682,10 +684,11 @@ HRESULT CJungleForestStage::Ready_Layer_UI(const _tchar* pLayerTag)
 
     pGameObject = CMapName::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
-    (dynamic_cast<CMapName*>(pGameObject))->Set_MapName(L"JUNGLE");
-    dynamic_cast<CMapName*>(pGameObject)->CallName();
-    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CMapName", pGameObject), E_FAIL);
 
+    dynamic_cast<CMapName*>(pGameObject)->Set_MapName(L"정글 숲"); 
+    dynamic_cast<CMapName*>(pGameObject)->CallName();       
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CMapName", pGameObject), E_FAIL);
+    
     m_mapLayer.insert({ pLayerTag, pLayer });
 
     return S_OK;

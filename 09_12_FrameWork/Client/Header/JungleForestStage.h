@@ -32,6 +32,8 @@
 #include "Hochi.h"
 #include "CCheerRabbit.h"
 
+
+
 class CJungleForestStage :public CScene
 {
 private:
