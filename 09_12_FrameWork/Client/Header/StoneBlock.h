@@ -36,6 +36,8 @@ public:
 	_bool Is_Move() { return m_bIsMove; }
 	_int Get_ImageID() { return m_iImageID; }	
 	void Set_ImageID(_int _iID) { m_iImageID = _iID; }	
+	void Move_StoneBlock();
+	void Move_StoneBlockOnce();
 
 private:	
 	_bool m_bIsMove;
@@ -49,27 +51,6 @@ private:
 
 public:
 	static CStoneBlock* Create(LPDIRECT3DDEVICE9 pGraphicDev);		
-	void Move_StoneBlock()
-	{
-		m_bIsMove = true;
-		m_bIsUp = m_bIsUp == true ? false : true;
-		m_fTargetPos = m_bIsUp == true ? _vec3{ 0.f, 13.5f, 0.f } : _vec3{ 0.f, -14.5f, 0.f };
-		m_iHoleImageID = 0;
-		m_fMoveTime = 0;
-	};
-	void Move_StoneBlockOnce()
-	{
-		if (m_bActiceOnce)
-			return;
-
-		m_bActiceOnce = true;
-		m_bIsMove = true;
-		m_bIsUp = false;
-		m_fTargetPos =  _vec3{ 0.f, -14.5f, 0.f };
-		m_iHoleImageID = 0;
-		m_fMoveTime = 0;
-	};
-
 
 private:
 	bool LoadTextureFromFile(LPDIRECT3DDEVICE9 d3dDevice, const char* filePath, IDirect3DTexture9** outTexture)

@@ -39,6 +39,7 @@
 #include "BreakableStone.h"
 #include "Rock.h"
 #include "FenceThorn.h"
+//#include "B52Bomber.h"
 
 #include "MoonTempleMap.h"
 #include "TownStage.h"

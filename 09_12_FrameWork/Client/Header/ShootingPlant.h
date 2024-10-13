@@ -27,8 +27,8 @@ public:
 	virtual void OnCollisionExit(CGameObject* _pOther);
 	
 public:
-	void Set_ImageID(_int _iId) { m_iImageID = _iId; }
-	_int Get_ImageID() { return m_iImageID; }	
+	void Set_ImageID(_int _iId) { m_iAnimID = _iId; }
+	_int Get_ImageID() { return m_iAnimID; }
 	void Init_Pos(_float _fX, _float _fZ);
 	void Set_Dir(_bool _bIsLeft);
 
@@ -47,12 +47,15 @@ public:
 	void Shot();
 	void Create_Bullet();
 
-private:	
-	vector<IDirect3DTexture9*> m_vecTexture;
+private:		
+	vector<IDirect3DTexture9*> m_vecAnim[6];
+	_int m_iAnimID;
 	_int m_iImageID;
 	_bool m_bIsRight;
 	_bool m_isFire;
 	_float m_fFireRate;
+	_float m_fTime;
+	_int m_iTargetID;	
 	vector<CGameObject*> m_vecBullet;
 
 private:

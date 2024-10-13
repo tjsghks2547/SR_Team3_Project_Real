@@ -23,8 +23,9 @@ public:
 	virtual   void      Render_GameObject();
 
 public:
-	void Set_ImageID(_int _iId) { m_iImageID = _iId; }
+	void Set_ImageID(_int _iId) { m_iImageID = _iId; m_iTargetID = _iId; }
 	_int Get_ImageID() { return m_iImageID; }
+	void Break();
 
 private:	
 	HRESULT    Add_Component();	
@@ -40,7 +41,9 @@ public:
 
 private:	
 	vector<IDirect3DTexture9*> m_vecTexture;
-	_int m_iImageID;	
+	_int m_iImageID;
+	_int m_iTargetID;
+	_float m_fTime;
 
 private:
 	bool LoadTextureFromFile(LPDIRECT3DDEVICE9 d3dDevice, const char* filePath, IDirect3DTexture9** outTexture)

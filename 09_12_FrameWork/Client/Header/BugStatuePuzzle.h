@@ -16,12 +16,11 @@ public:
 
 public:
 	static CBugStatuePuzzle* Create(LPDIRECT3DDEVICE9 pGraphicDev);
-	void Add_Statue(CGameObject* _pStatue) { m_vecStatues.push_back(_pStatue); m_iStatueCount++; }
+	void Add_Statue(CGameObject* _pStatue) { m_vecStatues.push_back(_pStatue);	 }
 	void Add_StoneBlock(CGameObject* _pBlock) { m_vecStoneBlocks.push_back(_pBlock); }	
 
 private:
-	_bool m_bIsMatched;
-	_int m_iStatueCount;
+	_bool m_bIsMatched;	
 	vector<CGameObject*> m_vecStatues;
 	vector<CGameObject*> m_vecStoneBlocks;
 	vector<CGameObject*> m_vecStoneBlocksHoles;

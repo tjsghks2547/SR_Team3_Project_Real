@@ -14,8 +14,7 @@ public:
 	virtual   void      Render_GameObject();
 
 public:
-	static CCombinationPuzzle* Create(LPDIRECT3DDEVICE9 pGraphicDev);
-	void Key_Input(const _float& fTimeDelta);
+	static CCombinationPuzzle* Create(LPDIRECT3DDEVICE9 pGraphicDev);	
 	void Add_Statue(CGameObject* _pStatue) { m_vecStatues.push_back(_pStatue); m_iStatueCount++; }
 	void Add_StoneBlock(CGameObject* _pBlock) { m_vecStoneBlocks.push_back(_pBlock); }
 	void Add_StoneBlockHole(CGameObject* _pBlockHole) { m_vecStoneBlocksHoles.push_back(_pBlockHole); }

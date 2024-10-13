@@ -20,8 +20,8 @@ HRESULT CSunTempleStage::Ready_Scene()
     FAILED_CHECK_RETURN(Ready_Layer_GameLogic(L"Layer_GameLogic"), E_FAIL);
     FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
 
-	CManagement::GetInstance()->m_imap_stage = 2;	
-    m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
+	CManagement::GetInstance()->m_imap_stage = 0;	
+    //m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
 
     return S_OK;
 }
@@ -176,7 +176,7 @@ HRESULT CSunTempleStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
    
     pGameObject = CSunTempleMap::Create(m_pGraphicDev);
     NULL_CHECK_RETURN(pGameObject, E_FAIL); 
-    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SunTempleMap", pGameObject), E_FAIL);   
+    FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SunTempleMap", pGameObject), E_FAIL);		
 
 	CGameObject* PlayerObj = pLayer->Get_GameObject(L"Layer_GameLogic", L"Player");
 
@@ -315,7 +315,6 @@ HRESULT CSunTempleStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX + 75.f, 16.f, fOffsetZ + 350.f);
 
 #pragma endregion
-
 
 #pragma region Crystal type 0 Puzzle
 	fOffsetX = 300;
@@ -833,7 +832,7 @@ HRESULT CSunTempleStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 
 
 	fOffsetX = 1590;
-	fOffsetZ = 250;	
+	fOffsetZ = 250;
 #pragma region Scale Puzzle
 
 
@@ -940,6 +939,149 @@ HRESULT CSunTempleStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 
 
 #pragma endregion
+
+	fOffsetX = 960;
+	fOffsetZ = 1720;
+#pragma region Crytal Puzzle 1
+
+	pGameObject = CCrystalPuzzle::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CrystalPuzzle1", pGameObject), E_FAIL);
+	pCrystalPuzzle = static_cast<CCrystalPuzzle*>(pGameObject);
+
+	pGameObject = CCrystal::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Crystal_04", pGameObject), E_FAIL);
+	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX, 18.f, fOffsetZ + (30.f * 3.f));
+	static_cast<CCrystal*>(pGameObject)->Set_ImageID(3);
+	pCrystalPuzzle->Add_Crystal(pGameObject);
+
+	pGameObject = CPressBlock::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PressBlock_04", pGameObject), E_FAIL);
+	static_cast<CPressBlock*>(pGameObject)->Init(pCrystalPuzzle, 2, fOffsetX, fOffsetZ + (30.f));
+	pCrystalPuzzle->Add_PressBlock(pGameObject);
+
+	pGameObject = CCrystal::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Crystal_05", pGameObject), E_FAIL);
+	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX, 18.f, fOffsetZ + (30.f * 2.f));
+	static_cast<CCrystal*>(pGameObject)->Set_ImageID(2);
+	pCrystalPuzzle->Add_Crystal(pGameObject);
+
+	pGameObject = CPressBlock::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PressBlock_05", pGameObject), E_FAIL);
+	static_cast<CPressBlock*>(pGameObject)->Init(pCrystalPuzzle, 2, fOffsetX, fOffsetZ);
+	pCrystalPuzzle->Add_PressBlock(pGameObject);
+
+	pGameObject = CCrystal::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Crystal_06", pGameObject), E_FAIL);
+	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX + (30.f), 18.f, fOffsetZ + (30.f * 3.f));
+	static_cast<CCrystal*>(pGameObject)->Set_ImageID(1);
+	pCrystalPuzzle->Add_Crystal(pGameObject);
+
+	pGameObject = CPressBlock::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PressBlock_06", pGameObject), E_FAIL);
+	static_cast<CPressBlock*>(pGameObject)->Init(pCrystalPuzzle, 2, fOffsetX + (30.f), fOffsetZ + (30.f));
+	pCrystalPuzzle->Add_PressBlock(pGameObject);
+
+	pGameObject = CCrystal::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Crystal_07", pGameObject), E_FAIL);
+	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX + (30.f), 18.f, fOffsetZ + (30.f * 2.f));
+	static_cast<CCrystal*>(pGameObject)->Set_ImageID(3);
+	pCrystalPuzzle->Add_Crystal(pGameObject);
+
+	pGameObject = CPressBlock::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PressBlock_07", pGameObject), E_FAIL);
+	static_cast<CPressBlock*>(pGameObject)->Init(pCrystalPuzzle, 2, fOffsetX + (30.f), fOffsetZ);
+	pCrystalPuzzle->Add_PressBlock(pGameObject);
+
+	pGameObject = CCrystal::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Crystal_08", pGameObject), E_FAIL);
+	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX + (30.f * 2), 18.f, fOffsetZ + (30.f * 3.f));
+	static_cast<CCrystal*>(pGameObject)->Set_ImageID(2);
+	pCrystalPuzzle->Add_Crystal(pGameObject);
+
+	pGameObject = CPressBlock::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PressBlock_08", pGameObject), E_FAIL);
+	static_cast<CPressBlock*>(pGameObject)->Init(pCrystalPuzzle, 2, fOffsetX + (30.f * 2), fOffsetZ + (30.f));
+	pCrystalPuzzle->Add_PressBlock(pGameObject);
+
+	pGameObject = CCrystal::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Crystal_09", pGameObject), E_FAIL);
+	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX + (30.f * 2), 18.f, fOffsetZ + (30.f * 2.f));
+	static_cast<CCrystal*>(pGameObject)->Set_ImageID(1);
+	pCrystalPuzzle->Add_Crystal(pGameObject);
+
+	pGameObject = CPressBlock::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PressBlock_09", pGameObject), E_FAIL);
+	static_cast<CPressBlock*>(pGameObject)->Init(pCrystalPuzzle, 2, fOffsetX + (30.f * 2), fOffsetZ);
+	pCrystalPuzzle->Add_PressBlock(pGameObject);
+
+	pGameObject = CCrystal::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Crystal_10", pGameObject), E_FAIL);
+	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX + (30.f * 3), 18.f, fOffsetZ + (30.f * 3.f));
+	static_cast<CCrystal*>(pGameObject)->Set_ImageID(3);
+	pCrystalPuzzle->Add_Crystal(pGameObject);
+
+	pGameObject = CPressBlock::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PressBlock_10", pGameObject), E_FAIL);
+	static_cast<CPressBlock*>(pGameObject)->Init(pCrystalPuzzle, 2, fOffsetX + (30.f * 3), fOffsetZ + (30.f));
+	pCrystalPuzzle->Add_PressBlock(pGameObject);
+
+	pGameObject = CCrystal::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Crystal_11", pGameObject), E_FAIL);
+	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX + (30.f * 3), 18.f, fOffsetZ + (30.f * 2.f));
+	static_cast<CCrystal*>(pGameObject)->Set_ImageID(2);
+	pCrystalPuzzle->Add_Crystal(pGameObject);
+
+	pGameObject = CPressBlock::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PressBlock_11", pGameObject), E_FAIL);
+	static_cast<CPressBlock*>(pGameObject)->Init(pCrystalPuzzle, 2, fOffsetX + (30.f * 3), fOffsetZ);
+	pCrystalPuzzle->Add_PressBlock(pGameObject);
+
+	pGameObject = CCrystal::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Crystal_12", pGameObject), E_FAIL);
+	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX + (30.f * 4), 18.f, fOffsetZ + (30.f * 3.f));
+	static_cast<CCrystal*>(pGameObject)->Set_ImageID(1);
+	pCrystalPuzzle->Add_Crystal(pGameObject);
+
+	pGameObject = CPressBlock::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PressBlock_12", pGameObject), E_FAIL);
+	static_cast<CPressBlock*>(pGameObject)->Init(pCrystalPuzzle, 2, fOffsetX + (30.f * 4), fOffsetZ + (30.f));
+	pCrystalPuzzle->Add_PressBlock(pGameObject);
+
+	pGameObject = CCrystal::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Crystal_13", pGameObject), E_FAIL);
+	static_cast<Engine::CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(fOffsetX + (30.f * 4), 18.f, fOffsetZ + (30.f * 2.f));
+	static_cast<CCrystal*>(pGameObject)->Set_ImageID(3);
+	pCrystalPuzzle->Add_Crystal(pGameObject);
+
+	pGameObject = CPressBlock::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PressBlock_13", pGameObject), E_FAIL);
+	static_cast<CPressBlock*>(pGameObject)->Init(pCrystalPuzzle, 2, fOffsetX + (30.f * 4), fOffsetZ);
+	pCrystalPuzzle->Add_PressBlock(pGameObject);
+
+
+#pragma endregion
+
     m_mapLayer.insert({ pLayerTag, pLayer });   
 
     return S_OK;

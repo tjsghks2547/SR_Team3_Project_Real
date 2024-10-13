@@ -146,46 +146,46 @@ void CPlayer::Render_GameObject()
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 
-    //조명작업
-    D3DLIGHT9 tLightInfo;
-    ZeroMemory(&tLightInfo, sizeof(D3DLIGHT9)); // 구조체 초기화
-    
-    tLightInfo.Type = D3DLIGHT_SPOT; // 점 조명 타입 설정  
-    
-    // 조명 색상 설정
-    tLightInfo.Diffuse = { 1.f, 1.f, 1.f, 1.f }; // 확산 색상 (흰색)
-    tLightInfo.Specular = { 1.f, 1.f, 1.f, 1.f }; // 반사 색상 (흰색)
-    tLightInfo.Ambient = { 1.0f, 1.0f, 1.0f, 1.f }; // 주위 색상 (어두운 회색)
-    
-    
-    _vec3 vPos;
-    m_pTransformCom->Get_Info(INFO_POS, &vPos); 
-    
-    // 조명 위치 설정
-    tLightInfo.Position = { vPos.x, vPos.y, vPos.z }; // 조명 위치 (x, y, z)
-    
-    //아래 방향
-   
-    //_vec3 vDir = { GetPlayerDirVector2().x, 0.0f, GetPlayerDirVector2().z };  
-    _vec3 vDir = { 0.f,-1.f,0.f };  
-    tLightInfo.Direction = vDir;    
-
-    
-    
-    // 조명 범위 및 감쇠 설정
-    tLightInfo.Range = 100.0f; // 조명이 도달할 수 있는 최대 거리
-    tLightInfo.Falloff = 1.0f; // 감쇠 비율
-    tLightInfo.Attenuation0 = 1.0f; // 고정 감쇠 계수
-    tLightInfo.Attenuation1 = 0.005f; // 거리 감쇠 계수
-    tLightInfo.Attenuation2 = 0.0f; // 거리 제곱 감쇠 계수
-    tLightInfo.Theta = D3DXToRadian(150.0f);
-    tLightInfo.Phi = D3DXToRadian(180.0f);
-
-    // 조명 정보 설정
-    m_pGraphicDev->SetLight(0, &tLightInfo); // 조명 인덱스 0에 조명 정보 설정  
-    m_pGraphicDev->LightEnable(0, TRUE); // 조명 인덱스 0의 조명 활성화    
-    
-    //테스트
+    ////조명작업
+    //D3DLIGHT9 tLightInfo;
+    //ZeroMemory(&tLightInfo, sizeof(D3DLIGHT9)); // 구조체 초기화
+    //
+    //tLightInfo.Type = D3DLIGHT_SPOT; // 점 조명 타입 설정  
+    //
+    //// 조명 색상 설정
+    //tLightInfo.Diffuse = { 1.f, 1.f, 1.f, 1.f }; // 확산 색상 (흰색)
+    //tLightInfo.Specular = { 1.f, 1.f, 1.f, 1.f }; // 반사 색상 (흰색)
+    //tLightInfo.Ambient = { 1.0f, 1.0f, 1.0f, 1.f }; // 주위 색상 (어두운 회색)
+    //
+    //
+    //_vec3 vPos;
+    //m_pTransformCom->Get_Info(INFO_POS, &vPos); 
+    //
+    //// 조명 위치 설정
+    //tLightInfo.Position = { vPos.x, vPos.y, vPos.z }; // 조명 위치 (x, y, z)
+    //
+    ////아래 방향
+    //
+    ////_vec3 vDir = { GetPlayerDirVector2().x, 0.0f, GetPlayerDirVector2().z };  
+    //_vec3 vDir = { 0.f,-1.f,0.f };  
+    //tLightInfo.Direction = vDir;    
+    //
+    //
+    //
+    //// 조명 범위 및 감쇠 설정
+    //tLightInfo.Range = 100.0f; // 조명이 도달할 수 있는 최대 거리
+    //tLightInfo.Falloff = 1.0f; // 감쇠 비율
+    //tLightInfo.Attenuation0 = 1.0f; // 고정 감쇠 계수
+    //tLightInfo.Attenuation1 = 0.005f; // 거리 감쇠 계수
+    //tLightInfo.Attenuation2 = 0.0f; // 거리 제곱 감쇠 계수
+    //tLightInfo.Theta = D3DXToRadian(150.0f);
+    //tLightInfo.Phi = D3DXToRadian(180.0f);
+    //
+    //// 조명 정보 설정
+    //m_pGraphicDev->SetLight(0, &tLightInfo); // 조명 인덱스 0에 조명 정보 설정  
+    //m_pGraphicDev->LightEnable(0, TRUE); // 조명 인덱스 0의 조명 활성화    
+    //
+    ////테스트
 
 
     if (m_bIsDiagonal)
@@ -282,7 +282,7 @@ void CPlayer::SetPlayerDirection()
         return;
     // 방향이 이전과 다르면 애니메이션 갱신
     m_vPlayerDir = num;
-    m_pAnimationCom->SetAnimDir(m_ePlayerState, m_vPlayerDir, m_bIsDiagonal);
+    //m_pAnimationCom->SetAnimDir(m_ePlayerState, m_vPlayerDir, m_bIsDiagonal);
 }
 
 void CPlayer::ChangePickUpState()

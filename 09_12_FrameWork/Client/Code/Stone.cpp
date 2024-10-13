@@ -5,7 +5,7 @@
 #include "Player.h"
 
 CStone::CStone(LPDIRECT3DDEVICE9 pGraphicDev)
-	: Engine::CGameObject(pGraphicDev), m_iStoneID(0), m_bIsLaunched(false)
+	: Engine::CGameObject(pGraphicDev), m_iStoneID(0), m_bIsLaunched(false), m_iImageID(0), m_fTime(0), m_iTargetID(0)
 	, m_vDirSmash{0.f,0.f,0.f}
 	, m_bThrowStone(false)
 {
@@ -25,6 +25,20 @@ HRESULT CStone::Ready_GameObject()
 	m_pShadowTransformCom->m_vScale = { 14.f, 12.f, 14.f };
 	m_pShadowTransformCom->Rotation(ROT_X, 90.f * 3.14159265359f / 180.f);
 	m_vVelocity = _vec3{ 0.f, 30.f, 40.f };
+
+	m_vecTexture.resize(11);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/StoneBreak_Anim/Sprite_StonePushable.png", &m_vecTexture[0]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/StoneBreak_Anim/Sprite_CatapultHit_01.png", &m_vecTexture[1]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/StoneBreak_Anim/Sprite_CatapultHit_02.png", &m_vecTexture[2]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/StoneBreak_Anim/Sprite_CatapultHit_03.png", &m_vecTexture[3]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/StoneBreak_Anim/Sprite_CatapultHit_04.png", &m_vecTexture[4]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/StoneBreak_Anim/Sprite_CatapultHit_05.png", &m_vecTexture[5]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/StoneBreak_Anim/Sprite_CatapultHit_06.png", &m_vecTexture[6]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/StoneBreak_Anim/Sprite_CatapultHit_07.png", &m_vecTexture[7]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/StoneBreak_Anim/Sprite_CatapultHit_08.png", &m_vecTexture[8]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/StoneBreak_Anim/Sprite_CatapultHit_09.png", &m_vecTexture[9]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/StoneBreak_Anim/Sprite_CatapultHit_10.png", &m_vecTexture[10]);	
+
 	return S_OK;
 }
 
@@ -46,10 +60,22 @@ _int CStone::Update_GameObject(const _float& fTimeDelta)
 			dwtime = GetTickCount64();
 			m_bThrowStone = false; 
 		}
-
-
 	}
 
+
+	if (m_iImageID != m_iTargetID) {
+		m_fTime += fTimeDelta;
+
+		if (m_fTime >= 0.02f) {
+			if (m_iTargetID > m_iImageID)
+				m_iImageID++;
+
+			if (m_iImageID == m_iTargetID)
+				m_bIsActive = false;
+
+			m_fTime = 0;
+		}
+	}
 
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
@@ -85,10 +111,6 @@ void CStone::Render_GameObject()
 {
 	if (!m_bIsActive)
 		return;
-	if (CManagement::GetInstance()->m_imap_stage == 2)
-	{
-		m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
-	}
 
 	if (dwtime + 3000 < GetTickCount64())
 	{
@@ -120,20 +142,22 @@ void CStone::Render_GameObject()
 
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	m_pTextureCom->Set_Texture();
+	m_pGraphicDev->SetTexture(0, m_vecTexture[m_iImageID]);
 	m_pBufferCom->Render_Buffer();
-	//m_pBoundBox->Render_Buffer();
+	m_pBoundBox->Render_Buffer();
 
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pShadowTransformCom->Get_WorldMatrix());
 	m_pShadowTextureCom->Set_Texture();
 	m_pBufferCom->Render_Buffer();
 
-	if (CManagement::GetInstance()->m_imap_stage == 2)	
-	{
-		m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, false);	
-	}	
-
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+}
+
+void CStone::Break()
+{
+	m_iTargetID = 11;
+	m_bIsLaunched = false;
+	m_pTransformCom->m_vScale = { 40.f, 40.f, 40.f };
 }
 
 HRESULT CStone::Add_Component()
@@ -164,7 +188,6 @@ HRESULT CStone::Add_Component()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_pBoundBox->SetGameObjectPtr(this);
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collider", pComponent });
-
 
 	return S_OK;
 }

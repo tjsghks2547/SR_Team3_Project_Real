@@ -6,6 +6,7 @@
 CScale::CScale(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CPuzzleObject(pGraphicDev), m_iImageID(6), m_iTargetID(6), m_fTime(0)
 {
+
 }
 
 CScale::~CScale()
@@ -20,7 +21,7 @@ HRESULT CScale::Ready_GameObject()
 	m_pRightCompTransformCom->m_vScale = { 25.f, 25.f, 15.f };
 	m_vecTexture.resize(13);	
 
-	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Scale_Anim/Scale_Left_Anim05.png", &m_vecTexture[0]);
+	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Scale_Anim/Sprite_StonePushable.png", &m_vecTexture[0]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Scale_Anim/Scale_Left_Anim04.png", &m_vecTexture[1]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Scale_Anim/Scale_Left_Anim03.png", &m_vecTexture[2]);
 	LoadTextureFromFile(m_pGraphicDev, "../Bin/Resource/Texture/puzzle/Scale_Anim/Scale_Left_Anim02.png", &m_vecTexture[3]);
@@ -188,4 +189,5 @@ void CScale::Match_Puzzle()
 	}		
 	
 	m_iTargetID = iTemp > iSour ? 0 : 12;
+	Play_Sound(L"SFX_77_StoneUnload.wav", SOUND_EFFECT, 1.f);
 }

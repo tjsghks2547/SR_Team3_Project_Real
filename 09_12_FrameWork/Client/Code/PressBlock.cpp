@@ -15,7 +15,7 @@ CPressBlock::~CPressBlock()
 HRESULT CPressBlock::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->m_vScale = { 15.f, 15.f, 15.f };
+	m_pTransformCom->m_vScale = { 10.f, 10.f, 10.f };
 	m_pTexTransformCom->m_vScale = { 15.f, 15.f, 0.f };
 	m_pTexTransformCom->Rotation(ROT_X, 90.f * 3.14159265359f / 180.f);
 	m_iImageID = 0;
@@ -42,12 +42,6 @@ HRESULT CPressBlock::Ready_GameObject()
 _int CPressBlock::Update_GameObject(const _float& fTimeDelta)
 {
 	Add_RenderGroup(RENDER_ALPHA, this);
-
-	//if (Engine::GetKeyUp(DIK_5))
-	//{
-	//	On_CollisionEnter();
-	//}
-
 	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
 
 	return iExit;
@@ -99,8 +93,7 @@ void CPressBlock::Init(CGameObject* _pGroup, _int _iID, _float _fX, _float _fZ)
 	m_pGroup = _pGroup;
 	m_iMaxID = _iID + 2;
 	m_pTransformCom->Set_Pos(_fX, 10.f, _fZ);
-	m_pTexTransformCom->Set_Pos(_fX, 0.1f, _fZ);
-
+	m_pTexTransformCom->Set_Pos(_fX, 0.3f, _fZ);
 }
 
 void CPressBlock::OnCollision(CGameObject* _pOther)
@@ -121,6 +114,7 @@ void CPressBlock::OnCollisionEnter(CGameObject* _pOther)
 	m_iImageID++;
 	m_iImageID %= m_iMaxID;
 	m_bIsPressed = true;
+	Play_Sound(L"SFX_27_StonePressBlock_On.wav", SOUND_EFFECT, 1.f);
 
 	if (m_pGroup != nullptr)
 		static_cast<CCrystalPuzzle*>(m_pGroup)->Check_Matched();
@@ -128,7 +122,11 @@ void CPressBlock::OnCollisionEnter(CGameObject* _pOther)
 
 void CPressBlock::OnCollisionExit(CGameObject* _pOther)
 {
+	if (_pOther->Get_Tag() != TAG_PLAYER)
+		return;
+
 	m_bIsPressed = false;
+	Play_Sound(L"SFX_28_StonePressBlock_Off.wav", SOUND_SURROUNDING, 1.f);
 }
 
 CPressBlock* CPressBlock::Create(LPDIRECT3DDEVICE9 pGraphicDev)

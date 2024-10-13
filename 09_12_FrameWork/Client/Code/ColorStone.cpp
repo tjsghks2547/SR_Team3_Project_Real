@@ -68,18 +68,21 @@ void CColorStone::OnCollision(CGameObject* _pOther)
 		if (_pOther->GetObjectKey() != L"PlayerInteractionBox")
 			return;
 
-		if (m_pComStone == nullptr)
+		if (m_pComStone == nullptr) {
+			Play_Sound(L"SFX_47_Jelly_Seperate.wav", SOUND_EFFECT, 1.f);
 			return;
+		}			
 
 		_vec3 vPos;
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
-		m_bIsLift = true;
+		m_bIsLift = true;	
 		m_iImageID = m_iImageID - static_cast<CColorStone*>(m_pComStone)->Get_ImageID() - 2;
 		m_pTransformCom->m_vScale = { 16.f, 16.f, 16.f };
 		static_cast<Engine::CTransform*>(m_pComStone->Get_Component(ID_DYNAMIC, L"Com_Transform"))->Set_Pos(vPos.x, 14.f, vPos.z + 15.f);
 		m_pComStone->Set_Active(true);
 		m_pComStone = nullptr;
 
+		Play_Sound(L"SFX_47_Jelly_Seperate.wav", SOUND_EFFECT, 1.f);
 	}
 }
 
@@ -105,6 +108,8 @@ void CColorStone::OnCollisionEnter(CGameObject* _pOther)
 
 		_pOther->Set_Active(false);
 		m_pComStone = _pOther;
+
+		Play_Sound(L"SFX_45_Jelly_Combine.wav", SOUND_EFFECT, 1.f);
 	}
 }
 

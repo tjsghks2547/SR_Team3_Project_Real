@@ -40,6 +40,8 @@ _int CStonePedestal::Update_GameObject(const _float& fTimeDelta)
 		vMovePos = vPos - vTarget;
 		vMovePos.y = 0.f;
 		StoneTrasnform->Move_Pos(&vMovePos, fTimeDelta, 2.f);
+
+		//Play_Sound(L"SFX_119_MazePuzzlePieceAdd.wav", SOUND_EFFECT, 1.f);
 	}
 
 	return iExit;

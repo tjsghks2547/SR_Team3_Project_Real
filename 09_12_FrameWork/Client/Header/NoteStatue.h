@@ -48,6 +48,7 @@ public:
 private:
 	_int m_iNoteID;
 	_bool m_bIsActivate;
+	_float m_fActiveTime;
 	CGameObject* m_pGroup;
 
 protected:
