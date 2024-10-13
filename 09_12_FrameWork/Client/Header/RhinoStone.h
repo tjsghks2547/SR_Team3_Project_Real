@@ -44,7 +44,7 @@ public:
 	{
 		m_eState = STONE_BROKEN;
 		m_fTime = 0;
-		Engine::Play_Sound(L"SFX_332_StoneSpike_Ready.wav", SOUND_EFFECT, 2.f);
+		Engine::Play_Sound(L"SFX_332_StoneSpike_Ready.wav", SOUND_STONE, 2.f);
 		//m_pAnimatorCom->GetAnimation()->SetFrame(0); //Å×½ºÆ®
 	}
 	_bool 			Get_Dead() { return m_eState == STONE_DEAD ? true : false; }

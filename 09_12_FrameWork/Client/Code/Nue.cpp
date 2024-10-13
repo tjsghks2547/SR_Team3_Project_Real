@@ -18,13 +18,14 @@ HRESULT CNue::Ready_GameObject()
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
     D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/NPC/Nue.png", &m_pNPCTex);
-    m_pAnimatorCom->CreateAnimation(L"Nue", m_pNPCTex, _vec2(0.f, 0.f), _vec2(128.f, 128.f), _vec2(128.f, 0.f), 0.15f, 3);
+    m_pAnimatorCom->CreateAnimation(L"PrisonNue", m_pNPCTex, _vec2(0.f, 0.f), _vec2(128.f, 128.f), _vec2(128.f, 0.f), 0.15f, 3);
+    m_pAnimatorCom->CreateAnimation(L"Nue", m_pNPCTex, _vec2(0.f, 128.f), _vec2(128.f, 128.f), _vec2(128.f, 0.f), 0.15f, 3);
 
     m_tInfo.pName = L"누에 용사";
-    m_tInfo.pContent = L"살려죠! 용사지만 갇혔엉!";
+    m_tInfo.pContent = L"혹시 물의 증표를 찾고 있소? 범인을 잡으려다 그만 갇히고 말았소!! 장치들을 파쇄해주시오. 그렇다면 범인이 어디로 갔는지 알려주겠소...";
 
-    m_tQuestInfo.pQuestTitle = L"퍼즐 해결하깅 ㅋㅋ";
-    m_tQuestInfo.pQuestContent = L"퍼즐을 해결하면 문을 열어준다고 한당!!!";
+    m_tQuestInfo.pQuestTitle = L"도망친 범인은 어디에?";
+    m_tQuestInfo.pQuestContent = L"장치들을 모두 해제하면 누에 용사가 풀려나고 범인의 위치를 알려준다고 한다..! 어서 해결해보자.";
 
     _vec3 vMarkPos = m_pTransformCom->m_vInfo[INFO_POS];
     vMarkPos.y += 33.f;
@@ -68,7 +69,12 @@ void CNue::Render_GameObject()
 {
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
     m_pGraphicDev->SetTexture(0, m_pNPCTex);
-    m_pAnimatorCom->Play(L"Nue", true);
+
+    if (!m_bQuestClear)
+        m_pAnimatorCom->Play(L"PrisonNue", true);
+    else if (m_bQuestClear)
+        m_pAnimatorCom->Play(L"Nue", true);
+
     m_pAnimatorCom->render();
     m_pColliderCom->Render_Buffer();
 
@@ -136,7 +142,7 @@ void CNue::OnCollision(CGameObject* _pOther)
             if (m_bQuestSucess)
             {
                 m_bQuestClear = true;
-                m_tInfo.pContent = L"퍼즐 해결 했구낭! 굿~";
+                m_tInfo.pContent = L"도와줘서 고맙군....증표를 들고 간 범인은 사자요... 항구로 향하는 것을 내 똑똑히 보았소....";
                 m_pTextBox->Set_Text(m_tInfo); //대화창 텍스트 세팅
                 m_pQuestUI->Get_QuestArray()->pop_back();
             }

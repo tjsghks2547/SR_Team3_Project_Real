@@ -164,7 +164,7 @@ HRESULT CHarborMeer::Add_Component()
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformHatShop", pComponent });
     m_pShopTransformCom->m_vScale = { 100.f, 50.f, 30.f };
-    m_pShopTransformCom->Set_Pos(530.f, 60.f, 850.f);
+    m_pShopTransformCom->Set_Pos(520.f, 45.f, 910.f);
 
     //-여기까지 텍스쳐-
 
@@ -176,7 +176,7 @@ HRESULT CHarborMeer::Add_Component()
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
     m_pTransformCom->m_vScale = { 30.f, 30.f, 30.f };
-    m_pTransformCom->Set_Pos(528.5f, 40.f, 851.f);
+    m_pTransformCom->Set_Pos(540.5f, 20.f, 911.f);
 
     pComponent = m_pColliderCom = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);

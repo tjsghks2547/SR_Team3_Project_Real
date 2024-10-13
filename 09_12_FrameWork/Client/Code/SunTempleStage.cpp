@@ -183,6 +183,12 @@ HRESULT CSunTempleStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 	_float fOffsetX = 1030;
 	_float fOffsetZ = 500;
 	
+	//¼þ¼þÀÌ
+	pGameObject = CExpressMonkey::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ExpressMonkey", pGameObject), E_FAIL);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+
 #pragma region Bug Statue Puzzle
 	pGameObject = CBugStatuePuzzle::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);

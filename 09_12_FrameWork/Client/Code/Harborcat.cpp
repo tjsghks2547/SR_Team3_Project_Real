@@ -20,7 +20,7 @@ HRESULT CHarborcat::Ready_GameObject()
     m_pAnimatorCom->CreateAnimation(L"HarborCat", m_pTex, _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.12f, 3);
 
     m_tInfo.pName = L"항구 고양이";
-    m_tInfo.pContent = L"제가 입던 옷을 파라요.";
+    m_tInfo.pContent = L"제가 조아하는 과일 팔아여. 하트도 회복해줘여.";
 
     return S_OK;
 }
@@ -99,12 +99,17 @@ void CHarborcat::OnCollision(CGameObject* _pOther)
             // 여기에 UIbool true + 아이템 세팅
             m_bStoreOn = true;
 
-            CItem* pItem = dynamic_cast<CMohican*>(CMohican::Create(m_pGraphicDev));
+            CItem* pItem = dynamic_cast<CSmallFruit*>(CSmallFruit::Create(m_pGraphicDev));
             NULL_CHECK_RETURN(pItem);
             pItem->LateReady_GameObject();
             m_ItemArray.push_back(pItem);
 
-            pItem = dynamic_cast<CPartyHat*>(CPartyHat::Create(m_pGraphicDev));
+            pItem = dynamic_cast<CMiddleFruit*>(CMiddleFruit::Create(m_pGraphicDev));
+            NULL_CHECK_RETURN(pItem);
+            pItem->LateReady_GameObject();
+            m_ItemArray.push_back(pItem);
+
+            pItem = dynamic_cast<CBigFruit*>(CBigFruit::Create(m_pGraphicDev));
             NULL_CHECK_RETURN(pItem);
             pItem->LateReady_GameObject();
             m_ItemArray.push_back(pItem);
@@ -161,7 +166,7 @@ HRESULT CHarborcat::Add_Component()
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_TransformHatShop", pComponent });
     m_pShopTransformCom->m_vScale = { 100.f, 50.f, 30.f };
-    m_pShopTransformCom->Set_Pos(930.f, 60.f, 850.f);
+    m_pShopTransformCom->Set_Pos(700.f, 45.f, 910.f);
 
     //-여기까지 텍스쳐-
 
@@ -173,7 +178,7 @@ HRESULT CHarborcat::Add_Component()
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
     m_pTransformCom->m_vScale = { 30.f, 30.f, 30.f };
-    m_pTransformCom->Set_Pos(937.f, 40.f, 851.f);
+    m_pTransformCom->Set_Pos(720.f, 25.f, 911.f);
 
     pComponent = m_pColliderCom = dynamic_cast<CCollider*>(Engine::Clone_Proto(L"Proto_Collider"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);

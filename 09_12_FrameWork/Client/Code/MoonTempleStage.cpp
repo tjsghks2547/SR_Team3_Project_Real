@@ -1058,6 +1058,7 @@ HRESULT CMoonTempleStage::Ready_Layer_UI(const _tchar* pLayerTag)
 	pGameObject = CMapName::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
 	dynamic_cast<CMapName*>(pGameObject)->Set_MapName(L"달의 신전");
+	dynamic_cast<CMapName*>(pGameObject)->Set_Time(14.f);
 	dynamic_cast<CMapName*>(pGameObject)->CallName();
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CMapName", pGameObject), E_FAIL);
 

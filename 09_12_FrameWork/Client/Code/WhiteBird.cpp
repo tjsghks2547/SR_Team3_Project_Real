@@ -56,7 +56,7 @@ _int CWhiteBird::Update_GameObject(const _float& fTimeDelta)
 
     if (!g_bQuestClear && g_bQuestAccept)
     {
-        if (m_pInven->Find_Item(CItem::QUEST, CItem::EXTICKET))
+        if (m_pInven->Find_Item(CItem::QUEST, CItem::WATER))
         {
             m_bQuestSucess = true;
         }
