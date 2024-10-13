@@ -79,10 +79,12 @@ void CExpressTicket::OnCollision(CGameObject* _pOther)
 	if (GetKeyDown(DIK_A)) //ащ╠Б
 	{
 		CExpressTicket::g_Acquired = true;
+
 		m_pItemUI->CallItemUI(true);
 		m_pItemUI->Set_Texture(m_pTextureCom);
 		m_pItemUI->Set_Text(m_tInfo);
 		m_pInven->Add_Item(dynamic_cast<CItem*>(this));
+		m_pColliderCom = nullptr;
 	}
 
 }

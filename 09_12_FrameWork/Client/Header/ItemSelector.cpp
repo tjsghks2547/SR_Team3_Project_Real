@@ -20,6 +20,9 @@ HRESULT CItemSelector::Ready_GameObject()
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
+	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Bin/Resource/Texture/UI/ItemCursorUI.png", &m_pTex);
+	m_pAnimatorCom->CreateAnimation(L"ItemSelector", m_pTex, _vec2(0.f, 0.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.12f, 1);
+
 	return S_OK;
 }
 
@@ -58,8 +61,9 @@ void CItemSelector::Render_GameObject()
 		return;
 
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	m_pTextureCom->Set_Texture();
-	m_pBufferCom->Render_Buffer();
+	m_pGraphicDev->SetTexture(0, m_pTex);
+	m_pAnimatorCom->Play(L"ItemSelector", true);
+	m_pAnimatorCom->render();
 
 	m_pItem->Render_ItemView(); //추가
 
@@ -105,9 +109,13 @@ HRESULT CItemSelector::Add_Component()
 	m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
 	//언젠가 애니메이션쓰지않을가.하고.다이나믺.
-	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_InvenCursor"));
+	//pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_InvenCursor"));
+	//NULL_CHECK_RETURN(pComponent, E_FAIL);
+	//m_mapComponent[ID_DYNAMIC].insert({ L"Com_TextureCursor", pComponent });
+
+	pComponent = m_pAnimatorCom = dynamic_cast<CAnimator2*>(Engine::Clone_Proto(L"Proto_Animator"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	m_mapComponent[ID_DYNAMIC].insert({ L"Com_TextureCursor", pComponent });
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Ani_Buffer", pComponent });
 
 	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
@@ -117,6 +125,8 @@ HRESULT CItemSelector::Add_Component()
 	pComponent = m_pTexButtonCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_EquipOnOffButton"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_TextureEquipOnOffButton", pComponent });
+
+
 
 	pComponent = m_pTransButtonCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
@@ -137,6 +147,8 @@ void CItemSelector::Key_Input(const _float& fTimeDelta)
 	{
 		if (Engine::GetKeyDown(DIK_SPACE) && !m_bWaitQuickNum)
 		{
+			Engine::Play_Sound(L"SFX_448_QuickSlotAdd.wav", SOUND_EFFECT, 0.5f);
+			
 			m_pQuickSlot->Set_Time();
 			m_bWaitQuickNum = true;
 		}
@@ -146,22 +158,29 @@ void CItemSelector::Key_Input(const _float& fTimeDelta)
 		{
 			if (Engine::GetKeyDown(DIK_1))
 			{
+				Engine::Play_Sound(L"SFX_120_UINormalClose.wav", SOUND_EFFECT, 0.5f);
+
 				m_pQuickSlot->Add_QuickSlotItem(0, m_pInven->Get_Item(m_pInven->Get_CurFilter(), m_iCurIdx));
 				m_bWaitQuickNum = false;  // 퀵슬롯 설정 대기 상태 종료
 			}
 			else if (Engine::GetKeyDown(DIK_2))
 			{
+				Engine::Play_Sound(L"SFX_120_UINormalClose.wav", SOUND_EFFECT, 0.3);
+
 				m_pQuickSlot->Add_QuickSlotItem(1, m_pInven->Get_Item(m_pInven->Get_CurFilter(), m_iCurIdx));
 				m_bWaitQuickNum = false;
 			}
 			else if (Engine::GetKeyDown(DIK_3))
 			{
+				Engine::Play_Sound(L"SFX_120_UINormalClose.wav", SOUND_EFFECT, 0.3);
+
 				m_pQuickSlot->Add_QuickSlotItem(2, m_pInven->Get_Item(m_pInven->Get_CurFilter(), m_iCurIdx));
 				m_bWaitQuickNum = false;
 			}
 			else if (Engine::GetKeyDown(DIK_4))
 			{
-				m_pQuickSlot->Add_QuickSlotItem(3, m_pInven->Get_Item(m_pInven->Get_CurFilter(), m_iCurIdx));
+				Engine::Play_Sound(L"SFX_120_UINormalClose.wav", SOUND_EFFECT, 0.3);
+								m_pQuickSlot->Add_QuickSlotItem(3, m_pInven->Get_Item(m_pInven->Get_CurFilter(), m_iCurIdx));
 				m_bWaitQuickNum = false;
 			}
 			return;	//퀵슬롯 설정중엔 숫자 제외 키인풋 받지 않음
@@ -170,6 +189,8 @@ void CItemSelector::Key_Input(const _float& fTimeDelta)
 
 	if (Engine::GetKeyDown(DIK_DOWN))
 	{
+		Engine::Play_Sound(L"SFX_70_UISlotMediumMove.wav", SOUND_EFFECT, 0.3);
+
 		if (m_pInven->Is_Empty(iFilter))
 			return;
 		if (m_iCurIdx >= 10)
@@ -181,18 +202,24 @@ void CItemSelector::Key_Input(const _float& fTimeDelta)
 
 	if (Engine::GetKeyDown(DIK_UP))
 	{
+		Engine::Play_Sound(L"SFX_70_UISlotMediumMove.wav", SOUND_EFFECT, 0.3);
+
 		m_iCurIdx -= 5;
 		if (m_iCurIdx < 0)
 			m_iCurIdx = -5;
 	}
 	if (Engine::GetKeyDown(DIK_LEFT))
 	{
+		Engine::Play_Sound(L"SFX_70_UISlotMediumMove.wav", SOUND_EFFECT, 0.3);
+
 		if (m_iCurIdx % 5 == 0)
 			return;
 		--m_iCurIdx;
 	}
 	if (Engine::GetKeyDown(DIK_RIGHT))
 	{
+		Engine::Play_Sound(L"SFX_70_UISlotMediumMove.wav", SOUND_EFFECT, 0.3);
+
 		if (m_iCurIdx % 5 == 4)
 			return;
 		++m_iCurIdx;
@@ -205,6 +232,7 @@ void CItemSelector::Key_Input(const _float& fTimeDelta)
 
 	if (Engine::GetKeyDown(DIK_S)) // 아이템 사용
 	{
+		Engine::Play_Sound(L"SFX_120_UINormalClose.wav", SOUND_EFFECT, 0.3);
 		m_pInven->Use_Efficacy(m_pInven->Get_CurFilter(), m_iCurIdx);
 	}
 

@@ -138,6 +138,8 @@ void CCookBigFish::Use_Item()
 	m_pPlayer = dynamic_cast<CPlayer*>(Engine::Get_GameObject(L"Layer_GameLogic", L"Player"));
 	NULL_CHECK_RETURN(m_pPlayer);
 
+	Engine::Play_Sound(L"SFX_785_OguAttackUp.wav", SOUND_EFFECT, 1.f);
+
 	m_pPlayer->SetSpeedTime(20); 
 	m_pPlayer->SetPowerTime(20); 
 	m_tInfo.iItemCount--;

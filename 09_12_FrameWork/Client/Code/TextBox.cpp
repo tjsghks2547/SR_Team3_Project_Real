@@ -43,6 +43,8 @@ void CTextBox::Render_GameObject()
     m_pTextureCom->Set_Texture();
     m_pBufferCom->Render_Buffer();
 
+
+
     if (m_bCall)
         Render_Text();
 }
@@ -54,6 +56,7 @@ void CTextBox::Key_Input(const _float& fTimeDelta)
         if (Engine::GetKeyDown(DIK_S))
         {
             //대화내용 리셋
+            Engine::Play_Sound(L"SFX_70_UISlotMediumMove.wav", SOUND_EFFECT, 0.3);
             ZeroMemory(&m_tCopyInfo, 0, sizeof(m_tCopyInfo));
             m_bCall = false; // 대화창 부르지않음
             m_iCurStrIndex = 1; // 초기화

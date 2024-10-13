@@ -198,6 +198,9 @@
     <ClInclude Include="..\Header\FrontDoor.h" />
     <ClInclude Include="..\Header\Grass.h" />
     <ClInclude Include="..\Header\GrassEffect.h" />
+    <ClInclude Include="..\Header\Harborcat.h" />
+    <ClInclude Include="..\Header\HarborMeer.h" />
+    <ClInclude Include="..\Header\HeartFruit.h" />
     <ClInclude Include="..\Header\Hochi.h" />
     <ClInclude Include="..\Header\ImGuiManger.h" />
     <ClInclude Include="..\Header\Imgui_ObjectTool.h" />
@@ -242,6 +245,7 @@
     <ClInclude Include="..\Header\Net.h" />
     <ClInclude Include="..\Header\NoteStatue.h" />
     <ClInclude Include="..\Header\Nue.h" />
+    <ClInclude Include="..\Header\Panda.h" />
     <ClInclude Include="..\Header\PickUpButton.h" />
     <ClInclude Include="..\Header\Pig.h" />
     <ClInclude Include="..\Header\PlantOrb.h" />
@@ -323,6 +327,7 @@
     <ClInclude Include="..\Header\WeightComparator.h" />
     <ClInclude Include="..\Header\WhiteBird.h" />
     <ClInclude Include="..\Header\WorldHeartStage.h" />
+    <ClInclude Include="AddHP.h" />
     <ClInclude Include="CCheerRabbit.h" />
     <ClInclude Include="WorldHeartMap.h" />
     <ClInclude Include="FramePractice.h" />
@@ -390,6 +395,9 @@
     <ClCompile Include="..\Code\FrontDoor.cpp" />
     <ClCompile Include="..\Code\Grass.cpp" />
     <ClCompile Include="..\Code\GrassEffect.cpp" />
+    <ClCompile Include="..\Code\Harborcat.cpp" />
+    <ClCompile Include="..\Code\HarborMeer.cpp" />
+    <ClCompile Include="..\Code\HeartFruit.cpp" />
     <ClCompile Include="..\Code\Hochi.cpp" />
     <ClCompile Include="..\Code\ImGuiManger.cpp" />
     <ClCompile Include="..\Code\Imgui_ObjectTool.cpp" />
@@ -433,6 +441,7 @@
     <ClCompile Include="..\Code\Net.cpp" />
     <ClCompile Include="..\Code\NoteStatue.cpp" />
     <ClCompile Include="..\Code\Nue.cpp" />
+    <ClCompile Include="..\Code\Panda.cpp" />
     <ClCompile Include="..\Code\Penguin.cpp" />
     <ClCompile Include="..\Code\PickUpButton.cpp" />
     <ClCompile Include="..\Code\Pig.cpp" />
@@ -514,6 +523,7 @@
     <ClCompile Include="..\Code\WhiteBird.cpp" />
     <ClCompile Include="..\Code\WorldHeartStage.cpp" />
     <ClCompile Include="..\Header\ItemSelector.cpp" />
+    <ClCompile Include="AddHP.cpp" />
     <ClCompile Include="CCheerRabbit.cpp" />
     <ClCompile Include="WorldHeartMap.cpp" />
     <ClCompile Include="FramePractice.cpp" />

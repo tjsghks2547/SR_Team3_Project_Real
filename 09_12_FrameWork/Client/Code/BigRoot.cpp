@@ -138,6 +138,8 @@ void CBigRoot::Use_Item()
 	m_pPlayer = dynamic_cast<CPlayer*>(Engine::Get_GameObject(L"Layer_GameLogic", L"Player"));
 	NULL_CHECK_RETURN(m_pPlayer);
 
+	Engine::Play_Sound(L"SFX_785_OguAttackUp.wav", SOUND_EFFECT, 1.f);
+
 	m_pPlayer->SetPowerTime(20); //20초 동안 공격력 상승
 	m_tInfo.iItemCount--;
 }

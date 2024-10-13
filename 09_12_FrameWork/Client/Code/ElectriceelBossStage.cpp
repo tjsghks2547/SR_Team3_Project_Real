@@ -18,8 +18,9 @@ HRESULT CElectriceelBossStage::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_GameLogic(L"Layer_GameLogic"), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_UI(L"Layer_UI"), E_FAIL);
 
-    Engine::StopSound(SOUND_BGM);   
-    Engine::PlayBGM(L"BGM_65_OceanFinalBossFight.wav", 1.f);       
+  Engine::StopSound(SOUND_BGM);   
+  Engine::PlayBGM(L"BGM_65_OceanFinalBossFight.wav", 1.f);       
+
 
 	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 
@@ -44,7 +45,7 @@ _int CElectriceelBossStage::Update_Scene(const _float& fTimeDelta)
         NULL_CHECK_RETURN(pStage3, -1);
 
         FAILED_CHECK_RETURN(Engine::Set_Scene(pStage3), E_FAIL);
-        //pStage3->init(); // ¸ÊÅø¿¡¼­ °¡Á®¿Â ¿ÀºêÁ§Æ®µéÀ» À§ÇØ »ç¿ë   
+        //pStage3->init(); // ë§µíˆ´ì—ì„œ ê°€ì ¸ì˜¨ ì˜¤ë¸Œì íŠ¸ë“¤ì„ ìœ„í•´ ì‚¬ìš©   
 
         return 0;
     }
@@ -82,7 +83,7 @@ void CElectriceelBossStage::init()
     //
     //            if (!ReadFile(hFile, objData, sizeof(ObjectData), &bytesRead, NULL))
     //            {
-    //                MSG_BOX("ÀÐ±â ¿À·ù");
+    //                MSG_BOX("ì½ê¸° ì˜¤ë¥˜");
     //            };
     //
     //            if (bytesRead == 0)
@@ -207,7 +208,7 @@ HRESULT CElectriceelBossStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
     CGameObject* InteractionObj = pLayer->Get_GameObject(L"Layer_GameLogic", L"PlayerInteractionBox");
     dynamic_cast<CPlayerInteractionBox*>(InteractionObj)->SetPlayer(
         dynamic_cast<CPlayer*>(PlayerObj));
-    //ÆøÆ÷ ¿þÀÌºê
+    //í­í¬ ì›¨ì´ë¸Œ
     //pGameObject = CWaterFall::Create(m_pGraphicDev);    
     //NULL_CHECK_RETURN(pGameObject, E_FAIL);
     //FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"WaterFall", pGameObject), E_FAIL);

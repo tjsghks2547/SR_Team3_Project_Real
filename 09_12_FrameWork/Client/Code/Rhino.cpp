@@ -10,7 +10,7 @@ CRhino::CRhino(LPDIRECT3DDEVICE9 pGraphicDev)
 {
     m_tInfo.pBossName = L"거대 사막뿔소";
     m_tInfo.iMaxHP = 300;
-    m_tInfo.iCurHP = 300;
+    m_tInfo.iCurHP = 100;
 }
 
 CRhino::~CRhino()
@@ -97,6 +97,8 @@ _int CRhino::Update_GameObject(const _float& fTimeDelta)
 
     if (m_tInfo.iCurHP <= 0)
     {
+        Engine::Play_Sound(L"Yell2.mp3", SOUND_EFFECT, 0.2f);
+
         m_bCreate = false;
         m_pPlayer->Set_HonorScore(100);
         m_pPlayer->SetPlayerPos(_vec3(500.f, 20.f, 800.f));
@@ -160,18 +162,51 @@ void CRhino::Render_GameObject()
     {
     case RHINO_LAND:
     case RHINO_APPEAR:
+        if (m_ePrevState == m_eState)
+        {
+            pCurrentTex = m_pAppearTex;
+            break;
+        }
+        pCurrentTex = m_pAppearTex;
+        Engine::Play_Sound(L"SFX_495_RhinoSmash_Land.wav", SOUND_EFFECT, 0.8f);
+        break;
     case RHINO_JUMP:
+        if (m_ePrevState == m_eState)
+        {
+            pCurrentTex = m_pAppearTex;
+            break;
+        }
+        pCurrentTex = m_pAppearTex;
+        Engine::Play_Sound(L"SFX_494_RhinoSmash_Jump.wav", SOUND_EFFECT, 0.8f);
+        break;
     case RHINO_SKY:
         pCurrentTex = m_pAppearTex;
         break;
     case RHINO_STOMPING:
+        if (m_ePrevState == m_eState)
+        {
+            pCurrentTex = m_pTex;
+            break;
+        }
         pCurrentTex = m_pTex;
         break;
     case RHINO_RUNNING:
+        if (m_ePrevState == m_eState)
+        {
+            pCurrentTex = m_pRunTex;
+            break;
+        }
         pCurrentTex = m_pRunTex;
+        Engine::Play_Sound(L"SFX_254_Rhino_Rush.wav", SOUND_EFFECT, 0.8f);
         break;
     case RHINO_STUN:
+        if (m_ePrevState == m_eState)
+        {
+            pCurrentTex = m_pStunTex;
+            break;
+        }
         pCurrentTex = m_pStunTex;
+        Engine::Play_Sound(L"SFX_255_Rhino_Crush.wav", SOUND_EFFECT, 0.8f);
         break;
     }
 
@@ -180,6 +215,9 @@ void CRhino::Render_GameObject()
 
     m_pAnimatorCom->render();
     m_pColliderCom->Render_Buffer();
+
+    m_ePrevState = m_eState;
+
 }
 
 void CRhino::OnCollision(CGameObject* _pOther)
@@ -317,6 +355,8 @@ void CRhino::RhinoState_Update(_float fTimeDelta)
         //if (m_fTime >= m_fNextEffectTime && m_iEffectCount < 6)
         if (m_fTime >= m_fNextEffectTime && m_iEffectCount < 12)
         {
+            Engine::Play_Sound(L"SFX_253_Rhino_RushReady.wav", SOUND_EFFECT, 0.8f); // 발구르는 소리
+
             // 이펙트를 발생시키는 부분
             wstring* Effect_Name = new wstring;
             *Effect_Name = L"Rhino_Effect" + to_wstring(35 + m_iEffectCount);
@@ -375,7 +415,7 @@ void CRhino::RhinoState_Update(_float fTimeDelta)
             //m_fNextEffectTime += 0.5f;  // 다음 이펙트 타이밍을 0.5초 후로 설정
         }
 
-        if (m_fTime >= 3.0f && m_pRhinoStone[1]->Get_Dead()) // 마지막 돌이 부서졌는지 확인
+        if (m_fTime >= 3.0f && m_pRhinoStone[m_iStoneCnt - 1]->Get_Dead()) // 마지막 돌이 부서졌는지 확인
             //if (m_fTime >= 3.0f && m_pRhinoStone[9]->Get_Dead()) // 마지막 돌이 부서졌는지 확인
         {
             m_eState = RHINO_JUMP; // 부서졌다면 점프로 넘어가기
@@ -387,7 +427,7 @@ void CRhino::RhinoState_Update(_float fTimeDelta)
             m_fNextEffectTime = 0.25f;  // 다음 상태에서도 0.5초 간격 유지
 
         }
-        else if (m_fTime >= 3.0f && !m_pRhinoStone[1]->Get_Dead())
+        else if (m_fTime >= 3.0f && !m_pRhinoStone[m_iStoneCnt - 1]->Get_Dead())
             //else if (m_fTime >= 3.0f && !m_pRhinoStone[9]->Get_Dead())
         {
             m_eState = RHINO_STOMPING; // 아니면 다시 발구르러 가기

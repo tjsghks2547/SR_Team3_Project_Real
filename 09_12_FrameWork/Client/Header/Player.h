@@ -186,7 +186,8 @@ public:
 	}
 	void			SetPlayerMaxHP(_int _SetHP)
 	{
-		m_tPlayerHP.iMaxHP = _SetHP;
+		m_tPlayerHP.iMaxHP += _SetHP;
+		m_tPlayerHP.iCurHP = m_tPlayerHP.iMaxHP;
 	}
 	//1003
 	void			SetPowerTime(_int _SetTime, _float _SetPower = 10.f)

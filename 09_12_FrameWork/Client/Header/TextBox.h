@@ -27,7 +27,11 @@ public:
 
 	void	  Key_Input(const _float& fTimeDelta);
 	void	  Render_Text();
-	void	  CallTextBox(_bool _Call) { m_bCall = _Call; }
+	void	  CallTextBox(_bool _Call) 
+	{
+		m_bCall = _Call; 
+		Engine::Play_Sound(L"SFX_146_ChattingText.wav", SOUND_EFFECT, 1.f);
+	}
 	void	  Set_Text(CQuestNPC::NPC_INFO _pNPCInfo) { m_tCopyInfo = _pNPCInfo; }
 private:
 	HRESULT    Add_Component();

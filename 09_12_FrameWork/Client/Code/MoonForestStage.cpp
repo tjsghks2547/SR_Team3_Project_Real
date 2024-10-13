@@ -22,6 +22,7 @@ HRESULT CMoonForestStage::Ready_Scene()
 	Engine::StopSound(SOUND_BGM);
 	Engine::PlayBGM(L"BGM_10_MoonForestAmbience.wav", 1.f);	
 
+
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 
     return S_OK;
@@ -38,7 +39,7 @@ _int CMoonForestStage::Update_Scene(const _float& fTimeDelta)
         NULL_CHECK_RETURN(pStage3, -1);
 
         FAILED_CHECK_RETURN(Engine::Set_Scene(pStage3), E_FAIL);
-        //pStage3->init(); // ∏ ≈¯ø°º≠ ∞°¡Æø¬ ø¿∫Í¡ß∆ÆµÈ¿ª ¿ß«ÿ ªÁøÎ   
+        //pStage3->init(); // ÎßµÌà¥ÏóêÏÑú Í∞ÄÏ†∏Ïò® Ïò§Î∏åÏ†ùÌä∏Îì§ÏùÑ ÏúÑÌï¥ ÏÇ¨Ïö©   
 
         return 0;
     }
@@ -75,7 +76,7 @@ void CMoonForestStage::init()
     
                 if (!ReadFile(hFile, objData, sizeof(ObjectData), &bytesRead, NULL))
                 {
-                    MSG_BOX("¿–±‚ ø¿∑˘");
+                    MSG_BOX("ÏùΩÍ∏∞ Ïò§Î•ò");
                 };
     
                 if (bytesRead == 0)
@@ -166,7 +167,7 @@ HRESULT CMoonForestStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 
     Engine::CGameObject* pGameObject = nullptr;
 
-    //ø©±‚ ºˆ¡§«ÿæﬂ«œ∞Ì
+    //Ïó¨Í∏∞ ÏàòÏ†ïÌï¥ÏïºÌïòÍ≥†
     pGameObject = CMoonForestMap::Create(m_pGraphicDev);    
     NULL_CHECK_RETURN(pGameObject, E_FAIL);
     FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MoonForestMap", pGameObject), E_FAIL);
@@ -624,7 +625,7 @@ HRESULT CMoonForestStage::Ready_Layer_UI(const _tchar* pLayerTag)
 
 	pGameObject = CMapName::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	dynamic_cast<CMapName*>(pGameObject)->Set_MapName(L"¥ﬁ¿« Ω£");
+	dynamic_cast<CMapName*>(pGameObject)->Set_MapName(L"Îã¨Ïùò Ïà≤");
 	dynamic_cast<CMapName*>(pGameObject)->CallName();
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CMapName", pGameObject), E_FAIL);
 

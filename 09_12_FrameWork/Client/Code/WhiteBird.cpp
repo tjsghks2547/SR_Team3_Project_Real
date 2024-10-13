@@ -23,9 +23,9 @@ HRESULT CWhiteBird::Ready_GameObject()
     m_pAnimatorCom->CreateAnimation(L"WhiteBirdTalk", m_pNPCTex, _vec2(0.f, 256.f), _vec2(256.f, 256.f), _vec2(256.f, 0.f), 0.12f, 3);
 
     m_tInfo.pName = L"흰 새";
-    m_tInfo.pContent = L"왁왁!!! 물의 증표를 도둑 맞았닥!!!으악!!! 방금 북쪽으로 갔억!!!! 따라가봑!!!! 어서어석!!!!!왁윽악!!읶ㄲㄲ";
+    m_tInfo.pContent = L"왁왁!!! 도둑이약!!!! 물의 증표를 도둑 맞았닥!!! 으악끄악!!! 방금 북쪽으로 갔억!!!! 따라가봑!!!! 어서어석!!!!!왁윽악!!읶ㄲㄲ";
 
-    m_tQuestInfo.pQuestTitle = L"(메인)물의 증표를 찾아서...";
+    m_tQuestInfo.pQuestTitle = L"[메인 퀘스트] 도난당한 물의 증표를 찾아서...";
     m_tQuestInfo.pQuestContent = L"다짜고짜 물의 증표를 찾아오라고 한다. 느낌표는 또 왜 저렇게 큰 것이지? 약간 기분이 더럽지만 궁금하니 도와줘볼까?";
 
     _vec3 vMarkPos = m_pTransformCom->m_vInfo[INFO_POS];
@@ -69,19 +69,29 @@ void CWhiteBird::Render_GameObject()
 {
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
-    if (!m_bEnter)
+    if (m_bQuestClear)
     {
         m_pGraphicDev->SetTexture(0, m_pNPCTex);
         m_pAnimatorCom->Play(L"WhiteBirdIdle", true);
         m_pAnimatorCom->render();
     }
+    //if (!m_bEnter)
+    //{
+    //    m_pGraphicDev->SetTexture(0, m_pNPCTex);
+    //    m_pAnimatorCom->Play(L"WhiteBirdIdle", true);
+    //    m_pAnimatorCom->render();
+    //}
 
-    if (m_bEnter)
+    //if (m_bEnter)
+    //{
+    else
     {
         m_pGraphicDev->SetTexture(0, m_pNPCTex);
         m_pAnimatorCom->Play(L"WhiteBirdTalk", true);
         m_pAnimatorCom->render();
     }
+    //}
+
 
     m_pColliderCom->Render_Buffer();
 
@@ -116,7 +126,7 @@ void CWhiteBird::OnCollision(CGameObject* _pOther)
     if (_pOther->GetObjectKey() != L"Player")
         return;
 
-    m_bEnter = true;
+    //m_bEnter = true;
 
     // [S]버튼 출력.
     // [S]버튼 클릭 시 텍스트박스 출력 + 텍스트 출력
@@ -151,10 +161,20 @@ void CWhiteBird::OnCollision(CGameObject* _pOther)
 
             // 최초에는 기본 퀘스트 말풍을 보여줘야해서 아이템을 가지고 있더라도 false 상태로 출력하기 위해
             //if (!m_bQuestClear && m_bQuestAccept)
+
+            if (m_bQuestClear)
+            {
+                m_tInfo.pContent = L"지난번엔 고마워땄!";
+                m_pTextBox->Set_Text(m_tInfo); //대화창 텍스트 세팅
+                return;
+            }
+
             if (m_bQuestSucess)
             {
+                Engine::Play_Sound(L"SFX_446_QuestClear.wav", SOUND_EFFECT, 1.5f);
+
                 m_bQuestClear = true;
-                m_tInfo.pContent = L"물의 증표다! 야호오 ~ ";
+                m_tInfo.pContent = L"물의 증표자너?!! 고마웍!!! 이제가봑!!!";
                 m_pTextBox->Set_Text(m_tInfo); //대화창 텍스트 세팅
                 m_pQuestUI->Get_QuestArray()->pop_back();
             }

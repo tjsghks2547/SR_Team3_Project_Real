@@ -348,16 +348,25 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
     if (Engine::GetKeyDown(DIK_G))
         m_pStateControlCom->ChangeState(PlayerBalloonFly::GetInstance(), this);
 
-    //0922
+    //1013
     if (Engine::GetKeyDown(DIK_I))
     {
         m_bInven ^= TRUE;
+        if(m_bInven == FALSE)
+            Engine::Play_Sound(L"SFX_68_UIBig_Close.wav", SOUND_EFFECT, 0.3);
+        else if(m_bInven == TRUE)
+            Engine::Play_Sound(L"SFX_67_UIBig_Open.wav", SOUND_EFFECT, 0.3);
+
         m_bQuest = false;
     }
 
-    if (Engine::GetKeyDown(DIK_Q))
+    if (Engine::GetKeyDown(DIK_O))
     {
         m_bQuest ^= TRUE;
+        if (m_bQuest == FALSE)
+            Engine::Play_Sound(L"SFX_68_UIBig_Close.wav", SOUND_EFFECT, 0.3);
+        else if (m_bQuest == TRUE)
+            Engine::Play_Sound(L"SFX_67_UIBig_Open.wav", SOUND_EFFECT, 0.3);
         m_bInven = false;
     }
 

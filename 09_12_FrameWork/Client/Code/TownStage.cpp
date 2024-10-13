@@ -35,7 +35,7 @@ _int CTownStage::Update_Scene(const _float& fTimeDelta)
         NULL_CHECK_RETURN(pStage3, -1);
 
         FAILED_CHECK_RETURN(Engine::Set_Scene(pStage3), E_FAIL);
-        //pStage3->init(); // ¸ÊÅø¿¡¼­ °¡Á®¿Â ¿ÀºêÁ§Æ®µéÀ» À§ÇØ »ç¿ë   
+        //pStage3->init(); // ë§µíˆ´ì—ì„œ ê°€ì ¸ì˜¨ ì˜¤ë¸Œì íŠ¸ë“¤ì„ ìœ„í•´ ì‚¬ìš©   
 
         return 0;
     }
@@ -72,7 +72,7 @@ void CTownStage::init()
 
 				if (!ReadFile(hFile, objData, sizeof(ObjectData), &bytesRead, NULL))
 				{
-					MSG_BOX("ÀÐ±â ¿À·ù");
+					MSG_BOX("ì½ê¸° ì˜¤ë¥˜");
 				};
 
 				if (bytesRead == 0)
@@ -182,8 +182,23 @@ HRESULT CTownStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_SeaLion", pGameObject), E_FAIL);
 	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
 
+	pGameObject = CHarborcat::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_HarborCat", pGameObject), E_FAIL);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
 	m_mapLayer.insert({ pLayerTag, pLayer });
 
+	pGameObject = CHarborMeer::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_HarborMeerCat", pGameObject), E_FAIL);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+	m_mapLayer.insert({ pLayerTag, pLayer });
+
+	pGameObject = CPanda::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Panda", pGameObject), E_FAIL);
+	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::NPC, pGameObject);
+	m_mapLayer.insert({ pLayerTag, pLayer });
 	return S_OK;
 }
 
@@ -223,7 +238,7 @@ HRESULT CTownStage::Ready_Layer_UI(const _tchar* pLayerTag)
 
 	pGameObject = CMapName::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	dynamic_cast<CMapName*>(pGameObject)->Set_MapName(L"Ç×±¸");
+	dynamic_cast<CMapName*>(pGameObject)->Set_MapName(L"í•­êµ¬");
 	dynamic_cast<CMapName*>(pGameObject)->CallName();
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CMapName", pGameObject), E_FAIL);
 

@@ -158,6 +158,9 @@ void CSmallFruit::Use_Item()
 
 	if (m_pPlayer->GetPlayerHP().iMaxHP == m_pPlayer->GetPlayerHP().iCurHP)
 		return;
+
+	Engine::Play_Sound(L"SFX_373_OguEat.wav", SOUND_EFFECT, 0.5);
+
 	m_pPlayer->SetPlayerCurHP(1);
 	m_tInfo.iItemCount--;
 }
