@@ -24,6 +24,8 @@ public:
 
 	//0922 Seonhwan
 	virtual  void    init() { ; }
+	virtual  void    DontDestroy_Layer(const _tchar* layerName,
+		map<const _tchar*, CGameObject*> _mapDontDestroy);
 
 protected:
 	map<const _tchar*, CLayer*>  m_mapLayer;

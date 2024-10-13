@@ -42,14 +42,56 @@ CLayer* CManagement::Get_Layer(const _tchar* pLayerTag)
 
 HRESULT CManagement::Set_Scene(CScene* pScene)
 {
+	map<const _tchar*, CGameObject*> dontDestroyEnvironmentMap;
+	map<const _tchar*, CGameObject*> dontDestroyGameLogicMap;
+	map<const _tchar*, CGameObject*> dontDestroyUIMap;
+	if (m_pScene)
+	{
+		if (m_pScene->Get_Layer(L"Layer_Environment"))
+		{
+			for (auto& iter : m_pScene->Get_Layer(L"Layer_Environment")->GetLayerGameObjectPtr())
+			{
+				if (iter.second->GetDontDestroy())
+				{
+					dontDestroyEnvironmentMap.insert({ iter.first, iter.second });
+				}
+			}
+		}
+
+		if (m_pScene->Get_Layer(L"Layer_GameLogic"))
+		{
+			for (auto& iter : m_pScene->Get_Layer(L"Layer_GameLogic")->GetLayerGameObjectPtr())
+			{
+				if (iter.second->GetDontDestroy())
+				{
+					dontDestroyGameLogicMap.insert({ iter.first, iter.second });
+				}
+			}
+		}
+
+		if (m_pScene->Get_Layer(L"Layer_UI"))
+		{
+			for (auto& iter : m_pScene->Get_Layer(L"Layer_UI")->GetLayerGameObjectPtr())
+			{
+				if (iter.second->GetDontDestroy())
+				{
+					dontDestroyUIMap.insert({ iter.first, iter.second });
+				}
+			}
+		}
+	}
+
 	Safe_Release(m_pScene);
 
 	Engine::Clear_RenderGroup();
 
 	m_pScene = pScene;
 	m_pScene->Ready_Scene();
+	m_pScene->DontDestroy_Layer(L"Layer_Environment", dontDestroyEnvironmentMap);
+	m_pScene->DontDestroy_Layer(L"Layer_GameLogic", dontDestroyGameLogicMap);
+	m_pScene->DontDestroy_Layer(L"Layer_UI", dontDestroyUIMap);
 	m_pScene->init(); // 맵툴에서 가져온 오브젝트들을 위해 사용 
-	m_pScene->LateReady_Scene();	
+	m_pScene->LateReady_Scene();
 
 	return S_OK;
 }

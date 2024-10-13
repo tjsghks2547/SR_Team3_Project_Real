@@ -77,6 +77,25 @@ namespace Engine
 		{
 			_ulong dwRefCnt = 0;
 
+			if (!pInstance->GetDontDestroy())
+				dwRefCnt = pInstance->Release();
+
+			if (0 == dwRefCnt)
+				pInstance = nullptr;
+		}
+	};
+
+	class CDeleteOther
+	{
+	public:
+		explicit CDeleteOther(void) {}
+		~CDeleteOther(void) {}
+	public: // operator
+		template <typename T>
+		void operator () (T& pInstance)
+		{
+			_ulong dwRefCnt = 0;
+
 			dwRefCnt = pInstance->Release();
 
 			if (0 == dwRefCnt)

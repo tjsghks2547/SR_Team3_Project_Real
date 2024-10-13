@@ -6,7 +6,8 @@ CQuickSlot::CQuickSlot(LPDIRECT3DDEVICE9 pGraphicDev)
     :Engine::CGameObject(pGraphicDev)
     , m_fElapsedTime(100.f)
 {
-
+    for (int i = 0; i < 4; ++i)
+        m_pQuickSlot[i] = nullptr;
 }
 
 CQuickSlot::~CQuickSlot()
@@ -15,8 +16,9 @@ CQuickSlot::~CQuickSlot()
 
 HRESULT CQuickSlot::Ready_GameObject()
 {
-    for (int i = 0; i < 4; ++i)
-        m_pQuickSlot[i] = nullptr;
+    
+
+    m_bDontDestroy = true;
 
     m_QuickInterval = 65.f; // Äü½½·Ô ¾ÆÀÌÅÛ °£°Ý
     m_vFirstItemPos = { -516.f, 242.f, 0.1f };

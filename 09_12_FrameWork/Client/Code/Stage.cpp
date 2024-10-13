@@ -27,6 +27,13 @@ HRESULT CStage::Ready_Scene()
 
 	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 	
+	CPlayer* player = dynamic_cast<CPlayer*>(
+		Get_GameObject(L"Layer_GameLogic", L"Player"));
+
+	dynamic_cast<CTransform*>(
+		player->Get_Component(ID_DYNAMIC, L"Com_Transform")
+		)->Set_Pos(110.f, 30.f, 200.f);
+
 	return S_OK;
 
 }
@@ -215,63 +222,7 @@ HRESULT CStage::Ready_Layer_GameLogic(const _tchar* pLayerTag)
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_ExpressTicket", pGameObject), E_FAIL);
 	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pGameObject);
 
-	pGameObject = CTestCol::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"TestCol", pGameObject), E_FAIL);
-	dynamic_cast<CTestCol*>(pGameObject)->SetPlayer(
-		dynamic_cast<CPlayer*>(PlayerObj)
-	);
-	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pGameObject);
-
-
-	pGameObject = CTestCol2::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"TestCol2", pGameObject), E_FAIL);
-	dynamic_cast<CTestCol2*>(pGameObject)->SetPlayer(
-		dynamic_cast<CPlayer*>(PlayerObj)
-	);
-	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::OBJECT, pGameObject);
-
-	pGameObject = CMonster::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster", pGameObject), E_FAIL);
-	dynamic_cast<CMonster*>(pGameObject)->SetPlayer(
-		dynamic_cast<CPlayer*>(PlayerObj)
-	);
-
-	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER, pGameObject);
-
-	// 1003 동영 일반몬스터
-	pGameObject = CMonsterSlimeFast::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonsterSlimeFast", pGameObject), E_FAIL);
-	dynamic_cast<CMonster*>(pGameObject)->SetPlayer(
-		dynamic_cast<CPlayer*>(PlayerObj));
-	dynamic_cast<CMonster*>(pGameObject)->GetLayer(pLayer);
-	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER, pGameObject);
-
-	_tchar* objectName = new _tchar[32];
-	swprintf(objectName, 32, L"MonsterMothMage%d", 0);
-
-	pGameObject = CMonsterMothMage::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(objectName, pGameObject), E_FAIL);
-
-	dynamic_cast<CMonsterMothMage*>(pGameObject)->testNum = 0;
-
-	dynamic_cast<CMonster*>(pGameObject)->SetPlayer(
-		dynamic_cast<CPlayer*>(PlayerObj));
-
-	dynamic_cast<CMonster*>(pGameObject)->GetLayer(pLayer);
-	CManagement::GetInstance()->GetCurScenePtr()->Add_ObjectGroup(GROUP_TYPE::MONSTER, pGameObject);
-
 	CScene* pScene = CManagement::GetInstance()->GetCurScenePtr();
-
-	//0927
-	pGameObject = CTestObject::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGameObject, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Test_Object", pGameObject), E_FAIL);
-
 
 	//1010
 	pGameObject = CGrass::Create(m_pGraphicDev);	
@@ -878,7 +829,7 @@ void CStage::init()
 			CTransform* pTransform = dynamic_cast<CTransform*>(Engine::Get_Component(ID_DYNAMIC, L"Layer_GameLogic", (*pObjectName).c_str(), L"Com_Transform"));
 			//pTransform->ForGetWorldMaxtrix() = worldmatrix;
 
-			
+			////회전값만 이제 넣어주면 됨 ( 크기 -> 자전 -> 이동 ) 순서로  아 시발 병신같이 월드매트릭스를 넣어네
 			// 월드매트릭스에 넣기 전의 크기값을 넣어줘야하네 
 			pTransform->m_vScale = { Sclae_vec3.x,Sclae_vec3.y,Sclae_vec3.z };
 			pTransform->Rotation(ROT_X, Rotation_vec3.x * 3.14f / 180.f);

@@ -32,6 +32,9 @@ public:
 	void			Compute_ViewZ(const _vec3* pPos);
 	virtual	 _bool    GetTransparent() { return m_bIsTransparent; }
 	virtual  void	  SetTransparent(_bool _bValue) { m_bIsTransparent = _bValue; }
+	virtual  void	  SetDontDestroy(_bool _bValue) { m_bDontDestroy = _bValue; }
+	virtual  _bool	  GetDontDestroy() { return m_bDontDestroy; }
+
 protected:
 	map<const _tchar*, CComponent*>    m_mapComponent[ID_END];
 	LPDIRECT3DDEVICE9				   m_pGraphicDev;
@@ -55,6 +58,7 @@ protected:
 	_bool m_bIsActive;
 	//0920 Seonhwan
 	wstring m_strTextureKey; // 게임오브젝트의 텍스처 키 
+	_bool m_bDontDestroy;
 
 	//0915 Seonhwan
 public:
