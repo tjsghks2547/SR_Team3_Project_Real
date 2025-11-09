@@ -10,7 +10,7 @@ DirectX9을 활용한 팀 프로젝트 게임 모작에서 직접 구현한 기�
 </div>
 
 # 동영상
-(https://youtu.be/_r2ZWqVJgvA)](https://youtu.be/_r2ZWqVJgvA)
+[https://youtu.be/_r2ZWqVJgvA]
 
 # 👩‍💻담당 파트
 - 김선환 : 2D 스프라이트 애니메이션, Map Tool, 보스 몬스터(뱀장어), Level 전환, 충돌 및 조명 처리
