@@ -27,7 +27,9 @@ DirectX9을 활용한 팀 프로젝트 게임 모작에서 직접 구현한 기�
 - DirectXMath 라이브러리를 사용해 게임 내 모든 충돌 처리 구현
   - Collision Enter / Stay / Exit 함수를 연결하여 해당 Object의 충돌 상태 확인
   - 충돌체 레이어를 활용하여 최적화
-
+<br><br>
+![Image](https://github.com/user-attachments/assets/9ef73769-ea9e-4469-8966-eda464ffc8ce)
+<br><br>
 - Map Tool
   - Mouse Picking을 통한 오브젝트 설치 및 맵 구성 정보 binary화 저장. 
 
@@ -36,4 +38,12 @@ DirectX9을 활용한 팀 프로젝트 게임 모작에서 직접 구현한 기�
  
 - 조명
   - DirectX9 Spotlight 광원을 이용한 동굴 내부 분위기 구현
+<br><br>
+![Image](https://github.com/user-attachments/assets/7afb015b-1087-4a9a-be9b-c4ca0ae74f44)
+<br><br>
+ 
+- Boss (천둥 뱀장어) 구현
+  - 난수 엔진과 배열 형태의 패턴 리스트를 활용한 보스 행동 로직 구현
+<br><br>
+![Image](https://github.com/user-attachments/assets/1ec25558-9315-450f-8e04-8d422a3094ca)
 
